@@ -5,6 +5,9 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use App\Models\Post;
+use App\Models\Pasar;
+use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Contracts\View\View;
 
 
@@ -84,6 +87,12 @@ class testt extends Controller
         ]);
 
         return redirect('/data/pasar')->with('success', 'Data berhasil diperbarui.');
+    }
+
+    public function pasar(Request $request)
+    {
+        $market = Pasar::all();
+        return response()->json($market);
     }
 
 }

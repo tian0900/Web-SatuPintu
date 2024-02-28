@@ -14,6 +14,7 @@ use App\Http\Controllers\testt;
 */
 
 Route::get('/data/pasar', [testt::class, 'index']);
+Route::get('/test', [testt::class, 'pasar']);
 Route::post('/jenis/store', [testt::class, 'store'])->name('jenis.store');
 Route::get('/jenis/{id}/edit', [testt::class, 'edit'])->name('jenis.edit');
 Route::put('/jenis/{id}', [testt::class, 'update'])->name('jenis.update');
