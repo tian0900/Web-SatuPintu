@@ -10,8 +10,7 @@ use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Contracts\View\View;
 
-
-class testt extends Controller
+class PasarController extends Controller
 {
     /**
      * Menampilkan daftar buku.
@@ -34,8 +33,6 @@ class testt extends Controller
 
     public function store(Request $request)
     {
-
-
         // Validasi data yang diterima dari form
         $request->validate([
             'Username' => 'required|string',
@@ -58,16 +55,14 @@ class testt extends Controller
         $post->save();
 
         // Redirect ke halaman indeks dengan pesan sukses
-        return redirect('/data/pasar')->with('success', 'Data berhasil ditambahkan.');
+        return redirect('/')->with('success', 'Data berhasil ditambahkan.');
 
     }
 
     public function edit($id)
     {
-        $pasar = Post::findOrFail($id);
-        return view('data.edit ', compact('pasar'));
+        $post = Post::findOrFail($id); 
     }
-
 
     public function update(Request $request, $id)
     {
@@ -78,15 +73,15 @@ class testt extends Controller
             'Last_name' => 'required|string',
         ]);
 
-        $pasar = Post::findOrFail($id);
-        $pasar->update([
+        $post = Post::findOrFail($id);
+        $post->update([
             'Username' => $request->input('Username'),
             'Identifier' => $request->input('Identifier'),
             'First_name' => $request->input('First_name'),
             'Last_name' => $request->input('Last_name'),
         ]);
 
-        return redirect('/data/pasar')->with('success', 'Data berhasil diperbarui.');
+        return redirect('/')->with('success', 'Data berhasil diperbarui.');
     }
 
     public function pasar(Request $request)
@@ -96,3 +91,4 @@ class testt extends Controller
     }
 
 }
+
