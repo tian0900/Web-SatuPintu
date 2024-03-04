@@ -90,56 +90,8 @@
                 </div>
             </div>
         </div>
-
-
-        <!-- Modal untuk Edit Data -->
-        <div class="modal fade" id="editModal" tabindex="-1" role="dialog" aria-labelledby="editModalLabel"
-            aria-hidden="true">
-            <div class="modal-dialog" role="document">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <h5 class="modal-title" id="editModalLabel">Edit Data</h5>
-                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                            <span aria-hidden="true">&times;</span>
-                        </button>
-                    </div>
-                    <div class="modal-body">
-                        <!-- Form untuk edit data -->
-                        @foreach ($pasar as $data)
-                            <form id="editForm" method="POST" action="{{ route('jenis.update', $data->id) }}">
-                                @csrf
-                                @method('PUT') <!-- Method spoofing untuk PUT request -->
-                                <div class="form-group">
-                                    <label for="editUsername">Username</label>
-                                    <input type="text" class="form-control" id="editUsername" name="Username"
-                                        required value="{{ $data->Username }}">
-                                </div>
-                                <div class="form-group">
-                                    <label for="editIdentifier">Identifier</label>
-                                    <input type="number" class="form-control" id="editIdentifier" name="Identifier"
-                                        required value="{{ $data->Identifier }}">
-                                </div>
-                                <div class="form-group">
-                                    <label for="editFirstName">First name</label>
-                                    <input type="text" class="form-control" id="editFirstName" name="First_name"
-                                        required value="{{ $data->First_name }}">
-                                </div>
-                                <div class="form-group">
-                                    <label for="editLastName">Last name</label>
-                                    <input type="text" class="form-control" id="editLastName" name="Last_name"
-                                        required value="{{ $data->Last_name }}">
-                                </div>
-                                <button type="submit" class="btn btn-primary">Save Changes</button>
-                            </form>
-                        @endforeach
-
-                    </div>
-                </div>
-            </div>
-        </div>
-
-
-
+        
+        
 
         <div class="table-responsive"> <!-- Responsiveness for small screens -->
             <table class="table table-striped mt-3">
@@ -164,14 +116,55 @@
                             <td>
                                 <!-- Button untuk membuka modal Edit -->
                                 <button type="button" class="btn btn-primary btn-sm edit-btn" data-toggle="modal"
-                                    data-target="#editModal" data-id="{{ $item->id }}"
-                                    data-username="{{ $item->Username }}" data-identifier="{{ $item->Identifier }}"
-                                    data-firstname="{{ $item->First_name }}" data-lastname="{{ $item->Last_name }}">
+                                    data-target="#def<?= $item->id ?>">
                                     Edit
                                 </button>
-
                             </td>
                         </tr>
+
+
+                        <!-- Modal untuk Edit Data -->  
+                        <div class="modal fade" id="def<?= $item->id ?>" tabindex="-1" role="dialog" aria-labelledby="editModalLabel"
+                        aria-hidden="true">
+                        <div class="modal-dialog" role="document">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h5 class="modal-title" id="editModalLabel">Edit Data</h5>
+                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                        <span aria-hidden="true">&times;</span>
+                                    </button>
+                                </div>
+                                <div class="modal-body">
+                                    <!-- Form untuk edit data -->
+                                    <form id="editForm" action="{{ route('jenis.update', $item->id) }}" method="POST">
+                                        @csrf
+                                        @method('PUT') <!-- Method spoofing untuk PUT request -->
+                                        <div class="form-group">
+                                            <label for="editUsername">Username</label>
+                                            <input type="text" class="form-control" name="Username"
+                                                required value="{{ old('Username', $item->Username)}}">
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="editIdentifier">Identifier</label>
+                                            <input type="number" class="form-control" id="Identifier" name="Identifier"
+                                                required value="{{ old('Identifier', $item->Identifier )}}">
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="editFirstName">First name</label>
+                                            <input type="text" class="form-control" id="editFirstName" name="First_name"
+                                                required value="{{ old('First_name', $item->First_name )}}">
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="editLastName">Last name</label>
+                                            <input type="text" class="form-control" id="editLastName" name="Last_name"
+                                                required value="{{ old('Last_name', $item->Last_name )}}">
+                                        </div>
+                                        <button type="submit" class="btn btn-primary">Save Changes</button>
+                                    </form>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
                     @endforeach
                 </tbody>
             </table>

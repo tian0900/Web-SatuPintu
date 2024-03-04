@@ -5,6 +5,7 @@ use App\Http\Controllers\testt;
 use App\Http\Controllers\IndexController;
 use App\Http\Controllers\RetribusiController;
 use App\Http\Controllers\WilayahController;
+use App\Http\Controllers\PasarController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -21,6 +22,13 @@ Route::get('/test', [testt::class, 'pasar']);
 Route::post('/jenis/store', [testt::class, 'store'])->name('jenis.store');
 Route::get('/jenis/{id}/edit', [testt::class, 'edit'])->name('jenis.edit');
 Route::put('/jenis/{id}', [testt::class, 'update'])->name('jenis.update');
+Route::get('/', [PasarController::class, 'index']);
+Route::post('/jenis/store', [PasarController::class, 'store'])->name('jenis.store');
+Route::get('/jenis/edit', [PasarController::class, 'edit'])->name('jenis.edit');
+// Route::put('/jenis/{id}', [PasarController::class, 'update'])->name('jenis.update');
+// Route::post('/jenis/{id}', 'JenisController@update')->name('jenis.update');
+// Route::put('/jenis/edit/{id}', [PasarController::class, 'update'])->name('jenis.update');
+Route::put('/jenis/{post}', [PasarController::class, 'update'])->name('jenis.update');
 
 //Retribusi
 Route::get('/retribusi', [RetribusiController::class, 'index']);
