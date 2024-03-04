@@ -6,6 +6,10 @@ use App\Http\Controllers\IndexController;
 use App\Http\Controllers\RetribusiController;
 use App\Http\Controllers\WilayahController;
 use App\Http\Controllers\PasarController;
+use App\Http\Controllers\ItemRetribusiController;
+use App\Http\Controllers\KabupatenController;
+use App\Models\Kabupaten;
+
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -17,11 +21,6 @@ use App\Http\Controllers\PasarController;
 |
 */
 
-Route::get('/data/pasar', [testt::class, 'index']);
-Route::get('/test', [testt::class, 'pasar']);
-Route::post('/jenis/store', [testt::class, 'store'])->name('jenis.store');
-Route::get('/jenis/{id}/edit', [testt::class, 'edit'])->name('jenis.edit');
-Route::put('/jenis/{id}', [testt::class, 'update'])->name('jenis.update');
 Route::get('/', [PasarController::class, 'index']);
 Route::post('/jenis/store', [PasarController::class, 'store'])->name('jenis.store');
 Route::get('/jenis/edit', [PasarController::class, 'edit'])->name('jenis.edit');
@@ -47,3 +46,16 @@ Route::get('/wilayah/create', [WilayahController::class, 'create'])->name('wilay
 Route::post('/wilayah', [WilayahController::class, 'store'])->name('wilayah.store');
 
 
+
+Route::get('/item', [ItemRetribusiController::class, 'index']);
+Route::post('/item/store', [ItemRetribusiController::class, 'store'])->name('item.store');
+Route::get('/item/show', [ItemRetribusiController::class, 'show'])->name('item.show');
+Route::get('/item/{post}/edit', [ItemRetribusiController::class, 'edit'])->name('item.edit');
+Route::put('/item/edit', [ItemRetribusiController::class, 'update'])->name('item.update');
+// deletes a post
+// Route::delete('/posts/{post}', ItemRetribusiController::class .'@destroy')->name('posts.destroy');
+Route::get('/kabupaten', [KabupatenController::class, 'index']);
+Route::post('/kabupaten/store', [KabupatenController::class, 'store'])->name('kabupaten.store');
+Route::get('/kabupaten/show', [KabupatenController::class, 'show'])->name('kabupaten.show');
+Route::get('/kabupaten/edit', [KabupatenController::class, 'edit'])->name('kabupaten.edit');
+Route::put('/kabupaten/{post}', [KabupatenController::class, 'update'])->name('kabupaten.update');
