@@ -17,11 +17,7 @@ use App\Http\Controllers\PasarController;
 |
 */
 
-Route::get('/data/pasar', [testt::class, 'index']);
-Route::get('/test', [testt::class, 'pasar']);
-Route::post('/jenis/store', [testt::class, 'store'])->name('jenis.store');
-Route::get('/jenis/{id}/edit', [testt::class, 'edit'])->name('jenis.edit');
-Route::put('/jenis/{id}', [testt::class, 'update'])->name('jenis.update');
+
 Route::get('/', [PasarController::class, 'index']);
 Route::post('/jenis/store', [PasarController::class, 'store'])->name('jenis.store');
 Route::get('/jenis/edit', [PasarController::class, 'edit'])->name('jenis.edit');
