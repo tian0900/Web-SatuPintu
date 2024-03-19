@@ -70,16 +70,21 @@
                             @csrf
                             <div class="form-group">
                                 <label for="retribusi_id">ID Retribusi </label>
-                                <input type="text" class="form-control" id="retribusi_id" name="retribusi_id" required>
+                                {{-- <input type="number" class="form-control" id="retribusi_id" name="retribusi_id" required> --}}
+                                {{-- <select class="form-control" id="retribusi-option" name="retribusi_id">
+                                    @foreach ($retribusis as $retribusi)
+                                       <option value="{{ $retribusi->id }}">{{ $retribusi->nama }}</option>
+                                    @endforeach
+                                 </select> --}}
                             </div>
                             <div class="form-group">
                                 <label for="kategori_nama">Kategori Nama</label>
-                                <input type="number" class="form-control" id="kategori_nama" name="kategori_nama" required>
+                                <input type="text" class="form-control" id="kategori_nama" name="kategori_nama" required>
                             </div>
                             <div class="form-group">
                                 <label for="jenis_tagihan">Jenis Tagihan</label>
                                 <input type="text" class="form-control" id="jenis_tagihan" name="jenis_tagihan" required>
-                            </div>
+                            </div>k
                             <div class="form-group">
                                 <label for="harga">Harga</label>
                                 <input type="text" class="form-control" id="harga" name="harga" required>

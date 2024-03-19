@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\ItemRetribusi;
+use App\Models\Retribusi;
 
 class ItemRetribusiController extends Controller
 {
@@ -21,7 +22,8 @@ class ItemRetribusiController extends Controller
      */
     public function create()
     {
-        return view('data.item');
+        $retribusis = Retribusi::all();
+        return view('data.item', compact('retribusis'));
     }
 
     /**
