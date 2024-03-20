@@ -8,6 +8,7 @@ use App\Http\Controllers\WilayahController;
 use App\Http\Controllers\PasarController;
 use App\Http\Controllers\ItemRetribusiController;
 use App\Http\Controllers\KabupatenController;
+use App\Http\Controllers\AtributController;
 use App\Models\Kabupaten;
 
 /*
@@ -20,6 +21,8 @@ use App\Models\Kabupaten;
 | be assigned to the "web" middleware group. Make something great!
 |
 */
+Route::get('/atribut', [AtributController::class, 'index']);
+
 
 Route::get('/', [PasarController::class, 'index']);
 Route::post('/jenis/store', [PasarController::class, 'store'])->name('jenis.store');

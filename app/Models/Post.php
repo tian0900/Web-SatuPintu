@@ -8,13 +8,12 @@ class Post extends Model
 {
     protected $connection = 'mongodb'; // Menentukan koneksi MongoDB
 
-    protected $collection = 'jenis'; // Menentukan nama koleksi MongoDB
+    protected $collection = 'item_retribusi'; // Menentukan nama koleksi MongoDB
 
     protected $fillable = [
-        'Username',
-        'Identifier',
-        'First_name',
-        'Last_name',
+        'kabupaten_id',
+        'kedinasan_id',
+        'data',
     ];
 
     // Jika Anda tidak ingin menggunakan timestamp default Laravel
