@@ -19,5 +19,11 @@ class ItemRetribusi extends Model
         'harga',
     ];
 
+    // public function retribusi()
+    // {   
+    //     return $this->join('retribusi', 'item_retribusi.column', '=', 'retribusi.column')
+    //                 ->select('item_retribusi.*', 'retribusi.column');
+    // }
+
 
 }

@@ -18,4 +18,8 @@ class Retribusi extends Model
         'kedinasan_id',
        // Menambahkan _token ke properti fillable
     ];
+
+    public function item(){
+        return $this->hasMany(ItemRetribusi::class);
+    }
 }

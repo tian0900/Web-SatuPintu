@@ -48,15 +48,15 @@ Route::delete('/wilayah/{id}', [WilayahController::class, 'destroy'])->name('wil
 Route::get('/wilayah/create', [WilayahController::class, 'create'])->name('wilayah.create');
 Route::post('/wilayah', [WilayahController::class, 'store'])->name('wilayah.store');
 
-
-
+//Item-Retribusi
 Route::get('/item', [ItemRetribusiController::class, 'index']);
 Route::post('/item/store', [ItemRetribusiController::class, 'store'])->name('item.store');
 Route::get('/item/show', [ItemRetribusiController::class, 'show'])->name('item.show');
 Route::get('/item/{post}/edit', [ItemRetribusiController::class, 'edit'])->name('item.edit');
 Route::put('/item/edit', [ItemRetribusiController::class, 'update'])->name('item.update');
-// deletes a post
 // Route::delete('/posts/{post}', ItemRetribusiController::class .'@destroy')->name('posts.destroy');
+
+//Kabupaten
 Route::get('/kabupaten', [KabupatenController::class, 'index']);
 Route::post('/kabupaten/store', [KabupatenController::class, 'store'])->name('kabupaten.store');
 Route::get('/kabupaten/show', [KabupatenController::class, 'show'])->name('kabupaten.show');
