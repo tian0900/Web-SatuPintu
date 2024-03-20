@@ -37,8 +37,8 @@
 
 /* --------- Logo ------------ */
 .logo-box{
-    height: 60px;
-    width: 100%;
+    height: 30px;
+    width: 80px;
     display: flex;
     align-items: center;
     color: var(--color_Light1);
@@ -47,20 +47,22 @@
 .logo-box:hover{
     color: var(--color_Blue);
 }
-.logo-box i{
-    font-size: 30px;
+.logo-box img{
     height: 50px;
-    min-width: 78px;
+    width: 90px;
+    margin: 25px;
+    margin-top: 70px;
     text-align: center;
     line-height: 50px;
     transition: all .5s ease;
 }
-.sidebar.close .logo-box i{
+.sidebar.close .logo-box img{
     transform: rotate(360deg);
 }
 .logo-name{
     font-size: 22px;
-    font-weight: 600;
+    font-weight: 900;
+    margin-top: 50px;
 }
 
 /* ---------- Sidebar List ---------- */
@@ -68,6 +70,7 @@
     height: 100%;
     padding: 30px 0 150px 0;
     overflow: auto;
+    margin-top: 20px;
 }
 .sidebar-list::-webkit-scrollbar{
     display: none;
@@ -76,7 +79,7 @@
     transition: all .5s ease;
 }
 .sidebar-list li:hover{
-    background-color: var(--color_Dark2);
+    background-color: var(--color_Blue);
 }
 .sidebar-list li .title{
     display: flex;
