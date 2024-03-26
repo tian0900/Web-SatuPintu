@@ -46,6 +46,7 @@
 </head>
 
 <body>
+    @include('layout.index')
     <div class="container">
         <h1 class="mt-5">Daftar Jenis</h1>
 

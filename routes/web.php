@@ -21,7 +21,14 @@ use App\Models\Kabupaten;
 | be assigned to the "web" middleware group. Make something great!
 |
 */
-Route::get('/atribut', [AtributController::class, 'index']);
+Route::get('/atribut', [AtributController::class, 'index'])->name('atribut');
+Route::post('/atribut/store', [AtributController::class, 'store'])->name('atribut.store');
+Route::match(['post', 'put'], '/atribut/update/{id}', [AtributController::class, 'update'])->name('atribut.update');
+
+Route::get('/atributsampah', [AtributController::class, 'indexsampah'])->name('atributsampah');
+Route::post('/atributsampah/store', [AtributController::class, 'storesampah'])->name('atributsampah.store');
+Route::match(['post', 'put'], '/atributsampah/update/{id}', [AtributController::class, 'updatesampah'])->name('atributsampah.update');
+
 
 
 Route::get('/', [PasarController::class, 'index']);

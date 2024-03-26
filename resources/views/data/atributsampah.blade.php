@@ -61,24 +61,14 @@
                     </div>
                     <div class="modal-body">
                         <!-- Form untuk edit data -->
-                        <form action="{{ route('atribut.update', $market->id) }}" method="POST">
+                        <form action="{{ route('atributsampah.update', $market->id) }}" method="POST">
                             @csrf
                             @method('PUT')
                             <div class="form-group">
-                                <label for="edit_kelompok_pasar<?= $market->id ?>">Kelompok Pasar</label>
-                                <input type="text" class="form-control" id="edit_kelompok_pasar<?= $market->id ?>"
-                                    name="edit_kelompok_pasar" value="{{ $market['data'][0]['Kelompok_pasar'] }}"
+                                <label for="edit_kategori_sampah<?= $market->id ?>">Kategori Sampah</label>
+                                <input type="text" class="form-control" id="edit_kategori_sampah<?= $market->id ?>"
+                                    name="edit_kategori_sampah" value="{{ $market['data'][0]['kategori_sampah']?? ''  }}"
                                     required>
-                            </div>
-                            <div class="form-group">
-                                <label for="edit_jenis_unit<?= $market->id ?>">Jenis Unit</label>
-                                <input type="text" class="form-control" id="edit_jenis_unit<?= $market->id ?>"
-                                    name="edit_jenis_unit" value="{{ $market['data'][0]['jenis_unit'] }}" required>
-                            </div>
-                            <div class="form-group">
-                                <label for="edit_unit<?= $market->id ?>">Unit</label>
-                                <input type="text" class="form-control" id="edit_unit<?= $market->id ?>"
-                                    name="edit_unit" value="{{ $market['data'][0]['unit'] }}" required>
                             </div>
                             <div class="form-group">
                                 <label for="edit_harga<?= $market->id ?>">Harga</label>
@@ -113,20 +103,12 @@
                     </div>
                     <div class="modal-body">
                         <!-- Form untuk tambah data -->
-                        <form action="{{ route('atribut.store') }}" method="POST">
+                        <form action="{{ route('atributsampah.store') }}" method="POST">
                             @csrf
                             <div class="form-group">
-                                <label for="kelompok_pasar">Kelompok Pasar</label>
-                                <input type="text" class="form-control" id="kelompok_pasar" name="kelompok_pasar"
+                                <label for="Kategori_sampah">Kategori Sampah</label>
+                                <input type="text" class="form-control" id="Kategori_sampah" name="Kategori_sampah"
                                     required>
-                            </div>
-                            <div class="form-group">
-                                <label for="jenis_unit">Jenis Unit</label>
-                                <input type="text" class="form-control" id="jenis_unit" name="jenis_unit" required>
-                            </div>
-                            <div class="form-group">
-                                <label for="unit">Unit</label>
-                                <input type="text" class="form-control" id="unit" name="unit" required>
                             </div>
                             <div class="form-group">
                                 <label for="harga">Harga</label>
@@ -148,11 +130,8 @@
                 <thead class="thead-dark">
                     <tr>
                         <th>No.</th>
-                        <th>Kelompok Pasar</th>
-                        <th>Jenis Unit</th>
-                        <th>Unit</th>
+                        <th>Kategori Sampah</th>
                         <th>Harga</th>
-                        <th>Kategori Nama</th>
                         <th>Action</th>
                     </tr>
                 </thead>
@@ -161,20 +140,11 @@
                     @foreach ($atribut as $market)
                         <tr>
                             <td>{{ $number++ }}</td> <!-- Tampilkan nomor dan tambahkan 1 setiap loop -->
-                            <td>{{ $market['data'][0]['Kelompok_pasar'] }}</td>
-                            <td>{{ $market['data'][0]['jenis_unit'] }}</td>
-                            <td>{{ $market['data'][0]['unit'] }}</td>
+                            <td>{{ $market['data'][0]['kategori_sampah'] ?? $market['data'][0]['Kategori_sampah'] ?? '' }}</td>
+
                             <td>{{ $market['data'][0]['harga'] }}</td>
-                            <td>{{ $market['data'][0]['kategori_nama'] ?? '' }}
-                            <td>
                                 <!-- Button untuk membuka modal Edit -->
-                                <button type="button" class="btn btn-primary btn-sm edit-btn" data-toggle="modal"
-                                    data-target="#editModal{{ $market->_id }}"
-                                    data-kelompok-pasar="{{ $market['data'][0]['Kelompok_pasar'] }}"
-                                    data-jenis-unit="{{ $market['data'][0]['jenis_unit'] }}"
-                                    data-unit="{{ $market['data'][0]['unit'] }}"
-                                    data-harga="{{ $market['data'][0]['harga'] }}"
-                                    data-kategori-nama="{{ $market['data'][0]['Kategori_nama'] ?? ($market['data'][0]['kategori_nama'] ?? '') }}">
+                                <button type="button" class="btn btn-primary btn-sm edit-btn" data-toggle="modal">
                                     Edit
                                 </button>
 
