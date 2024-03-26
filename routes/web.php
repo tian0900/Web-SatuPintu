@@ -22,12 +22,15 @@ use App\Models\Kabupaten;
 | be assigned to the "web" middleware group. Make something great!
 |
 */
-Route::get('/atribut', [AtributController::class, 'index']);
-Route::get('/data/atribut/{id}/edit', [AtributController::class, 'edit'])->name('atribut.edit');
-Route::put('/data/atribut/{id}', [AtributController::class, 'update'])->name('atribut.update');
-Route::delete('/atribut/{id}', [AtributController::class, 'destroy'])->name('atribut.destroy');
-Route::get('/atribut/create', [AtributController::class, 'create'])->name('atribut.create');
-Route::post('/atribut', [AtributController::class, 'store'])->name('atribut.store');
+Route::get('/atribut', [AtributController::class, 'index'])->name('atribut');
+Route::post('/atribut/store', [AtributController::class, 'store'])->name('atribut.store');
+Route::match(['post', 'put'], '/atribut/update/{id}', [AtributController::class, 'update'])->name('atribut.update');
+
+Route::get('/atributsampah', [AtributController::class, 'indexsampah'])->name('atributsampah');
+Route::post('/atributsampah/store', [AtributController::class, 'storesampah'])->name('atributsampah.store');
+Route::match(['post', 'put'], '/atributsampah/update/{id}', [AtributController::class, 'updatesampah'])->name('atributsampah.update');
+
+
 
 Route::get('/', [PasarController::class, 'index']);
 Route::post('/jenis/store', [PasarController::class, 'store'])->name('jenis.store');
