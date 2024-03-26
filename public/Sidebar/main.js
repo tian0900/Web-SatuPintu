@@ -13,7 +13,7 @@ listItems.forEach((item) => {
   });
 });
 
-const toggleSidebar = document.querySelector(".toggle-sidebar");
+const toggleSidebar = document.querySelector(".toggle-menux");
 const logo = document.querySelector(".logo-box");
 const sidebar = document.querySelector(".sidebar");
 

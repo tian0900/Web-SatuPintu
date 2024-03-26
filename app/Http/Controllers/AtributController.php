@@ -14,6 +14,7 @@ class AtributController extends Controller
     {
         $atribut = Post::all();
         
+        
         return view('data.atribut', ['atribut' => $atribut]);
     }
 

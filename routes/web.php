@@ -9,6 +9,7 @@ use App\Http\Controllers\PasarController;
 use App\Http\Controllers\ItemRetribusiController;
 use App\Http\Controllers\KabupatenController;
 use App\Http\Controllers\AtributController;
+use App\Http\Controllers\KedinasanController;
 use App\Models\Kabupaten;
 
 /*
@@ -22,7 +23,11 @@ use App\Models\Kabupaten;
 |
 */
 Route::get('/atribut', [AtributController::class, 'index']);
-
+Route::get('/data/atribut/{id}/edit', [AtributController::class, 'edit'])->name('atribut.edit');
+Route::put('/data/atribut/{id}', [AtributController::class, 'update'])->name('atribut.update');
+Route::delete('/atribut/{id}', [AtributController::class, 'destroy'])->name('atribut.destroy');
+Route::get('/atribut/create', [AtributController::class, 'create'])->name('atribut.create');
+Route::post('/atribut', [AtributController::class, 'store'])->name('atribut.store');
 
 Route::get('/', [PasarController::class, 'index']);
 Route::post('/jenis/store', [PasarController::class, 'store'])->name('jenis.store');
@@ -62,3 +67,11 @@ Route::post('/kabupaten/store', [KabupatenController::class, 'store'])->name('ka
 Route::get('/kabupaten/show', [KabupatenController::class, 'show'])->name('kabupaten.show');
 Route::get('/kabupaten/edit', [KabupatenController::class, 'edit'])->name('kabupaten.edit');
 Route::put('/kabupaten/{post}', [KabupatenController::class, 'update'])->name('kabupaten.update');
+
+//Kedinasan
+Route::get('/kedinasan', [KedinasanController::class, 'index']);
+Route::get('/data/kedinasan/{id}/edit', [kedinasanController::class, 'edit'])->name('kedinasan.edit');
+Route::put('/data/kedinasan/{id}', [kedinasanController::class, 'update'])->name('kedinasan.update');
+Route::delete('/kedinasan/{id}', [kedinasanController::class, 'destroy'])->name('kedinasan.destroy');
+Route::get('/kedinasan/create', [kedinasanController::class, 'create'])->name('kedinasan.create');
+Route::post('/kedinasan', [kedinasanController::class, 'store'])->name('kedinasan.store');

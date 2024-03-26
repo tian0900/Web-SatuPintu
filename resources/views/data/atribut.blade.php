@@ -108,11 +108,11 @@
                     @foreach ($atribut as $market)
                         <tr>
                             <td>{{ $number++ }}</td> <!-- Tampilkan nomor dan tambahkan 1 setiap loop -->        
-                            <td>{{ $market['data'][0]['Kelompok_pasar'] }}</td>
-                            <td>{{ $market['data'][0]['jenis_unit'] }}</td>
-                            <td>{{ $market['data'][0]['unit'] }}</td>
-                            <td>{{ $market['data'][0]['harga'] }}</td>
-                            <td>{{ $market['data'][0]['kategori_nama'] }}</td>
+                            <td>{{ $market['items'][0]['Kelompok_pasar'] }}</td>
+                            <td>{{ $market['items'][0]['jenis_unit'] }}</td>
+                            <td>{{ $market['items'][0]['unit'] }}</td>
+                            <td>{{ $market['items'][0]['harga'] }}</td>
+                            <td>{{ $market['items'][0]['kategori_nama'] }}</td>
                             <td>
                                 <!-- Button untuk membuka modal Edit -->
                                 <button type="button" class="btn btn-primary btn-sm edit-btn" data-toggle="modal"
@@ -121,18 +121,11 @@
                                 </button>
                             </td>
                         </tr>
-                        
-                        
                     @endforeach
                 </tbody>
             </table>
         </div>
     </div>
-   
-
-
-
-
 
     <!-- jQuery and Bootstrap JS -->
     <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>

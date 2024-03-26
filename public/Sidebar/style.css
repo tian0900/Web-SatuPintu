@@ -1,4 +1,4 @@
-/* Google Fonts  */
+/* Google Fots  */
 @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap');
 
 /* Globals  */
@@ -197,7 +197,7 @@
     width: calc(100% - 78px);
 }
 .home .toggle-sidebar{
-    height: 60px;
+    /* height: 60px; */
     display: flex;
     align-items: center;
     width: fit-content;
@@ -206,12 +206,16 @@
 .home .toggle-sidebar i{
     font-size: 35px;
     color: var(--color_Dark1);
-    margin-left: 15px;
+    margin-left: 15px;  
 }
 .home .toggle-sidebar .text{
     font-size: 25px;
     color: var(--color_Dark1);
     font-weight: 600;
+}
+.home .toggle-sidebar .profile{
+    position: fixed;
+    left: 92%;
 }
 
 
