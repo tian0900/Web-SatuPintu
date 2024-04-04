@@ -59,98 +59,101 @@
 
 <body>
     @include('layout.index')
-    <button class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-full mr-2" onclick="openTambahModal()">Tambah Retribusi</button>
-    <div class="overflow-x-auto">
-        <table class="table-auto border-collapse w-full">
-            <thead>
-                <tr class="bg-gray-100">
-                    <th class="px-4 py-2 border">Retribusi</th>
-                    <th class="px-4 py-2 border">Aksi</th>
-                </tr>
-            </thead>
-            <tbody>
-                @foreach ($retribusi as $index => $data)
-                    <tr>
-                        <td class="px-4 py-2 border">{{ $data->nama }}</td>
-                        <td class="px-4 py-2 border">
-                            <!-- Panggil fungsi openEditModal dengan menyertakan id dan nama retribusi -->
-                            <button
-                                class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-full mr-2"
-                                onclick="openEditModal('{{ $data->id }}', '{{ $index }}')">Edit</button>
-                            <form action="{{ route('retribusi.destroy', $data->id) }}" method="POST"
-                                style="display: inline;">
-                                @csrf
-                                @method('DELETE')
-                                <button type="submit"
-                                    class="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded-full">Hapus</button>
-                            </form>
-                        </td>
+    <div style="position:absolute; left:7%">
+        <button class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-full mr-2" onclick="openTambahModal()">Tambah Retribusi</button>
+        <div class="overflow-x-auto">
+            <table class="table-auto border-collapse w-full">
+                <thead>
+                    <tr class="bg-gray-100">
+                        <th class="px-4 py-2 border">Retribusi</th>
+                        <th class="px-4 py-2 border">Aksi</th>
                     </tr>
-                @endforeach
-
-                <!-- Modal Edit Retribusi -->
-                @foreach ($retribusi as $index => $data)
-                    <div id="editModal{{ $index }}" class="modal">
+                </thead>
+                <tbody>
+                    @foreach ($retribusi as $index => $data)
+                        <tr>
+                            <td class="px-4 py-2 border">{{ $data->nama }}</td>
+                            <td class="px-4 py-2 border">
+                                <!-- Panggil fungsi openEditModal dengan menyertakan id dan nama retribusi -->
+                                <button
+                                    class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-full mr-2"
+                                    onclick="openEditModal('{{ $data->id }}', '{{ $index }}')">Edit</button>
+                                <form action="{{ route('retribusi.destroy', $data->id) }}" method="POST"
+                                    style="display: inline;">
+                                    @csrf
+                                    @method('DELETE')
+                                    <button type="submit"
+                                        class="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded-full">Hapus</button>
+                                </form>
+                            </td>
+                        </tr>
+                    @endforeach
+    
+                    <!-- Modal Edit Retribusi -->
+                    @foreach ($retribusi as $index => $data)
+                        <div id="editModal{{ $index }}" class="modal">
+                            <div class="modal-content">
+                                <span class="close" onclick="closeEditModal('{{ $index }}')">&times;</span>
+                                <h2>Edit Retribusi</h2>
+                                <form id="editForm{{ $index }}" method="POST" action="">
+                                    @csrf
+                                    @method('PUT')
+                                    <label for="nama">Nama Retribusi:</label><br>
+                                    <!-- Pastikan variabel $retribusi->nama di sini adalah properti yang tepat -->
+                                    <input type="text" id="nama" name="nama" value="{{ $data->nama }}"><br><br>
+                                    <button type="submit"
+                                        class="bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded-full">Simpan</button>
+                                </form>
+                            </div>
+                        </div>
+                    @endforeach
+                    <!-- Tambah Data Retribusi Modal -->
+                    <div id="tambahModal" class="modal">
                         <div class="modal-content">
-                            <span class="close" onclick="closeEditModal('{{ $index }}')">&times;</span>
-                            <h2>Edit Retribusi</h2>
-                            <form id="editForm{{ $index }}" method="POST" action="">
+                            <span class="close" onclick="closeTambahModal()">&times;</span>
+                            <h2>Tambah Retribusi</h2>
+                            <form method="POST" action="{{ route('retribusi.store') }}">
                                 @csrf
-                                @method('PUT')
                                 <label for="nama">Nama Retribusi:</label><br>
-                                <!-- Pastikan variabel $retribusi->nama di sini adalah properti yang tepat -->
-                                <input type="text" id="nama" name="nama" value="{{ $data->nama }}"><br><br>
+                                <input type="text" id="nama" name="nama" required><br><br>
                                 <button type="submit"
                                     class="bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded-full">Simpan</button>
                             </form>
                         </div>
                     </div>
-                @endforeach
-                <!-- Tambah Data Retribusi Modal -->
-                <div id="tambahModal" class="modal">
-                    <div class="modal-content">
-                        <span class="close" onclick="closeTambahModal()">&times;</span>
-                        <h2>Tambah Retribusi</h2>
-                        <form method="POST" action="{{ route('retribusi.store') }}">
-                            @csrf
-                            <label for="nama">Nama Retribusi:</label><br>
-                            <input type="text" id="nama" name="nama" required><br><br>
-                            <button type="submit"
-                                class="bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded-full">Simpan</button>
-                        </form>
-                    </div>
-                </div>
-
-                <script>
-                    // Fungsi untuk membuka modal tambah data
-                    function openTambahModal() {
-                        var modal = document.getElementById('tambahModal');
-                        modal.style.display = "block";
-                    }
-                
-                    // Fungsi untuk menutup modal tambah data
-                    function closeTambahModal() {
-                        var modal = document.getElementById('tambahModal');
-                        modal.style.display = "none";
-                    }
-                </script>
-
-
-                <script>
-                    // Fungsi untuk membuka modal edit dengan data retribusi yang sesuai
-                    function openEditModal(id, index) {
-                        var modal = document.getElementById('editModal' + index);
-                        modal.style.display = "block";
-                        var form = document.getElementById('editForm' + index);
-                        form.action = "/data/retribusi/" + id;
-                    }
-
-                    // Fungsi untuk menutup modal edit
-                    function closeEditModal(index) {
-                        var modal = document.getElementById('editModal' + index);
-                        modal.style.display = "none";
-                    }
-                </script>
+    
+                    <script>
+                        // Fungsi untuk membuka modal tambah data
+                        function openTambahModal() {
+                            var modal = document.getElementById('tambahModal');
+                            modal.style.display = "block";
+                        }
+                    
+                        // Fungsi untuk menutup modal tambah data
+                        function closeTambahModal() {
+                            var modal = document.getElementById('tambahModal');
+                            modal.style.display = "none";
+                        }
+                    </script>
+    
+    
+                    <script>
+                        // Fungsi untuk membuka modal edit dengan data retribusi yang sesuai
+                        function openEditModal(id, index) {
+                            var modal = document.getElementById('editModal' + index);
+                            modal.style.display = "block";
+                            var form = document.getElementById('editForm' + index);
+                            form.action = "/data/retribusi/" + id;
+                        }
+    
+                        // Fungsi untuk menutup modal edit
+                        function closeEditModal(index) {
+                            var modal = document.getElementById('editModal' + index);
+                            modal.style.display = "none";
+                        }
+                    </script>
+    </div>
+   
 </body>
 
 </html>

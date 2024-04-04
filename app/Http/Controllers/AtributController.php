@@ -162,6 +162,7 @@ class AtributController extends Controller
 
         // Simpan perubahan ke dalam database
         $atribut->data = [$updatedData];
+        
         $atribut->save();
 
         // Redirect dengan pesan sukses

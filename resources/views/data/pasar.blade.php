@@ -1,11 +1,7 @@
 
-@include('layout.index')
+@extends('layout.sidebar')
 <!-- ============= Home Section =============== -->
-<section class="home">
-    <div class="toggle-sidebar">
-        <i class='bx bx-menu'></i>
-        <div class="text">Toggle</div>
-    </div>
+@section('content')
     <div class="container p-5">
       <h1 class="mt-3 text-5xl">Daftar Jenis</h1>
 
@@ -254,6 +250,5 @@
             </div>  
         </div>
     </div>
-</div>
 
 @endsection

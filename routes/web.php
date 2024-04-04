@@ -9,6 +9,7 @@ use App\Http\Controllers\PasarController;
 use App\Http\Controllers\ItemRetribusiController;
 use App\Http\Controllers\KabupatenController;
 use App\Http\Controllers\AtributController;
+use App\Http\Controllers\KontrakController;
 use App\Http\Controllers\KedinasanController;
 use App\Models\Kabupaten;
 
@@ -22,6 +23,21 @@ use App\Models\Kabupaten;
 | be assigned to the "web" middleware group. Make something great!
 |
 */
+
+
+
+Route::get('/pdf', [KontrakController::class, 'testt']);
+Route::get('/surat/{id}', [KontrakController::class, 'detailkontrak'])->name('surat.detail');
+
+Route::post('/generate-pdf/{id}', [KontrakController::class, 'generatePDFkontrak'])->name('generate-pdf');
+
+
+
+
+
+Route::get('/kontrak', [KontrakController::class, 'index'])->name('kontrak');
+
+
 Route::get('/atribut', [AtributController::class, 'index'])->name('atribut');
 Route::post('/atribut/store', [AtributController::class, 'store'])->name('atribut.store');
 Route::match(['post', 'put'], '/atribut/update/{id}', [AtributController::class, 'update'])->name('atribut.update');
