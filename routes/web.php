@@ -10,7 +10,9 @@ use App\Http\Controllers\ItemRetribusiController;
 use App\Http\Controllers\KabupatenController;
 use App\Http\Controllers\AtributController;
 use App\Http\Controllers\KontrakController;
+use App\Http\Controllers\AuthController;
 use App\Http\Controllers\KedinasanController;
+use App\Http\Controllers\BendaharaController;
 use App\Models\Kabupaten;
 
 /*
@@ -23,13 +25,23 @@ use App\Models\Kabupaten;
 | be assigned to the "web" middleware group. Make something great!
 |
 */
+//bendahara
+Route::get('/tagihan', [BendaharaController::class, 'indextagihan']);
+Route::get('/setoran', [BendaharaController::class, 'indexsetor']);
 
+
+
+
+//ADMIN
+Route::get('/login', [AuthController::class, 'loginview']);
+Route::post('/loginCheck', [AuthController::class, 'loginCheck'])->name('login');
 
 
 Route::get('/pdf', [KontrakController::class, 'testt']);
 Route::get('/surat/{id}', [KontrakController::class, 'detailkontrak'])->name('surat.detail');
+Route::post('/kontrak/store', [KontrakController::class, 'store'])->name('kontrak.store');
+Route::get('/generate-pdf/{id}', [KontrakController::class, 'generatePDFkontrak'])->name('generate-pdfkontrak');
 
-Route::post('/generate-pdf/{id}', [KontrakController::class, 'generatePDFkontrak'])->name('generate-pdf');
 
 
 

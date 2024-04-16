@@ -25,5 +25,8 @@ class ItemRetribusi extends Model
     //                 ->select('item_retribusi.*', 'retribusi.column');
     // }
 
-
+    public function retribusi()
+    {   
+        return $this->belongsTo(Retribusi::class, 'retribusi_id');
+    }
 }

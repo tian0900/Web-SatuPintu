@@ -67,7 +67,7 @@
             <table>
                 <tr>
                     <td>Nama</td>
-                    <td>: {{ $kontrak->name }}</td>
+                    <td>: {{ $kontrak->WajibRetribusi->User->name }}</td>
                 </tr>
                 <tr>
                     <td>Instansi</td>
@@ -83,7 +83,7 @@
             <table>
                 <tr>
                     <td>Nama</td>
-                    <td>: {{ $kontrak->name }}</td>
+                    <td>: {{ $kontrak->WajibRetribusi->User->name }}</td>
                 </tr>
                 <tr>
                     <td>Instansi</td>
@@ -104,7 +104,7 @@
                 </tr>
                 <tr>
                     <td>Jenis Bangunan</td>
-                    <td>: {{ $kontrak->kategori_nama }}</td>
+                    <td>: {{ $kontrak->ItemRetribusi->kategori_nama }}</td>
                 </tr>
                 <tr>
                     <td>Durasi Sewa</td>
@@ -112,7 +112,7 @@
                 </tr>
                 <tr>
                     <td>Biaya Sewa</td>
-                    <td>: Rp. {{ $kontrak->harga }} / bulan</td>
+                    <td>: Rp. {{ $kontrak->ItemRetribusi->harga }} / bulan</td>
                 </tr>
             </table>
             <p>Ini adalah detail surat sewa menyewa tempat pasar kabupaten Humbang Hasundutan</p>
@@ -126,10 +126,27 @@
         </div>
     </div>
 
+    
     <script>
         document.getElementById('exportBtn').addEventListener('click', function() {
             this.style.display = 'none';
-            window.print();
+            // Menggunakan AJAX untuk mengirim permintaan ke endpoint generatePDFkontrak
+            // yang akan menghasilkan file PDF
+            var xhr = new XMLHttpRequest();
+            xhr.open('GET', '{{ route('generate-pdfkontrak', ['id' => $kontrak->id]) }}', true);
+            xhr.responseType = 'blob'; // Menentukan tipe respons sebagai blob (file)
+            xhr.onload = function() {
+                if (this.status === 200) {
+                    var blob = this.response;
+                    var link = document.createElement('a');
+                    link.href = window.URL.createObjectURL(blob);
+                    link.download = 'Kontrak_{{ $kontrak->WajibRetribusi->User->name }}.pdf';  // Nama file PDF
+                    document.body.appendChild(link);
+                    link.click(); // Simulasi klik link untuk mengunduh file PDF
+                    document.body.removeChild(link);
+                }
+            };
+            xhr.send();
             this.style.display = 'block';
         });
     </script>
