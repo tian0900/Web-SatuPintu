@@ -38,4 +38,11 @@ class AuthController extends Controller
             return $e->getMessage();
         }
     }
+
+    public function logout()
+    {
+        auth()->user()->tokens()->delete();
+
+        return redirect('/login');
+    }
 }

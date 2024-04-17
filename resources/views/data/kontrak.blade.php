@@ -5,7 +5,7 @@
         <h1 class="mt-3 text-5xl">Kontrak</h1>
 
         <!-- Modal toggle -->
-        <button data-modal-target="#modalTambahKontrak" class="btn btn-primary">Tambah Data</button>
+        <button id="btnOpenModal" class="btn btn-primary" data-toggle="modal" data-target="#modalTambahKontrak">Tambah Data Kontrak</button>
 
 
         <!-- Main modal -->
@@ -212,121 +212,109 @@
 
     {{-- MOdal --}}
     <!-- Main modal -->
-    <div id="modalTambahKontrak" tabindex="-1" aria-hidden="true"
-        class="hidden overflow-y-auto overflow-x-hidden fixed top-0 right-0 left-0 z-50 justify-center items-center w-full h-full">
-        <div class="relative p-4 w-full max-w-md">
-            <!-- Modal content -->
-            <div class="relative bg-white rounded-lg shadow">
-                <!-- Modal header -->
-                <div class="flex items-center justify-between p-4 border-b">
-                    <h3 class="text-xl font-semibold text-gray-900">Tambah Data Kontrak</h3>
-                    <button type="button"
-                        class="text-gray-400 hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm w-8 h-8 inline-flex justify-center items-center"
-                        data-modal-hide="modalTambahKontrak">
-                        <svg class="w-3 h-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none"
-                            viewBox="0 0 14 14">
-                            <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                d="m1 1 6 6m0 0 6 6M7 7l6-6M7 7l-6 6" />
-                        </svg>
-                        <span class="sr-only">Close modal</span>
+    <div class="modal fade" id="modalTambahKontrak" tabindex="-1" role="dialog" aria-labelledby="modalTambahKontrakLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="modalTambahKontrakLabel">Tambah Data Kontrak</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
                     </button>
                 </div>
-                <!-- Modal body -->
-                <div class="p-4">
-                    <form id="formTambahKontrak">
+                <div class="modal-body">
+                    <form action="{{ route('kontrak.store') }}" method="POST">
                         @csrf
-                        <div class="mb-4">
-                            <label for="wajib_retribusi_id" class="block text-sm font-medium text-gray-700">Wajib
-                                Retribusi</label>
-                            <select name="wajib_retribusi_id" id="wajib_retribusi_id"
-                                class="mt-1 block w-full border-gray-300 rounded-md shadow-sm focus:border-blue-500 focus:ring focus:ring-blue-500 focus:ring-opacity-50">
+                        <div class="form-group">
+                            <label for="wajib_retribusi_id">Wajib Retribusi</label>
+                            <select name="wajib_retribusi_id" id="wajib_retribusi_id" class="form-control">
                                 @foreach ($wajibRetribusiOptions as $wajibRetribusi)
                                     <option value="{{ $wajibRetribusi->id }}">{{ $wajibRetribusi->User->name }}</option>
                                 @endforeach
                             </select>
                         </div>
-                        <div class="mb-4">
-                            <label for="item_retribusi_id" class="block text-sm font-medium text-gray-700">Item
-                                Retribusi</label>
-                            <select name="item_retribusi_id" id="item_retribusi_id"
-                                class="mt-1 block w-full border-gray-300 rounded-md shadow-sm focus:border-blue-500 focus:ring focus:ring-blue-500 focus:ring-opacity-50">
+                        <div class="form-group">
+                            <label for="item_retribusi_id">Item Retribusi</label>
+                            <select name="item_retribusi_id" id="item_retribusi_id" class="form-control">
                                 @foreach ($itemRetribusiOptions as $itemRetribusi)
                                     <option value="{{ $itemRetribusi->id }}">{{ $itemRetribusi->kategori_nama }}</option>
                                 @endforeach
                             </select>
                         </div>
-                        <div class="mb-4">
-                            <label for="sub_wilayah_id" class="block text-sm font-medium text-gray-700">Sub
-                                Wilayah</label>
-                            <select name="sub_wilayah_id" id="sub_wilayah_id"
-                                class="mt-1 block w-full border-gray-300 rounded-md shadow-sm focus:border-blue-500 focus:ring focus:ring-blue-500 focus:ring-opacity-50">
+                        <div class="form-group">
+                            <label for="sub_wilayah_id">Sub Wilayah</label>
+                            <select name="sub_wilayah_id" id="sub_wilayah_id" class="form-control">
                                 @foreach ($subWilayahOptions as $subWilayah)
                                     <option value="{{ $subWilayah->id }}">{{ $subWilayah->nama }}</option>
                                 @endforeach
                             </select>
                         </div>
-                        <div class="mb-4">
-                            <label for="tanggal_mulai" class="block text-sm font-medium text-gray-700">Tanggal
-                                Mulai</label>
-                            <input type="date" name="tanggal_mulai" id="tanggal_mulai"
-                                class="mt-1 block w-full border-gray-300 rounded-md shadow-sm focus:border-blue-500 focus:ring focus:ring-blue-500 focus:ring-opacity-50">
+                        <div class="form-group">
+                            <label for="tanggal_mulai">Tanggal Mulai</label>
+                            <input type="date" name="tanggal_mulai" id="tanggal_mulai" class="form-control">
                         </div>
-                        <div class="mb-4">
-                            <label for="tanggal_selesai" class="block text-sm font-medium text-gray-700">Tanggal
-                                Selesai</label>
-                            <input type="date" name="tanggal_selesai" id="tanggal_selesai"
-                                class="mt-1 block w-full border-gray-300 rounded-md shadow-sm focus:border-blue-500 focus:ring focus:ring-blue-500 focus:ring-opacity-50">
+                        <div class="form-group">
+                            <label for="tanggal_selesai">Tanggal Selesai</label>
+                            <input type="date" name="tanggal_selesai" id="tanggal_selesai" class="form-control">
                         </div>
-                        <div class="flex justify-end">
-                            <button type="submit"
-                                class="px-4 py-2 bg-blue-500 text-white rounded-md hover:bg-blue-600">Simpan</button>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Batal</button>
+                            <button type="submit" class="btn btn-primary">Simpan</button>
                         </div>
                     </form>
                 </div>
             </div>
         </div>
     </div>
+    
+    
+    <!-- Tambahkan script berikut sebelum tag </body> -->
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 
-   <!-- Tambahkan script berikut sebelum tag </body> -->
-<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 
-<script>
-    $(document).ready(function () {
-        // Inisialisasi modal
-        $('[data-modal-target]').on('click', function () {
-            const targetModal = $(this).data('modal-target');
-            $(targetModal).removeClass('hidden');
-        });
+    <script>
+        $(document).ready(function() {
+            // Debugging
+            console.log('Document ready');
 
-        // Menyembunyikan modal saat tombol close atau di luar modal diklik
-        $('[data-modal-hide]').on('click', function () {
-            const targetModal = $(this).data('modal-hide');
-            $(targetModal).addClass('hidden');
-        });
+            // Inisialisasi modal
+            $('[data-modal-target]').on('click', function() {
+                const targetModal = $(this).data('modal-target');
+                console.log('Opening modal:', targetModal);
+                $(targetModal).removeClass('hidden');
+            });
 
-        // Submit form tambah kontrak secara AJAX
-        $('#formTambahKontrak').on('submit', function (e) {
-            e.preventDefault();
-            const formData = $(this).serialize();
-            $.ajax({
-                type: 'POST',
-                url: '{{ route('kontrak.store') }}',
-                data: formData,
-                success: function (response) {
-                    // Tambahkan handling sesuai kebutuhan, misalnya tampilkan pesan sukses atau refresh halaman
-                    console.log(response);
-                    $('#modalTambahKontrak').addClass('hidden');
-                    alert('Data Kontrak berhasil ditambahkan');
-                    window.location.reload();
-                },
-                error: function (xhr, status, error) {
-                    // Tambahkan handling untuk error, misalnya tampilkan pesan error atau validasi error dari backend
-                    console.error(xhr.responseText);
-                }
+            // Menyembunyikan modal saat tombol close atau di luar modal diklik
+            $('[data-modal-hide]').on('click', function() {
+                const targetModal = $(this).data('modal-hide');
+                console.log('Closing modal:', targetModal);
+                $(targetModal).addClass('hidden');
+            });
+
+            // Submit form tambah kontrak secara AJAX
+            $('#formTambahKontrak').on('submit', function(e) {
+                e.preventDefault();
+                console.log('Form submitted');
+                const formData = $(this).serialize();
+                console.log('Form data:', formData); // Debugging form data
+                $.ajax({
+                    type: 'POST',
+                    url: '{{ route('kontrak.store') }}',
+                    data: formData,
+                    success: function(response) {
+                        // Tambahkan handling sesuai kebutuhan, misalnya tampilkan pesan sukses atau refresh halaman
+                        console.log('AJAX success:', response); // Debugging AJAX success
+                        $('#modalTambahKontrak').addClass('hidden');
+                        alert('Data Kontrak berhasil ditambahkan');
+                        window.location.reload();
+                    },
+                    error: function(xhr, status, error) {
+                        // Tambahkan handling untuk error, misalnya tampilkan pesan error atau validasi error dari backend
+                        console.error('AJAX error:', xhr.responseText); // Debugging AJAX error
+                    }
+                });
             });
         });
-    });
-
-</script>
+    </script>
 
     {{-- @endsection --}}

@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Post;
+use Illuminate\Support\Facades\Auth;
 
 class AtributController extends Controller
 {
@@ -44,6 +45,8 @@ class AtributController extends Controller
     public function store(Request $request)
     {
         // Validasi inputan
+        $user = Auth::user();
+        $test = $user->name;
         $validatedData = $request->validate([
             'kelompok_pasar' => 'required',
             'jenis_unit' => 'required',
