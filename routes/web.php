@@ -25,6 +25,16 @@ use App\Models\Kabupaten;
 | be assigned to the "web" middleware group. Make something great!
 |
 */
+
+
+Route::get('/jenis', [PasarController::class, 'index']);
+Route::post('/jenis/store', [PasarController::class, 'store'])->name('jenis.store');
+Route::get('/jenis/edit', [PasarController::class, 'edit'])->name('jenis.edit');
+// Route::put('/jenis/{id}', [PasarController::class, 'update'])->name('jenis.update');
+// Route::post('/jenis/{id}', 'JenisController@update')->name('jenis.update');
+// Route::put('/jenis/edit/{id}', [PasarController::class, 'update'])->name('jenis.update');
+Route::put('/jenis/{post}', [PasarController::class, 'update'])->name('jenis.update');
+
 Route::middleware(['check.role.byname:Admin'])->group(function () {
 
     Route::get('/pdf', [KontrakController::class, 'testt']);
@@ -83,7 +93,7 @@ Route::middleware(['check.role.byname:Admin'])->group(function () {
     Route::delete('/kedinasan/{id}', [kedinasanController::class, 'destroy'])->name('kedinasan.destroy');
     Route::get('/kedinasan/create', [kedinasanController::class, 'create'])->name('kedinasan.create');
     Route::post('/kedinasan', [kedinasanController::class, 'store'])->name('kedinasan.store');
-
+ 
 });
 
 Route::middleware(['check.role.byname:Bendahara'])->group(function () {
