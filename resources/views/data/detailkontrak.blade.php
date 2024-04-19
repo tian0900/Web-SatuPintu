@@ -71,11 +71,11 @@
                 </tr>
                 <tr>
                     <td>Instansi</td>
-                    <td>: </td>
+                    <td>:{{ $kontrak->ItemRetribusi->retribusi->Kedinasan->nama }} </td>
                 </tr>
                 <tr>
                     <td>Jabatan</td>
-                    <td>: </td>
+                    <td>:{{ $kontrak->ItemRetribusi->retribusi->Kedinasan->kepala_dinas }}  </td>
                 </tr>
             </table>
             <p>Dalam hal ini bertindak atas nama diri pribadi yang selanjutnya disebut PIHAK PERTAMA</p>
@@ -119,7 +119,8 @@
             <br>
             <div class="right-align">
                 <p></p>
-                <p>Toba, 26 Mei 2022</p>
+                <p>{{ $kontrak->created_at->format('d F Y') }}</p>
+
                 <br>
                 <p></p>
             </div>

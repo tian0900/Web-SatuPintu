@@ -9,10 +9,11 @@ class Kedinasan extends Model
 {
     use HasFactory;
 
-    protected $table = 'kabupaten';
+    protected $table = 'kedinasan';
     protected $connection = 'mysql';
 
     protected $fillable = [
         'nama',
+        'kepala_dinas',
     ];
 }

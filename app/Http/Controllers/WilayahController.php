@@ -38,7 +38,6 @@ class WilayahController extends Controller
         // Menyimpan data baru
         Wilayah::create([
             'nama' => $request->nama,
-            'kedinasan_id' => 1 // Atur nilai default untuk kedinasan_id
         ]);
 
         // Redirect ke halaman yang sesuai
