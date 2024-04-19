@@ -22,4 +22,11 @@ class Retribusi extends Model
     public function item(){
         return $this->hasMany(ItemRetribusi::class);
     }
+
+    
+    public function kedinasan()
+{   
+    return $this->belongsTo(Kedinasan::class, 'kedinasan_id');
+}
+
 }

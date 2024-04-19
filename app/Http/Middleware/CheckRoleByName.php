@@ -24,5 +24,5 @@ class CheckRoleByName
 
         // Jika tidak memiliki nama role yang diizinkan, kembalikan respons error
         return response()->json(['error' => 'Unauthorized'], 403);
-    }
+    }   
 }
