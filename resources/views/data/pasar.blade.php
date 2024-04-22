@@ -1,4 +1,3 @@
-
 @extends('layout.sidebar')
 <!-- ============= Home Section =============== -->
 @section('content')

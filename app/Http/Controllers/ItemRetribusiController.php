@@ -36,10 +36,10 @@ class ItemRetribusiController extends Controller
             'retribusi_id' => 'required',
             'kategori_nama' => 'required',
             'jenis_tagihan' => 'required',
-            'harga' => 'required',
-        ]);
-        ItemRetribusi::create($request->all());
-        return redirect()->route('data.item')
+            'harga'         => 'required',
+          ]);
+          ItemRetribusi::create($request->all());
+          return redirect("/item")
             ->with('success', 'Data created successfully.');
     }
 
@@ -71,13 +71,11 @@ class ItemRetribusiController extends Controller
             'kategori_nama' => 'required',
             'jenis_tagihan' => 'required',
             'harga'         => 'required',
-        ]);
-        
-        $item = ItemRetribusi::find($id);
-        $item->update($request->all());
-        
-        return redirect()->route('item.index')
-            ->with('success', 'Item berhasil diperbarui.');
+          ]);
+          $item = ItemRetribusi::find($id);
+          $item->update($request->all());
+          return redirect("/item")
+            ->with('success', 'Item updated successfully.');
     }
     
 
