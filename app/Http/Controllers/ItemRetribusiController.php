@@ -38,7 +38,7 @@ class ItemRetribusiController extends Controller
             'harga'         => 'required',
           ]);
           ItemRetribusi::create($request->all());
-          return redirect()->route('data.item')
+          return redirect("/item")
             ->with('success', 'Data created successfully.');
     }
 
@@ -73,7 +73,7 @@ class ItemRetribusiController extends Controller
           ]);
           $item = ItemRetribusi::find($id);
           $item->update($request->all());
-          return redirect()->route('item.index')
+          return redirect("/item")
             ->with('success', 'Item updated successfully.');
     }
 

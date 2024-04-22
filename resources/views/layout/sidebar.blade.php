@@ -24,7 +24,7 @@
         <a href="#" class="logo-box">
             {{-- <i class='bx bxl-xing'></i> --}}
             <img class="img-logo" src="Logo/logo.png" alt="">
-            <div class="logo-name">Satu Pintu</div>
+            <div class="logo-name">SatuPintu</div>
         </a>
 
         <!-- ========== List ============  -->

@@ -10,36 +10,33 @@
 <!--===============================================================================================-->
 	<link rel="stylesheet" type="text/css" href="{{ URL::asset('fontss/font-awesome-4.7.0/csss/font-awesome.min.css') }}">
 <!--===============================================================================================-->
-	<link rel="stylesheet" type="text/css" href="{{ URL::asset('fontss/iconic/csss/material-design-iconic-font.min.css') }}">
+	{{-- <link rel="stylesheet" type="text/css" href="{{ URL::asset('fontss/iconic/csss/material-design-iconic-font.min.css') }}"> --}}
 <!--===============================================================================================-->
 	<link rel="stylesheet" type="text/css" href="{{ URL::asset('vendorr/animate/animate.css') }}">
 <!--===============================================================================================-->	
-	<link rel="stylesheet" type="text/css" href="{{ URL::asset('vendorr/css-hamburgers/hamburgers.min.css') }}">
+	{{-- <link rel="stylesheet" type="text/css" href="{{ URL::asset('vendorr/css-hamburgers/hamburgers.min.css') }}"> --}}
 <!--===============================================================================================-->
-	<link rel="stylesheet" type="text/css" href="{{ URL::asset('vendorr/animsition/csss/animsition.min.css') }}">
-<!--===============================================================================================-->
-	<link rel="stylesheet" type="text/css" href="{{ URL::asset('vendorr/select2/select2.min.css') }}">
-<!--===============================================================================================-->	
-	<link rel="stylesheet" type="text/css" href="{{ URL::asset('vendorr/daterangepicker/daterangepicker.css') }}">
-<!--===============================================================================================-->
-	<link rel="stylesheet" type="text/css" href="{{ URL::asset('csss/util.css') }}">
+	{{-- <link rel="stylesheet" type="text/css" href="{{ URL::asset('vendorr/animsition/csss/animsition.min.css') }}"> --}}
 	<link rel="stylesheet" type="text/css" href="{{ URL::asset('csss/main.css') }}">
+	<link rel="stylesheet" type="text/css" href="{{ URL::asset('Auth/style.css') }}">
 <!--===============================================================================================-->
 </head>
 <body>
 	
-	<div class="limiter">
+	<div class="">
 		<div class="container-login100">
 			<div class="wrap-login100">
 				<form class="login100-form validate-form" action="{{ route('login') }}" method="POST">
 					@csrf
-					<span class="login100-form-title p-b-26">
-						Welcome
-					</span>
-					<span class="login100-form-title p-b-48">
-						<i class="zmdi zmdi-font"></i>
-					</span>
-
+					<header class="login-header">
+						<span class="login100-form-title p-b-26">
+							<img src="logo/Logo.png" alt="" class="login-img mt-3">
+							SATU PINTU
+						</span>
+						<p class="login-info">
+							Please enter your user information.
+						</p>
+					</header>
 					<div class="wrap-input100 validate-input" data-validate="Valid email is: a@b.c">
 						<input class="input100" type="text" name="name" id="name">
 						<span class="focus-input100" data-placeholder="Username"></span>
@@ -61,23 +58,10 @@
 							</button>
 						</div>
 					</div>
-
-					<div class="text-center p-t-115">
-						<span class="txt1">
-							Don’t have an account?
-						</span>
-
-						<a class="txt2" href="#">
-							Sign Up
-						</a>
-					</div>
 				</form>
 			</div>
 		</div>
 	</div>
-	
-
-	<div id="dropDownSelect1"></div>
 	
 <!--===============================================================================================-->
 	<script src="{{ URL::asset('vendorr/jquery/jquery-3.2.1.min.js') }}"></script>
