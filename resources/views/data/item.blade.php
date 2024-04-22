@@ -106,6 +106,7 @@
                         <th>Kategori Nama</th>
                         <th>Jenis Tagihan</th>
                         <th>Harga</th>
+                        <th>Action</th>
                     </tr>
                 </thead>
                 <tbody>

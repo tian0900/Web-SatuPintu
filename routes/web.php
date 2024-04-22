@@ -72,11 +72,12 @@ Route::middleware(['check.role.byname:Admin'])->group(function () {
     Route::post('/wilayah', [WilayahController::class, 'store'])->name('wilayah.store');
 
     //Item-Retribusi
-    Route::get('/item', [ItemRetribusiController::class, 'index']);
+    Route::get('/item', [ItemRetribusiController::class, 'index'])->name('item.index');
     Route::post('/item/store', [ItemRetribusiController::class, 'store'])->name('item.store');
     Route::get('/item/show', [ItemRetribusiController::class, 'show'])->name('item.show');
     Route::get('/item/{post}/edit', [ItemRetribusiController::class, 'edit'])->name('item.edit');
-    Route::put('/item/edit', [ItemRetribusiController::class, 'update'])->name('item.update');
+    Route::put('/item/edit/{id}', [ItemRetribusiController::class, 'update'])->name('item.update');
+
     // Route::delete('/posts/{post}', ItemRetribusiController::class .'@destroy')->name('posts.destroy');
 
     //Kabupaten
