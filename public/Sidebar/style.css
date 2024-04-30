@@ -129,10 +129,10 @@
     display: flex;
     flex-direction: column;
     padding: 6px 6px 14px 80px;
-    background-color: var(--color_Dark2);
+    background-color: var(--color_Light2);
 }
 .submenu .link{
-    color: var(--color_Light2);
+    color: var(--color_Dark2);
     font-size: 15px;
     padding: 5px 0;
     transition: all .5s ease;
@@ -149,6 +149,7 @@
 .sidebar.close .title .name,
 .sidebar.close .title .bxs-chevron-down
 {
+    font-weight: 400;
     display: none;
 }
 
@@ -177,12 +178,12 @@
     opacity: 1;
     top: 0;
     pointer-events: initial;
-    background-color: var(--color_Dark2);
+    background-color: var(--color_Light2);
 }
 .sidebar.close .submenu-title{
     display: block;
     font-style: 18px;
-    color: var(--color_Light1);
+    color: var(--color_Dark1);
 }
 
 /* =============== Home Section =============== */

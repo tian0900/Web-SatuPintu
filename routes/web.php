@@ -43,6 +43,7 @@ Route::middleware(['check.role.byname:Admin'])->group(function () {
     Route::get('/generate-pdf/{id}', [KontrakController::class, 'generatePDFkontrak'])->name('generate-pdfkontrak');
     Route::get('/kontrak', [KontrakController::class, 'index'])->name('kontrak');
 
+    //Atribut
     Route::get('/atribut', [AtributController::class, 'index'])->name('atribut');
     Route::post('/atribut/store', [AtributController::class, 'store'])->name('atribut.store');
     Route::match (['post', 'put'], '/atribut/update/{id}', [AtributController::class, 'update'])->name('atribut.update');
@@ -102,8 +103,6 @@ Route::middleware(['check.role.byname:Bendahara'])->group(function () {
     Route::get('/setoran', [BendaharaController::class, 'indexsetor']);
 
 });
-
-
 
 
 //ADMIN

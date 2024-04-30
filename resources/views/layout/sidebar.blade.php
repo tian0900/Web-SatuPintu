@@ -19,6 +19,7 @@
     <link href="https://cdnjs.cloudflare.com/ajax/libs/flowbite/2.3.0/flowbite.min.css"  rel="stylesheet" />
 </head>
 <body>
+  
     <div class="sidebar close">
         <!-- ========== Logo ============  -->
         <a href="#" class="logo-box">
@@ -42,21 +43,126 @@
                 </div>
             </li>
 
-            <!-- -------- Dropdown List Item ------- -->
-            <li class="dropdown">
+            <!-- -------- Non Dropdown List Item ------- -->
+            <li>
                 <div class="title">
-                    <a href="#" class="link">
-                        <i class='bx bx-collection'></i>
-                        <span class="name">Category</span>
+                    <a href="/retribusi" class="link">
+                      <i class='bx bx-wallet-alt' ></i>
+                        <span class="name">Retribusi</span>
                     </a>
-                    <i class='bx bxs-chevron-down'></i>
+                    <!-- <i class='bx bxs-chevron-down'></i> -->
                 </div>
                 <div class="submenu">
-                    <a href="#" class="link submenu-title">Category</a>
-                    <a href="#" class="link">HTML & CSS</a>
-                    <a href="#" class="link">JavaScript</a>
-                    <a href="#" class="link">PHP & MySQL</a>
+                    <a href="/retribusi" class="link submenu-title">Retribusi</a>
+                    <!-- submenu links here  -->
                 </div>
+            </li>
+
+            <!-- -------- Non Dropdown List Item ------- -->
+            <li>
+                <div class="title">
+                    <a href="/kontrak" class="link">
+                      <i class='bx bxs-file'></i>
+                        <span class="name">Kontrak</span>
+                    </a>
+                    <!-- <i class='bx bxs-chevron-down'></i> -->
+                </div>
+                <div class="submenu">
+                    <a href="/kontrak" class="link submenu-title">Kontrak</a>
+                    <!-- submenu links here  -->
+                </div>
+            </li>
+
+            <!-- -------- Non Dropdown List Item ------- -->
+            <li>
+                <div class="title">
+                    <a href="/wilayah" class="link">
+                      <i class='bx bx-map-alt'></i>
+                        <span class="name">Wilayah</span>
+                    </a>
+                    <!-- <i class='bx bxs-chevron-down'></i> -->
+                </div>
+                <div class="submenu">
+                    <a href="/wilayah" class="link submenu-title">Wilayah</a>
+                    <!-- submenu links here  -->
+                </div>
+            </li>
+
+            <!-- -------- Non Dropdown List Item ------- -->
+            <li>
+                <div class="title">
+                    <a href="/item" class="link">
+                      <i class='bx bx-checkbox-square'></i>
+                        <span class="name">Item</span>
+                    </a>
+                    <!-- <i class='bx bxs-chevron-down'></i> -->
+                </div>
+                <div class="submenu">
+                    <a href="/item" class="link submenu-title">Item</a>
+                    <!-- submenu links here  -->
+                </div>
+            </li>
+
+            <!-- -------- Non Dropdown List Item ------- -->
+            <li>
+                <div class="title">
+                    <a href="/kabupaten" class="link">
+                      <i class='bx bx-map-pin' ></i>
+                        <span class="name">Kabupaten</span>
+                    </a>
+                    <!-- <i class='bx bxs-chevron-down'></i> -->
+                </div>
+                <div class="submenu">
+                    <a href="/kabupaten" class="link submenu-title">Kabupaten</a>
+                    <!-- submenu links here  -->
+                </div>
+            </li>
+
+            <!-- -------- Non Dropdown List Item ------- -->
+            <li>
+              <div class="title">
+                  <a href="kedinasan" class="link">
+                    <i class='bx bx-sitemap' ></i>
+                      <span class="name">Kedinasan</span>
+                  </a>
+                  <!-- <i class='bx bxs-chevron-down'></i> -->
+              </div>
+              <div class="submenu">
+                  <a href="kedinasan" class="link submenu-title">Kedinasan</a>
+                  <!-- submenu links here  -->
+              </div>
+            </li>
+
+            <!-- -------- Non Dropdown List Item ------- -->
+            <li>
+              <div class="title">
+                  <a href="#" class="link">
+                      <i class='bx bx-cog'></i>
+                      <span class="name">Settings</span>
+                  </a>
+                  <!-- <i class='bx bxs-chevron-down'></i> -->
+              </div>
+              <div class="submenu">
+                  <a href="#" class="link submenu-title">Settings</a>
+                  <!-- submenu links here  -->
+              </div>
+            </li>
+
+            <!-- -------- Dropdown List Item ------- -->
+            <li class="dropdown">
+              <div class="title">
+                  <a href="#" class="link">
+                      <i class='bx bx-collection'></i>
+                      <span class="name">Category</span>
+                  </a>
+                  <i class='bx bxs-chevron-down'></i>
+              </div>
+              <div class="submenu">
+                  <a href="#" class="link submenu-title">Category</a>
+                  <a href="#" class="link">HTML & CSS</a>
+                  <a href="#" class="link">JavaScript</a>
+                  <a href="#" class="link">PHP & MySQL</a>
+              </div>
             </li>
 
             <!-- -------- Dropdown List Item ------- -->
@@ -76,36 +182,6 @@
                 </div>
             </li>
 
-            <!-- -------- Non Dropdown List Item ------- -->
-            <li>
-                <div class="title">
-                    <a href="#" class="link">
-                        <i class='bx bx-line-chart'></i>
-                        <span class="name">Analytics</span>
-                    </a>
-                    <!-- <i class='bx bxs-chevron-down'></i> -->
-                </div>
-                <div class="submenu">
-                    <a href="#" class="link submenu-title">Analytics</a>
-                    <!-- submenu links here  -->
-                </div>
-            </li>
-
-            <!-- -------- Non Dropdown List Item ------- -->
-            <li>
-                <div class="title">
-                    <a href="#" class="link">
-                        <i class='bx bx-pie-chart-alt-2'></i>
-                        <span class="name">Chart</span>
-                    </a>
-                    <!-- <i class='bx bxs-chevron-down'></i> -->
-                </div>
-                <div class="submenu">
-                    <a href="#" class="link submenu-title">Chart</a>
-                    <!-- submenu links here  -->
-                </div>
-            </li>
-
             <!-- -------- Dropdown List Item ------- -->
             <li class="dropdown">
                 <div class="title">
@@ -120,51 +196,6 @@
                     <a href="#" class="link">UI Face</a>
                     <a href="#" class="link">Pigments</a>
                     <a href="#" class="link">Box Icons</a>
-                </div>
-            </li>
-
-            <!-- -------- Non Dropdown List Item ------- -->
-            <li>
-                <div class="title">
-                    <a href="#" class="link">
-                        <i class='bx bx-compass'></i>
-                        <span class="name">Explore</span>
-                    </a>
-                    <!-- <i class='bx bxs-chevron-down'></i> -->
-                </div>
-                <div class="submenu">
-                    <a href="#" class="link submenu-title">Explore</a>
-                    <!-- submenu links here  -->
-                </div>
-            </li>
-
-            <!-- -------- Non Dropdown List Item ------- -->
-            <li>
-                <div class="title">
-                    <a href="#" class="link">
-                        <i class='bx bx-history'></i>
-                        <span class="name">History</span>
-                    </a>
-                    <!-- <i class='bx bxs-chevron-down'></i> -->
-                </div>
-                <div class="submenu">
-                    <a href="#" class="link submenu-title">History</a>
-                    <!-- submenu links here  -->
-                </div>
-            </li>
-
-            <!-- -------- Non Dropdown List Item ------- -->
-            <li>
-                <div class="title">
-                    <a href="#" class="link">
-                        <i class='bx bx-cog'></i>
-                        <span class="name">Settings</span>
-                    </a>
-                    <!-- <i class='bx bxs-chevron-down'></i> -->
-                </div>
-                <div class="submenu">
-                    <a href="#" class="link submenu-title">Settings</a>
-                    <!-- submenu links here  -->
                 </div>
             </li>
         </ul>
