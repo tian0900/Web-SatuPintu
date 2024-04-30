@@ -28,6 +28,7 @@ use App\Models\Kabupaten;
 
 
 Route::get('/jenis', [PasarController::class, 'index']);
+Route::get('/Error403', [IndexController::class, 'danger']);
 Route::post('/jenis/store', [PasarController::class, 'store'])->name('jenis.store');
 Route::get('/jenis/edit', [PasarController::class, 'edit'])->name('jenis.edit');
 // Route::put('/jenis/{id}', [PasarController::class, 'update'])->name('jenis.update');
@@ -52,7 +53,7 @@ Route::middleware(['check.role.byname:Admin'])->group(function () {
 
     
     Route::post('/jenis/store', [PasarController::class, 'store'])->name('jenis.store');
-    Route::get('/jenis/edit', [PasarController::class, 'edit'])->name('jenis.edit');
+    Route::get('/jenis/edit', [PasarController::class, 'edit'])->   name('jenis.edit');
     Route::put('/jenis/{post}', [PasarController::class, 'update'])->name('jenis.update');
 
     //Retribusi
@@ -96,7 +97,6 @@ Route::middleware(['check.role.byname:Admin'])->group(function () {
     Route::post('/kedinasan', [kedinasanController::class, 'store'])->name('kedinasan.store');
  
 });
-
 Route::middleware(['check.role.byname:Bendahara'])->group(function () {
     //bendahara
     Route::get('/tagihan', [BendaharaController::class, 'indextagihan']);

@@ -26,13 +26,13 @@ class AuthController extends Controller
             $user = auth()->user();
             $accessToken = $user->createToken('authToken')->plainTextToken;
 
-            if ($user->role_id === 3) {
+            if ($user->name === 'Admin') {
                 return redirect('/item');
-            } elseif ($user->role_id === 5) {
-                return redirect('/kontrak');
+            } elseif ($user->name === 'Bendahara') {
+                return redirect('/tagihan');
             }else {
                 // Jika peran tidak diketahui, ganti return redirect sesuai kebutuhan
-                return redirect('/kontrak')->withErrors(['pesan' => 'I nput yang Anda masukkan salah']);;
+                return redirect('/kontrak')->withErrors(['pesan' => 'Input yang Anda masukkan salah']);;
             }
         } catch (\Exception $e) {
             return $e->getMessage();
@@ -43,6 +43,6 @@ class AuthController extends Controller
     {
         auth()->user()->tokens()->delete();
 
-        return redirect('/login');
+        return redirect('/');
     }
 }
