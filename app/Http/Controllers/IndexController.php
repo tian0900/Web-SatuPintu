@@ -13,6 +13,10 @@ class IndexController extends Controller
     {
         return view('layout.index');
     }
+    public function danger()
+    {
+        return view('danger');
+    }
 
     /**
      * Show the form for creating a new resource.

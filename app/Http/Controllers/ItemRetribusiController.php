@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+
 use App\Models\ItemRetribusi;
 use App\Models\Retribusi;
 
@@ -32,7 +33,7 @@ class ItemRetribusiController extends Controller
     public function store(Request $request)
     {
         $request->validate([
-            'retribusi_id'  => 'required',
+            'retribusi_id' => 'required',
             'kategori_nama' => 'required',
             'jenis_tagihan' => 'required',
             'harga'         => 'required',
@@ -76,6 +77,8 @@ class ItemRetribusiController extends Controller
           return redirect("/item")
             ->with('success', 'Item updated successfully.');
     }
+    
+
 
     /**
      * Remove the specified resource from storage.
@@ -85,6 +88,6 @@ class ItemRetribusiController extends Controller
         $item = ItemRetribusi::find($id);
         $item->delete();
         return redirect()->route('item.index')
-        ->with('success', 'Item deleted successfully');
+            ->with('success', 'Item deleted successfully');
     }
 }

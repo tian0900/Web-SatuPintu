@@ -10,8 +10,6 @@ class ItemRetribusi extends Model
     use HasFactory;
 
     protected $table = 'item_retribusi';
-    protected $connection = 'mysql';
-
     protected $fillable = [
         'retribusi_id',
         'kategori_nama',

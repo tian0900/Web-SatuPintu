@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Post;
+use App\Models\Wilayah;
 use Illuminate\Support\Facades\Auth;
 
 class AtributController extends Controller
@@ -13,12 +14,13 @@ class AtributController extends Controller
      */
     public function index()
     {
+        $wilayah = Wilayah::all();
         $atribut = Post::where(function ($query) {
             $query->where('data.kelompok_pasar', 'exists', true)
                 ->orWhere('data.Kelompok_pasar', 'exists', true);
         })->get();
-
-        return view('data.atribut', ['atribut' => $atribut]);
+    
+        return view('data.atribut', ['atribut' => $atribut, 'wilayah' => $wilayah]);
     }
 
     public function indexsampah()

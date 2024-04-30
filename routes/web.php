@@ -28,6 +28,7 @@ use App\Models\Kabupaten;
 
 
 Route::get('/jenis', [PasarController::class, 'index']);
+Route::get('/Error403', [IndexController::class, 'danger']);
 Route::post('/jenis/store', [PasarController::class, 'store'])->name('jenis.store');
 Route::get('/jenis/edit', [PasarController::class, 'edit'])->name('jenis.edit');
 // Route::put('/jenis/{id}', [PasarController::class, 'update'])->name('jenis.update');
@@ -53,7 +54,7 @@ Route::middleware(['check.role.byname:Admin'])->group(function () {
 
     
     Route::post('/jenis/store', [PasarController::class, 'store'])->name('jenis.store');
-    Route::get('/jenis/edit', [PasarController::class, 'edit'])->name('jenis.edit');
+    Route::get('/jenis/edit', [PasarController::class, 'edit'])->   name('jenis.edit');
     Route::put('/jenis/{post}', [PasarController::class, 'update'])->name('jenis.update');
 
     //Retribusi
@@ -73,11 +74,12 @@ Route::middleware(['check.role.byname:Admin'])->group(function () {
     Route::post('/wilayah', [WilayahController::class, 'store'])->name('wilayah.store');
 
     //Item-Retribusi
-    Route::get('/item', [ItemRetribusiController::class, 'index']);
+    Route::get('/item', [ItemRetribusiController::class, 'index'])->name('item.index');
     Route::post('/item/store', [ItemRetribusiController::class, 'store'])->name('item.store');
     Route::get('/item/show', [ItemRetribusiController::class, 'show'])->name('item.show');
     Route::get('/item/{post}/edit', [ItemRetribusiController::class, 'edit'])->name('item.edit');
-    Route::put('/item/edit', [ItemRetribusiController::class, 'update'])->name('item.update');
+    Route::put('/item/edit/{id}', [ItemRetribusiController::class, 'update'])->name('item.update');
+
     // Route::delete('/posts/{post}', ItemRetribusiController::class .'@destroy')->name('posts.destroy');
 
     //Kabupaten
@@ -96,7 +98,6 @@ Route::middleware(['check.role.byname:Admin'])->group(function () {
     Route::post('/kedinasan', [kedinasanController::class, 'store'])->name('kedinasan.store');
  
 });
-
 Route::middleware(['check.role.byname:Bendahara'])->group(function () {
     //bendahara
     Route::get('/tagihan', [BendaharaController::class, 'indextagihan']);

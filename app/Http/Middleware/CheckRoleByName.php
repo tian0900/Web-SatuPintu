@@ -4,6 +4,7 @@ namespace App\Http\Middleware;
 
 use Closure;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\View;
 use Symfony\Component\HttpFoundation\Response;
 
 class CheckRoleByName
@@ -17,8 +18,10 @@ class CheckRoleByName
     {
         $user = $request->user();
 
+        logger('Data Pengguna:', ['user' => $user]); // Log data pengguna
+
         // Memeriksa apakah pengguna memiliki nama role yang diizinkan
-        if ($user && $user->role && in_array($user->role->name, $roles)) {
+        if ($user && $user->name && in_array($user->name, $roles)) {
             return $next($request);
         }
 
