@@ -105,6 +105,21 @@
 
             <!-- -------- Non Dropdown List Item ------- -->
             <li>
+              <div class="title">
+                  <a href="/atribut" class="link">
+                    <i class='bx bx-expand-vertical'></i>
+                      <span class="name">Atribut</span>
+                  </a>
+                  <!-- <i class='bx bxs-chevron-down'></i> -->
+              </div>
+              <div class="submenu">
+                  <a href="/atribut" class="link submenu-title">Atribut</a>
+                  <!-- submenu links here  -->
+              </div>
+          </li>
+
+            <!-- -------- Non Dropdown List Item ------- -->
+            <li>
                 <div class="title">
                     <a href="/kabupaten" class="link">
                       <i class='bx bx-map-pin' ></i>
@@ -145,68 +160,6 @@
               <div class="submenu">
                   <a href="#" class="link submenu-title">Settings</a>
                   <!-- submenu links here  -->
-              </div>
-            </li>
-
-            <!-- -------- Non Dropdown List Item ------- -->
-            <li>
-              <div class="title">
-                  <a href="/kontrak" class="link">
-                    <i class='bx bx-money'></i>
-                      <span class="name">Tagihan</span>
-                  </a>
-                  <!-- <i class='bx bxs-chevron-down'></i> -->
-              </div>
-              <div class="submenu">
-                  <a href="/kontrak" class="link submenu-title">Tagihan</a>
-                  <!-- submenu links here  -->
-              </div>
-          </li>
-
-            <!-- -------- Dropdown List Item ------- -->
-            <li>
-              <div class="title">
-                  <a href="/setoran" class="link">
-                    <i class='bx bx-money-withdraw'></i>
-                      <span class="name">Setoran</span>
-                  </a>
-              </div>
-              <div class="submenu">
-                  <a href="/setoran" class="link submenu-title">Setoran</a>
-              </div>
-          </li>
-
-            <!-- -------- Dropdown List Item ------- -->
-            <li class="dropdown">
-                <div class="title">
-                    <a href="#" class="link">
-                        <i class='bx bx-extension'></i>
-                        <span class="name">Plugins</span>
-                    </a>
-                    <i class='bx bxs-chevron-down'></i>
-                </div>
-                <div class="submenu">
-                    <a href="#" class="link submenu-title">Plugins</a>
-                    <a href="#" class="link">UI Face</a>
-                    <a href="#" class="link">Pigments</a>
-                    <a href="#" class="link">Box Icons</a>
-                </div>
-            </li>
-
-            <!-- -------- Dropdown List Item ------- -->
-            <li class="dropdown">
-              <div class="title">
-                  <a href="#" class="link">
-                      <i class='bx bx-collection'></i>
-                      <span class="name">Category</span>
-                  </a>
-                  <i class='bx bxs-chevron-down'></i>
-              </div>
-              <div class="submenu">
-                  <a href="#" class="link submenu-title">Category</a>
-                  <a href="#" class="link">HTML & CSS</a>
-                  <a href="#" class="link">JavaScript</a>
-                  <a href="#" class="link">PHP & MySQL</a>
               </div>
             </li>
         </ul>
