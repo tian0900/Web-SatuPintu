@@ -8,7 +8,7 @@
     <!-- ICONS -->
     <script src="https://unpkg.com/@phosphor-icons/web"></script>
     <!-- STYLESHEET -->
-    <link rel="stylesheet" href="{{ asset ('Sidebar/style.css')}}" />
+    <link rel="stylesheet" href="Sidebar/style.css" />
     <!-- Bootstrap CSS -->
     
     <!-- Box Icons  -->
@@ -23,8 +23,7 @@
     <div class="sidebar close">
         <!-- ========== Logo ============  -->
         <a href="#" class="logo-box">
-            {{-- <i class='bx bxl-xing'></i> --}}
-            <img class="img-logo" src="Logo/logo.png" alt="">
+            <img class="img-logo" src="assets/img/logo.png" alt="">
             <div class="logo-name">SatuPintu</div>
         </a>
 
@@ -105,21 +104,6 @@
 
             <!-- -------- Non Dropdown List Item ------- -->
             <li>
-              <div class="title">
-                  <a href="/atribut" class="link">
-                    <i class='bx bx-expand-vertical'></i>
-                      <span class="name">Atribut</span>
-                  </a>
-                  <!-- <i class='bx bxs-chevron-down'></i> -->
-              </div>
-              <div class="submenu">
-                  <a href="/atribut" class="link submenu-title">Atribut</a>
-                  <!-- submenu links here  -->
-              </div>
-          </li>
-
-            <!-- -------- Non Dropdown List Item ------- -->
-            <li>
                 <div class="title">
                     <a href="/kabupaten" class="link">
                       <i class='bx bx-map-pin' ></i>
@@ -162,6 +146,68 @@
                   <!-- submenu links here  -->
               </div>
             </li>
+
+            <!-- -------- Non Dropdown List Item ------- -->
+            <li>
+              <div class="title">
+                  <a href="/kontrak" class="link">
+                    <i class='bx bx-money'></i>
+                      <span class="name">Tagihan</span>
+                  </a>
+                  <!-- <i class='bx bxs-chevron-down'></i> -->
+              </div>
+              <div class="submenu">
+                  <a href="/kontrak" class="link submenu-title">Tagihan</a>
+                  <!-- submenu links here  -->
+              </div>
+          </li>
+
+            <!-- -------- Dropdown List Item ------- -->
+            <li>
+              <div class="title">
+                  <a href="/setoran" class="link">
+                    <i class='bx bx-money-withdraw'></i>
+                      <span class="name">Setoran</span>
+                  </a>
+              </div>
+              <div class="submenu">
+                  <a href="/setoran" class="link submenu-title">Setoran</a>
+              </div>
+          </li>
+
+            <!-- -------- Dropdown List Item ------- -->
+            <li class="dropdown">
+                <div class="title">
+                    <a href="#" class="link">
+                        <i class='bx bx-extension'></i>
+                        <span class="name">Plugins</span>
+                    </a>
+                    <i class='bx bxs-chevron-down'></i>
+                </div>
+                <div class="submenu">
+                    <a href="#" class="link submenu-title">Plugins</a>
+                    <a href="#" class="link">UI Face</a>
+                    <a href="#" class="link">Pigments</a>
+                    <a href="#" class="link">Box Icons</a>
+                </div>
+            </li>
+
+            <!-- -------- Dropdown List Item ------- -->
+            <li class="dropdown">
+              <div class="title">
+                  <a href="#" class="link">
+                      <i class='bx bx-collection'></i>
+                      <span class="name">Category</span>
+                  </a>
+                  <i class='bx bxs-chevron-down'></i>
+              </div>
+              <div class="submenu">
+                  <a href="#" class="link submenu-title">Category</a>
+                  <a href="#" class="link">HTML & CSS</a>
+                  <a href="#" class="link">JavaScript</a>
+                  <a href="#" class="link">PHP & MySQL</a>
+              </div>
+            </li>
         </ul>
     </div>
 
@@ -170,7 +216,7 @@
         <div class="toggle-sidebar">
             <i class="toggle-menux bx bx-menu"></i>
             <nav class="border-b border-gray-200 px-4 py-2.5 dark:bg-gray-800 dark:border-gray-700 left-0 right-0 top-0 z-50">
-                <div class="flex flex-wrap justify-between items-center items-center mx-auto max-w-screen-xl p-4">
+                <div class="flex flex-wrap justify-between items-center">
                   <div class="flex ">
                     <!-- Notifications -->
                     <button
@@ -511,7 +557,107 @@
                 </div>
             </nav>
         </div>
-        @yield('content')
+        <div class="p-4">
+            <div class="p-4 border-2 border-gray-200 border-dashed rounded-lg dark:border-gray-700">
+               <div class="grid grid-cols-3 gap-4 mb-4">
+                  <div class="flex items-center justify-center h-24 rounded bg-gray-50 dark:bg-gray-800">
+                     <p class="text-2xl text-gray-400 dark:text-gray-500">
+                        <svg class="w-3.5 h-3.5" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 18 18">
+                           <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 1v16M1 9h16"/>
+                        </svg>
+                     </p>
+                  </div>
+                  <div class="flex items-center justify-center h-24 rounded bg-gray-50 dark:bg-gray-800">
+                     <p class="text-2xl text-gray-400 dark:text-gray-500">
+                        <svg class="w-3.5 h-3.5" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 18 18">
+                           <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 1v16M1 9h16"/>
+                        </svg>
+                     </p>
+                  </div>
+                  <div class="flex items-center justify-center h-24 rounded bg-gray-50 dark:bg-gray-800">
+                     <p class="text-2xl text-gray-400 dark:text-gray-500">
+                        <svg class="w-3.5 h-3.5" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 18 18">
+                           <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 1v16M1 9h16"/>
+                        </svg>
+                     </p>
+                  </div>
+               </div>
+               <div class="flex items-center justify-center h-48 mb-4 rounded bg-gray-50 dark:bg-gray-800">
+                  <p class="text-2xl text-gray-400 dark:text-gray-500">
+                     <svg class="w-3.5 h-3.5" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 18 18">
+                        <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 1v16M1 9h16"/>
+                     </svg>
+                  </p>
+               </div>
+               <div class="grid grid-cols-2 gap-4 mb-4">
+                  <div class="flex items-center justify-center rounded bg-gray-50 h-28 dark:bg-gray-800">
+                     <p class="text-2xl text-gray-400 dark:text-gray-500">
+                        <svg class="w-3.5 h-3.5" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 18 18">
+                           <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 1v16M1 9h16"/>
+                        </svg>
+                     </p>
+                  </div>
+                  <div class="flex items-center justify-center rounded bg-gray-50 h-28 dark:bg-gray-800">
+                     <p class="text-2xl text-gray-400 dark:text-gray-500">
+                        <svg class="w-3.5 h-3.5" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 18 18">
+                           <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 1v16M1 9h16"/>
+                        </svg>
+                     </p>
+                  </div>
+                  <div class="flex items-center justify-center rounded bg-gray-50 h-28 dark:bg-gray-800">
+                     <p class="text-2xl text-gray-400 dark:text-gray-500">
+                        <svg class="w-3.5 h-3.5" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 18 18">
+                           <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 1v16M1 9h16"/>
+                        </svg>
+                     </p>
+                  </div>
+                  <div class="flex items-center justify-center rounded bg-gray-50 h-28 dark:bg-gray-800">
+                     <p class="text-2xl text-gray-400 dark:text-gray-500">
+                        <svg class="w-3.5 h-3.5" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 18 18">
+                           <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 1v16M1 9h16"/>
+                        </svg>
+                     </p>
+                  </div>
+               </div>
+               <div class="flex items-center justify-center h-48 mb-4 rounded bg-gray-50 dark:bg-gray-800">
+                  <p class="text-2xl text-gray-400 dark:text-gray-500">
+                     <svg class="w-3.5 h-3.5" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 18 18">
+                        <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 1v16M1 9h16"/>
+                     </svg>
+                  </p>
+               </div>
+               <div class="grid grid-cols-2 gap-4">
+                  <div class="flex items-center justify-center rounded bg-gray-50 h-28 dark:bg-gray-800">
+                     <p class="text-2xl text-gray-400 dark:text-gray-500">
+                        <svg class="w-3.5 h-3.5" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 18 18">
+                           <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 1v16M1 9h16"/>
+                        </svg>
+                     </p>
+                  </div>
+                  <div class="flex items-center justify-center rounded bg-gray-50 h-28 dark:bg-gray-800">
+                     <p class="text-2xl text-gray-400 dark:text-gray-500">
+                        <svg class="w-3.5 h-3.5" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 18 18">
+                           <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 1v16M1 9h16"/>
+                        </svg>
+                     </p>
+                  </div>
+                  <div class="flex items-center justify-center rounded bg-gray-50 h-28 dark:bg-gray-800">
+                     <p class="text-2xl text-gray-400 dark:text-gray-500">
+                        <svg class="w-3.5 h-3.5" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 18 18">
+                           <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 1v16M1 9h16"/>
+                        </svg>
+                     </p>
+                  </div>
+                  <div class="flex items-center justify-center rounded bg-gray-50 h-28 dark:bg-gray-800">
+                     <p class="text-2xl text-gray-400 dark:text-gray-500">
+                        <svg class="w-3.5 h-3.5" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 18 18">
+                           <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 1v16M1 9h16"/>
+                        </svg>
+                     </p>
+                  </div>
+               </div>
+            </div>
+         </div>
     </section>
 
     <!-- jQuery and JS -->
@@ -520,7 +666,7 @@
       integrity="sha512-8Z5++K1rB3U+USaLKG6oO8uWWBhdYsM3hmdirnOEWp8h2B1aOikj5zBzlXs8QOrvY9OxEnD2QDkbSKKpfqcIWw=="
       crossorigin="anonymous"
     ></script>
-    <script src="{{ asset ('Sidebar/main.js')}}"></script>
+    <script src="Sidebar/main.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/flowbite/2.3.0/flowbite.min.js"></script>
     <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>
