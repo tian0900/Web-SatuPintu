@@ -51,10 +51,7 @@ class ItemRetribusiController extends Controller
         $item = ItemRetribusi::find($id);
         return view('item.show', compact('item'));
     }
-
-    /**
-     * Show the form for editing the specified resource.
-     */
+    
     public function edit(string $id)
     {
         $item = ItemRetribusi::find($id);
