@@ -144,6 +144,20 @@ class KontrakController extends Controller
     }
 
 
+    public function updateStatus(Request $request, $id)
+    {
+        $statuskonrak = Kontrak::find($id);
+        if (!$statuskonrak) {
+            return response()->json(['message' => 'Data Kontrak tidak ditemukan'], 404);
+        }
+
+        $statuskonrak->status = 'DITERIMA';
+        $statuskonrak->save();
+
+        return redirect()->back()->with('message', 'IT WORKS!');
+    }
+
+
     public function testt()
     {
         return view('data.detailkontrak');

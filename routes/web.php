@@ -43,6 +43,8 @@ Route::middleware(['check.role.byname:Admin'])->group(function () {
     Route::post('/kontrak/store', [KontrakController::class, 'store'])->name('kontrak.store');
     Route::get('/generate-pdf/{id}', [KontrakController::class, 'generatePDFkontrak'])->name('generate-pdfkontrak');
     Route::get('/kontrak', [KontrakController::class, 'index'])->name('kontrak');
+    Route::put('/kontrak/{id}/update-status', [KontrakController::class, 'updateStatus'])->name('kontrak.updateStatus');
+
 
     //Atribut
     Route::get('/atribut', [AtributController::class, 'index'])->name('atribut');
@@ -101,9 +103,12 @@ Route::middleware(['check.role.byname:Admin'])->group(function () {
 Route::middleware(['check.role.byname:Bendahara'])->group(function () {
     //bendahara
     Route::get('/tagihan', [BendaharaController::class, 'indextagihan']);
+    Route::get('/tagihansampah', [BendaharaController::class, 'tagihansampah']);
+
+
     Route::get('/setoran', [BendaharaController::class, 'indexsetor']);
     Route::put('/setor/{id}/update-status', [BendaharaController::class, 'updateStatus'])->name('setor.updateStatus');
-
+  
 
 
 });
