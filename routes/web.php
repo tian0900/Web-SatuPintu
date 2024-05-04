@@ -105,12 +105,8 @@ Route::middleware(['check.role.byname:Bendahara'])->group(function () {
     Route::get('/tagihan', [BendaharaController::class, 'indextagihan']);
     Route::get('/tagihansampah', [BendaharaController::class, 'tagihansampah']);
 
-
     Route::get('/setoran', [BendaharaController::class, 'indexsetor']);
     Route::put('/setor/{id}/update-status', [BendaharaController::class, 'updateStatus'])->name('setor.updateStatus');
-  
-
-
 });
 
 
