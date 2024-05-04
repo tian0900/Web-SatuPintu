@@ -30,11 +30,22 @@ class KedinasanController extends Controller
     public function store(Request $request)
     {
         $request->validate([
-            'nama'  => 'required',
-          ]);
-          Kedinasan::create($request->all());
-          return redirect('/kedinasan')->with('success', 'Data berhasil ditambahkan.');
+            'nama' => 'required',
+            'kepala_dinas' => 'required',
+        ]);
+
+        $data = [
+            'kabupaten_id' => 1, // Sesuaikan dengan ID kabupaten yang sesuai
+            'kepala_dinas' => $request->input('kepala_dinas'),
+            'nama' => $request->input('nama'),
+        ];
+
+
+        Kedinasan::create($data);
+        return redirect('/kedinasan')->with('success', 'Data berhasil ditambahkan.');
     }
+
+
 
     /**
      * Display the specified resource.
@@ -59,13 +70,22 @@ class KedinasanController extends Controller
      */
     public function update(Request $request, string $id)
     {
-        $request->validate([
-            'nama' => 'required|max:255',
-          ]);
-          $kedinasan = Kedinasan::find($id);
-          $kedinasan->update($request->all());
-          return redirect('/kedinasan')->with('success', 'Data berhasil ditambahkan.');
+        $validatedData = $request->validate([
+            'nama' => 'required',
+            'kepala_dinas' => 'required',
+        ]);
+
+        $kedinasan = Kedinasan::find($id);
+
+        if (!$kedinasan) {
+            return redirect('/kedinasan')->with('error', 'Data tidak ditemukan.');
+        }
+
+        $kedinasan->update($validatedData);
+
+        return redirect('/kedinasan')->with('success', 'Data berhasil diperbarui.');
     }
+
     /**
      * Remove the specified resource from storage.
      */
@@ -74,6 +94,6 @@ class KedinasanController extends Controller
         $kedinasan = Kedinasan::find($id);
         $kedinasan->delete();
         return redirect()->route('data.kedinasan')
-        ->with('success', 'kedinasan deleted successfully');
+            ->with('success', 'kedinasan deleted successfully');
     }
 }

@@ -15,5 +15,6 @@ class Kedinasan extends Model
     protected $fillable = [
         'nama',
         'kepala_dinas',
+        'kabupaten_id',
     ];
 }

@@ -85,10 +85,10 @@ Route::middleware(['check.role.byname:Admin'])->group(function () {
     // Route::delete('/posts/{post}', ItemRetribusiController::class .'@destroy')->name('posts.destroy');
 
     //Kabupaten
-    Route::get('/kabupaten', [KabupatenController::class, 'index']);
+    Route::get('/kabupaten',        [KabupatenController::class, 'index']);
     Route::post('/kabupaten/store', [KabupatenController::class, 'store'])->name('kabupaten.store');
-    Route::get('/kabupaten/show', [KabupatenController::class, 'show'])->name('kabupaten.show');
-    Route::get('/kabupaten/edit', [KabupatenController::class, 'edit'])->name('kabupaten.edit');
+    Route::get('/kabupaten/show',   [KabupatenController::class, 'show'])->name('kabupaten.show');
+    Route::get('/kabupaten/edit',   [KabupatenController::class, 'edit'])->name('kabupaten.edit');
     Route::put('/kabupaten/{post}', [KabupatenController::class, 'update'])->name('kabupaten.update');
 
     //Kedinasan
