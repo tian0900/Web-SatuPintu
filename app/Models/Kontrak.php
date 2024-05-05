@@ -18,6 +18,7 @@ class Kontrak extends Model
         'tanggal_mulai',
         'tanggal_selesai',
         'status',
+        'active',
     ];
 
     public function wajibRetribusi()

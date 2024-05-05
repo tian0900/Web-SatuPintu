@@ -2,7 +2,7 @@
 
 @section('content')
     <div class="container p-5">
-        <h1 class="mt-3 text-5xl">Daftar Jenis</h1>
+        <h1 class="mt-3 text-5xl">Atribut Pasar</h1>
 
         <!-- Modal toggle -->
         <button data-modal-target="crud-modal" data-modal-toggle="crud-modal"
@@ -69,6 +69,31 @@
                                     placeholder="Unit" required="">
                             </div>
                         </div>
+                        <div class="grid gap-4 mb-4 grid-cols-2">
+                            <div class="col-span-2">
+                                <label for="F-Name"
+                                    class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">No Unit</label>
+                                <input type="text" id="no_unit" name="no_unit"
+                                    class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
+                                    placeholder="No Unit" required="">
+                            </div>
+                        </div>
+                        <div class="grid gap-4 mb-4 grid-cols-2">
+                            <div class="col-span-2">
+                                <label for="jenis_tagihan"
+                                    class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Jenis
+                                    Tagihan</label>
+                                <select id="jenis_tagihan" name="jenis_tagihan"
+                                    class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
+                                    required="">
+                                    <option value="" disabled selected>Pilih Jenis Tagihan</option>
+                                    <option value="HARIAN">HARIAN</option>
+                                    <option value="MINGGUAN">MINGGUAN</option>
+                                    <option value="BULANAN">BULANAN</option>
+                                </select>
+                            </div>
+                        </div>
+
                         <div class="grid gap-4 mb-4 grid-cols-2">
                             <div class="col-span-2">
                                 <label for="harga"
@@ -175,6 +200,9 @@
                         <thead class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
                             <tr>
                                 <th scope="col" class="px-6 py-3">
+                                    No. 
+                                </th>
+                                <th scope="col" class="px-6 py-3">
                                     Kelompok Pasar
                                 </th>
                                 <th scope="col" class="px-6 py-3">
@@ -182,6 +210,9 @@
                                 </th>
                                 <th scope="col" class="px-6 py-3">
                                     Unit
+                                </th>
+                                <th scope="col" class="px-6 py-3">
+                                    No Unit
                                 </th>
                                 <th scope="col" class="px-6 py-3">
                                     Harga
@@ -199,6 +230,9 @@
                             @foreach ($atribut as $item)
                                 <tr
                                     class="odd:bg-white odd:dark:bg-gray-900 even:bg-gray-50 even:dark:bg-gray-800 border-b dark:border-gray-700">
+                                    <th scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
+                                        {{ $number++ }}
+                                        </th>
                                     <th scope="row"
                                         class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
                                         {{ $item['data'][0]['Kelompok_pasar'] }}
@@ -211,6 +245,9 @@
                                         {{ $item['data'][0]['unit'] }}
                                     </td>
                                     <td class="px-6 py-4">
+                                        {{ $item['data'][0]['no_unit'] }}
+                                    </td>
+                                    <td class="px-6 py-4">
                                         {{ $item['data'][0]['harga'] }}
                                     </td>
                                     <td class="px-6 py-4">
@@ -221,8 +258,41 @@
                                         <a data-modal-target="modal<?= $item->id ?>"
                                             data-modal-toggle="modal<?= $item->id ?>"
                                             class="font-medium text-blue-600 dark:text-blue-500 hover:underline text-center">Edit</a>
+                                            <a data-modal-target="modalhapus<?= $item->id ?>" data-modal-toggle="modalhapus<?= $item->id ?>" class="font-medium text-red-600 dark:text-red-500 hover:underline text-center">Hapus</a>
                                     </td>
                                 </tr>
+
+
+                                  <div id="modalhapus<?= $item->id ?>" tabindex="-1" aria-hidden="true" class="hidden overflow-y-auto overflow-x-hidden fixed top-0 right-0 left-0 z-50 justify-center items-center w-full md:inset-0 h-[calc(100%-1rem)] max-h-full">
+                        <div class="relative p-4 w-full max-w-md max-h-full">
+                            <!-- Modal content -->
+                            <div class="relative bg-white rounded-lg shadow dark:bg-gray-700">
+                                <!-- Modal header -->
+                                <div class="flex items-center justify-between p-4 md:p-5 border-b rounded-t dark:border-gray-600">
+                                    <h3 class="text-xl font-semibold text-gray-900 dark:text-white">
+                                        Hapus Data
+                                    </h3>
+                                    <button type="button" class="end-2.5 text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm w-8 h-8 ms-auto inline-flex justify-center items-center dark:hover:bg-gray-600 dark:hover:text-white" data-modal-hide="modal<?= $item->id ?>">
+                                        <svg class="w-3 h-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 14 14">
+                                            <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m1 1 6 6m0 0 6 6M7 7l6-6M7 7l-6 6"/>
+                                        </svg>
+                                        <span class="sr-only">Close modal</span>
+                                    </button>
+                                </div>
+                                <!-- Modal body -->
+                                <div class="p-4">
+                                    <form action="{{ route('sampah.destroy', $item->id) }}" method="POST">
+                                        @csrf
+                                        @method('Delete')
+                                        <button type="submit" class="text-white inline-flex items-center bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
+                                            <svg class="me-1 -ms-1 w-5 h-5" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M10 5a1 1 0 011 1v3h3a1 1 0 110 2h-3v3a1 1 0 11-2 0v-3H6a1 1 0 110-2h3V6a1 1 0 011-1z" clip-rule="evenodd"></path></svg>
+                                            Hapus
+                                        </button>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                    </div> 
 
                                 <!-- Main modal -->
                                 <div id="modal<?= $item->id ?>" tabindex="-1" aria-hidden="true"
@@ -234,7 +304,7 @@
                                             <div
                                                 class="flex items-center justify-between p-4 md:p-5 border-b rounded-t dark:border-gray-600">
                                                 <h3 class="text-xl font-semibold text-gray-900 dark:text-white">
-                                                    Sign in to our platform
+                                                    Edit Data
                                                 </h3>
                                                 <button type="button"
                                                     class="end-2.5 text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm w-8 h-8 ms-auto inline-flex justify-center items-center dark:hover:bg-gray-600 dark:hover:text-white"
@@ -287,6 +357,18 @@
                                                                 required="">
                                                         </div>
                                                     </div>
+                                                    <div class="grid gap-4 mb-4 grid-cols-2">
+                                                        <div class="col-span-2">
+                                                            <label for="no_unit"
+                                                                class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">No
+                                                                Unit</label>
+                                                            <input type="text" id="no_unit" name="edit_no_unit"
+                                                                value="{{ $item['data'][0]['no_unit'] }}"
+                                                                class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
+                                                                required="">
+                                                        </div>
+                                                    </div>
+                                                    
                                                     <div class="grid gap-4 mb-4 grid-cols-2">
                                                         <div class="col-span-2">
                                                             <label for="harga"

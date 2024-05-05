@@ -45,6 +45,9 @@ Route::middleware(['check.role.byname:Admin'])->group(function () {
     Route::get('/kontrak', [KontrakController::class, 'index'])->name('kontrak');
     Route::put('/kontrak/{id}/update-status', [KontrakController::class, 'updateStatus'])->name('kontrak.updateStatus');
 
+    Route::delete('/kontrak/{id}', [KontrakController::class, 'deletekontrak'])->name('kontrak.delete');
+
+
 
     //Atribut
     Route::get('/atribut', [AtributController::class, 'index'])->name('atribut');
@@ -53,6 +56,8 @@ Route::middleware(['check.role.byname:Admin'])->group(function () {
     Route::get('/atributsampah', [AtributController::class, 'indexsampah'])->name('atributsampah');
     Route::post('/atributsampah/store', [AtributController::class, 'storesampah'])->name('atributsampah.store');
     Route::match (['post', 'put'], '/atributsampah/update/{id}', [AtributController::class, 'updatesampah'])->name('atributsampah.update');
+    Route::delete('/atributsampah/{id}', [AtributController::class, 'destroysampah'])->name('sampah.destroy');
+
 
     
     Route::post('/jenis/store', [PasarController::class, 'store'])->name('jenis.store');

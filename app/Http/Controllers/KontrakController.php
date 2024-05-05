@@ -10,6 +10,7 @@ use App\Models\Wilayah;
 use App\Models\Tagihan;
 use Dompdf\Dompdf;
 use Dompdf\Options;
+use Carbon\Carbon;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\View;
 use Illuminate\Support\Facades\DB;
@@ -30,7 +31,7 @@ class KontrakController extends Controller
         $Kontrak = Kontrak::with(['wajibRetribusi', 'itemRetribusi', 'Wilayah'])->get();
         $wajibRetribusiOptions = WajibRetribusi::all();
         $itemRetribusiOptions = ItemRetribusi::all();
-        
+
         $subWilayahOptions = Wilayah::all();
         return view('data.kontrak', [
             'Kontrak' => $Kontrak,
@@ -50,45 +51,64 @@ class KontrakController extends Controller
             'tanggal_mulai' => 'required|date',
             'tanggal_selesai' => 'required|date',
         ]);
-    
+
         // Ambil data harga dan jenis_tagihan dari tabel item_retribusi
         $itemRetribusi = ItemRetribusi::findOrFail($validatedData['item_retribusi_id']);
         $totalHarga = $itemRetribusi->harga;
         $jenisTagihan = $itemRetribusi->jenis_tagihan;
-    
-        // Tentukan jatuh tempo berdasarkan jenis_tagihan
-        $jatuhTempo = now();
-        if ($jenisTagihan == 'MINGGUAN') {
-            $jatuhTempo = $jatuhTempo->addDays(7);
-        } elseif ($jenisTagihan == 'HARIAN') {
-            $jatuhTempo = $jatuhTempo->addDays(1);
-        } elseif ($jenisTagihan == 'BULANAN') {
-            $jatuhTempo = $jatuhTempo->addDays(30);
-        }
-    
+
+        // Hitung berapa banyak tagihan yang perlu dibuat
+        $mulai = Carbon::parse($validatedData['tanggal_mulai']);
+        $selesai = Carbon::parse($validatedData['tanggal_selesai']);
+        $durasiBulan = $mulai->diffInMonths($selesai);
+
         // Simpan data Kontrak ke dalam database
         $kontrak = Kontrak::create($validatedData);
-    
-        // Buat data Tagihan
-        $tagihanData = [
-            'kontrak_id' => $kontrak->id,
-            'nama' => 'Tagihan ' . $kontrak->id,
-            'total_harga' => $totalHarga,
-            'status' => 'NEW',
-            'invoice_id' => 'INV-111-222-' . sprintf('%03d', $kontrak->id),
-            'request_id' => 'REQ-111-222-' . sprintf('%03d', $kontrak->id),
-            'virtualAccountId' => mt_rand(100000, 999999),
-            'created_at' => now(),
-            'updated_at' => now(),
-            'jatuh_tempo' => $jatuhTempo,
-        ];
-    
-        // Simpan data Tagihan ke dalam database
-        Tagihan::create($tagihanData);
-    
-        return response()->json(['success' => true, 'message' => 'Data Kontrak berhasil ditambahkan']);
+
+        // Buat tagihan sesuai dengan durasi bulan
+        for ($i = 0; $i < $durasiBulan; $i++) {
+            $jatuhTempo = $mulai->copy()->addMonths($i + 1);
+            $tagihanData = [
+                'kontrak_id' => $kontrak->id,
+                'nama' => 'Tagihan ' . $kontrak->id . ' - ' . ($i + 1),
+                'total_harga' => $totalHarga,
+                'status' => 'NEW',
+                'invoice_id' => 'INV-111-222-' . sprintf('%03d', $kontrak->id) . '-' . ($i + 1),
+                'request_id' => 'REQ-111-222-' . sprintf('%03d', $kontrak->id) . '-' . ($i + 1),
+                'created_at' => now(),
+                'updated_at' => now(),
+                'active' => 1,
+                'jatuh_tempo' => $jatuhTempo->endOfMonth(), // Akhiri bulan untuk jatuh tempo
+            ];
+
+            // Simpan data Tagihan ke dalam database
+            Tagihan::create($tagihanData);
+        }
+
+        return redirect()->back()->with('success', 'Data berhasil ditambahkan.');
     }
-    
+
+    public function deleteKontrak($id)
+    {
+        // Cari kontrak berdasarkan ID
+        $kontrak = Kontrak::findOrFail($id);
+
+        // Hapus tagihan yang terkait dengan kontrak
+        $tagihanKontrak = Tagihan::where('kontrak_id', $kontrak->id)->get();
+        foreach ($tagihanKontrak as $tagihan) {
+            $tagihan->delete();
+        }
+
+        // Hapus kontrak
+        $kontrak->delete();
+
+        return redirect()->back()->with('success', 'Kontrak dan tagihan terkait berhasil dihapus.');
+    }
+
+
+
+
+
     /**
      * Show the form for creating a new resource.
      */

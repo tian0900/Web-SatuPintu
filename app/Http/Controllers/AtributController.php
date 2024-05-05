@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\ItemRetribusi;
 use Illuminate\Http\Request;
 use App\Models\Post;
 use App\Models\Wilayah;
@@ -19,7 +20,7 @@ class AtributController extends Controller
             $query->where('data.kelompok_pasar', 'exists', true)
                 ->orWhere('data.Kelompok_pasar', 'exists', true);
         })->get();
-    
+
         return view('data.atribut', ['atribut' => $atribut, 'wilayah' => $wilayah]);
     }
 
@@ -53,11 +54,13 @@ class AtributController extends Controller
             'kelompok_pasar' => 'required',
             'jenis_unit' => 'required',
             'unit' => 'required',
+            'no_unit' => 'required',
+            'jenis_tagihan' => 'required',
             'harga' => 'required|numeric',
         ]);
 
         // Buat kategori_nama dari data yang diterima
-        $kategori_nama = $validatedData['jenis_unit'] . ' ' . $validatedData['unit'] . ' ' . $validatedData['kelompok_pasar'];
+        $kategori_nama = $validatedData['jenis_unit'] . ' ' . $validatedData['unit'] . ' ' . $validatedData['kelompok_pasar'] . ' ' . $validatedData['no_unit'];
 
         // Buat array data yang akan disimpan ke MongoDB
         $dataToSave = [
@@ -68,18 +71,31 @@ class AtributController extends Controller
                     'Kelompok_pasar' => $validatedData['kelompok_pasar'],
                     'jenis_unit' => $validatedData['jenis_unit'],
                     'unit' => $validatedData['unit'],
+                    'no_unit' => $validatedData['no_unit'],
                     'harga' => $validatedData['harga'],
                     'kategori_nama' => $kategori_nama,
                 ]
             ]
         ];
 
+        // Data untuk disimpan ke dalam MongoDB menggunakan model Post
+        $postToSave = [
+            'retribusi_id' => 2, // Sesuaikan dengan ID kabupaten yang sesuai
+            'kategori_nama' => $kategori_nama,
+            'jenis_tagihan' => $validatedData['jenis_tagihan'],
+            'harga' => $validatedData['harga'],
+        ];
+
         // Simpan data ke dalam MongoDB menggunakan model Post
         Post::create($dataToSave);
+
+        // Simpan data ke dalam ItemRetribusi
+        ItemRetribusi::create($postToSave);
 
         // Redirect ke halaman index
         return redirect()->route('atribut')->with('success', 'Data berhasil ditambahkan.');
     }
+
 
     public function storesampah(Request $request)
     {
@@ -87,14 +103,15 @@ class AtributController extends Controller
         $validatedData = $request->validate([
             'Kategori_sampah' => 'required',
             'harga' => 'required|numeric',
+            'jenis_tagihan' => 'required',
         ]);
-    
+
         // Buat kategori_nama dari data yang diterima
         $kategori_nama = $validatedData['Kategori_sampah'];
-    
+
         // Konversi harga menjadi integer
         $hargaInt32 = (int) $validatedData['harga'];
-    
+
         // Buat array data yang akan disimpan ke MongoDB
         $dataToSave = [
             'kabupaten_id' => '1', // Sesuaikan dengan ID kabupaten yang sesuai
@@ -107,14 +124,27 @@ class AtributController extends Controller
                 ]
             ]
         ];
-    
+
+        $postToSave = [
+            'retribusi_id' => 1, // Sesuaikan dengan ID kabupaten yang sesuai
+            'kategori_nama' => $kategori_nama,
+            'jenis_tagihan' => $validatedData['jenis_tagihan'],
+            'harga' => $validatedData['harga'],
+        ];
+
+
+
+        // Simpan data ke dalam ItemRetribusi
+        ItemRetribusi::create($postToSave);
+
+
         // Simpan data ke dalam MongoDB menggunakan model Post
         Post::create($dataToSave);
-    
+
         // Redirect ke halaman index
         return redirect()->route('atributsampah')->with('success', 'Data berhasil ditambahkan.');
     }
-    
+
 
 
     /**
@@ -143,6 +173,7 @@ class AtributController extends Controller
             'edit_kelompok_pasar' => 'required',
             'edit_jenis_unit' => 'required',
             'edit_unit' => 'required',
+            'edit_no_unit' => 'required',
             'edit_harga' => 'required|numeric',
         ]);
 
@@ -154,20 +185,21 @@ class AtributController extends Controller
         }
 
         // Hitung nilai kategori_nama
-        $kategori_nama = $validatedData['edit_jenis_unit'] . ' ' . $validatedData['edit_unit'] . ' ' . $validatedData['edit_kelompok_pasar'];
+        $kategori_nama = $validatedData['edit_jenis_unit'] . ' ' . $validatedData['edit_unit'] . ' ' . $validatedData['edit_kelompok_pasar'] . ' ' . $validatedData['edit_no_unit'];
 
         // Update data dengan nilai baru
         $updatedData = [
             'Kelompok_pasar' => $validatedData['edit_kelompok_pasar'],
             'jenis_unit' => $validatedData['edit_jenis_unit'],
             'unit' => $validatedData['edit_unit'],
+            'no_unit' => $validatedData['edit_no_unit'],
             'harga' => $validatedData['edit_harga'],
             'kategori_nama' => $kategori_nama,
         ];
 
         // Simpan perubahan ke dalam database
         $atribut->data = [$updatedData];
-        
+
         $atribut->save();
 
         // Redirect dengan pesan sukses
@@ -212,8 +244,21 @@ class AtributController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(string $id)
+    public function destroysampah($id)
     {
-        //
+        // Temukan data berdasarkan ID
+        $post = Post::find($id);
+
+        if (!$post) {
+            return redirect()->back()->with('error', 'Data tidak ditemukan.');
+        }
+
+        // Hapus data dari MongoDB
+        $post->delete();
+
+        // Redirect dengan pesan sukses
+        return redirect()->back()->with('success', 'Data berhasil dihapus.');
     }
+
+    
 }

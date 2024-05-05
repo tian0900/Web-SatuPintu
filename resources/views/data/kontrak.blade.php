@@ -75,7 +75,8 @@
                         <div class="grid gap-4 mb-4 grid-cols-2">
                             <div class="col-span-2">
                                 <label for="tanggal_mulai"
-                                    class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Harga</label>
+                                    class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Tanggal
+                                    Mulai</label>
                                 <input type="date" id="tanggal_mulai" name="tanggal_mulai"
                                     class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
                                     placeholder="Tanggal Mulai" required="">
@@ -246,23 +247,37 @@
                                         {{ $data->itemRetribusi->jenis_tagihan }}
                                     </td>
                                     <td class="px-6 py-4">
-                                        {{ $data->tanggal_mulai }}
+                                        {{ \Carbon\Carbon::parse($data->tanggal_mulai)->format('j F Y') }}
                                     </td>
+
                                     <td class="px-6 py-4">
-                                        {{ $data->tanggal_selesai }}
+                                        {{ \Carbon\Carbon::parse($data->tanggal_selesai)->format('j F Y') }}
                                     </td>
+
                                     <td class="px-6 py-4">
                                         {{ $data->status }}
                                     </td>
                                     <td class="px-6 py-4">
                                         <a href="{{ route('surat.detail', ['id' => $data->id]) }}"
                                             class="font-medium text-blue-600 dark:text-blue-500 hover:underline text-center">Detail</a>
-                                    <td class="px-3 py-4">
+                                        <form action="{{ route('kontrak.delete', ['id' => $data->id]) }}"
+                                            method="POST">
+                                            @csrf
+                                            @method('DELETE')
+                                            <button type="submit" class="btn btn-danger">Hapus Kontrak</button>
+                                        </form>
+
                                         <!-- Modal toggle -->
 
-                                        <a data-modal-target="modalkonfirmasi<?= $data->id ?>"
-                                            data-modal-toggle="modalkonfirmasi<?= $data->id ?>"
-                                            class="font-medium text-blue-600 dark:text-blue-500 hover:underline text-center">Konfirmasi</a>
+                                        @if ($data->status == 'DITERIMA')
+                                            <span
+                                                class="font-medium text-blue-400 dark:text-blue-300 cursor-not-allowed">Konfirmasi</span>
+                                        @else
+                                            <a data-modal-target="modalkonfirmasi{{ $data->id }}"
+                                                data-modal-toggle="modalkonfirmasi{{ $data->id }}"
+                                                class="font-medium text-blue-600 dark:text-blue-500 hover:underline text-center">Konfirmasi</a>
+                                        @endif
+
 
                                     </td>
                                     </td>
