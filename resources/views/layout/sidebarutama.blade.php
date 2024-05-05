@@ -102,21 +102,22 @@
                     <!-- submenu links here  -->
                 </div>
             </li>
-
-            <!-- -------- Non Dropdown List Item ------- -->
-            <li>
+            
+            <!-- -------- Dropdown List Item ------- -->
+            <li class="dropdown">
               <div class="title">
-                  <a href="/atribut" class="link">
+                  <a href="#" class="link">
                     <i class='bx bx-expand-vertical'></i>
-                      <span class="name">Atribut</span>
+                        <span class="name">Atribut</span>
                   </a>
-                  <!-- <i class='bx bxs-chevron-down'></i> -->
+                  <i class='bx bxs-chevron-down'></i>
               </div>
               <div class="submenu">
-                  <a href="/atribut" class="link submenu-title">Atribut</a>
-                  <!-- submenu links here  -->
+                  <p href="#" class="link submenu-title">Atribut</p>
+                  <a href="/atribut" class="link">Pasar</a>
+                  <a href="/atributsampah" class="link">Sampah</a>
               </div>
-          </li>
+            </li>
 
             <!-- -------- Non Dropdown List Item ------- -->
             <li>
