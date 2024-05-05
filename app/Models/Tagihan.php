@@ -21,6 +21,7 @@ class Tagihan extends Model
         'created_at',
         'updated_at',
         'jatuh_tempo',
+        'active',
     ];
 
     protected $dates = ['created_at', 'updated_at', 'jatuh_tempo'];
