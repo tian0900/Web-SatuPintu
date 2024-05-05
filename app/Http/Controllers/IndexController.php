@@ -13,9 +13,13 @@ class IndexController extends Controller
     {
         return view('layout.index');
     }
-    public function danger()
+    public function landing()
     {
-        return view('danger');
+        return view('basic.landing');
+    }
+    public function dashboard()
+    {
+        return view('auth.dashboard');
     }
 
     /**

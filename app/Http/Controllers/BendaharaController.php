@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Tagihan;
 use Illuminate\Http\Request;
 use App\Models\Setor;
 use Illuminate\Support\Facades\DB;
@@ -113,6 +114,51 @@ class BendaharaController extends Controller
         return redirect()->back()->with('message', 'IT WORKS!');
     }
 
+    public function updateStatuspembatalan(Request $request, $id)
+    {
+        $batal = Tagihan::find($id);
+        if (!$batal) {  
+            return response()->json(['message' => 'Data batal tidak ditemukan'], 404);
+        }
+
+        $batal->status = 'NEW';
+        $batal->save();
+
+        return redirect()->back()->with('message', 'IT WORKS!');
+    }
+
+
+    public function indexpembatalan()
+    {
+
+
+        $pembatalan = DB::table('tagihan')
+            ->join('pembayaran', 'pembayaran.tagihan_id', '=', 'tagihan.id')
+            ->join('kontrak', 'kontrak.id', '=', 'tagihan.kontrak_id')
+            ->join('item_retribusi', 'item_retribusi.id', '=', 'kontrak.item_retribusi_id')
+            ->join('sub_wilayah', 'sub_wilayah.id', '=', 'kontrak.sub_wilayah_id')
+            ->join('users as wajib_retribusi_user', 'wajib_retribusi_user.id', '=', 'kontrak.wajib_retribusi_id')
+            ->select(
+                'tagihan.*',
+                'item_retribusi.kategori_nama',
+                'sub_wilayah.nama',
+                'wajib_retribusi_user.name',
+                'pembayaran.status as pembayaran_status', // Alias untuk status di tabel pembayaran
+                'kontrak.status as kontrak_status' // Alias untuk status di tabel kontrak
+            )
+            ->where('tagihan.status', 'VERIFIED') // Filter berdasarkan status pembayaran
+            ->where('tagihan.active', '1') // Filter berdasarkan status pembayaran
+            ->where('item_retribusi.retribusi_id', '2') // Filter berdasarkan status pembayaran
+            ->distinct() // Menambahkan klausa distinct
+            ->get();
+
+
+
+        // dd($tagihan);
+        // dd($pembatalan); 
+
+        return view('bendahara.pembatalanpasar', ['pembatalan' => $pembatalan]);
+    }
 
 
     /**

@@ -27,8 +27,9 @@ use App\Models\Kabupaten;
 */
 
 
-Route::get('/jenis', [PasarController::class, 'index']);
-Route::get('/Error403', [IndexController::class, 'danger']);
+Route::get('/', [PasarController::class, 'index']);
+Route::get('/landing', [IndexController::class, 'landing']);
+Route::get('/dashboard', [IndexController::class, 'dashboard']);
 Route::post('/jenis/store', [PasarController::class, 'store'])->name('jenis.store');
 Route::get('/jenis/edit', [PasarController::class, 'edit'])->name('jenis.edit');
 // Route::put('/jenis/{id}', [PasarController::class, 'update'])->name('jenis.update');
@@ -112,11 +113,16 @@ Route::middleware(['check.role.byname:Bendahara'])->group(function () {
 
     Route::get('/setoran', [BendaharaController::class, 'indexsetor']);
     Route::put('/setor/{id}/update-status', [BendaharaController::class, 'updateStatus'])->name('setor.updateStatus');
+
+
+    Route::get('/pembatalanpasar', [BendaharaController::class, 'indexpembatalan']);
+    Route::put('/batal/{id}/update-status', [BendaharaController::class, 'updateStatuspembatalan'])->name('batal.updateStatus');
+
 });
 
 
 //ADMIN
-Route::get('/', [AuthController::class, 'loginview']);
+Route::get('/login', [AuthController::class, 'loginview']);
 Route::get('/logout', [AuthController::class, 'logout'])->name('logout');
 Route::post('/loginCheck', [AuthController::class, 'loginCheck'])->name('login');
 
