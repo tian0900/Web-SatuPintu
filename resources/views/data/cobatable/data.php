@@ -1,716 +1,641 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Document</title>
-    <!-- ICONS -->
-    <script src="https://unpkg.com/@phosphor-icons/web"></script>
-    <!-- STYLESHEET -->
-    <link rel="stylesheet" href="Sidebar/style.css" />
-    <!-- Bootstrap CSS -->
-    
-    <!-- Box Icons  -->
-    <link href='https://unpkg.com/boxicons@2.1.2/css/boxicons.min.css' rel='stylesheet'>
-    <!-- Styles  -->
-    <link rel="shortcut icon" href="assets/img/kxp_fav.png" type="image/x-icon">
-    <!-- Taildwind CSS -->
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/flowbite/2.3.0/flowbite.min.css"  rel="stylesheet" />
-</head>
-<body>
-  
-    <div class="sidebar close">
-        <!-- ========== Logo ============  -->
-        <a href="#" class="logo-box">
-            <img class="img-logo" src="assets/img/logo.png" alt="">
-            <div class="logo-name">SatuPintu</div>
-        </a>
+@extends('layout.sidebarutama')
+<!-- ============= Home Section =============== -->
+@section('content')
+    <div class="container p-5">
+        <h1 class="mt-3 text-5xl">Daftar Item</h1>
 
-        <!-- ========== List ============  -->
-        <ul class="sidebar-list">
-            <!-- -------- Non Dropdown List Item ------- -->
-            <li>
-                <div class="title">
-                    <a href="#" class="link">
-                        <i class='bx bx-grid-alt'></i>
-                        <span class="name">Dashboard</span>
-                    </a>
-                </div>
-                <div class="submenu">
-                    <a href="#" class="link submenu-title">Dashboard</a>
-                </div>
-            </li>
+        <!-- Modal toggle -->
+        <button data-toggle="modal" data-target="#crud-user"
+            class="block text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800 mt-5 mb-5"
+            type="button">
+            Tambah Petugas
+        </button>
+        <button data-toggle="modal" data-target="#crud-wajib"
+            class="block text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800 mt-5 mb-5"
+            type="button">
+            Tambah Wajib Retribusi
+        </button>
 
-            <!-- -------- Non Dropdown List Item ------- -->
-            <li>
-                <div class="title">
-                    <a href="/retribusi" class="link">
-                      <i class='bx bx-wallet-alt' ></i>
-                        <span class="name">Retribusi</span>
-                    </a>
-                    <!-- <i class='bx bxs-chevron-down'></i> -->
-                </div>
-                <div class="submenu">
-                    <a href="/retribusi" class="link submenu-title">Retribusi</a>
-                    <!-- submenu links here  -->
-                </div>
-            </li>
-
-            <!-- -------- Non Dropdown List Item ------- -->
-            <li>
-                <div class="title">
-                    <a href="/kontrak" class="link">
-                      <i class='bx bxs-file'></i>
-                        <span class="name">Kontrak</span>
-                    </a>
-                    <!-- <i class='bx bxs-chevron-down'></i> -->
-                </div>
-                <div class="submenu">
-                    <a href="/kontrak" class="link submenu-title">Kontrak</a>
-                    <!-- submenu links here  -->
-                </div>
-            </li>
-
-            <!-- -------- Non Dropdown List Item ------- -->
-            <li>
-                <div class="title">
-                    <a href="/wilayah" class="link">
-                      <i class='bx bx-map-alt'></i>
-                        <span class="name">Wilayah</span>
-                    </a>
-                    <!-- <i class='bx bxs-chevron-down'></i> -->
-                </div>
-                <div class="submenu">
-                    <a href="/wilayah" class="link submenu-title">Wilayah</a>
-                    <!-- submenu links here  -->
-                </div>
-            </li>
-
-            <!-- -------- Non Dropdown List Item ------- -->
-            <li>
-                <div class="title">
-                    <a href="/item" class="link">
-                      <i class='bx bx-checkbox-square'></i>
-                        <span class="name">Item</span>
-                    </a>
-                    <!-- <i class='bx bxs-chevron-down'></i> -->
-                </div>
-                <div class="submenu">
-                    <a href="/item" class="link submenu-title">Item</a>
-                    <!-- submenu links here  -->
-                </div>
-            </li>
-
-            <!-- -------- Non Dropdown List Item ------- -->
-            <li>
-                <div class="title">
-                    <a href="/kabupaten" class="link">
-                      <i class='bx bx-map-pin' ></i>
-                        <span class="name">Kabupaten</span>
-                    </a>
-                    <!-- <i class='bx bxs-chevron-down'></i> -->
-                </div>
-                <div class="submenu">
-                    <a href="/kabupaten" class="link submenu-title">Kabupaten</a>
-                    <!-- submenu links here  -->
-                </div>
-            </li>
-
-            <!-- -------- Non Dropdown List Item ------- -->
-            <li>
-              <div class="title">
-                  <a href="kedinasan" class="link">
-                    <i class='bx bx-sitemap' ></i>
-                      <span class="name">Kedinasan</span>
-                  </a>
-                  <!-- <i class='bx bxs-chevron-down'></i> -->
-              </div>
-              <div class="submenu">
-                  <a href="kedinasan" class="link submenu-title">Kedinasan</a>
-                  <!-- submenu links here  -->
-              </div>
-            </li>
-
-            <!-- -------- Non Dropdown List Item ------- -->
-            <li>
-              <div class="title">
-                  <a href="#" class="link">
-                      <i class='bx bx-cog'></i>
-                      <span class="name">Settings</span>
-                  </a>
-                  <!-- <i class='bx bxs-chevron-down'></i> -->
-              </div>
-              <div class="submenu">
-                  <a href="#" class="link submenu-title">Settings</a>
-                  <!-- submenu links here  -->
-              </div>
-            </li>
-
-            <!-- -------- Non Dropdown List Item ------- -->
-            <li>
-              <div class="title">
-                  <a href="/kontrak" class="link">
-                    <i class='bx bx-money'></i>
-                      <span class="name">Tagihan</span>
-                  </a>
-                  <!-- <i class='bx bxs-chevron-down'></i> -->
-              </div>
-              <div class="submenu">
-                  <a href="/kontrak" class="link submenu-title">Tagihan</a>
-                  <!-- submenu links here  -->
-              </div>
-          </li>
-
-            <!-- -------- Dropdown List Item ------- -->
-            <li>
-              <div class="title">
-                  <a href="/setoran" class="link">
-                    <i class='bx bx-money-withdraw'></i>
-                      <span class="name">Setoran</span>
-                  </a>
-              </div>
-              <div class="submenu">
-                  <a href="/setoran" class="link submenu-title">Setoran</a>
-              </div>
-          </li>
-
-            <!-- -------- Dropdown List Item ------- -->
-            <li class="dropdown">
-                <div class="title">
-                    <a href="#" class="link">
-                        <i class='bx bx-extension'></i>
-                        <span class="name">Plugins</span>
-                    </a>
-                    <i class='bx bxs-chevron-down'></i>
-                </div>
-                <div class="submenu">
-                    <a href="#" class="link submenu-title">Plugins</a>
-                    <a href="#" class="link">UI Face</a>
-                    <a href="#" class="link">Pigments</a>
-                    <a href="#" class="link">Box Icons</a>
-                </div>
-            </li>
-
-            <!-- -------- Dropdown List Item ------- -->
-            <li class="dropdown">
-              <div class="title">
-                  <a href="#" class="link">
-                      <i class='bx bx-collection'></i>
-                      <span class="name">Category</span>
-                  </a>
-                  <i class='bx bxs-chevron-down'></i>
-              </div>
-              <div class="submenu">
-                  <a href="#" class="link submenu-title">Category</a>
-                  <a href="#" class="link">HTML & CSS</a>
-                  <a href="#" class="link">JavaScript</a>
-                  <a href="#" class="link">PHP & MySQL</a>
-              </div>
-            </li>
-        </ul>
-    </div>
-
-    <!-- ============= Home Section =============== -->
-    <section class="home p-4">
-        <div class="toggle-sidebar">
-            <i class="toggle-menux bx bx-menu"></i>
-            <nav class="border-b border-gray-200 px-4 py-2.5 dark:bg-gray-800 dark:border-gray-700 left-0 right-0 top-0 z-50">
-                <div class="flex flex-wrap justify-between items-center">
-                  <div class="flex ">
-                    <!-- Notifications -->
-                    <button
-                      type="button"
-                      data-dropdown-toggle="notification-dropdown"
-                      class="p-2 mr-1 text-gray-500 rounded-lg hover:text-gray-900 hover:bg-gray-100 dark:text-gray-400 dark:hover:text-white dark:hover:bg-gray-700 focus:ring-4 focus:ring-gray-300 dark:focus:ring-gray-600"
-                    >
-                      <span class="sr-only">View notifications</span>
-                      <!-- Bell icon -->
-                      <svg
-                        aria-hidden="true"
-                        class="w-6 h-6"
-                        fill="currentColor"
-                        viewBox="0 0 20 20"
-                        xmlns="http://www.w3.org/2000/svg"
-                      >
-                        <path
-                          d="M10 2a6 6 0 00-6 6v3.586l-.707.707A1 1 0 004 14h12a1 1 0 00.707-1.707L16 11.586V8a6 6 0 00-6-6zM10 18a3 3 0 01-3-3h6a3 3 0 01-3 3z"
-                        ></path>
-                      </svg>
-                    </button>
-                    <!-- Dropdown menu -->
-                    <div
-                      class="hidden overflow-hidden z-50 my-4 max-w-sm text-base list-none bg-white rounded divide-y divide-gray-100 shadow-lg dark:divide-gray-600 dark:bg-gray-700 rounded-xl"
-                      id="notification-dropdown"
-                    >
-                      <div
-                        class="block py-2 px-4 text-base font-medium text-center text-gray-700 bg-gray-50 dark:bg-gray-600 dark:text-gray-300"
-                      >
-                        Notifications
-                      </div>
-                      <div>
-                        <a
-                          href="#"
-                          class="flex py-3 px-4 border-b hover:bg-gray-100 dark:hover:bg-gray-600 dark:border-gray-600"
-                        >
-                          <div class="flex-shrink-0">
-                            <img
-                              class="w-11 h-11 rounded-full"
-                              src="https://flowbite.s3.amazonaws.com/blocks/marketing-ui/avatars/bonnie-green.png"
-                              alt="Bonnie Green avatar"
-                            />
-                            <div
-                              class="flex absolute justify-center items-center ml-6 -mt-5 w-5 h-5 rounded-full border border-white bg-primary-700 dark:border-gray-700"
-                            >
-                              <svg
-                                aria-hidden="true"
-                                class="w-3 h-3 text-white"
-                                fill="currentColor"
-                                viewBox="0 0 20 20"
-                                xmlns="http://www.w3.org/2000/svg"
-                              >
-                                <path
-                                  d="M8.707 7.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l2-2a1 1 0 00-1.414-1.414L11 7.586V3a1 1 0 10-2 0v4.586l-.293-.293z"
-                                ></path>
-                                <path
-                                  d="M3 5a2 2 0 012-2h1a1 1 0 010 2H5v7h2l1 2h4l1-2h2V5h-1a1 1 0 110-2h1a2 2 0 012 2v10a2 2 0 01-2 2H5a2 2 0 01-2-2V5z"
-                                ></path>
-                              </svg>
+        <!-- Main modal -->
+        <div id="crud-modal" tabindex="-1" aria-hidden="true" class="hidden overflow-y-auto overflow-x-hidden fixed top-0 right-0 left-0 z-50 justify-center items-center w-full md:inset-0 h-[calc(100%-1rem)] max-h-full">
+            <div class="relative p-4 w-full max-w-md max-h-full">
+                <!-- Modal content -->
+                <div class="relative bg-white rounded-lg shadow dark:bg-gray-700">
+                    <!-- Modal header -->
+                    <div class="flex items-center justify-between p-4 md:p-5 border-b rounded-t dark:border-gray-600">
+                        <h3 class="text-lg font-semibold text-gray-900 dark:text-white">
+                            Buat Data Baru
+                        </h3>
+                        <button type="button" class="text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm w-8 h-8 ms-auto inline-flex justify-center items-center dark:hover:bg-gray-600 dark:hover:text-white" data-modal-toggle="crud-modal">
+                            <svg class="w-3 h-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 14 14">
+                                <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m1 1 6 6m0 0 6 6M7 7l6-6M7 7l-6 6"/>
+                            </svg>
+                            <span class="sr-only">Close modal</span>
+                        </button>
+                    </div>
+                    <!-- Modal body -->
+                    <form class="p-4 md:p-5" action="{{ route('users.store') }}" method="POST">
+                        @csrf
+                        <div class="grid gap-4 mb-4 grid-cols-2">
+                            <div class="col-span-2">
+                                <label for="nama" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Nama</label>
+                                <input type="text" id="name" name="name" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500" placeholder="Nama"  required="">
                             </div>
-                          </div>
-                          <div class="pl-3 w-full">
-                            <div
-                              class="text-gray-500 font-normal text-sm mb-1.5 dark:text-gray-400"
-                            >
-                              New message from
-                              <span class="font-semibold text-gray-900 dark:text-white"
-                                >Bonnie Green</span
-                              >: "Hey, what's up? All set for the presentation?"
-                            </div>
-                            <div
-                              class="text-xs font-medium text-primary-600 dark:text-primary-500"
-                            >
-                              a few moments ago
-                            </div>
-                          </div>
-                        </a>
-                        <a
-                          href="#"
-                          class="flex py-3 px-4 border-b hover:bg-gray-100 dark:hover:bg-gray-600 dark:border-gray-600"
-                        >
-                          <div class="flex-shrink-0">
-                            <img
-                              class="w-11 h-11 rounded-full"
-                              src="https://flowbite.s3.amazonaws.com/blocks/marketing-ui/avatars/jese-leos.png"
-                              alt="Jese Leos avatar"
-                            />
-                            <div
-                              class="flex absolute justify-center items-center ml-6 -mt-5 w-5 h-5 bg-gray-900 rounded-full border border-white dark:border-gray-700"
-                            >
-                              <svg
-                                aria-hidden="true"
-                                class="w-3 h-3 text-white"
-                                fill="currentColor"
-                                viewBox="0 0 20 20"
-                                xmlns="http://www.w3.org/2000/svg"
-                              >
-                                <path
-                                  d="M8 9a3 3 0 100-6 3 3 0 000 6zM8 11a6 6 0 016 6H2a6 6 0 016-6zM16 7a1 1 0 10-2 0v1h-1a1 1 0 100 2h1v1a1 1 0 102 0v-1h1a1 1 0 100-2h-1V7z"
-                                ></path>
-                              </svg>
-                            </div>
-                          </div>
-                          <div class="pl-3 w-full">
-                            <div
-                              class="text-gray-500 font-normal text-sm mb-1.5 dark:text-gray-400"
-                            >
-                              <span class="font-semibold text-gray-900 dark:text-white"
-                                >Jese leos</span
-                              >
-                              and
-                              <span class="font-medium text-gray-900 dark:text-white"
-                                >5 others</span
-                              >
-                              started following you.
-                            </div>
-                            <div
-                              class="text-xs font-medium text-primary-600 dark:text-primary-500"
-                            >
-                              10 minutes ago
-                            </div>
-                          </div>
-                        </a>
-                        <a
-                          href="#"
-                          class="flex py-3 px-4 border-b hover:bg-gray-100 dark:hover:bg-gray-600 dark:border-gray-600"
-                        >
-                          <div class="flex-shrink-0">
-                            <img
-                              class="w-11 h-11 rounded-full"
-                              src="https://flowbite.s3.amazonaws.com/blocks/marketing-ui/avatars/joseph-mcfall.png"
-                              alt="Joseph McFall avatar"
-                            />
-                            <div
-                              class="flex absolute justify-center items-center ml-6 -mt-5 w-5 h-5 bg-red-600 rounded-full border border-white dark:border-gray-700"
-                            >
-                              <svg
-                                aria-hidden="true"
-                                class="w-3 h-3 text-white"
-                                fill="currentColor"
-                                viewBox="0 0 20 20"
-                                xmlns="http://www.w3.org/2000/svg"
-                              >
-                                <path
-                                  fill-rule="evenodd"
-                                  d="M3.172 5.172a4 4 0 015.656 0L10 6.343l1.172-1.171a4 4 0 115.656 5.656L10 17.657l-6.828-6.829a4 4 0 010-5.656z"
-                                  clip-rule="evenodd"
-                                ></path>
-                              </svg>
-                            </div>
-                          </div>
-                          <div class="pl-3 w-full">
-                            <div
-                              class="text-gray-500 font-normal text-sm mb-1.5 dark:text-gray-400"
-                            >
-                              <span class="font-semibold text-gray-900 dark:text-white"
-                                >Joseph Mcfall</span
-                              >
-                              and
-                              <span class="font-medium text-gray-900 dark:text-white"
-                                >141 others</span
-                              >
-                              love your story. See it and view more stories.
-                            </div>
-                            <div
-                              class="text-xs font-medium text-primary-600 dark:text-primary-500"
-                            >
-                              44 minutes ago
-                            </div>
-                          </div>
-                        </a>
-                        <a
-                          href="#"
-                          class="flex py-3 px-4 border-b hover:bg-gray-100 dark:hover:bg-gray-600 dark:border-gray-600"
-                        >
-                          <div class="flex-shrink-0">
-                            <img
-                              class="w-11 h-11 rounded-full"
-                              src="https://flowbite.s3.amazonaws.com/blocks/marketing-ui/avatars/roberta-casas.png"
-                              alt="Roberta Casas image"
-                            />
-                            <div
-                              class="flex absolute justify-center items-center ml-6 -mt-5 w-5 h-5 bg-green-400 rounded-full border border-white dark:border-gray-700"
-                            >
-                              <svg
-                                aria-hidden="true"
-                                class="w-3 h-3 text-white"
-                                fill="currentColor"
-                                viewBox="0 0 20 20"
-                                xmlns="http://www.w3.org/2000/svg"
-                              >
-                                <path
-                                  fill-rule="evenodd"
-                                  d="M18 13V5a2 2 0 00-2-2H4a2 2 0 00-2 2v8a2 2 0 002 2h3l3 3 3-3h3a2 2 0 002-2zM5 7a1 1 0 011-1h8a1 1 0 110 2H6a1 1 0 01-1-1zm1 3a1 1 0 100 2h3a1 1 0 100-2H6z"
-                                  clip-rule="evenodd"
-                                ></path>
-                              </svg>
-                            </div>
-                          </div>
-                          <div class="pl-3 w-full">
-                            <div
-                              class="text-gray-500 font-normal text-sm mb-1.5 dark:text-gray-400"
-                            >
-                              <span class="font-semibold text-gray-900 dark:text-white"
-                                >Leslie Livingston</span
-                              >
-                              mentioned you in a comment:
-                              <span
-                                class="font-medium text-primary-600 dark:text-primary-500"
-                                >@bonnie.green</span
-                              >
-                              what do you say?
-                            </div>
-                            <div
-                              class="text-xs font-medium text-primary-600 dark:text-primary-500"
-                            >
-                              1 hour ago
-                            </div>
-                          </div>
-                        </a>
-                        <a
-                          href="#"
-                          class="flex py-3 px-4 hover:bg-gray-100 dark:hover:bg-gray-600"
-                        >
-                          <div class="flex-shrink-0">
-                            <img
-                              class="w-11 h-11 rounded-full"
-                              src="https://flowbite.s3.amazonaws.com/blocks/marketing-ui/avatars/robert-brown.png"
-                              alt="Robert image"
-                            />
-                            <div
-                              class="flex absolute justify-center items-center ml-6 -mt-5 w-5 h-5 bg-purple-500 rounded-full border border-white dark:border-gray-700"
-                            >
-                              <svg
-                                aria-hidden="true"
-                                class="w-3 h-3 text-white"
-                                fill="currentColor"
-                                viewBox="0 0 20 20"
-                                xmlns="http://www.w3.org/2000/svg"
-                              >
-                                <path
-                                  d="M2 6a2 2 0 012-2h6a2 2 0 012 2v8a2 2 0 01-2 2H4a2 2 0 01-2-2V6zM14.553 7.106A1 1 0 0014 8v4a1 1 0 00.553.894l2 1A1 1 0 0018 13V7a1 1 0 00-1.447-.894l-2 1z"
-                                ></path>
-                              </svg>
-                            </div>
-                          </div>
-                          <div class="pl-3 w-full">
-                            <div
-                              class="text-gray-500 font-normal text-sm mb-1.5 dark:text-gray-400"
-                            >
-                              <span class="font-semibold text-gray-900 dark:text-white"
-                                >Robert Brown</span
-                              >
-                              posted a new video: Glassmorphism - learn how to implement
-                              the new design trend.
-                            </div>
-                            <div
-                              class="text-xs font-medium text-primary-600 dark:text-primary-500"
-                            >
-                              3 hours ago
-                            </div>
-                          </div>
-                        </a>
-                      </div>
-                      <a
-                        href="#"
-                        class="block py-2 text-md font-medium text-center text-gray-900 bg-gray-50 hover:bg-gray-100 dark:bg-gray-600 dark:text-white dark:hover:underline"
-                      >
-                        <div class="inline-flex items-center">
-                          <svg
-                            aria-hidden="true"
-                            class="mr-2 w-4 h-4 text-gray-500 dark:text-gray-400"
-                            fill="currentColor"
-                            viewBox="0 0 20 20"
-                            xmlns="http://www.w3.org/2000/svg"
-                          >
-                            <path d="M10 12a2 2 0 100-4 2 2 0 000 4z"></path>
-                            <path
-                              fill-rule="evenodd"
-                              d="M.458 10C1.732 5.943 5.522 3 10 3s8.268 2.943 9.542 7c-1.274 4.057-5.064 7-9.542 7S1.732 14.057.458 10zM14 10a4 4 0 11-8 0 4 4 0 018 0z"
-                              clip-rule="evenodd"
-                            ></path>
-                          </svg>
-                          View all
                         </div>
-                      </a>
+                        <div class="grid gap-4 mb-4 grid-cols-2">
+                            <div class="col-span-2">
+                                <label for="email" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Email</label>
+                                <input type="text" id="email" name="email" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500" placeholder="Email"  required="">
+                            </div>
+                        </div>
+                        <div class="grid gap-4 mb-4 grid-cols-2">
+                            <div class="col-span-2">
+                                <label for="password" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Password</label>
+                                <input type="text" id="password" name="password" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500" placeholder="Password"  required="">
+                            </div>
+                        </div>
+                        <div class="grid gap-4 mb-4 grid-cols-2">
+                            <div class="col-span-2">
+                                <label for="harga" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Upload Profil</label>
+                                <input class="block w-full text-sm text-gray-900 border border-gray-300 rounded-lg cursor-pointer bg-gray-50 dark:text-gray-400 focus:outline-none dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400" aria-describedby="file_input_help" id="photo_profile" name="photo_profile" type="file">
+                                <p class="mt-1 text-sm text-gray-500 dark:text-gray-300" id="file_input_help">SVG, PNG, JPG or GIF (MAX. 800x400px).</p>                         
+                            </div>
+                        </div>
+                        <div class="grid gap-4 mb-4 grid-cols-2">
+                            <div class="col-span-2">
+                                <label for="nik" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">NIK</label>
+                                <input type="text" id="nik" name="nik" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500" placeholder="NIK"  required="">
+                            </div>
+                        </div>
+                        <div class="grid gap-4 mb-4 grid-cols-2">
+                            <div class="col-span-2">
+                                <label for="alamat" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Alamat</label>
+                                <input type="text" id="alamat" name="alamat" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500" placeholder="Alamat"  required="">
+                            </div>
+                        </div>
+                        <div class="grid gap-4 mb-4 grid-cols-2">
+                            <div class="col-span-2">
+                                <label for="wilayah" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">wilayah</label>
+                                <select id="wilayah" name="wilayah" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500" required>
+                                    @foreach ($wilayah as $item)
+                                        <option value="{{ $item->id }}">{{ $item->nama }}</option>
+                                    @endforeach
+                                </select>
+                            </div>
+                        </div>
+                        <button type="submit" class="text-white inline-flex items-center bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
+                            <svg class="me-1 -ms-1 w-5 h-5" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M10 5a1 1 0 011 1v3h3a1 1 0 110 2h-3v3a1 1 0 11-2 0v-3H6a1 1 0 110-2h3V6a1 1 0 011-1z" clip-rule="evenodd"></path></svg>
+                            Tambah
+                        </button>
+                    </form>
+                </div>
+            </div>
+        </div>
+        <div id="crud-user" tabindex="-1" aria-hidden="true"
+            class="hidden overflow-y-auto overflow-x-hidden fixed top-0 right-0 left-0 z-50 justify-center items-center w-full md:inset-0 h-[calc(100%-1rem)] max-h-full">
+            <div class="relative p-4 w-full max-w-md max-h-full">
+                <!-- Modal content -->
+                <div class="relative bg-white rounded-lg shadow dark:bg-gray-700">
+                    <!-- Modal header -->
+                    <div class="flex items-center justify-between p-4 md:p-5 border-b rounded-t dark:border-gray-600">
+                        <h3 class="text-lg font-semibold text-gray-900 dark:text-white">
+                            Buat Data Baru
+                        </h3>
+                        <button type="button"
+                            class="text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm w-8 h-8 ms-auto inline-flex justify-center items-center dark:hover:bg-gray-600 dark:hover:text-white"
+                            data-modal-toggle="crud-modal">
+                            <svg class="w-3 h-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none"
+                                viewBox="0 0 14 14">
+                                <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                    d="m1 1 6 6m0 0 6 6M7 7l6-6M7 7l-6 6" />
+                            </svg>
+                            <span class="sr-only">Close modal</span>
+                        </button>
                     </div>
-                    <button
-                      type="button"
-                      class="flex mx-3 text-sm bg-gray-800 rounded-full md:mr-0 focus:ring-4 focus:ring-gray-300 dark:focus:ring-gray-600"
-                      id="user-menu-button"
-                      aria-expanded="false"
-                      data-dropdown-toggle="dropdown"
-                    >
-                      <span class="sr-only">Open user menu</span>
-                      <img
-                        class="w-8 h-8 rounded-full"
-                        src="https://flowbite.s3.amazonaws.com/blocks/marketing-ui/avatars/michael-gough.png"
-                        alt="user photo"
-                      />
+                    <!-- Modal body -->
+                    <form class="p-4 md:p-5" action="{{ route('item.store') }}" method="POST">
+                        @csrf
+                        <div class="grid gap-4 mb-4 grid-cols-2">
+                            <div class="col-span-2">
+                                <label for="retribusi_id"
+                                    class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Username</label>
+                                <input type="text" id="retribusi_id" name="retribusi_id"
+                                    class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
+                                    placeholder="retribusi_id" required="">
+                            </div>
+                        </div>
+                        <div class="grid gap-4 mb-4 grid-cols-2">
+                            <div class="col-span-2">
+                                <label for="kategori_nama"
+                                    class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Kategori Nama</label>
+                                <input type="text" id="kategori_nama" name="kategori_nama"
+                                    class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
+                                    placeholder="Identifier" required="">
+                            </div>
+                        </div>
+                        <div class="grid gap-4 mb-4 grid-cols-2">
+                            <div class="col-span-2">
+                                <label for="F-Name"
+                                    class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Jenis
+                                    Tagihan</label>
+                                <input type="text" id="jenis_tagihan" name="jenis_tagihan"
+                                    class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
+                                    placeholder="Jenis Tagihan" required="">
+                            </div>
+                        </div>
+                        <div class="grid gap-4 mb-4 grid-cols-2">
+                            <div class="col-span-2">
+                                <label for="harga"
+                                    class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Harga</label>
+                                <input type="text" id="harga" name="harga"
+                                    class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
+                                    placeholder="Last Name" required="">
+                            </div>
+                        </div>
+                        <button type="submit"
+                            class="text-white inline-flex items-center bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
+                            <svg class="me-1 -ms-1 w-5 h-5" fill="currentColor" viewBox="0 0 20 20"
+                                xmlns="http://www.w3.org/2000/svg">
+                                <path fill-rule="evenodd"
+                                    d="M10 5a1 1 0 011 1v3h3a1 1 0 110 2h-3v3a1 1 0 11-2 0v-3H6a1 1 0 110-2h3V6a1 1 0 011-1z"
+                                    clip-rule="evenodd"></path>
+                            </svg>
+                            Tambah
+                        </button>
+                    </form>
+                </div>
+            </div>
+        </div>
+
+        <div class="container m-5">
+            <div class="flex flex-column sm:flex-row flex-wrap space-y-4 sm:space-y-0 items-center justify-between pb-4">
+                <div>
+                    <button id="dropdownRadioButton" data-dropdown-toggle="dropdownRadio"
+                        class="inline-flex items-center text-gray-500 bg-white border border-gray-300 focus:outline-none hover:bg-gray-100 focus:ring-4 focus:ring-gray-100 font-medium rounded-lg text-sm px-3 py-1.5 dark:bg-gray-800 dark:text-white dark:border-gray-600 dark:hover:bg-gray-700 dark:hover:border-gray-600 dark:focus:ring-gray-700"
+                        type="button">
+                        <svg class="w-3 h-3 text-gray-500 dark:text-gray-400 me-3" aria-hidden="true"
+                            xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 20 20">
+                            <path
+                                d="M10 0a10 10 0 1 0 10 10A10.011 10.011 0 0 0 10 0Zm3.982 13.982a1 1 0 0 1-1.414 0l-3.274-3.274A1.012 1.012 0 0 1 9 10V6a1 1 0 0 1 2 0v3.586l2.982 2.982a1 1 0 0 1 0 1.414Z" />
+                        </svg>
+                        Last 30 days
+                        <svg class="w-2.5 h-2.5 ms-2.5" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none"
+                            viewBox="0 0 10 6">
+                            <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                d="m1 1 4 4 4-4" />
+                        </svg>
                     </button>
                     <!-- Dropdown menu -->
-                    <div
-                      class="hidden z-50 my-4 w-56 text-base list-none bg-white rounded divide-y divide-gray-100 shadow dark:bg-gray-700 dark:divide-gray-600 rounded-xl"
-                      id="dropdown"
-                    >
-                      <div class="py-3 px-4">
-                        <span
-                          class="block text-sm font-semibold text-gray-900 dark:text-white"
-                          >{{ Auth::user()->name }}</span
-                        >
-                        <span
-                          class="block text-sm text-gray-900 truncate dark:text-white"
-                          >{{ Auth::user()->email }}</span
-                        >
-                      </div>
-                    
-                      <ul
-                        class="py-1 text-gray-700 dark:text-gray-300"
-                        aria-labelledby="dropdown"
-                      >
-                       
-                        
-                      <ul
-                        class="py-1 text-gray-700 dark:text-gray-300"
-                        aria-labelledby="dropdown"
-                      >
-                        <li>
-                          <a
-                            href="/logout"
-                            class="block py-2 px-4 text-sm hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white"
-                            >Sign out</a
-                          >
-                        </li>
-                      </ul>
+                    <div id="dropdownRadio"
+                        class="z-10 hidden w-48 bg-white divide-y divide-gray-100 rounded-lg shadow dark:bg-gray-700 dark:divide-gray-600"
+                        data-popper-reference-hidden="" data-popper-escaped="" data-popper-placement="top"
+                        style="position: absolute; inset: auto auto 0px 0px; margin: 0px; transform: translate3d(522.5px, 3847.5px, 0px);">
+                        <ul class="p-3 space-y-1 text-sm text-gray-700 dark:text-gray-200"
+                            aria-labelledby="dropdownRadioButton">
+                            <li>
+                                <div class="flex items-center p-2 rounded hover:bg-gray-100 dark:hover:bg-gray-600">
+                                    <input id="filter-radio-example-1" type="radio" value="" name="filter-radio"
+                                        class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 dark:focus:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600">
+                                    <label for="filter-radio-example-1"
+                                        class="w-full ms-2 text-sm font-medium text-gray-900 rounded dark:text-gray-300">Last
+                                        day</label>
+                                </div>
+                            </li>
+                            <li>
+                                <div class="flex items-center p-2 rounded hover:bg-gray-100 dark:hover:bg-gray-600">
+                                    <input checked="" id="filter-radio-example-2" type="radio" value=""
+                                        name="filter-radio"
+                                        class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 dark:focus:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600">
+                                    <label for="filter-radio-example-2"
+                                        class="w-full ms-2 text-sm font-medium text-gray-900 rounded dark:text-gray-300">Last
+                                        7 days</label>
+                                </div>
+                            </li>
+                            <li>
+                                <div class="flex items-center p-2 rounded hover:bg-gray-100 dark:hover:bg-gray-600">
+                                    <input id="filter-radio-example-3" type="radio" value="" name="filter-radio"
+                                        class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 dark:focus:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600">
+                                    <label for="filter-radio-example-3"
+                                        class="w-full ms-2 text-sm font-medium text-gray-900 rounded dark:text-gray-300">Last
+                                        30 days</label>
+                                </div>
+                            </li>
+                            <li>
+                                <div class="flex items-center p-2 rounded hover:bg-gray-100 dark:hover:bg-gray-600">
+                                    <input id="filter-radio-example-4" type="radio" value="" name="filter-radio"
+                                        class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 dark:focus:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600">
+                                    <label for="filter-radio-example-4"
+                                        class="w-full ms-2 text-sm font-medium text-gray-900 rounded dark:text-gray-300">Last
+                                        month</label>
+                                </div>
+                            </li>
+                            <li>
+                                <div class="flex items-center p-2 rounded hover:bg-gray-100 dark:hover:bg-gray-600">
+                                    <input id="filter-radio-example-5" type="radio" value="" name="filter-radio"
+                                        class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 dark:focus:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600">
+                                    <label for="filter-radio-example-5"
+                                        class="w-full ms-2 text-sm font-medium text-gray-900 rounded dark:text-gray-300">Last
+                                        year</label>
+                                </div>
+                            </li>
+                        </ul>
                     </div>
-                  </div>
                 </div>
-            </nav>
-        </div>
-      <div class="content">
-        <section class="bg-white dark:bg-gray-900">
-          <div class="py-8 px-4 mx-auto max-w-screen-xl sm:py-16 lg:px-6">
-              <div class="space-y-8 md:grid md:grid-cols-2 lg:grid-cols-3 md:gap-12 md:space-y-0">
-                  <div>
-                      <a href="#" class="block max-w-sm p-6 bg-white border border-gray-200 rounded-lg shadow hover:bg-gray-100 dark:bg-gray-800 dark:border-gray-700 dark:hover:bg-gray-700">
-                          <p class="text-4xl text-gray-900 dark:text-white"><i class='bx bx-money-withdraw'></i></p>
-                          <h5 class="mb-2 text-2xl font-bold tracking-tight text-gray-900 dark:text-white">Target Tahun Ini</h5>
-                          <Here class="text-2xl text-gray-900 dark:text-white">Rp. 400.000.000</p>
-                      </a>
-                  </div>
-                  <div>
-                      <a href="#" class="block max-w-sm p-6 bg-white border border-gray-200 rounded-lg shadow hover:bg-gray-100 dark:bg-gray-800 dark:border-gray-700 dark:hover:bg-gray-700">
-                          <p class="text-4xl text-gray-900 dark:text-white"><i class='bx bx-money'></i></p>
-                          <h5 class="mb-2 text-2xl font-bold tracking-tight text-gray-900 dark:text-white">Penerimaan Hari Ini</h5>
-                          <Here class="text-2xl text-gray-900 dark:text-white">Rp. 400.000.000</p>
-                      </a>
-                  </div>
-                  <div>
-                      <a href="#" class="block max-w-sm p-6 bg-white border border-gray-200 rounded-lg shadow hover:bg-gray-100 dark:bg-gray-800 dark:border-gray-700 dark:hover:bg-gray-700">
-                          <p class="text-4xl text-gray-900 dark:text-white"><i class='bx bx-credit-card-front'></i></p>
-                          <h5 class="mb-2 text-2xl font-bold tracking-tight text-gray-900 dark:text-white">Persentase Realisasi</h5>
-                          <Here class="text-2xl text-gray-900 dark:text-white">50.00003 %</p>
-                      </a>
-                  </div>
-              </div>
-          </div>
-        </section>
-        
-        <section class="bg-white dark:bg-gray-900 ">
-            <div class=" mx-auto max-w-screen-xl ">
-                <div class="relative overflow-x-auto shadow-md sm:rounded-lg">
+                <label for="table-search" class="sr-only">Search</label>
+                <div class="relative">
+                    <div
+                        class="absolute inset-y-0 left-0 rtl:inset-r-0 rtl:right-0 flex items-center ps-3 pointer-events-none">
+                        <svg class="w-5 h-5 text-gray-500 dark:text-gray-400" aria-hidden="true" fill="currentColor"
+                            viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
+                            <path fill-rule="evenodd"
+                                d="M8 4a4 4 0 100 8 4 4 0 000-8zM2 8a6 6 0 1110.89 3.476l4.817 4.817a1 1 0 01-1.414 1.414l-4.816-4.816A6 6 0 012 8z"
+                                clip-rule="evenodd"></path>
+                        </svg>
+                    </div>
+                    <input type="text" id="table-search"
+                        class="block p-2 ps-10 text-sm text-gray-900 border border-gray-300 rounded-lg w-80 bg-gray-50 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                        placeholder="Search for items">
+                </div>
+            </div>
+            <div class="table-responsive"> <!-- Responsiveness for small screens -->
+                <div class="relative shadow-md sm:rounded-lg">
                     <table class="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400">
-                        <thead class="text-xs text-gray-700 uppercase dark:text-gray-400">
+                        <thead class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
                             <tr>
-                                <th scope="col" class="px-6 py-3 dark:bg-gray-800">
-                                    Jenis Penerimaan
+                                <th scope="col" class="px-6 py-3">
+                                    No.
                                 </th>
                                 <th scope="col" class="px-6 py-3">
-                                    Target 2024
-                                </th>
-                                <th scope="col" class="px-6 py-3 dark:bg-gray-800">
-                                    Penerimaan Hari Ini
+                                    Nama
                                 </th>
                                 <th scope="col" class="px-6 py-3">
-                                    Persen (%)
+                                    Role
+                                </th>
+                                <th scope="col" class="px-6 py-3">
+                                    Alamat
+                                </th>
+                                <th scope="col" class="px-6 py-3">
+                                    Action
                                 </th>
                             </tr>
                         </thead>
                         <tbody>
-                            <tr class="border-b border-gray-200 dark:border-gray-700">
-                                <th scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap bg-gray-50 dark:text-white dark:bg-gray-800">
-                                    Ret. Pasar
-                                </th>
-                                <td class="px-6 py-4">
-                                    20
-                                </td>
-                                <td class="px-6 py-4 dark:bg-gray-800">
-                                    6.890.000
-                                </td>
-                                <td class="px-6 py-4">
-                                    70%
-                                </td>
-                            </tr>
-                            <tr class="border-b border-gray-200 dark:border-gray-700">
-                                <th scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap bg-gray-50 dark:text-white dark:bg-gray-800">
-                                    Ret. Pasar
-                                </th>
-                                <td class="px-6 py-4">
-                                    20
-                                </td>
-                                <td class="px-6 py-4 dark:bg-gray-800">
-                                    6.890.000
-                                </td>
-                                <td class="px-6 py-4">
-                                    70%
-                                </td>
-                            </tr>
-                            <tr class="border-b border-gray-200 dark:border-gray-700">
-                                <th scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap bg-gray-50 dark:text-white dark:bg-gray-800">
-                                    Ret. Parkir
-                                </th>
-                                <td class="px-6 py-4">
-                                    20
-                                </td>
-                                <td class="px-6 py-4 dark:bg-gray-800">
-                                    6.890.000
-                                </td>
-                                <td class="px-6 py-4">
-                                    70%
-                                </td>
-                            </tr>
-                            <tr class="border-b border-gray-200 dark:border-gray-700">
-                                <th scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap bg-gray-50 dark:text-white dark:bg-gray-800">
-                                    Ret. Terminal
-                                </th>
-                                <td class="px-6 py-4">
-                                    40
-                                </td>
-                                <td class="px-6 py-4 dark:bg-gray-800">
-                                    10.890.000
-                                </td>
-                                <td class="px-6 py-4">
-                                    80%
-                                </td>
-                            </tr>
-                            <tr class="border-b border-gray-200 dark:border-gray-700">
-                                <th scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap bg-gray-50 dark:text-white dark:bg-gray-800">
-                                    Ret. Pasar
-                                </th>
-                                <td class="px-6 py-4">
-                                    20
-                                </td>
-                                <td class="px-6 py-4 dark:bg-gray-800">
-                                    6.890.000
-                                </td>
-                                <td class="px-6 py-4">
-                                    70%
-                                </td>
-                            </tr>
-                            <tr class="border-b border-gray-200 dark:border-gray-700">
-                                <th scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap bg-gray-50 dark:text-white dark:bg-gray-800">
-                                    Total
-                                </th>
-                                <th class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap bg-gray-50 dark:text-white dark:bg-gray-800">
-                                    600
-                                </th>
-                                <th class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap bg-gray-50 dark:text-white dark:bg-gray-800">
-                                    60.000.000
-                                </th>
-                                <th class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap bg-gray-50 dark:text-white dark:bg-gray-800">
-                                    60%
-                                </th>
-                            </tr>
+                            @php $number = 1; @endphp <!-- Inisialisasi nomor -->
+                            @foreach ($users as $index => $data)
+                                <tr
+                                    class="odd:bg-white odd:dark:bg-gray-900 even:bg-gray-50 even:dark:bg-gray-800 border-b dark:border-gray-700">
+                                    <th scope="row"
+                                        class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
+                                        {{ $number++ }}
+                                    </th>
+                                    <td class="px-6 py-4">
+                                        {{ $data->name }}
+                                    </td>
+                                    <td class="px-6 py-4">
+                                        {{ $data->role->name }}
+                                    </td>
+                                    <td class="px-6 py-4">
+                                        {{ $data->alamat }}
+                                    </td>
+                                    <td class="px-6 py-4">
+                                        <!-- Modal toggle -->
+                                        <a data-modal-target="modal<?= $data->id ?>"
+                                            data-modal-toggle="modal<?= $data->id ?>"
+                                            class="font-medium text-blue-600 dark:text-blue-500 hover:underline text-center">Edit</a>
+                                    </td>
+                                </tr>
+
+                                {{-- <center> <div id="crud-user" tabindex="-1" aria-hidden="true"
+                                    class="hidden overflow-y-auto overflow-x-hidden fixed top-0 right-0 left-0 z-50 justify-center items-center w-full md:inset-0 h-[calc(100%-1rem)] max-h-full">
+                                    <div class="relative p-4 w-full max-w-md max-h-full">
+                                        <!-- Modal content -->
+                                        <div class="relative bg-white rounded-lg shadow dark:bg-gray-700">
+                                            <!-- Modal header -->
+                                            <div
+                                                class="flex items-center justify-between p-4 md:p-5 border-b rounded-t dark:border-gray-600">
+                                                <h3 class="text-lg font-semibold text-gray-900 dark:text-white">
+                                                    Buat Data Baru
+                                                </h3>
+                                                <button type="button"
+                                                    class="text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm w-8 h-8 ms-auto inline-flex justify-center items-center dark:hover:bg-gray-600 dark:hover:text-white"
+                                                    data-modal-toggle="crud-modal">
+                                                    <svg class="w-3 h-3" aria-hidden="true"
+                                                        xmlns="http://www.w3.org/2000/svg" fill="none"
+                                                        viewBox="0 0 14 14">
+                                                        <path stroke="currentColor" stroke-linecap="round"
+                                                            stroke-linejoin="round" stroke-width="2"
+                                                            d="m1 1 6 6m0 0 6 6M7 7l6-6M7 7l-6 6" />
+                                                    </svg>
+                                                    <span class="sr-only">Close modal</span>
+                                                </button>
+                                            </div>
+                                            <!-- Modal body -->
+                                            <form class="p-4 md:p-5" action="{{ route('users.store') }}" method="POST">
+                                                @csrf
+                                                <div class="grid gap-4 mb-4 grid-cols-2">
+                                                    <div class="col-span-2">
+                                                        <label for="name"
+                                                            class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">
+                                                            Nama</label>
+                                                        <input type="text" id="name" name="name"
+                                                            class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
+                                                            placeholder="Nama" required="">
+                                                    </div>
+                                                </div>
+                                                <div class="grid gap-4 mb-4 grid-cols-2">
+                                                    <div class="col-span-2">
+                                                        <label for="email"
+                                                            class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">
+                                                            Email</label>
+                                                        <input type="email" id="email" name="email"
+                                                            class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
+                                                            placeholder="Email" required="">
+                                                    </div>
+                                                </div>
+                                                <div class="grid gap-4 mb-4 grid-cols-2">
+                                                    <div class="col-span-2">
+                                                        <label for="password"
+                                                            class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Password</label>
+                                                        <input type="password" id="password" name="password"
+                                                            class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
+                                                            placeholder="Last Name" required="">
+                                                    </div>
+                                                </div>
+                                                
+                                                <div class="grid gap-4 mb-4 grid-cols-2">
+                                                    <div class="col-span-2">
+                                                        <label for="photo_profile"
+                                                            class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Photo
+                                                            Profil</label>
+                                                        <input type="file" id="photo_profile" name="photo_profile"
+                                                            class="form-control-file">
+                                                    </div>
+                                                </div>
+
+                                                <div class="grid gap-4 mb-4 grid-cols-2">
+                                                    <div class="col-span-2">
+                                                        <label for="nik"
+                                                            class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">NIK</label>
+                                                        <input type="nik" id="nik" name="nik"
+                                                            class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
+                                                            placeholder="NIK" required="">
+                                                    </div>
+                                                </div>
+                                                <div class="grid gap-4 mb-4 grid-cols-2">
+                                                    <div class="col-span-2">
+                                                        <label for="alamat"
+                                                            class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Alamat</label>
+                                                        <input type="alamat" id="alamat" name="alamat"
+                                                            class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
+                                                            placeholder="ALAMAT" required="">
+                                                    </div>
+                                                </div>
+                                                <div class="grid gap-4 mb-4 grid-cols-2">
+                                                    <div class="col-span-2">
+                                                        <label for="wilayah"
+                                                            class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Wilayah</label>
+                                                            <select id="wilayah" name="wilayah" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500" required>
+                                                                @foreach ($wilayah as $item)
+                                                                    <option value="{{ $item->id }}">{{ $item->nama }}</option>
+                                                                @endforeach
+                                                            </select>
+                                                    </div>
+                                                </div>
+                                                <button type="submit"
+                                                    class="text-white inline-flex items-center bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
+                                                    <svg class="me-1 -ms-1 w-5 h-5" fill="currentColor"
+                                                        viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
+                                                        <path fill-rule="evenodd"
+                                                            d="M10 5a1 1 0 011 1v3h3a1 1 0 110 2h-3v3a1 1 0 11-2 0v-3H6a1 1 0 110-2h3V6a1 1 0 011-1z"
+                                                            clip-rule="evenodd"></path>
+                                                    </svg>
+                                                    Tambah
+                                                </button>
+                                            </form>
+                                        </div>
+                                    </div>
+                                </div></center> --}}
+
+                                <center> <div id="crud-wajib" tabindex="-1" aria-hidden="true"
+                                    class="hidden overflow-y-auto overflow-x-hidden fixed top-0 right-0 left-0 z-50 justify-center items-center w-full md:inset-0 h-[calc(100%-1rem)] max-h-full">
+                                    <div class="relative p-4 w-full max-w-md max-h-full">
+                                        <!-- Modal content -->
+                                        <div class="relative bg-white rounded-lg shadow dark:bg-gray-700">
+                                            <!-- Modal header -->
+                                            <div
+                                                class="flex items-center justify-between p-4 md:p-5 border-b rounded-t dark:border-gray-600">
+                                                <h3 class="text-lg font-semibold text-gray-900 dark:text-white">
+                                                    Buat Data Baru
+                                                </h3>
+                                                <button type="button"
+                                                    class="text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm w-8 h-8 ms-auto inline-flex justify-center items-center dark:hover:bg-gray-600 dark:hover:text-white"
+                                                    data-modal-toggle="crud-modal">
+                                                    <svg class="w-3 h-3" aria-hidden="true"
+                                                        xmlns="http://www.w3.org/2000/svg" fill="none"
+                                                        viewBox="0 0 14 14">
+                                                        <path stroke="currentColor" stroke-linecap="round"
+                                                            stroke-linejoin="round" stroke-width="2"
+                                                            d="m1 1 6 6m0 0 6 6M7 7l6-6M7 7l-6 6" />
+                                                    </svg>
+                                                    <span class="sr-only">Close modal</span>
+                                                </button>
+                                            </div>
+                                            <!-- Modal body -->
+                                            <form class="p-4 md:p-5" action="{{ route('wajib.store') }}" method="POST">
+                                                @csrf
+                                                <div class="grid gap-4 mb-4 grid-cols-2">
+                                                    <div class="col-span-2">
+                                                        <label for="name"
+                                                            class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">
+                                                            Nama</label>
+                                                        <input type="text" id="name" name="name"
+                                                            class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
+                                                            placeholder="Nama" required="">
+                                                    </div>
+                                                </div>
+                                                <div class="grid gap-4 mb-4 grid-cols-2">
+                                                    <div class="col-span-2">
+                                                        <label for="email"
+                                                            class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">
+                                                            Email</label>
+                                                        <input type="email" id="email" name="email"
+                                                            class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
+                                                            placeholder="Email" required="">
+                                                    </div>
+                                                </div>
+                                                <div class="grid gap-4 mb-4 grid-cols-2">
+                                                    <div class="col-span-2">
+                                                        <label for="password"
+                                                            class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Password</label>
+                                                        <input type="password" id="password" name="password"
+                                                            class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
+                                                            placeholder="Last Name" required="">
+                                                    </div>
+                                                </div>
+
+                                                <div class="grid gap-4 mb-4 grid-cols-2">
+                                                    <div class="col-span-2">
+                                                        <label for="nik"
+                                                            class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">NIK</label>
+                                                        <input type="nik" id="nik" name="nik"
+                                                            class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
+                                                            placeholder="NIK" required="">
+                                                    </div>
+                                                </div>
+                                                <div class="grid gap-4 mb-4 grid-cols-2">
+                                                    <div class="col-span-2">
+                                                        <label for="alamat"
+                                                            class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Alamat</label>
+                                                        <input type="alamat" id="alamat" name="alamat"
+                                                            class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
+                                                            placeholder="ALAMAT" required="">
+                                                    </div>
+                                                </div>
+                                                </div>
+                                                <button type="submit"
+                                                    class="text-white inline-flex items-center bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
+                                                    <svg class="me-1 -ms-1 w-5 h-5" fill="currentColor"
+                                                        viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
+                                                        <path fill-rule="evenodd"
+                                                            d="M10 5a1 1 0 011 1v3h3a1 1 0 110 2h-3v3a1 1 0 11-2 0v-3H6a1 1 0 110-2h3V6a1 1 0 011-1z"
+                                                            clip-rule="evenodd"></path>
+                                                    </svg>
+                                                    Tambah
+                                                </button>
+                                            </form>
+                                        </div>
+                                    </div>
+                                </div></center>
+                    
+                                <!-- Main modal -->
+                                <div id="modal<?= $data->id ?>" tabindex="-1" aria-hidden="true"
+                                    class="hidden overflow-y-auto overflow-x-hidden fixed top-0 right-0 left-0 z-50 justify-center items-center w-full md:inset-0 h-[calc(100%-1rem)] max-h-full">
+                                    <div class="relative p-4 w-full max-w-md max-h-full">
+                                        <!-- Modal content -->
+                                        <div class="relative bg-white rounded-lg shadow dark:bg-gray-700">
+                                            <!-- Modal header -->
+                                            <div
+                                                class="flex items-center justify-between p-4 md:p-5 border-b rounded-t dark:border-gray-600">
+                                                <h3 class="text-xl font-semibold text-gray-900 dark:text-white">
+                                                    Sign in to our platform
+                                                </h3>
+                                                <button type="button"
+                                                    class="end-2.5 text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm w-8 h-8 ms-auto inline-flex justify-center items-center dark:hover:bg-gray-600 dark:hover:text-white"
+                                                    data-modal-hide="modal<?= $data->id ?>">
+                                                    <svg class="w-3 h-3" aria-hidden="true"
+                                                        xmlns="http://www.w3.org/2000/svg" fill="none"
+                                                        viewBox="0 0 14 14">
+                                                        <path stroke="currentColor" stroke-linecap="round"
+                                                            stroke-linejoin="round" stroke-width="2"
+                                                            d="m1 1 6 6m0 0 6 6M7 7l6-6M7 7l-6 6" />
+                                                    </svg>
+                                                    <span class="sr-only">Close modal</span>
+                                                </button>
+                                            </div>
+                                            <!-- Modal body -->
+                                            <div class="p-4">
+                                                <form action="{{ route('item.update', $data->id) }}" method="POST">
+                                                    @csrf
+                                                    @method('PUT')
+                                                    <div class="grid gap-4 mb-4 grid-cols-2">
+                                                        <div class="col-span-2">
+                                                            <label for="retribusid"
+                                                                class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Retribusi
+                                                                Id</label>
+                                                            <input type="text" id="retribusi_id" name="retribusi_id"
+                                                                value="{{ old('retribusi_id', $data->retribusi_id) }}"
+                                                                class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
+                                                                required="">
+                                                        </div>
+                                                    </div>
+                                                    <div class="grid gap-4 mb-4 grid-cols-2">
+                                                        <div class="col-span-2">
+                                                            <label for="kategori_nama"
+                                                                class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Kategori
+                                                                Nama</label>
+                                                            <input type="text" id="kategori_nama" name="kategori_nama"
+                                                                value="{{ old('kategori_nama', $data->kategori_nama) }}"
+                                                                class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
+                                                                required="">
+                                                        </div>
+                                                    </div>
+                                                    <div class="grid gap-4 mb-4 grid-cols-2">
+                                                        <div class="col-span-2">
+                                                            <label for="jenis_tagihan"
+                                                                class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Jenis
+                                                                Tagihan</label>
+                                                            <input type="text" id="jenis_tagihan" name="jenis_tagihan"
+                                                                value="{{ old('jenis_tagihan', $data->jenis_tagihan) }}"
+                                                                class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
+                                                                required="">
+                                                        </div>
+                                                    </div>
+                                                    <div class="grid gap-4 mb-4 grid-cols-2">
+                                                        <div class="col-span-2">
+                                                            <label for="harga"
+                                                                class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Harga</label>
+                                                            <input type="text" id="harga" name="harga"
+                                                                value="{{ old('harga', $data->harga) }}"
+                                                                class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
+                                                                required="">
+                                                        </div>
+                                                    </div>
+                                                    <button type="submit"
+                                                        class="text-white inline-flex items-center bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
+                                                        <svg class="me-1 -ms-1 w-5 h-5" fill="currentColor"
+                                                            viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
+                                                            <path fill-rule="evenodd"
+                                                                d="M10 5a1 1 0 011 1v3h3a1 1 0 110 2h-3v3a1 1 0 11-2 0v-3H6a1 1 0 110-2h3V6a1 1 0 011-1z"
+                                                                clip-rule="evenodd"></path>
+                                                        </svg>
+                                                        Edit product
+                                                    </button>
+                                                </form>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            @endforeach
                         </tbody>
                     </table>
+                    <nav class="bg-white flex items-center flex-column flex-wrap md:flex-row justify-between p-4"
+                        aria-label="Table navigation">
+                        <span
+                            class="text-sm font-normal text-gray-500 dark:text-gray-400 mb-4 md:mb-0 block w-full md:inline md:w-auto">Showing
+                            <span class="font-semibold text-gray-900 dark:text-white">1-10</span> of <span
+                                class="font-semibold text-gray-900 dark:text-white">1000</span></span>
+                        <ul class="inline-flex -space-x-px rtl:space-x-reverse text-sm h-8">
+                            <li>
+                                <a href="#"
+                                    class="flex items-center justify-center px-3 h-8 ms-0 leading-tight text-gray-500 bg-white border border-gray-300 rounded-s-lg hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white">Previous</a>
+                            </li>
+                            <li>
+                                <a href="#"
+                                    class="flex items-center justify-center px-3 h-8 leading-tight text-gray-500 bg-white border border-gray-300 hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white">1</a>
+                            </li>
+                            <li>
+                                <a href="#"
+                                    class="flex items-center justify-center px-3 h-8 leading-tight text-gray-500 bg-white border border-gray-300 hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white">2</a>
+                            </li>
+                            <li>
+                                <a href="#" aria-current="page"
+                                    class="flex items-center justify-center px-3 h-8 text-blue-600 border border-gray-300 bg-blue-50 hover:bg-blue-100 hover:text-blue-700 dark:border-gray-700 dark:bg-gray-700 dark:text-white">3</a>
+                            </li>
+                            <li>
+                                <a href="#"
+                                    class="flex items-center justify-center px-3 h-8 leading-tight text-gray-500 bg-white border border-gray-300 hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white">4</a>
+                            </li>
+                            <li>
+                                <a href="#"
+                                    class="flex items-center justify-center px-3 h-8 leading-tight text-gray-500 bg-white border border-gray-300 hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white">5</a>
+                            </li>
+                            <li>
+                                <a href="#"
+                                    class="flex items-center justify-center px-3 h-8 leading-tight text-gray-500 bg-white border border-gray-300 rounded-e-lg hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white">Next</a>
+                            </li>
+                        </ul>
+                    </nav>
                 </div>
             </div>
-            
-        </section>
-      </div>
-      
-    </section>
-
-    <!-- jQuery and JS -->
-    <script
-      src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.0/jquery.js"
-      integrity="sha512-8Z5++K1rB3U+USaLKG6oO8uWWBhdYsM3hmdirnOEWp8h2B1aOikj5zBzlXs8QOrvY9OxEnD2QDkbSKKpfqcIWw=="
-      crossorigin="anonymous"
-    ></script>
-    <script src="Sidebar/main.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/flowbite/2.3.0/flowbite.min.js"></script>
-    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
-</body>
-</html>
+        </div>
+    @endsection
