@@ -94,6 +94,30 @@ class UserController extends Controller
         return redirect()->back()->with('success', 'User created successfully');
     }
 
+    public function update(Request $request, $id)
+{
+    $validatedData = $request->validate([
+        'name' => 'required|string',
+        'email' => 'required|email|unique:users,email,' . $id,
+        'password' => 'nullable|min:8',
+        'nik' => 'required|string|unique:users,nik,' . $id,
+        'alamat' => 'required|string',
+    ]);
+
+    $user = User::findOrFail($id);
+    $user->name = $validatedData['name'];
+    $user->email = $validatedData['email'];
+    $user->nik = $validatedData['nik'];
+    $user->alamat = $validatedData['alamat'];
+
+    if ($request->has('password')) {
+        $user->password = Hash::make($validatedData['password']);
+    }
+
+    $user->save();
+
+    return redirect()->back()->with('success', 'User updated successfully');
+}
 
 
 
@@ -116,10 +140,7 @@ class UserController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, string $id)
-    {
-        //
-    }
+   
 
     /**
      * Remove the specified resource from storage.
