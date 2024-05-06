@@ -43,6 +43,6 @@ class AuthController extends Controller
     {
         auth()->user()->tokens()->delete();
 
-        return redirect('/');
+        return redirect('/login');
     }
 }
