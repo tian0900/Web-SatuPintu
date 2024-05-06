@@ -5,15 +5,15 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class WajibRetribusi extends Model
+class Petugas extends Model
 {
     use HasFactory;
-
-    protected $table = 'wajib_retribusi';
+    protected $table = 'petugas';
     protected $connection = 'mysql';
 
     protected $fillable = [
         'user_id',
+        'subwilayah_id',
     ];
 
     
@@ -21,6 +21,4 @@ class WajibRetribusi extends Model
     {
         return $this->belongsTo(User::class, 'user_id');
     }
-
-    
 }

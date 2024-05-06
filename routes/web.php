@@ -12,6 +12,7 @@ use App\Http\Controllers\AtributController;
 use App\Http\Controllers\KontrakController;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\KedinasanController;
+use App\Http\Controllers\UserController;
 use App\Http\Controllers\BendaharaController;
 use App\Models\Kabupaten;
 
@@ -104,6 +105,12 @@ Route::middleware(['check.role.byname:Admin'])->group(function () {
     Route::delete('/kedinasan/{id}', [kedinasanController::class, 'destroy'])->name('kedinasan.destroy');
     Route::get('/kedinasan/create', [kedinasanController::class, 'create'])->name('kedinasan.create');
     Route::post('/kedinasan', [kedinasanController::class, 'store'])->name('kedinasan.store');
+
+    //Management User
+    Route::get('/userpage', [UserController::class, 'index']);
+    Route::post('/users/store', [UserController::class, 'store'])->name('users.store');
+    Route::post('/wajib/store', [UserController::class, 'storewajib'])->name('wajib.store');
+
  
 });
 Route::middleware(['check.role.byname:Bendahara'])->group(function () {
