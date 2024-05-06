@@ -110,6 +110,8 @@ Route::middleware(['check.role.byname:Admin'])->group(function () {
     Route::get('/userpage', [UserController::class, 'index']);
     Route::post('/users/store', [UserController::class, 'store'])->name('users.store');
     Route::post('/wajib/store', [UserController::class, 'storewajib'])->name('wajib.store');
+    Route::put('/users/{id}',[UserController::class, 'update'])->name('users.update');
+
 
  
 });
