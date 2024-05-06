@@ -14,7 +14,7 @@
     <nav class="bg-white border-gray-200 dark:bg-gray-900">
         <div class="flex flex-wrap justify-between items-center mx-auto max-w-screen-xl p-4">
             <a href="https://flowbite.com" class="flex items-center space-x-3 rtl:space-x-reverse">
-                <img src="assets/img/logo.png" class="h-8" alt="Flowbite Logo" />
+                <img src="Logo/logo.png" class="h-8" alt="Flowbite Logo" />
                 <span class="self-center text-2xl font-semibold whitespace-nowrap dark:text-white">Satu Pintu</span>
             </a>
             <div class="flex items-center space-x-6 rtl:space-x-reverse">
@@ -35,20 +35,20 @@
                             aria-current="page">Home</a>
                     </li>
                     <li>
-                        <a href="#" class="text-gray-900 dark:text-white hover:underline">Company</a>
+                        <a href="#data1" class="text-gray-900 dark:text-white hover:underline">Company</a>
                     </li>
                     <li>
-                        <a href="#" class="text-gray-900 dark:text-white hover:underline">Team</a>
+                        <a href="#data2" class="text-gray-900 dark:text-white hover:underline">Team</a>
                     </li>
                     <li>
-                        <a href="#" class="text-gray-900 dark:text-white hover:underline">Features</a>
+                        <a href="#data3" class="text-gray-900 dark:text-white hover:underline">Features</a>
                     </li>
                 </ul>
             </div>
         </div>
     </nav>
 
-    <section class="bg-gray-200 dark:bg-gray-900">
+    <section id="data1" class="bg-gray-200 dark:bg-gray-900">
         <div class="grid max-w-screen-xl px-4 py-8 mx-auto lg:gap-8 xl:gap-0 lg:py-16 lg:grid-cols-12">
             <div class="mr-auto place-self-center lg:col-span-7">
                 <h1
@@ -59,18 +59,18 @@
                     membayar pajak kita bersama.</p>
             </div>
             <div class="hidden lg:mt-0 lg:col-span-5 lg:flex">
-                <img src="assets/img/Retribusi-1-removebg-preview.png" alt="mockup">
+                <img src="Auth/retributioninformation1.png" alt="mockup">
             </div>
         </div>
     </section>
 
-    <section class="bg-white dark:bg-gray-900">
+    <section id="data2" class="bg-white dark:bg-gray-900">
         <div
             class="gap-8 items-center py-8 px-4 mx-auto max-w-screen-xl xl:gap-16 md:grid md:grid-cols-2 sm:py-16 lg:px-6">
             <div
                 class="max-w-lg bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700">
                 <a href="#">
-                    <img class="rounded-t-lg" src="assets/img/tax--1200x675.png" alt="" />
+                    <img class="rounded-t-lg" src="Auth/retributioninformation2.png" alt="" />
                 </a>
             </div>
             <!-- <img class="w-full dark:hidden" src="https://flowbite.s3.amazonaws.com/blocks/marketing-ui/cta/cta-dashboard-mockup.svg" alt="dashboard image"> -->
@@ -102,7 +102,7 @@
         </div>
     </section>
 
-    <section class="bg-white dark:bg-gray-900">
+    <section id="data3" class="bg-white dark:bg-gray-900">
         <div class="mx-auto max-w-screen-xl p-5 text-center">
             <h2 class="mb-4 text-4xl tracking-tight font-extrabold text-gray-900 dark:text-white">Kenapa Harus Satu
                 Pintu?</h2>
@@ -159,12 +159,11 @@
         </div>
     </section>
 
-
     <footer class="bg-white rounded-lg shadow dark:bg-gray-900 m-4">
         <div class="w-full max-w-screen-xl mx-auto p-4 md:py-8">
             <div class="sm:flex sm:items-center sm:justify-between">
                 <a href="https://flowbite.com/" class="flex items-center mb-4 sm:mb-0 space-x-3 rtl:space-x-reverse">
-                    <img src="assets/img/logo.png" class="h-8" alt="Flowbite Logo" />
+                    <img src="logo/Logo.png" class="h-8" alt="Flowbite Logo" />
                     <span class="self-center text-2xl font-semibold whitespace-nowrap dark:text-white">Satu Pintu</span>
                 </a>
                 <ul

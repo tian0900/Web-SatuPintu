@@ -33,13 +33,13 @@
             <!-- -------- Non Dropdown List Item ------- -->
             <li>
                 <div class="title">
-                    <a href="#" class="link">
+                    <a href="/dashboard" class="link">
                         <i class='bx bx-grid-alt'></i>
                         <span class="name">Dashboard</span>
                     </a>
                 </div>
                 <div class="submenu">
-                    <a href="#" class="link submenu-title">Dashboard</a>
+                    <a href="/dashboard" class="link submenu-title">Dashboard</a>
                 </div>
             </li>
 
