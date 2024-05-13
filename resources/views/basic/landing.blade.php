@@ -18,35 +18,14 @@
                 <span class="self-center text-2xl font-semibold whitespace-nowrap dark:text-white">Satu Pintu</span>
             </a>
             <div class="flex items-center space-x-6 rtl:space-x-reverse">
-                <a href="tel:5541251234" class="text-sm  text-gray-500 dark:text-white hover:underline">(555)
-                    412-1234</a>
+               
                 <a href="/login"
                     class="text-white bg-gradient-to-r from-blue-500 via-blue-600 to-blue-700 hover:bg-gradient-to-br focus:ring-4 focus:outline-none focus:ring-blue-300 dark:focus:ring-blue-800 font-medium rounded-lg text-sm px-5 py-2.5 text-center me-2 mb-2 block">Login</a>
 
             </div>
         </div>
     </nav>
-    <nav class="bg-blue-400 dark:bg-gray-700">
-        <div class="max-w-screen-xl px-4 py-3 mx-auto">
-            <div class="flex items-center">
-                <ul class="flex flex-row font-medium mt-0 space-x-8 rtl:space-x-reverse text-sm">
-                    <li>
-                        <a href="#" class="text-gray-900 dark:text-white hover:underline"
-                            aria-current="page">Home</a>
-                    </li>
-                    <li>
-                        <a href="#data1" class="text-gray-900 dark:text-white hover:underline">Company</a>
-                    </li>
-                    <li>
-                        <a href="#data2" class="text-gray-900 dark:text-white hover:underline">Team</a>
-                    </li>
-                    <li>
-                        <a href="#data3" class="text-gray-900 dark:text-white hover:underline">Features</a>
-                    </li>
-                </ul>
-            </div>
-        </div>
-    </nav>
+  >
 
     <section id="data1" class="bg-gray-200 dark:bg-gray-900">
         <div class="grid max-w-screen-xl px-4 py-8 mx-auto lg:gap-8 xl:gap-0 lg:py-16 lg:grid-cols-12">
@@ -166,21 +145,7 @@
                     <img src="logo/Logo.png" class="h-8" alt="Flowbite Logo" />
                     <span class="self-center text-2xl font-semibold whitespace-nowrap dark:text-white">Satu Pintu</span>
                 </a>
-                <ul
-                    class="flex flex-wrap items-center mb-6 text-sm font-medium text-gray-500 sm:mb-0 dark:text-gray-400">
-                    <li>
-                        <a href="#" class="hover:underline me-4 md:me-6">About</a>
-                    </li>
-                    <li>
-                        <a href="#" class="hover:underline me-4 md:me-6">Privacy Policy</a>
-                    </li>
-                    <li>
-                        <a href="#" class="hover:underline me-4 md:me-6">Licensing</a>
-                    </li>
-                    <li>
-                        <a href="#" class="hover:underline">Contact</a>
-                    </li>
-                </ul>
+              
             </div>
             <hr class="my-6 border-gray-200 sm:mx-auto dark:border-gray-700 lg:my-8" />
             <span class="block text-sm text-gray-500 sm:text-center dark:text-gray-400">© 2023 <a

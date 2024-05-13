@@ -28,7 +28,12 @@ class KontrakController extends Controller
     {
         $user = Auth::user();
         $test = $user->name;
-        $Kontrak = Kontrak::with(['wajibRetribusi', 'itemRetribusi', 'Wilayah'])->get();
+        $Kontrak = Kontrak::with(['wajibRetribusi', 'itemRetribusi', 'Wilayah'])
+            ->whereHas('itemRetribusi', function ($query) {
+                $query->where('retribusi_id', 2);
+            })
+            ->get();
+
         $wajibRetribusiOptions = WajibRetribusi::all();
         $itemRetribusiOptions = ItemRetribusi::all();
 
@@ -41,6 +46,27 @@ class KontrakController extends Controller
         ]);
     }
 
+    public function indexsampah()
+    {
+        $user = Auth::user();
+        $test = $user->name;
+        $Kontrak = Kontrak::with(['wajibRetribusi', 'itemRetribusi', 'Wilayah'])
+            ->whereHas('itemRetribusi', function ($query) {
+                $query->where('retribusi_id', 1);
+            })
+            ->get();
+
+        $wajibRetribusiOptions = WajibRetribusi::all();
+        $itemRetribusiOptions = ItemRetribusi::all();
+
+        $subWilayahOptions = Wilayah::all();
+        return view('data.kontraksampah', [
+            'Kontrak' => $Kontrak,
+            'wajibRetribusiOptions' => $wajibRetribusiOptions,
+            'itemRetribusiOptions' => $itemRetribusiOptions,
+            'subWilayahOptions' => $subWilayahOptions,
+        ]);
+    }
     public function store(Request $request)
     {
         // Validasi input dari form
@@ -80,7 +106,7 @@ class KontrakController extends Controller
                 'active' => 1,
                 'jatuh_tempo' => $jatuhTempo->endOfMonth(), // Akhiri bulan untuk jatuh tempo
             ];
-
+            // dd($tagihanData);
             // Simpan data Tagihan ke dalam database
             Tagihan::create($tagihanData);
         }
@@ -161,6 +187,16 @@ class KontrakController extends Controller
             return abort(404); // Tampilkan halaman 404 jika data tidak ditemukan
         }
         return view('data.detailkontrak', compact('kontrak'));
+    }
+
+    public function detailkontraksampah($id)
+    {
+        $kontrak = Kontrak::with(['wajibRetribusi', 'itemRetribusi', 'Wilayah'])->find($id);
+        // Cek jika data kontrak ditemukan
+        if (!$kontrak) {
+            return abort(404); // Tampilkan halaman 404 jika data tidak ditemukan
+        }
+        return view('data.detailkontraksampah', compact('kontrak'));
     }
 
 
