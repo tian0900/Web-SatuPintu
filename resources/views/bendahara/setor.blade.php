@@ -81,7 +81,6 @@
             </div>
         </div>
 
-
         <div class="container m-5">
             <div class="flex flex-column sm:flex-row flex-wrap space-y-4 sm:space-y-0 items-center justify-between pb-4">
                 <div>
@@ -197,8 +196,7 @@
                         <tbody>
                             @php $number = 1; @endphp <!-- Inisialisasi nomor -->
                             @foreach ($setor as $item)
-                                <tr
-                                    class="odd:bg-white odd:dark:bg-gray-900 even:bg-gray-50 even:dark:bg-gray-800 border-b dark:border-gray-700">
+                                <tr class="odd:bg-white odd:dark:bg-gray-900 even:bg-gray-50 even:dark:bg-gray-800 border-b dark:border-gray-700">
                                     <th scope="row"
                                         class="px-3 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
                                         {{ $item->nama_petugas }}
@@ -223,19 +221,18 @@
                                             class="font-medium text-blue-600 dark:text-blue-500 hover:underline text-center">Konfirmasi</a>
                                     </td>
                                 </tr>
-
-                                <!-- Main modal -->
-                                <div id="modal<?= $item->id ?>" tabindex="-1" aria-hidden="true"
-                                    class="hidden overflow-y-auto overflow-x-hidden fixed top-0 right-0 left-0 z-50 justify-center items-center w-full md:inset-0 h-[calc(100%-1rem)] max-h-full">
-                                    <div class="relative p-4 w-full max-w-md max-h-full">
+                                
+                                <!-- Small Modal -->
+                                <div id="modal<?= $item->id ?>" tabindex="-1" class="fixed top-0 left-0 right-0 z-50 hidden w-full p-4 overflow-x-hidden overflow-y-auto md:inset-0 h-[calc(100%-1rem)] max-h-full">
+                                    <div class="relative w-full max-w-md max-h-full">
                                         <!-- Modal content -->
                                         <div class="relative bg-white rounded-lg shadow dark:bg-gray-700">
                                             <!-- Modal header -->
                                             <div class="flex items-center justify-between p-4 md:p-5 border-b rounded-t dark:border-gray-600">
-                                                <h3 class="text-lg font-semibold text-gray-900 dark:text-white">
+                                                <h3 class="text-xl font-medium text-gray-900 dark:text-white">
                                                     Bukti Penyetoran
                                                 </h3>
-                                                <button type="button" class="text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm h-8 w-8 ms-auto inline-flex justify-center items-center dark:hover:bg-gray-600 dark:hover:text-white" data-modal-toggle="select-modal">
+                                                <button type="button" class="text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm w-8 h-8 ms-auto inline-flex justify-center items-center dark:hover:bg-gray-600 dark:hover:text-white" data-modal-hide="modal<?= $item->id ?>">
                                                     <svg class="w-3 h-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 14 14">
                                                         <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m1 1 6 6m0 0 6 6M7 7l6-6M7 7l-6 6"/>
                                                     </svg>
@@ -250,17 +247,51 @@
                                             </div>
                                         </div>
                                     </div>
-                                </div>
+                                </div>>
 
-                                <form action="{{ route('setor.updateStatus', $item->id) }}" method="POST">
+                                <!-- Small Modal -->
+                                <div id="modalkonfirmasi{{ $item->id }}" tabindex="-1" class="fixed top-0 left-0 right-0 z-50 hidden w-full p-4 overflow-x-hidden overflow-y-auto md:inset-0 h-[calc(100%-1rem)] max-h-full">
+                                    <div class="relative w-full max-w-md max-h-full">
+                                        <!-- Modal content -->
+                                        <div class="relative bg-white rounded-lg shadow dark:bg-gray-700">
+                                            <!-- Modal header -->
+                                            <div class="flex items-center justify-between p-4 md:p-5 border-b rounded-t dark:border-gray-600">
+                                                <h3 class="text-xl font-medium text-gray-900 dark:text-white">
+                                                    Konfirmasi Setoran
+                                                </h3>
+                                                <button type="button" class="text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm w-8 h-8 ms-auto inline-flex justify-center items-center dark:hover:bg-gray-600 dark:hover:text-white" data-modal-hide="modalkonfirmasi{{ $item->id }}">
+                                                    <svg class="w-3 h-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 14 14">
+                                                        <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m1 1 6 6m0 0 6 6M7 7l6-6M7 7l-6 6"/>
+                                                    </svg>
+                                                    <span class="sr-only">Close modal</span>
+                                                </button>
+                                            </div>
+                                            <!-- Modal body -->
+                                            <form action="{{ route('setor.updateStatus', $item->id) }}" method="POST">
+                                                <div class="relative bg-white rounded-lg shadow dark:bg-gray-700">
+                                                    <div class="flex items-center justify-between p-4 md:p-5 border-b rounded-t dark:border-gray-600">
+                                                        <h4>Apakah Anda yakin ingin mengkonfirmasi Setoran dari {{ $item->nama_petugas }} senilai {{ $item->total }}?</h4>
+                                                    </div>
+                                                    <div class="p-4 md:p-5 flex justify-end">
+                                                        <button type="submit"
+                                                            class="mr-3 px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600">Konfirmasi</button>
+                                                        <button type="button"
+                                                            class="px-4 py-2 bg-gray-300 text-gray-700 rounded hover:bg-gray-400"
+                                                            data-modal-hide="modalkonfirmasi{{ $item->id }}">Batal</button>
+                                                    </div>
+                                                </div>
+                                            </form>
+                                        </div>
+                                    </div>
+                                </div>
+                                {{-- <form action="{{ route('setor.updateStatus', $item->id) }}" method="POST">
                                     @csrf
                                     @method('PUT')
                                     <div id="modalkonfirmasi{{ $item->id }}"
                                         class="hidden overflow-y-auto overflow-x-hidden fixed top-0 right-0 left-0 z-50 justify-center items-center w-full md:inset-0 h-[calc(100%-1rem)] max-h-full">
                                         <div class="relative p-4 w-full max-w-md max-h-full">
                                             <div class="relative bg-white rounded-lg shadow dark:bg-gray-700">
-                                                <div
-                                                    class="flex items-center justify-between p-4 md:p-5 border-b rounded-t dark:border-gray-600">
+                                                <div class="flex items-center justify-between p-4 md:p-5 border-b rounded-t dark:border-gray-600">
                                                     <h4>Apakah Anda yakin ingin mengkonfirmasi Setoran dari
                                                         {{ $item->nama_petugas }} senilai {{ $item->total }}?</h4>
                                                     <button type="button"
@@ -286,7 +317,7 @@
                                             </div>
                                         </div>
                                     </div>
-                                </form>
+                                </form> --}}
                             @endforeach
                         </tbody>
                     </table>

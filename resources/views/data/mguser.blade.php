@@ -5,13 +5,7 @@
     <div class="container p-5">
       <h1 class="mt-3 text-5xl">Daftar Item</h1>
 
-    <!-- Modal toggle -->
-    <button data-modal-target="crud-user" data-modal-toggle="crud-user" class="block text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800 mt-5 mb-5" type="button">
-        Tambah Data Baru
-    </button>
-    <button data-modal-target="crud-wajib" data-modal-toggle="crud-wajib" class="block text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800 mt-5 mb-5" type="button">
-        Tambah Data Baru
-    </button>
+    
 
     <!-- Main modal -->
     <div id="crud-user" tabindex="-1" aria-hidden="true" class="hidden overflow-y-auto overflow-x-hidden fixed top-0 right-0 left-0 z-50 justify-center items-center w-full md:inset-0 h-[calc(100%-1rem)] max-h-full">
@@ -256,56 +250,63 @@
                         <div class="relative p-4 w-full max-w-md max-h-full">
                             <!-- Modal content -->
                             <div class="relative bg-white rounded-lg shadow dark:bg-gray-700">
-                                <!-- Modal header -->
-                                <div class="flex items-center justify-between p-4 md:p-5 border-b rounded-t dark:border-gray-600">
-                                    <h3 class="text-xl font-semibold text-gray-900 dark:text-white">
-                                        Sign in to our platform
-                                    </h3>
-                                    <button type="button" class="end-2.5 text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm w-8 h-8 ms-auto inline-flex justify-center items-center dark:hover:bg-gray-600 dark:hover:text-white" data-modal-hide="modal<?= $data->id ?>">
-                                        <svg class="w-3 h-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 14 14">
-                                            <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m1 1 6 6m0 0 6 6M7 7l6-6M7 7l-6 6"/>
-                                        </svg>
-                                        <span class="sr-only">Close modal</span>
-                                    </button>
-                                </div>
-                                <!-- Modal body -->
-                                <div class="p-4">
-                                    <form action="{{ route('item.update', $data->id) }}" method="POST">
-                                        @csrf
-                                        @method('PUT')
-                                        <div class="grid gap-4 mb-4 grid-cols-2">
-                                            <div class="col-span-2">
-                                                <label for="retribusid" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Retribusi Id</label>
-                                                <input type="text" id="retribusi_id" name="retribusi_id" value="{{ old('retribusi_id', $data->retribusi_id)}}" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"  required="">
-                                            </div>
-                                        </div>
-                                        <div class="grid gap-4 mb-4 grid-cols-2">
-                                            <div class="col-span-2">
-                                                <label for="kategori_nama" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Kategori Nama</label>
-                                                <input type="text" id="kategori_nama" name="kategori_nama" value="{{ old('kategori_nama', $data->kategori_nama)}}" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"  required="">
-                                            </div>
-                                        </div>
-                                        <div class="grid gap-4 mb-4 grid-cols-2">
-                                        <div class="col-span-2">
-                                            <label for="jenis_tagihan" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Jenis Tagihan</label>
-                                            <input type="text" id="jenis_tagihan" name="jenis_tagihan" value="{{ old('jenis_tagihan', $data->jenis_tagihan)}}" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"  required="">
-                                        </div>
-                                        </div>
-                                        <div class="grid gap-4 mb-4 grid-cols-2">
-                                            <div class="col-span-2">
-                                                <label for="harga" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Harga</label>
-                                                <input type="text" id="harga" name="harga" value="{{ old('harga', $data->harga)}}" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"  required="">
-                                            </div>
-                                        </div>
-                                        <button type="submit" class="text-white inline-flex items-center bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
-                                            <svg class="me-1 -ms-1 w-5 h-5" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M10 5a1 1 0 011 1v3h3a1 1 0 110 2h-3v3a1 1 0 11-2 0v-3H6a1 1 0 110-2h3V6a1 1 0 011-1z" clip-rule="evenodd"></path></svg>
-                                            Edit product
+                                    <!-- Modal header -->
+                                    <div class="flex items-center justify-between p-4 md:p-5 border-b rounded-t dark:border-gray-600">
+                                        <h3 class="text-lg font-semibold text-gray-900 dark:text-white">
+                                            Changelog
+                                        </h3>
+                                        <button type="button" class="text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm h-8 w-8 ms-auto inline-flex justify-center items-center dark:hover:bg-gray-600 dark:hover:text-white" data-modal-toggle="modal<?= $data->id ?>">
+                                            <svg class="w-3 h-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 14 14">
+                                                <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m1 1 6 6m0 0 6 6M7 7l6-6M7 7l-6 6"/>
+                                            </svg>
+                                            <span class="sr-only">Close modal</span>
                                         </button>
-                                    </form>
+                                    </div>
+                                    <!-- Modal body -->
+                                    <div class="p-4 md:p-5">
+                                        <form class="" action="{{ route('users.update', $data->id) }}" method="POST">
+                                            @csrf
+                                            @method('PUT')
+                                                <div class="grid gap-4 mb-4 grid-cols-2">
+                                                    <div class="col-span-2">
+                                                        <label for="nama" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Nama</label>
+                                                        <input type="text" id="name" name="name" value="{{ old('name', $data->name)}}" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"  required="">
+                                                    </div>
+                                                </div>
+                                                <div class="grid gap-4 mb-4 grid-cols-2">
+                                                    <div class="col-span-2">
+                                                        <label for="email" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Email</label>
+                                                        <input type="text" id="email" name="email" value="{{ old('email', $data->email)}}" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"  required="">
+                                                    </div>
+                                                </div>
+                                                <div class="grid gap-4 mb-4 grid-cols-2">
+                                                    <div class="col-span-2">
+                                                        <label for="password" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Password</label>
+                                                        <input type="password" id="password" value="{{ old('password', $data->password)}}" name="password" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500" required="">
+                                                    </div>
+                                                </div>
+                                                <div class="grid gap-4 mb-4 grid-cols-2">
+                                                    <div class="col-span-2">
+                                                        <label for="nik" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">NIK</label>
+                                                        <input type="text" id="nik" name="nik" value="{{ old('nik', $data->nik)}}" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"  required="">
+                                                    </div>
+                                                </div>
+                                                <div class="grid gap-4 mb-4 grid-cols-2">
+                                                    <div class="col-span-2">
+                                                        <label for="alamat" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Alamat</label>
+                                                        <input type="text" id="alamat" name="alamat" value="{{ old('alamat', $data->alamat)}}" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"  required="">
+                                                    </div>
+                                                </div>
+                                                <button type="submit" class="text-white inline-flex items-center bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
+                                                    <svg class="me-1 -ms-1 w-5 h-5" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M10 5a1 1 0 011 1v3h3a1 1 0 110 2h-3v3a1 1 0 11-2 0v-3H6a1 1 0 110-2h3V6a1 1 0 011-1z" clip-rule="evenodd"></path></svg>
+                                                    Tambah
+                                                </button>
+                                        </form>
+                                    </div>
                                 </div>
-                            </div>
                         </div>
                     </div> 
+                    
                     @endforeach
                 </tbody>
             </table>

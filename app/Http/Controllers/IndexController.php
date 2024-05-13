@@ -3,6 +3,14 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Models\Post;
+use App\Models\Retribusi;
+use App\Models\Kedinasan;
+use App\Models\Kabupaten;
+use App\Models\Kontrak;
+use App\Models\Petugas;
+use App\Models\WajibRetribusi;
+
 
 class IndexController extends Controller
 {
@@ -19,8 +27,23 @@ class IndexController extends Controller
     }
     public function dashboard()
     {
-        return view('auth.dashboard');
+        $kabupaten = Kabupaten::count();
+        $kedinasan = kedinasan::count();
+        $kontrak = kontrak::count();
+        $retribusi = retribusi::count();
+        $petugas = petugas::count();
+        $wajibretribusi = WajibRetribusi::count();
+        $item = WajibRetribusi::count();
+
+        return view('auth.dashboard', compact('kabupaten', 'kedinasan', 'kontrak', 'retribusi', 'petugas', 'wajibretribusi', 'item'));
     }
+    // public function dashboardkedinasan()
+    // {
+    //     $wilayah = Wilayah::all()->count();
+    //     $atribut = Post::all()->count();
+
+    //     return view('auth.dashboard', ['atribut' => $atribut, 'wilayah' => $wilayah]);
+    // }
 
     /**
      * Show the form for creating a new resource.
