@@ -14,8 +14,14 @@ class ItemRetribusiController extends Controller
      */
     public function index()
     {
-        $item = ItemRetribusi::all();
+        $item = ItemRetribusi::where('retribusi_id', 2)->get();
         return view('data.item', compact('item'));
+    }
+
+    public function indexsampah()
+    {
+        $item = ItemRetribusi::where('retribusi_id', 1)->get();
+        return view('data.itemsampah', compact('item'));
     }
 
     /**

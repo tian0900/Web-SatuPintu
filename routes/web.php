@@ -28,8 +28,8 @@ use App\Models\Kabupaten;
 */
 
 
-Route::get('/', [PasarController::class, 'index']);
-Route::get('/landing', [IndexController::class, 'landing']);
+Route::get('/dd', [PasarController::class, 'index']);
+Route::get('/', [IndexController::class, 'landing']);
 Route::get('/dashboard', [IndexController::class, 'dashboard']);
 Route::post('/jenis/store', [PasarController::class, 'store'])->name('jenis.store');
 Route::get('/jenis/edit', [PasarController::class, 'edit'])->name('jenis.edit');
@@ -38,13 +38,33 @@ Route::get('/jenis/edit', [PasarController::class, 'edit'])->name('jenis.edit');
 // Route::put('/jenis/edit/{id}', [PasarController::class, 'update'])->name('jenis.update');
 Route::put('/jenis/{post}', [PasarController::class, 'update'])->name('jenis.update');
 
+Route::middleware(['check.role.byname:AdminKabupaten'])->group(function () {
+    //Kedinasan
+    Route::get('/kedinasan', [KedinasanController::class, 'index']);
+    Route::get('/data/kedinasan/{id}/edit', [kedinasanController::class, 'edit'])->name('kedinasan.edit');
+    Route::put('/data/kedinasan/{id}', [kedinasanController::class, 'update'])->name('kedinasan.update');
+    Route::delete('/kedinasan/{id}', [kedinasanController::class, 'destroy'])->name('kedinasan.destroy');
+    Route::get('/kedinasan/create', [kedinasanController::class, 'create'])->name('kedinasan.create');
+    Route::post('/kedinasan', [kedinasanController::class, 'store'])->name('kedinasan.store');
+
+    //Kabupaten
+    Route::get('/kabupaten',        [KabupatenController::class, 'index']);
+    Route::post('/kabupaten/store', [KabupatenController::class, 'store'])->name('kabupaten.store');
+    Route::get('/kabupaten/show',   [KabupatenController::class, 'show'])->name('kabupaten.show');
+    Route::get('/kabupaten/edit',   [KabupatenController::class, 'edit'])->name('kabupaten.edit');
+    Route::put('/kabupaten/{post}', [KabupatenController::class, 'update'])->name('kabupaten.update');
+
+});
+
 Route::middleware(['check.role.byname:Admin'])->group(function () {
 
     Route::get('/pdf', [KontrakController::class, 'testt']);
     Route::get('/surat/{id}', [KontrakController::class, 'detailkontrak'])->name('surat.detail');
+    Route::get('/suratsampah/{id}', [KontrakController::class, 'detailkontraksampah'])->name('surat.detailsampah');
     Route::post('/kontrak/store', [KontrakController::class, 'store'])->name('kontrak.store');
     Route::get('/generate-pdf/{id}', [KontrakController::class, 'generatePDFkontrak'])->name('generate-pdfkontrak');
     Route::get('/kontrak', [KontrakController::class, 'index'])->name('kontrak');
+    Route::get('/kontraksampah', [KontrakController::class, 'indexsampah'])->name('kontraksampah');
     Route::put('/kontrak/{id}/update-status', [KontrakController::class, 'updateStatus'])->name('kontrak.updateStatus');
 
     Route::delete('/kontrak/{id}', [KontrakController::class, 'deletekontrak'])->name('kontrak.delete');
@@ -80,6 +100,7 @@ Route::middleware(['check.role.byname:Admin'])->group(function () {
 
     //Item-Retribusi
     Route::get('/item', [ItemRetribusiController::class, 'index'])->name('item.index');
+    Route::get('/itemsampah', [ItemRetribusiController::class, 'indexsampah'])->name('item.indexsampah');
     Route::post('/item/store', [ItemRetribusiController::class, 'store'])->name('item.store');
     Route::get('/item/show', [ItemRetribusiController::class, 'show'])->name('item.show');
     Route::get('/item/{post}/edit', [ItemRetribusiController::class, 'edit'])->name('item.edit');
@@ -87,21 +108,9 @@ Route::middleware(['check.role.byname:Admin'])->group(function () {
 
     // Route::delete('/posts/{post}', ItemRetribusiController::class .'@destroy')->name('posts.destroy');
 
-    //Kabupaten
-    Route::get('/kabupaten',        [KabupatenController::class, 'index']);
-    Route::post('/kabupaten/store', [KabupatenController::class, 'store'])->name('kabupaten.store');
-    Route::get('/kabupaten/show',   [KabupatenController::class, 'show'])->name('kabupaten.show');
-    Route::get('/kabupaten/edit',   [KabupatenController::class, 'edit'])->name('kabupaten.edit');
-    Route::put('/kabupaten/{post}', [KabupatenController::class, 'update'])->name('kabupaten.update');
+    
 
-    //Kedinasan
-    Route::get('/kedinasan', [KedinasanController::class, 'index']);
-    Route::get('/data/kedinasan/{id}/edit', [kedinasanController::class, 'edit'])->name('kedinasan.edit');
-    Route::put('/data/kedinasan/{id}', [kedinasanController::class, 'update'])->name('kedinasan.update');
-    Route::delete('/kedinasan/{id}', [kedinasanController::class, 'destroy'])->name('kedinasan.destroy');
-    Route::get('/kedinasan/create', [kedinasanController::class, 'create'])->name('kedinasan.create');
-    Route::post('/kedinasan', [kedinasanController::class, 'store'])->name('kedinasan.store');
-
+    
     //Management User
     Route::get('/userpage', [UserController::class, 'index']);
     Route::post('/users/store', [UserController::class, 'store'])->name('users.store');

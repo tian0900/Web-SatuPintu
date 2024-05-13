@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Surat Perjanjian Sewa Menyewa</title>
+    <title>Surat Perjanjian </title>
     <style>
         body {
             font-family: Arial, sans-serif;
@@ -59,7 +59,7 @@
 <body>
     <div class="container">
         <div class="center">
-            <h2 style="font-size: 14px;">Surat Sewa Menyewa Tempat Pasar Kabupaten Humbang Hasundutan</h2>
+            <h2 style="font-size: 14px;">Surat Perjanjian Sampah</h2>
         </div>
         <div>
             <button id="exportBtn" type="button">Export to PDF</button>
@@ -75,7 +75,7 @@
                 </tr>
                 <tr>
                     <td>Jabatan</td>
-                    <td>: Kepala Dinas</td>
+                    <td>: Kepala Dinas </td>
                 </tr>
             </table>
             <p>Dalam hal ini bertindak atas nama diri pribadi yang selanjutnya disebut PIHAK PERTAMA</p>
@@ -92,10 +92,10 @@
             </table>
             <p>Dalam hal ini bertindak atas nama diri pribadi yang selanjutnya disebut PIHAK KEDUA</p>
             <br>
-            <p>Dimana pihak kedua sepakat untuk menyewa bangunan:</p>
+            <p>Dimana pihak kedua sepakat untuk menyewa jasa:</p>
             <table>
                 <tr>
-                    <td>Jenis Bangunan</td>
+                    <td>Jenis Sampah</td>
                     <td>: {{ $kontrak->ItemRetribusi->kategori_nama }}</td>
                 </tr>
                 <tr>
@@ -107,7 +107,7 @@
                     <td>: Rp. {{ $kontrak->ItemRetribusi->harga }} / bulan</td>
                 </tr>
             </table>
-            <p>Ini adalah detail surat sewa menyewa tempat pasar kabupaten Humbang Hasundutan</p>
+            <p>Ini adalah detail surat Perjanjian sewa Jasa pengangkutan Sampah</p>
             <br>
             <div class="right-align">
                 <p></p>

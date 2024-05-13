@@ -30,6 +30,8 @@ class AuthController extends Controller
                 return redirect('/item');
             } elseif ($user->name === 'Bendahara') {
                 return redirect('/tagihan');
+            }elseif ($user->name === 'AdminKabupaten') {
+                return redirect('/kedinasan');
             }else {
                 // Jika peran tidak diketahui, ganti return redirect sesuai kebutuhan
                 return redirect('/kontrak')->withErrors(['pesan' => 'Input yang Anda masukkan salah']);;
