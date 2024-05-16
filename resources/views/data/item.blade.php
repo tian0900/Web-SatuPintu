@@ -252,3 +252,21 @@
     </div>
 
 @endsection
+<script>
+    document.addEventListener("DOMContentLoaded", function() {
+        const searchInput = document.getElementById('table-search');
+        const rows = document.querySelectorAll(
+        'tbody tr'); // Menggunakan selector yang sesuai dengan struktur tabel Anda
+
+        searchInput.addEventListener('input', function() {
+            const searchValue = this.value.toLowerCase();
+
+            rows.forEach(row => {
+                const cells = row.querySelectorAll('td');
+                const rowText = Array.from(cells).map(cell => cell.textContent.toLowerCase())
+                    .join(' ');
+                row.style.display = rowText.includes(searchValue) ? '' : 'none';
+            });
+        });
+    });
+</script>

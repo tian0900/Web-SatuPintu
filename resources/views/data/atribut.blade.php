@@ -230,13 +230,13 @@
                             @foreach ($atribut as $item)
                                 <tr
                                     class="odd:bg-white odd:dark:bg-gray-900 even:bg-gray-50 even:dark:bg-gray-800 border-b dark:border-gray-700">
-                                    <th scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
+                                    <td scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
                                         {{ $number++ }}
-                                        </th>
-                                    <th scope="row"
+                                        </td>
+                                    <td scope="row"
                                         class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
                                         {{ $item['data'][0]['Kelompok_pasar'] }}
-                                    </th>
+                                    </td>
                                     <td class="px-6 py-4">
                                         {{ $item['data'][0]['jenis_unit'] }}
                                         {{ $item->jenis_unit }}
@@ -440,3 +440,21 @@
         </div>
     </div>
 @endsection
+<script>
+    document.addEventListener("DOMContentLoaded", function() {
+        const searchInput = document.getElementById('table-search');
+        const rows = document.querySelectorAll(
+        'tbody tr'); // Menggunakan selector yang sesuai dengan struktur tabel Anda
+
+        searchInput.addEventListener('input', function() {
+            const searchValue = this.value.toLowerCase();
+
+            rows.forEach(row => {
+                const cells = row.querySelectorAll('td');
+                const rowText = Array.from(cells).map(cell => cell.textContent.toLowerCase())
+                    .join(' ');
+                row.style.display = rowText.includes(searchValue) ? '' : 'none';
+            });
+        });
+    });
+</script>
