@@ -152,6 +152,21 @@
             <!-- -------- Non Dropdown List Item ------- -->
             <li>
               <div class="title">
+                  <a href="userpage" class="link">
+                      <i class='bx bx-user'></i>
+                      <span class="name">Manajemen User</span>
+                  </a>
+                  <!-- <i class='bx bxs-chevron-down'></i> -->
+              </div>
+              <div class="submenu">
+                  <a href="userpage" class="link submenu-title">Manajemen User</a>
+                  <!-- submenu links here  -->
+              </div>
+            </li>
+
+            <!-- -------- Non Dropdown List Item ------- -->
+            <li>
+              <div class="title">
                   <a href="#" class="link">
                       <i class='bx bx-cog'></i>
                       <span class="name">Settings</span>
@@ -163,6 +178,7 @@
                   <!-- submenu links here  -->
               </div>
             </li>
+            
         </ul>
     </div>
 

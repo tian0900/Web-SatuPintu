@@ -40,7 +40,7 @@
                             <div class="col-span-2">
                                 <label for="retribusi_id"
                                     class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Username</label>
-                                <select name="wajib_retribusi_id" id="wajib_retribusi_id" class="form-control">
+                                <select name="wajib_retribusi_id" id="wajib_retribusi_id" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500">
                                     @foreach ($wajibRetribusiOptions as $wajibRetribusi)
                                         <option value="{{ $wajibRetribusi->id }}">{{ $wajibRetribusi->User->name }}</option>
                                     @endforeach
@@ -49,10 +49,8 @@
                         </div>
                         <div class="grid gap-4 mb-4 grid-cols-2">
                             <div class="col-span-2">
-                                <label for="kategori_nama"
-                                    class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Kategori
-                                    Nama</label>
-                                <select name="item_retribusi_id" id="item_retribusi_id" class="form-control">
+                                <label for="kategori_nama" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Item Retribusi</label>
+                                <select name="item_retribusi_id" id="item_retribusi_id" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500">
                                     @foreach ($itemRetribusiOptions as $itemRetribusi)
                                         <option value="{{ $itemRetribusi->id }}">{{ $itemRetribusi->kategori_nama }}
                                         </option>
@@ -62,13 +60,14 @@
                         </div>
                         <div class="grid gap-4 mb-4 grid-cols-2">
                             <div class="col-span-2">
-                                <label for="F-Name"
-                                    class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Jenis
-                                    Tagihan</label>
-                                <select name="sub_wilayah_id" id="sub_wilayah_id" class="form-control">
-                                    @foreach ($subWilayahOptions as $subWilayah)
-                                        <option value="{{ $subWilayah->id }}">{{ $subWilayah->nama }}</option>
-                                    @endforeach
+                                <label for="F-Name" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Jenis Retribusi</label>
+                                <select id="jenis_tagihan" name="jenis_tagihan"
+                                    class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
+                                    required="">
+                                    <option value="" disabled selected>Pilih Jenis Tagihan</option>
+                                    <option value="HARIAN">HARIAN</option>
+                                    <option value="MINGGUAN">MINGGUAN</option>
+                                    <option value="BULANAN">BULANAN</option>
                                 </select>
                             </div>
                         </div>
@@ -260,7 +259,7 @@
                                     <td class="px-6 py-4 text-center">
                                         <a href="{{ route('surat.detail', ['id' => $data->id]) }}"
                                             class="font-medium text-blue-600 dark:text-blue-500 hover:underline text-center">Detail</a><br>
-                                        <a data-modal-target="modalhapus<?= $data->id ?>" data-modal-toggle="modalhapus<?= $data->id ?>" class="font-medium text-red-600 dark:text-red-500 hover:underline text-center">Hapus Kontrak</a>
+                                        <a data-modal-target="modalhapus<?= $data->id ?>" data-modal-toggle="modalhapus<?= $data->id ?>" class="font-medium text-red-600 dark:text-red-500 hover:underline text-center">Hapus Kontrak</a><br>
 
                                         <!-- Modal toggle -->
                                         @if ($data->status == 'DITERIMA')

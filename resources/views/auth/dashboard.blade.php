@@ -5,24 +5,24 @@
 <div class="content">
   <section class="bg-white dark:bg-gray-900">
     <div class="py-8 px-4 mx-auto max-w-screen-xl sm:py-16 lg:px-6">
-        <div class="space-y-8 md:grid md:grid-cols-2 lg:grid-cols-3 md:gap-12 md:space-y-0">
+        <div class="space-y-8 md:grid sm:grid-cols-2 lg:grid-cols-3 md:gap-12 md:space-y-0">
             <div>
-                <a href="#" class="block max-w-sm p-6 bg-white border border-gray-200 rounded-lg shadow hover:bg-gray-100 dark:bg-gray-800 dark:border-gray-700 dark:hover:bg-gray-700">
-                    <p class="text-4xl text-gray-900 dark:text-white"><i class='bx bx-money-withdraw'></i></p>
-                    <h5 class="mb-2 text-2xl font-bold tracking-tight text-gray-900 dark:text-white">Target Tahun Ini</h5>
-                    <Here class="text-2xl text-gray-900 dark:text-white">Rp. 400.000.000</p>
+                <a href="#" class="text block max-w-sm p-6 bg-white border border-gray-200 rounded-lg shadow hover:bg-gray-100 dark:bg-gray-800 dark:border-gray-700 dark:hover:bg-gray-700">
+                    <p class="text-4xl text-gray-900 dark:text-white"><i class='bx bx-directions'></i></p>
+                    <h5 class="mb-2 text-2xl font-bold tracking-tight text-gray-900 dark:text-white">Kabupaten</h5>
+                    <Here class="text-2xl text-gray-900 dark:text-white">{{ $kabupaten}}</p>
                 </a>
             </div>
             <div>
                 <a href="#" class="block max-w-sm p-6 bg-white border border-gray-200 rounded-lg shadow hover:bg-gray-100 dark:bg-gray-800 dark:border-gray-700 dark:hover:bg-gray-700">
-                    <p class="text-4xl text-gray-900 dark:text-white"><i class='bx bx-money'></i></p>
-                    <h5 class="mb-2 text-2xl font-bold tracking-tight text-gray-900 dark:text-white">Penerimaan Hari Ini</h5>
-                    <Here class="text-2xl text-gray-900 dark:text-white">Rp. 400.000.000</p>
+                    <p class="text-4xl text-gray-900 dark:text-white"><i class='bx bxs-institution'></i></p>
+                    <h5 class="mb-2 text-2xl font-bold tracking-tight text-gray-900 dark:text-white">Kedinasan</h5>
+                    <Here class="text-2xl text-gray-900 dark:text-white">{{ $kedinasan}}</p>
                 </a>
             </div>
             <div>
                 <a href="#" class="block max-w-sm p-6 bg-white border border-gray-200 rounded-lg shadow hover:bg-gray-100 dark:bg-gray-800 dark:border-gray-700 dark:hover:bg-gray-700">
-                    <p class="text-4xl text-gray-900 dark:text-white"><i class='bx bx-credit-card-front'></i></p>
+                    <p class="text-4xl text-gray-900 dark:text-white"><i class='bx bx-info-circle'></i></p>
                     <h5 class="mb-2 text-2xl font-bold tracking-tight text-gray-900 dark:text-white">Persentase Realisasi</h5>
                     <Here class="text-2xl text-gray-900 dark:text-white">50.00003 %</p>
                 </a>

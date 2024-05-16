@@ -116,8 +116,6 @@ Route::middleware(['check.role.byname:Admin'])->group(function () {
     Route::post('/users/store', [UserController::class, 'store'])->name('users.store');
     Route::post('/wajib/store', [UserController::class, 'storewajib'])->name('wajib.store');
     Route::put('/users/{id}',[UserController::class, 'update'])->name('users.update');
-
-
  
 });
 Route::middleware(['check.role.byname:Bendahara'])->group(function () {
@@ -127,7 +125,6 @@ Route::middleware(['check.role.byname:Bendahara'])->group(function () {
 
     Route::get('/setoran', [BendaharaController::class, 'indexsetor']);
     Route::put('/setor/{id}/update-status', [BendaharaController::class, 'updateStatus'])->name('setor.updateStatus');
-
 
     Route::get('/pembatalanpasar', [BendaharaController::class, 'indexpembatalan']);
     Route::put('/batal/{id}/update-status', [BendaharaController::class, 'updateStatuspembatalan'])->name('batal.updateStatus');
