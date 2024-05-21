@@ -28,12 +28,11 @@ use App\Models\Kabupaten;
 */
 
 
-Route::get('/dd', [PasarController::class, 'index']);
-Route::get('/dashboard', [IndexController::class, 'dashboard']);
+Route::get('/dd', [PasarController::class, 'index']); 
 Route::get('/', [IndexController::class, 'landing']);
 Route::post('/jenis/store', [PasarController::class, 'store'])->name('jenis.store');
 Route::get('/jenis/edit', [PasarController::class, 'edit'])->name('jenis.edit');
-Route::get('/dashboard-kedinasan', [IndexController::class, 'dashboardkedinasan']);
+// Route::get('/dashboard-kedinasan', [IndexController::class, 'dashboardkedinasan']);
 // Route::put('/jenis/{id}', [PasarController::class, 'update'])->name('jenis.update');
 // Route::post('/jenis/{id}', 'JenisController@update')->name('jenis.update');
 // Route::put('/jenis/edit/{id}', [PasarController::class, 'update'])->name('jenis.update');
@@ -76,56 +75,16 @@ Route::middleware(['check.role.byname:AdminKabupaten'])->group(function () {
     Route::get('/dashboard-kabupaten', [IndexController::class, 'dashboardkabupaten']);
 
     //Kedinasan
-    Route::get('/kedinasan', [KedinasanController::class, 'index']);
-    Route::get('/data/kedinasan/{id}/edit', [kedinasanController::class, 'edit'])->name('kedinasan.edit');
-    Route::put('/data/kedinasan/{id}', [kedinasanController::class, 'update'])->name('kedinasan.update');
-    Route::delete('/kedinasan/{id}', [kedinasanController::class, 'destroy'])->name('kedinasan.destroy');
-    Route::get('/kedinasan/create', [kedinasanController::class, 'create'])->name('kedinasan.create');
-    Route::post('/kedinasan', [kedinasanController::class, 'store'])->name('kedinasan.store');
-
-    //Kontrak
-    Route::get('/pdf', [KontrakController::class, 'testt']);
-    Route::get('/surat/{id}', [KontrakController::class, 'detailkontrak'])->name('surat.detail');
-    Route::post('/kontrak/store', [KontrakController::class, 'store'])->name('kontrak.store');
-    Route::get('/generate-pdf/{id}', [KontrakController::class, 'generatePDFkontrak'])->name('generate-pdfkontrak');
-    Route::get('/kontrak', [KontrakController::class, 'index'])->name('kontrak');
-    Route::put('/kontrak/{id}/update-status', [KontrakController::class, 'updateStatus'])->name('kontrak.updateStatus');
-
-    Route::delete('/kontrak/{id}', [KontrakController::class, 'deletekontrak'])->name('kontrak.delete');
-
-    //Atribut
-    Route::get('/atribut', [AtributController::class, 'index'])->name('atribut');
-    Route::post('/atribut/store', [AtributController::class, 'store'])->name('atribut.store');
-    Route::match (['post', 'put'], '/atribut/update/{id}', [AtributController::class, 'update'])->name('atribut.update');
-   
-    
-    Route::post('/jenis/store', [PasarController::class, 'store'])->name('jenis.store');
-    Route::get('/jenis/edit', [PasarController::class, 'edit'])->   name('jenis.edit');
-    Route::put('/jenis/{post}', [PasarController::class, 'update'])->name('jenis.update');
-
-    //Sub-Wilayah
-    Route::get('/wilayah', [WilayahController::class, 'index']);
-    Route::get('/data/wilayah/{id}/edit', [WilayahController::class, 'edit'])->name('wilayah.edit');
-    Route::put('/data/wilayah/{id}', [WilayahController::class, 'update'])->name('wilayah.update');
-    Route::delete('/wilayah/{id}', [WilayahController::class, 'destroy'])->name('wilayah.destroy');
-    Route::get('/wilayah/create', [WilayahController::class, 'create'])->name('wilayah.create');
-    Route::post('/wilayah', [WilayahController::class, 'store'])->name('wilayah.store');
-
-    //Item-Retribusi
-    Route::get('/item', [ItemRetribusiController::class, 'index'])->name('item.index');
-    
-    Route::post('/item/store', [ItemRetribusiController::class, 'store'])->name('item.store');
-    Route::get('/item/show', [ItemRetribusiController::class, 'show'])->name('item.show');
-    Route::get('/item/{post}/edit', [ItemRetribusiController::class, 'edit'])->name('item.edit');
-    Route::put('/item/edit/{id}', [ItemRetribusiController::class, 'update'])->name('item.update');
+    Route::get('/kedinasanKabupaten', [KedinasanController::class, 'indexKabupaten']);
+    Route::get('/data/kedinasanKabupaten/{id}/edit', [kedinasanController::class, 'editKabupaten'])->name('kedinasanKabupaten.edit');
+    Route::put('/data/kedinasanKabupaten/{id}', [kedinasanController::class, 'updateKabupaten'])->name('kedinasanKabupaten.update');
+    Route::delete('/kedinasanKabupaten/{id}', [kedinasanController::class, 'destroyKabupaten'])->name('kedinasanKabupaten.destroy');
+    Route::get('/kedinasanKabupaten/create', [kedinasanController::class, 'createKabupaten'])->name('kedinasanKabupaten.create');
+    Route::post('/kedinasanKabupaten', [kedinasanController::class, 'storeKabupaten'])->name('kedinasanKabupaten.store');
 
     // Route::delete('/posts/{post}', ItemRetribusiController::class .'@destroy')->name('posts.destroy');
 
-    //Management User
-    Route::get('/userpage', [UserController::class, 'index']);
-    Route::post('/users/store', [UserController::class, 'store'])->name('users.store');
-    Route::post('/wajib/store', [UserController::class, 'storewajib'])->name('wajib.store');
-    Route::put('/users/{id}',[UserController::class, 'update'])->name('users.update');
+    
  
 });
 Route::middleware(['check.role.byname:Bendahara'])->group(function () {
@@ -144,22 +103,120 @@ Route::middleware(['check.role.byname:Bendahara'])->group(function () {
 
 });
 
-Route::middleware(['check.role.byname:AdminSampah'])->group(function () {
-    Route::get('/itemsampah', [ItemRetribusiController::class, 'indexsampah'])->name('item.indexsampah');
+Route::middleware(['check.role.byname:AdminKedinasan'])->group(function () {
+    // //Dashboard
+    // Route::get('/dashboard-kedinasan', [IndexController::class, 'dashboardkedinasan']);
 
-    Route::get('/suratsampah/{id}', [KontrakController::class, 'detailkontraksampah'])->name('surat.detailsampah');
-    Route::get('/kontraksampah', [KontrakController::class, 'indexsampah'])->name('kontraksampah');
+    // //Item
+    // Route::get('/itemsampah', [ItemRetribusiController::class, 'indexsampah'])->name('item.indexsampah');
+    // Route::get('/suratsampah/{id}', [KontrakController::class, 'detailkontraksampah'])->name('surat.detailsampah');
+    // Route::get('/kontraksampah', [KontrakController::class, 'indexsampah'])->name('kontraksampah');
+    // Route::get('/atributsampah', [AtributController::class, 'indexsampah'])->name('atributsampah');
+    // Route::post('/atributsampah/store', [AtributController::class, 'storesampah'])->name('atributsampah.store');
+    // Route::match (['post', 'put'], '/atributsampah/update/{id}', [AtributController::class, 'updatesampah'])->name('atributsampah.update');
+    // Route::delete('/atributsampah/{id}', [AtributController::class, 'destroysampah'])->name('sampah.destroy');
 
-    Route::get('/atributsampah', [AtributController::class, 'indexsampah'])->name('atributsampah');
-    Route::post('/atributsampah/store', [AtributController::class, 'storesampah'])->name('atributsampah.store');
-    Route::match (['post', 'put'], '/atributsampah/update/{id}', [AtributController::class, 'updatesampah'])->name('atributsampah.update');
-    Route::delete('/atributsampah/{id}', [AtributController::class, 'destroysampah'])->name('sampah.destroy');
+    // //Kontrak
+    // Route::get('/pdf', [KontrakController::class, 'testt']);
+    // Route::get('/surat/{id}', [KontrakController::class, 'detailkontrak'])->name('surat.detail');
+    // Route::post('/kontrak/store', [KontrakController::class, 'store'])->name('kontrak.store');
+    // Route::get('/generate-pdf/{id}', [KontrakController::class, 'generatePDFkontrak'])->name('generate-pdfkontrak');
+    // Route::get('/kontrak', [KontrakController::class, 'index'])->name('kontrak');
+    // Route::put('/kontrak/{id}/update-status', [KontrakController::class, 'updateStatus'])->name('kontrak.updateStatus');
+    // Route::delete('/kontrak/{id}', [KontrakController::class, 'deletekontrak'])->name('kontrak.delete');
 
+    // //Atribut
+    // Route::get('/atribut', [AtributController::class, 'index'])->name('atribut');
+    // Route::post('/atribut/store', [AtributController::class, 'store'])->name('atribut.store');
+    // Route::match (['post', 'put'], '/atribut/update/{id}', [AtributController::class, 'update'])->name('atribut.update');
+    // Route::post('/jenis/store', [PasarController::class, 'store'])->name('jenis.store');
+    // Route::get('/jenis/edit', [PasarController::class, 'edit'])->   name('jenis.edit');
+    // Route::put('/jenis/{post}', [PasarController::class, 'update'])->name('jenis.update');
 
+    // //Sub-Wilayah
+    // Route::get('/wilayah', [WilayahController::class, 'index']);
+    // Route::get('/data/wilayah/{id}/edit', [WilayahController::class, 'edit'])->name('wilayah.edit');
+    // Route::put('/data/wilayah/{id}', [WilayahController::class, 'update'])->name('wilayah.update');
+    // Route::delete('/wilayah/{id}', [WilayahController::class, 'destroy'])->name('wilayah.destroy');
+    // Route::get('/wilayah/create', [WilayahController::class, 'create'])->name('wilayah.create');
+    // Route::post('/wilayah', [WilayahController::class, 'store'])->name('wilayah.store');
+
+    // //Item-Retribusi
+    // Route::get('/item', [ItemRetribusiController::class, 'index'])->name('item.index');
+    // Route::post('/item/store', [ItemRetribusiController::class, 'store'])->name('item.store');
+    // Route::get('/item/show', [ItemRetribusiController::class, 'show'])->name('item.show');
+    // Route::get('/item/{post}/edit', [ItemRetribusiController::class, 'edit'])->name('item.edit');
+    // Route::put('/item/edit/{id}', [ItemRetribusiController::class, 'update'])->name('item.update');
 });
 
+//Dashboard
+Route::get('/dashboard-pasar', [IndexController::class, 'dashboardpasar']);
+Route::get('/dashboard-sampah', [IndexController::class, 'dashboardsampah']);
 
+//Item
+Route::get('/itemsampah', [ItemRetribusiController::class, 'indexsampah'])->name('item.indexsampah');
+Route::get('/suratsampah/{id}', [KontrakController::class, 'detailkontraksampah'])->name('surat.detailsampah');
+Route::get('/kontraksampah', [KontrakController::class, 'indexsampah'])->name('kontraksampah');
+Route::get('/atributsampah', [AtributController::class, 'indexsampah'])->name('atributsampah');
+Route::post('/atributsampah/store', [AtributController::class, 'storesampah'])->name('atributsampah.store');
+Route::match (['post', 'put'], '/atributsampah/update/{id}', [AtributController::class, 'updatesampah'])->name('atributsampah.update');
+Route::delete('/atributsampah/{id}', [AtributController::class, 'destroysampah'])->name('sampah.destroy');
 
+//Kontrak
+Route::get('/pdf', [KontrakController::class, 'testt']);
+Route::get('/surat/{id}', [KontrakController::class, 'detailkontrak'])->name('surat.detail');
+Route::post('/kontrak/store', [KontrakController::class, 'store'])->name('kontrak.store');
+Route::get('/generate-pdf/{id}', [KontrakController::class, 'generatePDFkontrak'])->name('generate-pdfkontrak');
+Route::get('/kontrak', [KontrakController::class, 'index'])->name('kontrak');
+Route::put('/kontrak/{id}/update-status', [KontrakController::class, 'updateStatus'])->name('kontrak.updateStatus');
+Route::delete('/kontrak/{id}', [KontrakController::class, 'deletekontrak'])->name('kontrak.delete');
+
+//Atribut
+Route::get('/atribut', [AtributController::class, 'index'])->name('atribut');
+Route::post('/atribut/store', [AtributController::class, 'store'])->name('atribut.store');
+Route::match (['post', 'put'], '/atribut/update/{id}', [AtributController::class, 'update'])->name('atribut.update');
+Route::post('/jenis/store', [PasarController::class, 'store'])->name('jenis.store');
+Route::get('/jenis/edit', [PasarController::class, 'edit'])->   name('jenis.edit');
+Route::put('/jenis/{post}', [PasarController::class, 'update'])->name('jenis.update');
+
+//Sub-Wilayah-pasar
+Route::get('/wilayah-pasar', [WilayahController::class, 'index']);
+Route::get('/data/wilayah-pasar/{id}/edit', [WilayahController::class, 'edit'])->name('wilayah.edit');
+Route::put('/data/wilayah-pasar/{id}', [WilayahController::class, 'update'])->name('wilayah.update');
+Route::delete('/wilayah-pasar/{id}', [WilayahController::class, 'destroy'])->name('wilayah.destroy');
+Route::get('/wilayah-pasar/create', [WilayahController::class, 'create'])->name('wilayah.create');
+Route::post('/wilayah-pasar', [WilayahController::class, 'store'])->name('wilayah.store');
+
+//Sub-Wilayah-sampah
+Route::get('/wilayah-sampah', [WilayahController::class, 'indexsampah']);
+Route::get('/data/wilayah-sampah/{id}/edit', [WilayahController::class, 'editsampah'])->name('wilayah-sampah.edit');
+Route::put('/data/wilayah-sampah/{id}', [WilayahController::class, 'updatesampah'])->name('wilayah-sampah.update');
+Route::delete('/wilayah-sampah/{id}', [WilayahController::class, 'destroysampah'])->name('wilayah-sampah.destroy');
+Route::get('/wilayah-sampah/create', [WilayahController::class, 'createsampah'])->name('wilayah-sampah.create');
+Route::post('/wilayah-sampah', [WilayahController::class, 'storesampah'])->name('wilayah-sampah.store');
+
+//Item-Retribusi
+Route::get('/item', [ItemRetribusiController::class, 'index'])->name('item.index');
+Route::post('/item/store', [ItemRetribusiController::class, 'store'])->name('item.store');
+Route::get('/item/show', [ItemRetribusiController::class, 'show'])->name('item.show');
+Route::get('/item/{post}/edit', [ItemRetribusiController::class, 'edit'])->name('item.edit');
+Route::put('/item/edit/{id}', [ItemRetribusiController::class, 'update'])->name('item.update'); 
+
+//Management-User-Sampah
+Route::get('/userpage', [UserController::class, 'index']);
+Route::post('/users/store', [UserController::class, 'store'])->name('users.store');
+Route::post('/wajib/store', [UserController::class, 'storewajib'])->name('wajib.store');
+Route::put('/users/{id}',[UserController::class, 'update'])->name('users.update');
+
+//Management-User-Pasar
+Route::get('/usersampah', [UserController::class, 'indexsampah']);
+Route::post('/usersampah/store', [UserController::class, 'storesampah'])->name('usersampah.store');
+Route::post('/wajibsampah/store', [UserController::class, 'storewajibsampah'])->name('sampah.store');
+Route::put('/usersampah/{id}',[UserController::class, 'updatesampah'])->name('usersampah.update');
+
+Route::middleware(['check.role.byname:SuperAdmin'])->group(function () {
+    // Route::get('/dashboard', [IndexController::class, 'dashboard']);
+});
 //ADMIN
 Route::get('/login', [AuthController::class, 'loginview']);
 Route::get('/logout', [AuthController::class, 'logout'])->name('logout');

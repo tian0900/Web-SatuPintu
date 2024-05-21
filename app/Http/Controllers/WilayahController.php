@@ -15,7 +15,7 @@ class WilayahController extends Controller
         $wilayah = Wilayah::paginate(5);
 
         // Menampilkan view 'data.retribusi' dan meneruskan data retribusi ke dalam view
-        return view('data.wilayah', ['wilayah' => $wilayah]);
+        return view('data.wilayah-pasar', ['wilayah' => $wilayah]);
     }
 
     /**
@@ -41,7 +41,7 @@ class WilayahController extends Controller
         ]);
 
         // Redirect ke halaman yang sesuai
-        return redirect('/wilayah')->with('success', 'Data retribusi berhasil ditambahkan!');
+        return redirect('/wilayah-pasar')->with('success', 'Data retribusi berhasil ditambahkan!');
     }
 
     /**
@@ -68,7 +68,7 @@ class WilayahController extends Controller
     {
         $retribusi = Wilayah::findOrFail($id);
         $retribusi->update($request->all());
-        return redirect('/wilayah')->with('success', 'Data Wilayah berhasil diperbarui!');
+        return redirect('/wilayah-pasar')->with('success', 'Data Wilayah berhasil diperbarui!');
     
     }
 
@@ -76,6 +76,82 @@ class WilayahController extends Controller
      * Remove the specified resource from storage.
      */
     public function destroy(string $id)
+    {
+        $wilayah = Wilayah::findOrFail($id);
+
+        // Hapus retribusi
+        $wilayah->delete();
+    
+        // Redirect atau kembalikan sesuai kebutuhan
+        return redirect()->back()->with('success', 'Wilayah berhasil dihapus');
+    }
+
+    public function indexsampah()
+    {
+        $wilayah = Wilayah::paginate(5);
+
+        // Menampilkan view 'data.retribusi' dan meneruskan data retribusi ke dalam view
+        return view('data.wilayah-sampah', ['wilayah' => $wilayah]);
+    }
+
+    /**
+     * Show the form for creating a new resource.
+     */
+    public function createsampah()
+    {
+        return view('data.wilayah-create');
+    }
+
+    // Method untuk menyimpan data yang ditambahkan
+    public function storesampah(Request $request)
+    {
+        // Validasi data
+        $request->validate([
+            'nama' => 'required|string|max:255',
+            // Pastikan kedinasan_id tersedia dalam request atau atur di sini
+        ]);
+
+        // Menyimpan data baru
+        Wilayah::create([
+            'nama' => $request->nama,
+        ]);
+
+        // Redirect ke halaman yang sesuai
+        return redirect('/wilayah-sampah')->with('success', 'Data retribusi berhasil ditambahkan!');
+    }
+
+    /**
+     * Display the specified resource.
+     */
+    public function showsampah(string $id)
+    {
+        //
+    }
+
+    /**
+     * Show the form for editing the specified resource.
+     */
+    public function editsampah( $id)
+    {
+        $wilayah = Wilayah::findOrFail($id);
+        return view('data.wilayah-edit', compact('wilayah'));
+    }
+
+    /**
+     * Update the specified resource in storage.
+     */
+    public function updatesampah(Request $request, string $id)
+    {
+        $retribusi = Wilayah::findOrFail($id);
+        $retribusi->update($request->all());
+        return redirect('/wilayah-sampah')->with('success', 'Data Wilayah berhasil diperbarui!');
+    
+    }
+
+    /**
+     * Remove the specified resource from storage.
+     */
+    public function destroysampah(string $id)
     {
         $wilayah = Wilayah::findOrFail($id);
 

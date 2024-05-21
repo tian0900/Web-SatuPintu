@@ -60,13 +60,13 @@
     </div> 
     <div class="py-8 px-4 mx-auto max-w-screen-xl ">
         <div class="grid grid-cols-1 gap-6 sm:grid-cols-3">  
-            <div class="w-full max-w-md p-42bg-white border border-gray-200 rounded-lg shadow sm:p-8 dark:bg-gray-800 dark:border-gray-700">
+            <div class="w-full max-w-md p-42 bg-white border border-gray-200 rounded-lg shadow sm:p-8 dark:bg-gray-800 dark:border-gray-700">
                 <div class="flex items-center justify-between mb-4">
                     <h5 class="text-xl font-bold leading-none text-gray-900 dark:text-white">Retribusi</h5> 
                 </div>
                 <div class="flow-root">
                     <ul role="list" class="divide-y divide-gray-200 dark:divide-gray-700">
-                        @foreach ($data as $sistem)
+                        @foreach ($datakabupaten as $sistem)
                         <li class="py-3 sm:py-4">
                             <div class="flex items-center"> 
                                 <div class="flex-1 min-w-0">
@@ -98,7 +98,7 @@
                         </thead>
                         <tbody>
                             @php $number = 1; @endphp <!-- Inisialisasi nomor -->
-                            @foreach ($data as $retribusi)
+                            @foreach ($dataretribusi as $retribusi)
                             <tr class="border-b border-gray-200 dark:border-gray-700">
                                 <th scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap bg-gray-50 dark:text-white dark:bg-gray-800">
                                     {{$number}}

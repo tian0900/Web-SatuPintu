@@ -33,13 +33,13 @@
             <!-- -------- Non Dropdown List Item ------- -->
             <li>
                 <div class="title">
-                    <a href="/dashboard-kedinasan" class="link">
+                    <a href="/dashboard-pasar" class="link">
                         <i class='bx bx-grid-alt'></i>
                         <span class="name">Dashboard</span>
                     </a>
                 </div>
                 <div class="submenu">
-                    <a href="/dashboard-kedinasan" class="link submenu-title">Dashboard</a>
+                    <a href="/dashboard-pasar" class="link submenu-title">Dashboard</a>
                 </div>
             </li>
 
@@ -61,14 +61,14 @@
             <!-- -------- Non Dropdown List Item ------- -->
             <li>
                 <div class="title">
-                    <a href="/wilayah" class="link">
+                    <a href="/wilayah-pasar" class="link">
                       <i class='bx bx-map-alt'></i>
                         <span class="name">Wilayah</span>
                     </a>
                     <!-- <i class='bx bxs-chevron-down'></i> -->
                 </div>
                 <div class="submenu">
-                    <a href="/wilayah" class="link submenu-title">Wilayah</a>
+                    <a href="/wilayah-pasar" class="link submenu-title">Wilayah</a>
                     <!-- submenu links here  -->
                 </div>
             </li>
@@ -88,19 +88,18 @@
                 </div>
             </li>
             
-            <!-- -------- Dropdown List Item ------- -->
-            <li class="dropdown">
+            <!-- -------- Dropdown List Item ------- --> 
+            <li>
               <div class="title">
-                  <a href="#" class="link">
+                  <a href="/atribut" class="link">
                     <i class='bx bx-expand-vertical'></i>
-                        <span class="name">Atribut</span>
+                      <span class="name">Atribut</span>
                   </a>
-                  <i class='bx bxs-chevron-down'></i>
+                  <!-- <i class='bx bxs-chevron-down'></i> -->
               </div>
               <div class="submenu">
-                  <p href="#" class="link submenu-title">Atribut</p>
-                  <a href="/atribut" class="link">Pasar</a>
-                  <a href="/atributsampah" class="link">Sampah</a>
+                  <a href="/atribut" class="link submenu-title">Atribut</a>
+                  <!-- submenu links here  -->
               </div>
             </li>
 

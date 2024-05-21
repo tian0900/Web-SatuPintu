@@ -28,7 +28,7 @@ class UserController extends Controller
             ['id' => 2, 'name' => 'PETUGAS'],
         ];
 
-        return view('data.mguser', compact('users', 'roles', 'wilayah'));
+        return view('data.mguser-pasar', compact('users', 'roles', 'wilayah'));
     }
 
     public function indexadmin()
@@ -108,7 +108,33 @@ class UserController extends Controller
         // dd($petugas); // Tambahkan ini untuk melihat nilai $petugas
 
         return redirect()->back()->with('success', 'User created successfully');
+    } 
+
+    public function update(Request $request, $id)
+    {
+    $validatedData = $request->validate([
+        'name' => 'required|string',
+        'email' => 'required|email|unique:users,email,' . $id,
+        'password' => 'nullable|min:8',
+        'nik' => 'required|string|unique:users,nik,' . $id,
+        'alamat' => 'required|string',
+    ]);
+
+    $user = User::findOrFail($id);
+    $user->name = $validatedData['name'];
+    $user->email = $validatedData['email'];
+    $user->nik = $validatedData['nik'];
+    $user->alamat = $validatedData['alamat'];
+
+    if ($request->has('password')) {
+        $user->password = Hash::make($validatedData['password']);
     }
+
+    $user->save();
+
+    return redirect()->back()->with('success', 'User updated successfully');
+    }
+
 
     public function storeadmin(Request $request)
     {
@@ -134,8 +160,77 @@ class UserController extends Controller
         return redirect()->back()->with('success', 'User created successfully');
     }
 
-    public function update(Request $request, $id)
-{
+    public function indexsampah()
+    {
+        $wilayah = Wilayah::all();
+        $users = User::with('role')->whereHas('role', function ($query) {
+            $query->whereIn('id', [1, 2]); // Filter role_id 1 dan 2
+        })->paginate(5);
+
+        $roles = [
+            ['id' => 1, 'name' => 'WAJIB RETRIBUSI'],
+            ['id' => 2, 'name' => 'PETUGAS'],
+        ];
+
+        return view('data.mguser-sampah', compact('users', 'roles', 'wilayah'));
+    } 
+
+    /**
+     * Store a newly created resource in storage.
+     */
+    public function storesampah(Request $request)
+    {
+        $validatedData = $request->validate([
+            'name' => 'required|string',
+            'email' => 'required|email|unique:users',
+            'password' => 'required|min:8',
+            'nik' => 'required|string|unique:users',
+            'alamat' => 'required|string',
+            'wilayah' => 'required',
+        ]);
+
+        $validatedData['role_id'] = 2;
+        $validatedData['password'] = Hash::make($validatedData['password']);
+        $user = User::create($validatedData);
+
+        $postToSave = [
+            'user_id' => $user->id,
+            'subwilayah_id' => $request['wilayah'],
+        ];
+        Petugas::create($postToSave);
+
+        // dd($petugas); // Tambahkan ini untuk melihat nilai $petugas
+
+        return redirect()->back()->with('success', 'User created successfully');
+    }
+
+    public function storewajibsampah(Request $request)
+    {
+        // dd($request);
+        $validatedData = $request->validate([
+            'name' => 'required|string',
+            'email' => 'required|email|unique:users',
+            'password' => 'required|min:8',
+            'nik' => 'required|string|unique:users',
+            'alamat' => 'required|string',
+        ]);
+
+        $validatedData['role_id'] = 1;
+        $validatedData['password'] = Hash::make($validatedData['password']);
+        $user = User::create($validatedData);
+
+        $postToSave = [
+            'user_id' => $user->id,
+        ];
+        WajibRetribusi::create($postToSave);
+
+        // dd($petugas); // Tambahkan ini untuk melihat nilai $petugas
+
+        return redirect()->back()->with('success', 'User created successfully');
+    } 
+
+    public function updatesampah(Request $request, $id)
+    {
     $validatedData = $request->validate([
         'name' => 'required|string',
         'email' => 'required|email|unique:users,email,' . $id,
@@ -157,8 +252,7 @@ class UserController extends Controller
     $user->save();
 
     return redirect()->back()->with('success', 'User updated successfully');
-}
-
+    }
 
 
     /**

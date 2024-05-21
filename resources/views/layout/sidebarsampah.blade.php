@@ -35,13 +35,13 @@
             <!-- -------- Non Dropdown List Item ------- -->
             <li>
                 <div class="title">
-                    <a href="/dashboard" class="link">
+                    <a href="/dashboard-sampah" class="link">
                         <i class='bx bx-grid-alt'></i>
                         <span class="name">Dashboard</span>
                     </a>
                 </div>
                 <div class="submenu">
-                    <a href="/dashboard" class="link submenu-title">Dashboard</a>
+                    <a href="/dashboard-sampah" class="link submenu-title">Dashboard</a>
                 </div>
             </li>
 
@@ -91,21 +91,34 @@
             <!-- -------- Non Dropdown List Item ------- -->
             <li>
                 <div class="title">
-                    <a href="/wilayah" class="link">
+                    <a href="/wilayah-sampah" class="link">
                         <i class='bx bx-map-alt'></i>
                         <span class="name">Wilayah</span>
                     </a>
                     <!-- <i class='bx bxs-chevron-down'></i> -->
                 </div>
                 <div class="submenu">
-                    <a href="/wilayah" class="link submenu-title">Wilayah</a>
+                    <a href="/wilayah-sampah" class="link submenu-title">Wilayah</a>
                     <!-- submenu links here  -->
                 </div>
             </li>
 
             <!-- -------- Non Dropdown List Item ------- -->
+            <li>
+                <div class="title">
+                    <a href="usersampah" class="link">
+                        <i class='bx bx-user'></i>
+                        <span class="name">Manajemen User</span>
+                    </a>
+                    <!-- <i class='bx bxs-chevron-down'></i> -->
+                </div>
+                <div class="submenu">
+                    <a href="usersampah" class="link submenu-title">Manajemen User</a>
+                    <!-- submenu links here  -->
+                </div>
+              </li>
 
-
+            <!-- -------- Non Dropdown List Item ------- --> 
             <li>
                 <div class="title">
                     <a href="/logout" class="link">

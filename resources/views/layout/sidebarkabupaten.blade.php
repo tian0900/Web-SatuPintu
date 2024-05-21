@@ -32,14 +32,26 @@
         <ul class="sidebar-list">
             <!-- -------- Non Dropdown List Item ------- -->
             <li>
+              <div class="title">
+                  <a href="/dashboard-kabupaten" class="link">
+                      <i class='bx bx-grid-alt'></i>
+                      <span class="name">Dashboard</span>
+                  </a>
+              </div>
+              <div class="submenu">
+                  <a href="/dashboard-kabupaten" class="link submenu-title">Dashboard</a>
+              </div>
+            </li>
+            <!-- -------- Non Dropdown List Item ------- -->
+            <li>
                 <div class="title">
-                    <a href="/kedinasan" class="link">
+                    <a href="/kedinasanKabupaten" class="link">
                         <i class='bx bx-sitemap'></i>
                         <span class="name">Kedinasan</span>
                     </a>
                 </div>
                 <div class="submenu">
-                    <a href="/kedinasan" class="link submenu-title">Kedinasan</a>
+                    <a href="/kedinasanKabupaten" class="link submenu-title">Kedinasan</a>
                 </div>
             </li>
             <li>

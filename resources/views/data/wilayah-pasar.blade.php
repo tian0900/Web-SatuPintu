@@ -1,8 +1,8 @@
 @extends('layout.sidebarpasar')
-
+<!-- ============= Home Section =============== -->
 @section('content')
     <div class="container p-5">
-        <h1 class="mt-3 text-5xl">Atribut Pasar</h1>
+        <h1 class="mt-3 text-5xl">Daftar Wilayah</h1>
 
         <!-- Modal toggle -->
         <button data-modal-target="crud-modal" data-modal-toggle="crud-modal"
@@ -34,73 +34,16 @@
                         </button>
                     </div>
                     <!-- Modal body -->
-                    <form class="p-4 md:p-5" action="{{ route('atribut.store') }}" method="POST">
+                    <form class="p-4 md:p-5" action="{{ route('wilayah.store') }}" method="POST">
                         @csrf
                         <div class="grid gap-4 mb-4 grid-cols-2">
                             <div class="col-span-2">
-                                <label for="kelompok_pasar"
-                                    class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Kelompok
-                                    Pasar</label>
-                                <!-- Menggunakan dropdown untuk kelompok pasar -->
-                                <select id="kelompok_pasar" name="kelompok_pasar"
+                                <label for="nama"
+                                    class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Nama
+                                    Wilayah</label>
+                                <input type="text" id="nama" name="nama"
                                     class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
-                                    required>
-                                    @foreach ($wilayah as $wilayah)
-                                        <option value="{{ $wilayah->nama }}">{{ $wilayah->nama }}</option>
-                                    @endforeach
-                                </select>
-                            </div>
-                        </div>
-                        <div class="grid gap-4 mb-4 grid-cols-2">
-                            <div class="col-span-2">
-                                <label for="jenis_unit"
-                                    class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Jenis Unit</label>
-                                <input type="text" id="jenis_unit" name="jenis_unit"
-                                    class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
-                                    placeholder="Jenis Unit" required="">
-                            </div>
-                        </div>
-                        <div class="grid gap-4 mb-4 grid-cols-2">
-                            <div class="col-span-2">
-                                <label for="F-Name"
-                                    class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Unit</label>
-                                <input type="text" id="unit" name="unit"
-                                    class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
-                                    placeholder="Unit" required="">
-                            </div>
-                        </div>
-                        <div class="grid gap-4 mb-4 grid-cols-2">
-                            <div class="col-span-2">
-                                <label for="F-Name"
-                                    class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">No Unit</label>
-                                <input type="text" id="no_unit" name="no_unit"
-                                    class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
-                                    placeholder="No Unit" required="">
-                            </div>
-                        </div>
-                        <div class="grid gap-4 mb-4 grid-cols-2">
-                            <div class="col-span-2">
-                                <label for="jenis_tagihan"
-                                    class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Jenis
-                                    Tagihan</label>
-                                <select id="jenis_tagihan" name="jenis_tagihan"
-                                    class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
-                                    required="">
-                                    <option value="" disabled selected>Pilih Jenis Tagihan</option>
-                                    <option value="HARIAN">HARIAN</option>
-                                    <option value="MINGGUAN">MINGGUAN</option>
-                                    <option value="BULANAN">BULANAN</option>
-                                </select>
-                            </div>
-                        </div>
-
-                        <div class="grid gap-4 mb-4 grid-cols-2">
-                            <div class="col-span-2">
-                                <label for="harga"
-                                    class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Harga</label>
-                                <input type="text" id="harga" name="harga"
-                                    class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
-                                    placeholder="Harga" required="">
+                                    placeholder="nama" required="">
                             </div>
                         </div>
                         <button type="submit"
@@ -121,7 +64,21 @@
         <div class="container m-5">
             <div class="flex flex-column sm:flex-row flex-wrap space-y-4 sm:space-y-0 items-center justify-between pb-4">
                 <div>
-
+                    <button id="dropdownRadioButton" data-dropdown-toggle="dropdownRadio"
+                        class="inline-flex items-center text-gray-500 bg-white border border-gray-300 focus:outline-none hover:bg-gray-100 focus:ring-4 focus:ring-gray-100 font-medium rounded-lg text-sm px-3 py-1.5 dark:bg-gray-800 dark:text-white dark:border-gray-600 dark:hover:bg-gray-700 dark:hover:border-gray-600 dark:focus:ring-gray-700"
+                        type="button">
+                        <svg class="w-3 h-3 text-gray-500 dark:text-gray-400 me-3" aria-hidden="true"
+                            xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 20 20">
+                            <path
+                                d="M10 0a10 10 0 1 0 10 10A10.011 10.011 0 0 0 10 0Zm3.982 13.982a1 1 0 0 1-1.414 0l-3.274-3.274A1.012 1.012 0 0 1 9 10V6a1 1 0 0 1 2 0v3.586l2.982 2.982a1 1 0 0 1 0 1.414Z" />
+                        </svg>
+                        Last 30 days
+                        <svg class="w-2.5 h-2.5 ms-2.5" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none"
+                            viewBox="0 0 10 6">
+                            <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                d="m1 1 4 4 4-4" />
+                        </svg>
+                    </button>
                     <!-- Dropdown menu -->
                     <div id="dropdownRadio"
                         class="z-10 hidden w-48 bg-white divide-y divide-gray-100 rounded-lg shadow dark:bg-gray-700 dark:divide-gray-600"
@@ -202,23 +159,9 @@
                                 <th scope="col" class="px-6 py-3">
                                     No.
                                 </th>
+
                                 <th scope="col" class="px-6 py-3">
-                                    Kelompok Pasar
-                                </th>
-                                <th scope="col" class="px-6 py-3">
-                                    Jenis Unit
-                                </th>
-                                <th scope="col" class="px-6 py-3">
-                                    Unit
-                                </th>
-                                <th scope="col" class="px-6 py-3">
-                                    No Unit
-                                </th>
-                                <th scope="col" class="px-6 py-3">
-                                    Harga
-                                </th>
-                                <th scope="col" class="px-6 py-3">
-                                    Kategori Nama
+                                    Wilayah
                                 </th>
                                 <th scope="col" class="px-6 py-3">
                                     Action
@@ -227,48 +170,27 @@
                         </thead>
                         <tbody>
                             @php
-                                $number = ($atribut->currentPage() - 1) * $atribut->perPage() + 1;
+                                $number = ($wilayah->currentPage() - 1) * $wilayah->perPage() + 1;
                             @endphp <!-- Inisialisasi nomor -->
-                            @foreach ($atribut as $item)
+                            @foreach ($wilayah as $index => $data)
                                 <tr
                                     class="odd:bg-white odd:dark:bg-gray-900 even:bg-gray-50 even:dark:bg-gray-800 border-b dark:border-gray-700">
-                                    <td scope="row"
-                                        class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
-                                        {{ $number++ }}
-                                    </td>
-                                    <td scope="row"
-                                        class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
-                                        {{ $item['data'][0]['Kelompok_pasar'] }}
-                                    </td>
                                     <td class="px-6 py-4">
-                                        {{ $item['data'][0]['jenis_unit'] }}
-                                        {{ $item->jenis_unit }}
+                                        {{ $number++ }} 
                                     </td>
-                                    <td class="px-6 py-4">
-                                        {{ $item['data'][0]['unit'] }}
-                                    </td>
-                                    <td class="px-6 py-4">
-                                        {{ $item['data'][0]['no_unit'] }}
-                                    </td>
-                                    <td class="px-6 py-4">
-                                        {{ $item['data'][0]['harga'] }}
-                                    </td>
-                                    <td class="px-6 py-4">
-                                        {{ $item['data'][0]['kategori_nama'] }}
+                                     <td class="px-6 py-4">
+                                        {{ $data->nama }}
                                     </td>
                                     <td class="px-6 py-4">
                                         <!-- Modal toggle -->
-                                        <a data-modal-target="modal<?= $item->id ?>"
-                                            data-modal-toggle="modal<?= $item->id ?>"
+                                        <a data-modal-target="modal<?= $data->id ?>"
+                                            data-modal-toggle="modal<?= $data->id ?>"
                                             class="font-medium text-blue-600 dark:text-blue-500 hover:underline text-center">Edit</a>
-                                        <a data-modal-target="modalhapus<?= $item->id ?>"
-                                            data-modal-toggle="modalhapus<?= $item->id ?>"
-                                            class="font-medium text-red-600 dark:text-red-500 hover:underline text-center">Hapus</a>
                                     </td>
                                 </tr>
 
                                 <!-- Main modal -->
-                                <div id="modal<?= $item->id ?>" tabindex="-1" aria-hidden="true"
+                                <div id="modal<?= $data->id ?>" tabindex="-1" aria-hidden="true"
                                     class="hidden overflow-y-auto overflow-x-hidden fixed top-0 right-0 left-0 z-50 justify-center items-center w-full md:inset-0 h-[calc(100%-1rem)] max-h-full">
                                     <div class="relative p-4 w-full max-w-md max-h-full">
                                         <!-- Modal content -->
@@ -277,11 +199,11 @@
                                             <div
                                                 class="flex items-center justify-between p-4 md:p-5 border-b rounded-t dark:border-gray-600">
                                                 <h3 class="text-xl font-semibold text-gray-900 dark:text-white">
-                                                    Edit Data
+                                                    Sign in to our platform
                                                 </h3>
                                                 <button type="button"
                                                     class="end-2.5 text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm w-8 h-8 ms-auto inline-flex justify-center items-center dark:hover:bg-gray-600 dark:hover:text-white"
-                                                    data-modal-hide="modal<?= $item->id ?>">
+                                                    data-modal-hide="modal<?= $data->id ?>">
                                                     <svg class="w-3 h-3" aria-hidden="true"
                                                         xmlns="http://www.w3.org/2000/svg" fill="none"
                                                         viewBox="0 0 14 14">
@@ -294,60 +216,16 @@
                                             </div>
                                             <!-- Modal body -->
                                             <div class="p-4">
-                                                <form action="{{ route('atribut.update', $item->id) }}" method="POST">
+                                                <form action="{{ route('wilayah.update', $data->id) }}" method="POST">
                                                     @csrf
                                                     @method('PUT')
                                                     <div class="grid gap-4 mb-4 grid-cols-2">
                                                         <div class="col-span-2">
-                                                            <label for="kelompok_pasar"
-                                                                class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Kelompok
-                                                                Pasar</label>
-                                                            <input type="text" id="kelompok_pasar"
-                                                                name="edit_kelompok_pasar"
-                                                                value="{{ $item['data'][0]['Kelompok_pasar'] }}"
-                                                                class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
-                                                                required="">
-                                                        </div>
-                                                    </div>
-                                                    <div class="grid gap-4 mb-4 grid-cols-2">
-                                                        <div class="col-span-2">
-                                                            <label for="jenis_unit"
-                                                                class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Jenis
-                                                                Unit</label>
-                                                            <input type="text" id="jenis_unit" name="edit_jenis_unit"
-                                                                value="{{ $item['data'][0]['jenis_unit'] }}"
-                                                                class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
-                                                                required="">
-                                                        </div>
-                                                    </div>
-                                                    <div class="grid gap-4 mb-4 grid-cols-2">
-                                                        <div class="col-span-2">
-                                                            <label for="unit"
-                                                                class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Unit</label>
-                                                            <input type="text" id="unit" name="edit_unit"
-                                                                value="{{ $item['data'][0]['unit'] }}"
-                                                                class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
-                                                                required="">
-                                                        </div>
-                                                    </div>
-                                                    <div class="grid gap-4 mb-4 grid-cols-2">
-                                                        <div class="col-span-2">
-                                                            <label for="no_unit"
-                                                                class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">No
-                                                                Unit</label>
-                                                            <input type="text" id="no_unit" name="edit_no_unit"
-                                                                value="{{ $item['data'][0]['no_unit'] }}"
-                                                                class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
-                                                                required="">
-                                                        </div>
-                                                    </div>
-
-                                                    <div class="grid gap-4 mb-4 grid-cols-2">
-                                                        <div class="col-span-2">
-                                                            <label for="harga"
-                                                                class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Harga</label>
-                                                            <input type="text" id="harga" name="edit_harga"
-                                                                value="{{ $item['data'][0]['harga'] }}"
+                                                            <label for="nama"
+                                                                class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Nama
+                                                                Wilayah</label>
+                                                            <input type="text" id="nama" name="nama"
+                                                                value="{{ old('nama', $data->nama) }}"
                                                                 class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
                                                                 required="">
                                                         </div>
@@ -367,88 +245,38 @@
                                         </div>
                                     </div>
                                 </div>
-
-                                <!-- Main modal -->
-                                <div id="modalhapus<?= $item->id ?>" tabindex="-1" aria-hidden="true"
-                                    class="hidden overflow-y-auto overflow-x-hidden fixed top-0 right-0 left-0 z-50 justify-center items-center w-full md:inset-0 h-[calc(100%-1rem)] max-h-full">
-                                    <div class="relative p-4 w-full max-w-md max-h-full">
-                                        <!-- Modal content -->
-                                        <div class="relative bg-white rounded-lg shadow dark:bg-gray-700">
-                                            <!-- Modal header -->
-                                            <button type="button"
-                                                class="absolute top-3 end-2.5 text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm w-8 h-8 ms-auto inline-flex justify-center items-center dark:hover:bg-gray-600 dark:hover:text-white"
-                                                data-modal-hide="modalhapus<?= $item->id ?>">
-                                                <svg class="w-3 h-3" aria-hidden="true"
-                                                    xmlns="http://www.w3.org/2000/svg" fill="none"
-                                                    viewBox="0 0 14 14">
-                                                    <path stroke="currentColor" stroke-linecap="round"
-                                                        stroke-linejoin="round" stroke-width="2"
-                                                        d="m1 1 6 6m0 0 6 6M7 7l6-6M7 7l-6 6" />
-                                                </svg>
-                                                <span class="sr-only">Close modal</span>
-                                            </button>
-
-                                            <!-- Modal body -->
-                                            <div class="p-4 text-center ">
-                                                <form action="{{ route('sampah.destroy', $item->id) }}" method="POST">
-                                                    @csrf
-                                                    @method('Delete')
-                                                    <svg class="mx-auto mb-4 text-gray-400 w-12 h-12 dark:text-gray-200"
-                                                        aria-hidden="true" xmlns="http://www.w3.org/2000/svg"
-                                                        fill="none" viewBox="0 0 20 20">
-                                                        <path stroke="currentColor" stroke-linecap="round"
-                                                            stroke-linejoin="round" stroke-width="2"
-                                                            d="M10 11V6m0 8h.01M19 10a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z" />
-                                                    </svg>
-                                                    <h3 class="mb-5 text-lg font-normal text-gray-500 dark:text-gray-400">
-                                                        Are you sure you want to delete this data?</h3>
-                                                    <button type="submit"
-                                                        class="text-white bg-red-600 hover:bg-red-800 focus:ring-4 focus:outline-none focus:ring-red-300 dark:focus:ring-red-800 font-medium rounded-lg text-sm inline-flex items-center px-5 py-2.5 text-center">
-                                                        Yes, I'm sure
-                                                    </button>
-                                                    <button data-modal-hide="modalhapus<?= $item->id ?>" type="button"
-                                                        class="py-2.5 px-5 ms-3 text-sm font-medium text-gray-900 focus:outline-none bg-white rounded-lg border border-gray-200 hover:bg-gray-100 hover:text-blue-700 focus:z-10 focus:ring-4 focus:ring-gray-100 dark:focus:ring-gray-700 dark:bg-gray-800 dark:text-gray-400 dark:border-gray-600 dark:hover:text-white dark:hover:bg-gray-700">No,
-                                                        cancel</button>
-                                                </form>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
                             @endforeach
                         </tbody>
                     </table>
-
-
                     <nav class="bg-white flex items-center flex-column flex-wrap md:flex-row justify-between p-4"
                         aria-label="Table navigation">
                         <span
                             class="text-sm font-normal text-gray-500 dark:text-gray-400 mb-4 md:mb-0 block w-full md:inline md:w-auto">
                             Showing
-                            <span class="font-semibold text-gray-900 dark:text-white">{{ $atribut->firstItem() }}</span>
-                            to
-                            <span class="font-semibold text-gray-900 dark:text-white">{{ $atribut->lastItem() }}</span> of
-                            <span class="font-semibold text-gray-900 dark:text-white">{{ $atribut->total() }}</span>
+                            <span class="font-semibold text-gray-900 dark:text-white">{{ $wilayah->firstItem() }}</span> to
+                            <span class="font-semibold text-gray-900 dark:text-white">{{ $wilayah->lastItem() }}</span> of
+                            <span class="font-semibold text-gray-900 dark:text-white">{{ $wilayah->total() }}</span>
                         </span>
 
                         <div class="w-full md:w-auto text-right">
                             <ul class="inline-flex -space-x-px rtl:space-x-reverse text-sm h-8">
                                 <!-- Previous Page Link -->
-                                @if ($atribut->onFirstPage())
+                                @if ($wilayah->onFirstPage())
                                     <li aria-disabled="true" aria-label="Previous">
                                         <span
                                             class="flex items-center justify-center px-3 h-8 ms-0 leading-tight text-gray-500 bg-white border border-gray-300 rounded-s-lg dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 cursor-not-allowed">Previous</span>
                                     </li>
                                 @else
                                     <li>
-                                        <a href="{{ $atribut->previousPageUrl() }}"
+                                        <a href="{{ $wilayah->previousPageUrl() }}"
                                             class="flex items-center justify-center px-3 h-8 ms-0 leading-tight text-gray-500 bg-white border border-gray-300 rounded-s-lg hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white"
                                             aria-label="Previous">Previous</a>
                                     </li>
                                 @endif
 
                                 <!-- Pagination Elements -->
-                                @foreach ($atribut->links()->elements[0] as $page => $url)
-                                    @if ($page == $atribut->currentPage())
+                                @foreach ($wilayah->links()->elements[0] as $page => $url)
+                                    @if ($page == $wilayah->currentPage())
                                         <li aria-current="page">
                                             <span
                                                 class="flex items-center justify-center px-3 h-8 text-blue-600 border border-gray-300 bg-blue-50 hover:bg-blue-100 hover:text-blue-700 dark:border-gray-700 dark:bg-gray-700 dark:text-white">{{ $page }}</span>
@@ -462,9 +290,9 @@
                                 @endforeach
 
                                 <!-- Next Page Link -->
-                                @if ($atribut->hasMorePages())
+                                @if ($wilayah->hasMorePages())
                                     <li>
-                                        <a href="{{ $atribut->nextPageUrl() }}"
+                                        <a href="{{ $wilayah->nextPageUrl() }}"
                                             class="flex items-center justify-center px-3 h-8 leading-tight text-gray-500 bg-white border border-gray-300 rounded-e-lg hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white"
                                             aria-label="Next">Next</a>
                                     </li>
@@ -477,30 +305,27 @@
                             </ul>
                         </div>
                     </nav>
-
-
-                    <!-- Bagian bawah tetap sama -->
-
                 </div>
             </div>
         </div>
-    </div>
-@endsection
-<script>
-    document.addEventListener("DOMContentLoaded", function() {
-        const searchInput = document.getElementById('table-search');
-        const rows = document.querySelectorAll(
-            'tbody tr'); // Menggunakan selector yang sesuai dengan struktur tabel Anda
+    @endsection
+    <!-- Tempatkan di bawah kode HTML Anda -->
+    <!-- Tempatkan di bawah kode HTML Anda -->
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            const searchInput = document.getElementById('table-search');
+            const rows = document.querySelectorAll(
+                'tbody tr'); // Menggunakan selector yang sesuai dengan struktur tabel Anda
 
-        searchInput.addEventListener('input', function() {
-            const searchValue = this.value.toLowerCase();
+            searchInput.addEventListener('input', function() {
+                const searchValue = this.value.toLowerCase();
 
-            rows.forEach(row => {
-                const cells = row.querySelectorAll('td');
-                const rowText = Array.from(cells).map(cell => cell.textContent.toLowerCase())
-                    .join(' ');
-                row.style.display = rowText.includes(searchValue) ? '' : 'none';
+                rows.forEach(row => {
+                    const cells = row.querySelectorAll('td');
+                    const rowText = Array.from(cells).map(cell => cell.textContent.toLowerCase())
+                        .join(' ');
+                    row.style.display = rowText.includes(searchValue) ? '' : 'none';
+                });
             });
         });
-    });
-</script>
+    </script>

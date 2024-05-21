@@ -28,6 +28,8 @@ class AuthController extends Controller
 
             if ($user->name === 'Admin') {
                 return redirect('/atribut');
+            } elseif ($user->name === 'SuperAdmin') {
+                return redirect('/dashboard');
             } elseif ($user->name === 'AdminSampah') {
                 return redirect('/atributsampah');
             }
