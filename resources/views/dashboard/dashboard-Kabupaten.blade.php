@@ -1,5 +1,5 @@
 
-@extends('layout.sidebarutama')
+@extends('layout.sidebarkabupaten')
 <!-- ============= Home Section =============== -->
 @section('content')
 <div class="content">

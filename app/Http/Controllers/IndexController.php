@@ -72,12 +72,12 @@ class IndexController extends Controller
         $kedinasan = kedinasan::count();
         $kontrak = kontrak::count();
         $retribusi = retribusi::count();
-        $user = user::count();
+        $user = User::count();
         $petugas = petugas::count();
         $wajibretribusi = WajibRetribusi::count();
         $item = WajibRetribusi::count();
 
-        return view('dashboard.dashboard-Kedinasan', compact('kabupaten', 'kedinasan', 'kontrak', 'retribusi', 'petugas', 'wajibretribusi', 'item', 'data'));
+        return view('dashboard.dashboard-Kedinasan', compact('kabupaten', 'kedinasan', 'kontrak', 'retribusi', 'petugas', 'wajibretribusi', 'item', 'data', 'user'));
     }
     
     public function dashboardbendahara()

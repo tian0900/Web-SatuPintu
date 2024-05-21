@@ -27,7 +27,6 @@ class KontrakController extends Controller
     public function index()
     {
         $user = Auth::user();
-        $test = $user->name;
         $Kontrak = Kontrak::with(['wajibRetribusi', 'itemRetribusi', 'Wilayah'])
             ->whereHas('itemRetribusi', function ($query) {
                 $query->where('retribusi_id', 2);
@@ -35,9 +34,9 @@ class KontrakController extends Controller
             ->paginate(5);
 
         $wajibRetribusiOptions = WajibRetribusi::all();
-        $itemRetribusiOptions = ItemRetribusi::all();
-
+        $itemRetribusiOptions = ItemRetribusi::all(); 
         $subWilayahOptions = Wilayah::all();
+        
         return view('data.kontrak', [
             'Kontrak' => $Kontrak,
             'wajibRetribusiOptions' => $wajibRetribusiOptions,

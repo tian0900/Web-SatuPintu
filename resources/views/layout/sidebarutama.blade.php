@@ -46,44 +46,30 @@
             <!-- -------- Non Dropdown List Item ------- -->
             <li>
                 <div class="title">
-                    <a href="/atribut" class="link">
+                    <a href="/kedinasan" class="link">
                       <i class='bx bx-slider'></i>
 
-                        <span class="name">Atribut</span>
+                        <span class="name">kedinasan</span>
                     </a>
                     <!-- <i class='bx bxs-chevron-down'></i> -->
                 </div>
                 <div class="submenu">
-                    <a href="/atribut" class="link submenu-title">Atribut</a>
+                    <a href="/kedinasan" class="link submenu-title">kedinasan</a>
                     <!-- submenu links here  -->
                 </div>
             </li>
 
-            <li>
-              <div class="title">
-                  <a href="/item" class="link">
-                    <i class='bx bx-checkbox-square'></i>
-                      <span class="name">Item</span>
-                  </a>
-                  <!-- <i class='bx bxs-chevron-down'></i> -->
-              </div>
-              <div class="submenu">
-                  <a href="/item" class="link submenu-title">Item</a>
-                  <!-- submenu links here  -->
-              </div>
-          </li>
-
             <!-- -------- Non Dropdown List Item ------- -->
             <li>
                 <div class="title">
-                    <a href="/kontrak" class="link">
+                    <a href="/kabupaten" class="link">
                       <i class='bx bxs-file'></i>
-                        <span class="name">Kontrak</span>
+                        <span class="name">Kabupaten</span>
                     </a>
                     <!-- <i class='bx bxs-chevron-down'></i> -->
                 </div>
                 <div class="submenu">
-                    <a href="/kontrak" class="link submenu-title">Kontrak</a>
+                    <a href="/kabupaten" class="link submenu-title">Kabupaten</a>
                     <!-- submenu links here  -->
                 </div>
             </li>
@@ -91,14 +77,14 @@
             <!-- -------- Non Dropdown List Item ------- -->
             <li>
                 <div class="title">
-                    <a href="/wilayah" class="link">
+                    <a href="/retribusi" class="link">
                       <i class='bx bx-map-alt'></i>
-                        <span class="name">Wilayah</span>
+                        <span class="name">Retribusi</span>
                     </a>
                     <!-- <i class='bx bxs-chevron-down'></i> -->
                 </div>
                 <div class="submenu">
-                    <a href="/wilayah" class="link submenu-title">Wilayah</a>
+                    <a href="/retribusi" class="link submenu-title">Retribusi</a>
                     <!-- submenu links here  -->
                 </div>
             </li>
