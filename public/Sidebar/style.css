@@ -14,6 +14,7 @@
 /* Variables  */
 :root{
     --color_Blue: #3f93f1;
+    --color_Blue2: #3F84AD;
     --color_Dark1: #1e1e1e;
     --color_Dark2: #252527;
     --color_Light1: #F5F8FF;
@@ -199,17 +200,9 @@
     left: 78px;
     width: calc(100% - 78px);
 }
-.home .toggle-sidebar{
-    /* height: 60px; */
-    display: flex;
-    align-items: center;
-    width: fit-content;
-    cursor: pointer;
-}
 .home .toggle-sidebar i{
     font-size: 35px;
-    color: var(--color_Dark1);
-    margin-left: 15px;  
+    color: var(--color_Dark1); 
 }
 .home .toggle-sidebar .text{
     font-size: 25px;
@@ -221,8 +214,16 @@
     left: 92%;
 }
 
-
-
+/* ============= Text & Image =========================*/
+.text-utama {
+    color: var(--color_Blue2);
+}
+.text-hitam {
+    color: var(--color_Dark1);
+}
+.image-dashboard {
+    width: 200px;
+}
 
 /* ============ Responsive / Breakpoints ========== */
 @media (max-width: 1080px){

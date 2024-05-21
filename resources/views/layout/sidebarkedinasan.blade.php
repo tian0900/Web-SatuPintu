@@ -33,42 +33,27 @@
             <!-- -------- Non Dropdown List Item ------- -->
             <li>
                 <div class="title">
-                    <a href="/dashboard" class="link">
+                    <a href="/dashboard-kedinasan" class="link">
                         <i class='bx bx-grid-alt'></i>
                         <span class="name">Dashboard</span>
                     </a>
                 </div>
                 <div class="submenu">
-                    <a href="/dashboard" class="link submenu-title">Dashboard</a>
+                    <a href="/dashboard-kedinasan" class="link submenu-title">Dashboard</a>
                 </div>
             </li>
 
             <!-- -------- Non Dropdown List Item ------- -->
             <li>
                 <div class="title">
-                    <a href="/retribusi" class="link">
-                      <i class='bx bx-wallet-alt' ></i>
-                        <span class="name">Retribusi</span>
-                    </a>
-                    <!-- <i class='bx bxs-chevron-down'></i> -->
-                </div>
-                <div class="submenu">
-                    <a href="/retribusi" class="link submenu-title">Retribusi</a>
-                    <!-- submenu links here  -->
-                </div>
-            </li>
-
-            <!-- -------- Non Dropdown List Item ------- -->
-            <li>
-                <div class="title">
-                    <a href="/kontraksampah" class="link">
+                    <a href="/kontrak" class="link">
                       <i class='bx bxs-file'></i>
                         <span class="name">Kontrak</span>
                     </a>
                     <!-- <i class='bx bxs-chevron-down'></i> -->
                 </div>
                 <div class="submenu">
-                    <a href="/kontraksampah" class="link submenu-title">Kontrak</a>
+                    <a href="/kontrak" class="link submenu-title">Kontrak</a>
                     <!-- submenu links here  -->
                 </div>
             </li>
@@ -91,7 +76,7 @@
             <!-- -------- Non Dropdown List Item ------- -->
             <li>
                 <div class="title">
-                    <a href="/itemsampah" class="link">
+                    <a href="/item" class="link">
                       <i class='bx bx-checkbox-square'></i>
                         <span class="name">Item</span>
                     </a>
@@ -106,7 +91,7 @@
             <!-- -------- Dropdown List Item ------- -->
             <li class="dropdown">
               <div class="title">
-                  <a href="/atributsampah" class="link">
+                  <a href="#" class="link">
                     <i class='bx bx-expand-vertical'></i>
                         <span class="name">Atribut</span>
                   </a>
@@ -114,15 +99,41 @@
               </div>
               <div class="submenu">
                   <p href="#" class="link submenu-title">Atribut</p>
+                  <a href="/atribut" class="link">Pasar</a>
                   <a href="/atributsampah" class="link">Sampah</a>
               </div>
             </li>
 
             <!-- -------- Non Dropdown List Item ------- -->
-            
+            <li>
+              <div class="title">
+                  <a href="userpage" class="link">
+                      <i class='bx bx-user'></i>
+                      <span class="name">Manajemen User</span>
+                  </a>
+                  <!-- <i class='bx bxs-chevron-down'></i> -->
+              </div>
+              <div class="submenu">
+                  <a href="userpage" class="link submenu-title">Manajemen User</a>
+                  <!-- submenu links here  -->
+              </div>
+            </li>
 
             <!-- -------- Non Dropdown List Item ------- -->
-           
+            <li>
+              <div class="title">
+                  <a href="#" class="link">
+                      <i class='bx bx-cog'></i>
+                      <span class="name">Settings</span>
+                  </a>
+                  <!-- <i class='bx bxs-chevron-down'></i> -->
+              </div>
+              <div class="submenu">
+                  <a href="#" class="link submenu-title">Settings</a>
+                  <!-- submenu links here  -->
+              </div>
+            </li>
+            
         </ul>
     </div>
 

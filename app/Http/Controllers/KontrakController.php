@@ -131,10 +131,6 @@ class KontrakController extends Controller
         return redirect()->back()->with('success', 'Kontrak dan tagihan terkait berhasil dihapus.');
     }
 
-
-
-
-
     /**
      * Show the form for creating a new resource.
      */
