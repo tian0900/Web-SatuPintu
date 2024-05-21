@@ -192,30 +192,30 @@
                         <span
                             class="text-sm font-normal text-gray-500 dark:text-gray-400 mb-4 md:mb-0 block w-full md:inline md:w-auto">
                             Showing
-                            <span class="font-semibold text-gray-900 dark:text-white">{{ $users->firstItem() }}</span> to
-                            <span class="font-semibold text-gray-900 dark:text-white">{{ $users->lastItem() }}</span> of
-                            <span class="font-semibold text-gray-900 dark:text-white">{{ $users->total() }}</span>
+                            <span class="font-semibold text-gray-900 dark:text-white">{{ $kedinasan->firstItem() }}</span> to
+                            <span class="font-semibold text-gray-900 dark:text-white">{{ $kedinasan->lastItem() }}</span> of
+                            <span class="font-semibold text-gray-900 dark:text-white">{{ $kedinasan->total() }}</span>
                         </span>
 
                         <div class="w-full md:w-auto text-right">
                             <ul class="inline-flex -space-x-px rtl:space-x-reverse text-sm h-8">
                                 <!-- Previous Page Link -->
-                                @if ($users->onFirstPage())
+                                @if ($kedinasan->onFirstPage())
                                     <li aria-disabled="true" aria-label="Previous">
                                         <span
                                             class="flex items-center justify-center px-3 h-8 ms-0 leading-tight text-gray-500 bg-white border border-gray-300 rounded-s-lg dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 cursor-not-allowed">Previous</span>
                                     </li>
                                 @else
                                     <li>
-                                        <a href="{{ $users->previousPageUrl() }}"
+                                        <a href="{{ $kedinasan->previousPageUrl() }}"
                                             class="flex items-center justify-center px-3 h-8 ms-0 leading-tight text-gray-500 bg-white border border-gray-300 rounded-s-lg hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white"
                                             aria-label="Previous">Previous</a>
                                     </li>
                                 @endif
 
                                 <!-- Pagination Elements -->
-                                @foreach ($users->links()->elements[0] as $page => $url)
-                                    @if ($page == $users->currentPage())
+                                @foreach ($kedinasan->links()->elements[0] as $page => $url)
+                                    @if ($page == $kedinasan->currentPage())
                                         <li aria-current="page">
                                             <span
                                                 class="flex items-center justify-center px-3 h-8 text-blue-600 border border-gray-300 bg-blue-50 hover:bg-blue-100 hover:text-blue-700 dark:border-gray-700 dark:bg-gray-700 dark:text-white">{{ $page }}</span>
@@ -229,9 +229,9 @@
                                 @endforeach
 
                                 <!-- Next Page Link -->
-                                @if ($users->hasMorePages())
+                                @if ($kedinasan->hasMorePages())
                                     <li>
-                                        <a href="{{ $users->nextPageUrl() }}"
+                                        <a href="{{ $kedinasan->nextPageUrl() }}"
                                             class="flex items-center justify-center px-3 h-8 leading-tight text-gray-500 bg-white border border-gray-300 rounded-e-lg hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white"
                                             aria-label="Next">Next</a>
                                     </li>

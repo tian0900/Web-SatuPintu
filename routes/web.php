@@ -67,7 +67,7 @@ Route::middleware(['check.role.byname:AdminPasar'])->group(function () {
     Route::get('/wilayah-pasar/create', [WilayahController::class, 'create'])->name('wilayah.create');
     Route::post('/wilayah-pasar', [WilayahController::class, 'store'])->name('wilayah.store');
 
-    
+
 
     //Item-Retribusi
     Route::get('/item', [ItemRetribusiController::class, 'index'])->name('item.index');
@@ -122,11 +122,19 @@ Route::middleware(['check.role.byname:AdminKabupaten'])->group(function () {
     Route::get('/kedinasanKabupaten/create', [kedinasanController::class, 'createKabupaten'])->name('kedinasanKabupaten.create');
     Route::post('/kedinasanKabupaten', [kedinasanController::class, 'storeKabupaten'])->name('kedinasanKabupaten.store');
 
-    // Route::delete('/posts/{post}', ItemRetribusiController::class .'@destroy')->name('posts.destroy');
+    //Kedinasan
+    Route::get('/kedinasan', [KedinasanController::class, 'index']);
+    Route::get('/data/kedinasan/{id}/edit', [kedinasanController::class, 'edit'])->name('kedinasan.edit');
+    Route::put('/data/kedinasan/{id}', [kedinasanController::class, 'update'])->name('kedinasan.update');
+    Route::delete('/kedinasan/{id}', [kedinasanController::class, 'destroy'])->name('kedinasan.destroy');
+    Route::get('/kedinasan/create', [kedinasanController::class, 'create'])->name('kedinasan.create');
+    Route::post('/kedinasan', [kedinasanController::class, 'store'])->name('kedinasan.store');
+
 
 
 
 });
+
 Route::middleware(['check.role.byname:Bendahara'])->group(function () {
     //Dashboard
     Route::get('/dashboard-bendahara', [IndexController::class, 'dashboardbendahara']);
@@ -196,13 +204,7 @@ Route::middleware(['check.role.byname:SuperAdmin'])->group(function () {
 
     Route::get('/dashboard', [IndexController::class, 'dashboard']);
 
-    //Kedinasan
-    Route::get('/kedinasan', [KedinasanController::class, 'index']);
-    Route::get('/data/kedinasan/{id}/edit', [kedinasanController::class, 'edit'])->name('kedinasan.edit');
-    Route::put('/data/kedinasan/{id}', [kedinasanController::class, 'update'])->name('kedinasan.update');
-    Route::delete('/kedinasan/{id}', [kedinasanController::class, 'destroy'])->name('kedinasan.destroy');
-    Route::get('/kedinasan/create', [kedinasanController::class, 'create'])->name('kedinasan.create');
-    Route::post('/kedinasan', [kedinasanController::class, 'store'])->name('kedinasan.store');
+
 
     //Kabupaten
     Route::get('/kabupaten', [KabupatenController::class, 'index']);

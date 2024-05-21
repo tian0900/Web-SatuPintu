@@ -45,28 +45,16 @@
             <!-- -------- Non Dropdown List Item ------- -->
             <li>
                 <div class="title">
-                    <a href="/kedinasanKabupaten" class="link">
+                    <a href="/kedinasan" class="link">
                         <i class='bx bx-sitemap'></i>
                         <span class="name">Kedinasan</span>
                     </a>
                 </div>
                 <div class="submenu">
-                    <a href="/kedinasanKabupaten" class="link submenu-title">Kedinasan</a>
+                    <a href="/kedinasan" class="link submenu-title">Kedinasan</a>
                 </div>
             </li>
-            <li>
-                <div class="title">
-                    <a href="/kabupaten" class="link">
-                      <i class='bx bx-map-pin' ></i>
-                        <span class="name">Kabupaten</span>
-                    </a>
-                    <!-- <i class='bx bxs-chevron-down'></i> -->
-                </div>
-                <div class="submenu">
-                    <a href="/kabupaten" class="link submenu-title">Kabupaten</a>
-                    <!-- submenu links here  -->
-                </div>
-            </li>
+            
             <li>
               <div class="title">
                   <a href="/logout" class="link">
