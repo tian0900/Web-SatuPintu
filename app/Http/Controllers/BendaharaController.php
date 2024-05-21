@@ -36,7 +36,7 @@ class BendaharaController extends Controller
             ->where('tagihan.active', '1') // Filter berdasarkan status pembayaran
             ->where('item_retribusi.retribusi_id', '2') // Filter berdasarkan status pembayaran
             ->distinct() // Menambahkan klausa distinct
-            ->get();
+            ->paginate(5);
 
 
 
@@ -94,7 +94,7 @@ class BendaharaController extends Controller
 
             )// Mengelompokkan berdasarkan petugas_id
             ->where('setoran.status', 'MENUNGGU')
-            ->get();
+            ->paginate(5);
         return view('bendahara.setor', ['setor' => $setor]);
     }
 
@@ -150,7 +150,7 @@ class BendaharaController extends Controller
             ->where('tagihan.active', '1') // Filter berdasarkan status pembayaran
             ->where('item_retribusi.retribusi_id', '2') // Filter berdasarkan status pembayaran
             ->distinct() // Menambahkan klausa distinct
-            ->get();
+            ->paginate(5);
 
 
 
