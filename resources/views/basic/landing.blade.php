@@ -24,8 +24,7 @@
 
             </div>
         </div>
-    </nav>
-  >
+    </nav> 
 
     <section id="data1" class="bg-gray-200 dark:bg-gray-900">
         <div class="grid max-w-screen-xl px-4 py-8 mx-auto lg:gap-8 xl:gap-0 lg:py-16 lg:grid-cols-12">

@@ -29,16 +29,20 @@ use App\Models\Kabupaten;
 
 
 Route::get('/dd', [PasarController::class, 'index']);
-Route::get('/', [IndexController::class, 'landing']);
 Route::get('/dashboard', [IndexController::class, 'dashboard']);
+Route::get('/', [IndexController::class, 'landing']);
 Route::post('/jenis/store', [PasarController::class, 'store'])->name('jenis.store');
 Route::get('/jenis/edit', [PasarController::class, 'edit'])->name('jenis.edit');
+Route::get('/dashboard-kedinasan', [IndexController::class, 'dashboardkedinasan']);
 // Route::put('/jenis/{id}', [PasarController::class, 'update'])->name('jenis.update');
 // Route::post('/jenis/{id}', 'JenisController@update')->name('jenis.update');
 // Route::put('/jenis/edit/{id}', [PasarController::class, 'update'])->name('jenis.update');
 Route::put('/jenis/{post}', [PasarController::class, 'update'])->name('jenis.update');
 
-Route::middleware(['check.role.byname:AdminKabupaten'])->group(function () {
+Route::middleware(['check.role.byname:Admin'])->group(function () {
+    //Dashboard 
+    Route::get('/dashboard', [IndexController::class, 'dashboard']);
+    
     //Kedinasan
     Route::get('/kedinasan', [KedinasanController::class, 'index']);
     Route::get('/data/kedinasan/{id}/edit', [kedinasanController::class, 'edit'])->name('kedinasan.edit');
@@ -54,10 +58,32 @@ Route::middleware(['check.role.byname:AdminKabupaten'])->group(function () {
     Route::get('/kabupaten/edit',   [KabupatenController::class, 'edit'])->name('kabupaten.edit');
     Route::put('/kabupaten/{post}', [KabupatenController::class, 'update'])->name('kabupaten.update');
 
+    //Retribusi
+    Route::get('/retribusi', [RetribusiController::class, 'index']);
+    Route::get('/data/retribusi/{id}/edit', [RetribusiController::class, 'edit'])->name('retribusi.edit');
+    Route::put('/data/retribusi/{id}', [RetribusiController::class, 'update'])->name('retribusi.update');
+    Route::delete('/retribusi/{id}', [RetribusiController::class, 'destroy'])->name('retribusi.destroy');
+    Route::get('/retribusi/create', [RetribusiController::class, 'create'])->name('retribusi.create');
+    Route::post('/retribusi', [RetribusiController::class, 'store'])->name('retribusi.store');
+
+    //Manajemen User
+    Route::get('/useradmin', [UserController::class, 'indexadmin']);
+    Route::post('/useradmin/store', [UserController::class, 'storeadmin'])->name('users.storeadmin');
 });
 
-Route::middleware(['check.role.byname:Admin'])->group(function () {
+Route::middleware(['check.role.byname:AdminKabupaten'])->group(function () {
+    //Dashboard
+    Route::get('/dashboard-kabupaten', [IndexController::class, 'dashboardkabupaten']);
 
+    //Kedinasan
+    Route::get('/kedinasan', [KedinasanController::class, 'index']);
+    Route::get('/data/kedinasan/{id}/edit', [kedinasanController::class, 'edit'])->name('kedinasan.edit');
+    Route::put('/data/kedinasan/{id}', [kedinasanController::class, 'update'])->name('kedinasan.update');
+    Route::delete('/kedinasan/{id}', [kedinasanController::class, 'destroy'])->name('kedinasan.destroy');
+    Route::get('/kedinasan/create', [kedinasanController::class, 'create'])->name('kedinasan.create');
+    Route::post('/kedinasan', [kedinasanController::class, 'store'])->name('kedinasan.store');
+
+    //Kontrak
     Route::get('/pdf', [KontrakController::class, 'testt']);
     Route::get('/surat/{id}', [KontrakController::class, 'detailkontrak'])->name('surat.detail');
     Route::post('/kontrak/store', [KontrakController::class, 'store'])->name('kontrak.store');
@@ -77,14 +103,6 @@ Route::middleware(['check.role.byname:Admin'])->group(function () {
     Route::get('/jenis/edit', [PasarController::class, 'edit'])->   name('jenis.edit');
     Route::put('/jenis/{post}', [PasarController::class, 'update'])->name('jenis.update');
 
-    //Retribusi
-    Route::get('/retribusi', [RetribusiController::class, 'index']);
-    Route::get('/data/retribusi/{id}/edit', [RetribusiController::class, 'edit'])->name('retribusi.edit');
-    Route::put('/data/retribusi/{id}', [RetribusiController::class, 'update'])->name('retribusi.update');
-    Route::delete('/retribusi/{id}', [RetribusiController::class, 'destroy'])->name('retribusi.destroy');
-    Route::get('/retribusi/create', [RetribusiController::class, 'create'])->name('retribusi.create');
-    Route::post('/retribusi', [RetribusiController::class, 'store'])->name('retribusi.store');
-
     //Sub-Wilayah
     Route::get('/wilayah', [WilayahController::class, 'index']);
     Route::get('/data/wilayah/{id}/edit', [WilayahController::class, 'edit'])->name('wilayah.edit');
@@ -103,9 +121,6 @@ Route::middleware(['check.role.byname:Admin'])->group(function () {
 
     // Route::delete('/posts/{post}', ItemRetribusiController::class .'@destroy')->name('posts.destroy');
 
-    
-
-    
     //Management User
     Route::get('/userpage', [UserController::class, 'index']);
     Route::post('/users/store', [UserController::class, 'store'])->name('users.store');
@@ -114,7 +129,10 @@ Route::middleware(['check.role.byname:Admin'])->group(function () {
  
 });
 Route::middleware(['check.role.byname:Bendahara'])->group(function () {
-    //bendahara
+    //Dashboard
+    Route::get('/dashboard-bendahara', [IndexController::class, 'dashboardbendahara']);
+
+    //Bendahara
     Route::get('/tagihan', [BendaharaController::class, 'indextagihan']);
     Route::get('/tagihansampah', [BendaharaController::class, 'tagihansampah']);
 

@@ -266,7 +266,7 @@
                                             </div>
                                         </div>
                                     </div>
-                                </div>>
+                                </div>
 
                                 <!-- Small Modal -->
                                 <div id="modalkonfirmasi{{ $item->id }}" tabindex="-1"

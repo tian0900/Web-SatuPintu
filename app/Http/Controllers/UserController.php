@@ -1,10 +1,11 @@
 <?php
 
 namespace App\Http\Controllers;
-
-use App\Models\WajibRetribusi;
+ 
 use Illuminate\Http\Request;
 use App\Models\User;
+use App\Models\WajibRetribusi;
+use App\Models\Role;
 use App\Models\Wilayah;
 use App\Models\Petugas;
 use Illuminate\Support\Facades\Hash;
@@ -30,7 +31,22 @@ class UserController extends Controller
         return view('data.mguser', compact('users', 'roles', 'wilayah'));
     }
 
+    public function indexadmin()
+    { 
+        $users = User::with('role')->whereHas('role', function ($query) {
+            $query->whereIn('id', [4, 5, 6]); // Filter role_id 4, 5 dan 6
+        })->paginate(5);
 
+        $roleOptions = Role::all();
+
+        $roles = [
+            ['id' => 4, 'name' => 'Bendahara'],
+            ['id' => 5, 'name' => 'AdminKabupaten'],
+            ['id' => 6, 'name' => 'AdminKedinasan'],
+        ];
+
+        return view('data.mgadmin', compact('users', 'roles', 'roleOptions'));
+    }
 
     /**
      * Show the form for creating a new resource.
@@ -88,6 +104,30 @@ class UserController extends Controller
             'user_id' => $user->id,
         ];
         WajibRetribusi::create($postToSave);
+
+        // dd($petugas); // Tambahkan ini untuk melihat nilai $petugas
+
+        return redirect()->back()->with('success', 'User created successfully');
+    }
+
+    public function storeadmin(Request $request)
+    {
+        $validatedData = $request->validate([
+            'name' => 'required|string',
+            'email' => 'required|email|unique:users',
+            'password' => 'required|min:8',
+            'nik' => 'required|string|unique:users',
+            'alamat' => 'required|string', 
+            'role_id' => 'required|exists:role,id', 
+        ]);
+
+        $validatedData['password'] = Hash::make($validatedData['password']);
+        $user = User::create($validatedData);
+
+        $postToSave = [
+            'user_id' => $user->id,  
+        ];
+        Petugas::create($postToSave);
 
         // dd($petugas); // Tambahkan ini untuk melihat nilai $petugas
 

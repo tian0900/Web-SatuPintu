@@ -9,6 +9,7 @@ use App\Models\Kedinasan;
 use App\Models\Kabupaten;
 use App\Models\Kontrak;
 use App\Models\Petugas;
+use App\Models\User;
 use App\Models\WajibRetribusi;
 
 
@@ -27,6 +28,11 @@ class IndexController extends Controller
     }
     public function dashboard()
     {
+        $data = Retribusi::with(['Kedinasan'])
+            ->whereHas('Kedinasan', function ($query) {
+                $query->where('kedinasan_id', 2);
+            })
+            ->get(); 
         $kabupaten = Kabupaten::count();
         $kedinasan = kedinasan::count();
         $kontrak = kontrak::count();
@@ -35,7 +41,61 @@ class IndexController extends Controller
         $wajibretribusi = WajibRetribusi::count();
         $item = WajibRetribusi::count();
 
-        return view('auth.dashboard', compact('kabupaten', 'kedinasan', 'kontrak', 'retribusi', 'petugas', 'wajibretribusi', 'item'));
+        return view('auth.dashboard', compact('kabupaten', 'kedinasan', 'kontrak', 'retribusi', 'petugas', 'wajibretribusi', 'item', 'data'));
+    }
+
+    public function dashboardkabupaten()
+    {
+        $data = Retribusi::with(['Kedinasan'])
+            ->whereHas('Kedinasan', function ($query) {
+                $query->where('kedinasan_id', 2);
+            })
+            ->get(); 
+        $kabupaten = Kabupaten::count();
+        $kedinasan = kedinasan::count();
+        $kontrak = kontrak::count();
+        $retribusi = retribusi::count();
+        $petugas = petugas::count();
+        $wajibretribusi = WajibRetribusi::count();
+        $item = WajibRetribusi::count();
+
+        return view('dashboard.dashboard-Kabupaten', compact('kabupaten', 'kedinasan', 'kontrak', 'retribusi', 'petugas', 'wajibretribusi', 'item', 'data'));
+    }
+    public function dashboardkedinasan()
+    {
+        $data = Retribusi::with(['Kedinasan'])
+            ->whereHas('Kedinasan', function ($query) {
+                $query->where('kedinasan_id', 2);
+            })
+            ->get(); 
+        $kabupaten = Kabupaten::count();
+        $kedinasan = kedinasan::count();
+        $kontrak = kontrak::count();
+        $retribusi = retribusi::count();
+        $user = User::count();
+        $petugas = petugas::count();
+        $wajibretribusi = WajibRetribusi::count();
+        $item = WajibRetribusi::count();
+
+        return view('dashboard.dashboard-Kedinasan', compact('kabupaten', 'kedinasan', 'kontrak', 'retribusi', 'petugas', 'wajibretribusi', 'item', 'data', 'user'));
+    }
+    
+    public function dashboardbendahara()
+    {
+        $data = Retribusi::with(['Kedinasan'])
+            ->whereHas('Kedinasan', function ($query) {
+                $query->where('kedinasan_id', 2);
+            })
+            ->get(); 
+        $kabupaten = Kabupaten::count();
+        $kedinasan = kedinasan::count();
+        $kontrak = kontrak::count();
+        $retribusi = retribusi::count();
+        $petugas = petugas::count();
+        $wajibretribusi = WajibRetribusi::count();
+        $item = WajibRetribusi::count();
+
+        return view('dashboard.dashboard-bendahara', compact('kabupaten', 'kedinasan', 'kontrak', 'retribusi', 'petugas', 'wajibretribusi', 'item', 'data'));
     }
     // public function dashboardkedinasan()
     // {
