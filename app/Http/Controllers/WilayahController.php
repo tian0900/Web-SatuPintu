@@ -12,7 +12,7 @@ class WilayahController extends Controller
      */
     public function index()
     {
-        $wilayah = Wilayah::all();
+        $wilayah = Wilayah::paginate(5);
 
         // Menampilkan view 'data.retribusi' dan meneruskan data retribusi ke dalam view
         return view('data.wilayah', ['wilayah' => $wilayah]);

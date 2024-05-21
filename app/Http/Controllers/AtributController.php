@@ -19,17 +19,18 @@ class AtributController extends Controller
         $atribut = Post::where(function ($query) {
             $query->where('data.kelompok_pasar', 'exists', true)
                 ->orWhere('data.Kelompok_pasar', 'exists', true);
-        })->get();
+        })->paginate(5); // Menampilkan 10 item per halaman
 
         return view('data.atribut', ['atribut' => $atribut, 'wilayah' => $wilayah]);
     }
+
 
     public function indexsampah()
     {
         $atribut = Post::where(function ($query) {
             $query->where('data.kategori_sampah', 'exists', true)
                 ->orWhere('data.Kategori_sampah', 'exists', true);
-        })->get();
+        })->paginate(5);
 
         return view('data.atributsampah', ['atribut' => $atribut]);
     }
@@ -260,5 +261,5 @@ class AtributController extends Controller
         return redirect()->back()->with('success', 'Data berhasil dihapus.');
     }
 
-    
+
 }

@@ -20,7 +20,7 @@ class UserController extends Controller
         $wilayah = Wilayah::all();
         $users = User::with('role')->whereHas('role', function ($query) {
             $query->whereIn('id', [1, 2]); // Filter role_id 1 dan 2
-        })->get();
+        })->paginate(5);
 
         $roles = [
             ['id' => 1, 'name' => 'WAJIB RETRIBUSI'],

@@ -196,24 +196,31 @@
                         <tbody>
                             @php $number = 1; @endphp <!-- Inisialisasi nomor -->
                             @foreach ($setor as $item)
+<<<<<<< HEAD
+                                <tr
+                                    class="odd:bg-white odd:dark:bg-gray-900 even:bg-gray-50 even:dark:bg-gray-800 border-b dark:border-gray-700">
+                                    <td scope="row"
+=======
                                 <tr class="odd:bg-white odd:dark:bg-gray-900 even:bg-gray-50 even:dark:bg-gray-800 border-b dark:border-gray-700">
                                     <th scope="row"
+>>>>>>> aee5aaf138de227a82e9ffc32d7dd15a44fd1b17
                                         class="px-3 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
                                         {{ $item->nama_petugas }}
-                                    </th>
-                                    <th scope="row"
+                                    </td>
+                                    <td scope="row"
                                         class="px-3 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
                                         {{ $item->nama }}
-                                    </th>
+                                    </td>
                                     <td class="px-3 py-4">
                                         {{ $item->total }}
                                     </td>
                                     <td class="px-3 py-4">
                                         <a data-modal-target="modal<?= $item->id ?>"
                                             data-modal-toggle="modal<?= $item->id ?>"
-                                            class="font-medium text-blue-600 dark:text-blue-500 hover:underline text-center">Lihat Bukti</a>
+                                            class="font-medium text-blue-600 dark:text-blue-500 hover:underline text-center">Lihat
+                                            Bukti</a>
                                     </td>
-                        
+
                                     <td class="px-3 py-4">
                                         <!-- Modal toggle -->
                                         <a data-modal-target="modalkonfirmasi<?= $item->id ?>"
@@ -228,6 +235,22 @@
                                         <!-- Modal content -->
                                         <div class="relative bg-white rounded-lg shadow dark:bg-gray-700">
                                             <!-- Modal header -->
+<<<<<<< HEAD
+                                            <div
+                                                class="flex items-center justify-between p-4 md:p-5 border-b rounded-t dark:border-gray-600">
+                                                <h3 class="text-lg font-semibold text-gray-900 dark:text-white">
+                                                    Bukti Penyetoran
+                                                </h3>
+                                                <button type="button"
+                                                    class="text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm h-8 w-8 ms-auto inline-flex justify-center items-center dark:hover:bg-gray-600 dark:hover:text-white"
+                                                    data-modal-toggle="select-modal">
+                                                    <svg class="w-3 h-3" aria-hidden="true"
+                                                        xmlns="http://www.w3.org/2000/svg" fill="none"
+                                                        viewBox="0 0 14 14">
+                                                        <path stroke="currentColor" stroke-linecap="round"
+                                                            stroke-linejoin="round" stroke-width="2"
+                                                            d="m1 1 6 6m0 0 6 6M7 7l6-6M7 7l-6 6" />
+=======
                                             <div class="flex items-center justify-between p-4 md:p-5 border-b rounded-t dark:border-gray-600">
                                                 <h3 class="text-xl font-medium text-gray-900 dark:text-white">
                                                     Bukti Penyetoran
@@ -235,6 +258,7 @@
                                                 <button type="button" class="text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm w-8 h-8 ms-auto inline-flex justify-center items-center dark:hover:bg-gray-600 dark:hover:text-white" data-modal-hide="modal<?= $item->id ?>">
                                                     <svg class="w-3 h-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 14 14">
                                                         <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m1 1 6 6m0 0 6 6M7 7l6-6M7 7l-6 6"/>
+>>>>>>> aee5aaf138de227a82e9ffc32d7dd15a44fd1b17
                                                     </svg>
                                                     <span class="sr-only">Close modal</span>
                                                 </button>
@@ -363,3 +387,21 @@
             </div>
         </div>
     @endsection
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            const searchInput = document.getElementById('table-search');
+            const rows = document.querySelectorAll(
+                'tbody tr'); // Menggunakan selector yang sesuai dengan struktur tabel Anda
+
+            searchInput.addEventListener('input', function() {
+                const searchValue = this.value.toLowerCase();
+
+                rows.forEach(row => {
+                    const cells = row.querySelectorAll('td');
+                    const rowText = Array.from(cells).map(cell => cell.textContent.toLowerCase())
+                        .join(' ');
+                    row.style.display = rowText.includes(searchValue) ? '' : 'none';
+                });
+            });
+        });
+    </script>

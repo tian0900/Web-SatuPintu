@@ -229,7 +229,9 @@
                             </tr>
                         </thead>
                         <tbody>
-                            @php $number = 1; @endphp <!-- Inisialisasi nomor -->
+                            @php
+                                $number = ($Kontrak->currentPage() - 1) * $Kontrak->perPage() + 1;
+                            @endphp <!-- Inisialisasi nomor -->
                             @foreach ($Kontrak as $index => $data)
                                 <tr
                                     class="odd:bg-white odd:dark:bg-gray-900 even:bg-gray-50 even:dark:bg-gray-800 border-b dark:border-gray-700">
@@ -260,7 +262,10 @@
                                     <td class="px-6 py-4 text-center">
                                         <a href="{{ route('surat.detailsampah', ['id' => $data->id]) }}"
                                             class="font-medium text-blue-600 dark:text-blue-500 hover:underline text-center">Detail</a><br>
-                                        <a data-modal-target="modalhapus<?= $data->id ?>" data-modal-toggle="modalhapus<?= $data->id ?>" class="font-medium text-red-600 dark:text-red-500 hover:underline text-center">Hapus Kontrak</a>
+                                        <a data-modal-target="modalhapus<?= $data->id ?>"
+                                            data-modal-toggle="modalhapus<?= $data->id ?>"
+                                            class="font-medium text-red-600 dark:text-red-500 hover:underline text-center">Hapus
+                                            Kontrak</a>
 
                                         <!-- Modal toggle -->
                                         @if ($data->status == 'DITERIMA')
@@ -316,26 +321,41 @@
                                         <!-- Modal content -->
                                         <div class="relative bg-white rounded-lg shadow dark:bg-gray-700">
                                             <!-- Modal header -->
-                                            <button type="button" class="absolute top-3 end-2.5 text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm w-8 h-8 ms-auto inline-flex justify-center items-center dark:hover:bg-gray-600 dark:hover:text-white" data-modal-hide="modalhapus<?= $data->id ?>">
-                                                <svg class="w-3 h-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 14 14">
-                                                    <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m1 1 6 6m0 0 6 6M7 7l6-6M7 7l-6 6"/>
+                                            <button type="button"
+                                                class="absolute top-3 end-2.5 text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm w-8 h-8 ms-auto inline-flex justify-center items-center dark:hover:bg-gray-600 dark:hover:text-white"
+                                                data-modal-hide="modalhapus<?= $data->id ?>">
+                                                <svg class="w-3 h-3" aria-hidden="true"
+                                                    xmlns="http://www.w3.org/2000/svg" fill="none"
+                                                    viewBox="0 0 14 14">
+                                                    <path stroke="currentColor" stroke-linecap="round"
+                                                        stroke-linejoin="round" stroke-width="2"
+                                                        d="m1 1 6 6m0 0 6 6M7 7l6-6M7 7l-6 6" />
                                                 </svg>
                                                 <span class="sr-only">Close modal</span>
                                             </button>
-                                            
+
                                             <!-- Modal body -->
                                             <div class="p-4 text-center ">
-                                                <form action="{{ route('kontrak.delete', ['id' => $data->id]) }}" method="POST">
+                                                <form action="{{ route('kontrak.delete', ['id' => $data->id]) }}"
+                                                    method="POST">
                                                     @csrf
                                                     @method('Delete')
-                                                    <svg class="mx-auto mb-4 text-gray-400 w-12 h-12 dark:text-gray-200" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 20 20">
-                                                        <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 11V6m0 8h.01M19 10a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z"/>
+                                                    <svg class="mx-auto mb-4 text-gray-400 w-12 h-12 dark:text-gray-200"
+                                                        aria-hidden="true" xmlns="http://www.w3.org/2000/svg"
+                                                        fill="none" viewBox="0 0 20 20">
+                                                        <path stroke="currentColor" stroke-linecap="round"
+                                                            stroke-linejoin="round" stroke-width="2"
+                                                            d="M10 11V6m0 8h.01M19 10a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z" />
                                                     </svg>
-                                                    <h3 class="mb-5 text-lg font-normal text-gray-500 dark:text-gray-400">Are you sure you want to delete this data?</h3>                                
-                                                    <button type="submit" class="text-white bg-red-600 hover:bg-red-800 focus:ring-4 focus:outline-none focus:ring-red-300 dark:focus:ring-red-800 font-medium rounded-lg text-sm inline-flex items-center px-5 py-2.5 text-center">
+                                                    <h3 class="mb-5 text-lg font-normal text-gray-500 dark:text-gray-400">
+                                                        Are you sure you want to delete this data?</h3>
+                                                    <button type="submit"
+                                                        class="text-white bg-red-600 hover:bg-red-800 focus:ring-4 focus:outline-none focus:ring-red-300 dark:focus:ring-red-800 font-medium rounded-lg text-sm inline-flex items-center px-5 py-2.5 text-center">
                                                         Yes, I'm sure
                                                     </button>
-                                                    <button data-modal-hide="modalhapus<?= $data->id ?>" type="button" class="py-2.5 px-5 ms-3 text-sm font-medium text-gray-900 focus:outline-none bg-white rounded-lg border border-gray-200 hover:bg-gray-100 hover:text-blue-700 focus:z-10 focus:ring-4 focus:ring-gray-100 dark:focus:ring-gray-700 dark:bg-gray-800 dark:text-gray-400 dark:border-gray-600 dark:hover:text-white dark:hover:bg-gray-700">No, cancel</button>
+                                                    <button data-modal-hide="modalhapus<?= $data->id ?>" type="button"
+                                                        class="py-2.5 px-5 ms-3 text-sm font-medium text-gray-900 focus:outline-none bg-white rounded-lg border border-gray-200 hover:bg-gray-100 hover:text-blue-700 focus:z-10 focus:ring-4 focus:ring-gray-100 dark:focus:ring-gray-700 dark:bg-gray-800 dark:text-gray-400 dark:border-gray-600 dark:hover:text-white dark:hover:bg-gray-700">No,
+                                                        cancel</button>
                                                 </form>
                                             </div>
                                         </div>
@@ -347,41 +367,81 @@
                     <nav class="bg-white flex items-center flex-column flex-wrap md:flex-row justify-between p-4"
                         aria-label="Table navigation">
                         <span
-                            class="text-sm font-normal text-gray-500 dark:text-gray-400 mb-4 md:mb-0 block w-full md:inline md:w-auto">Showing
-                            <span class="font-semibold text-gray-900 dark:text-white">1-10</span> of <span
-                                class="font-semibold text-gray-900 dark:text-white">1000</span></span>
-                        <ul class="inline-flex -space-x-px rtl:space-x-reverse text-sm h-8">
-                            <li>
-                                <a href="#"
-                                    class="flex items-center justify-center px-3 h-8 ms-0 leading-tight text-gray-500 bg-white border border-gray-300 rounded-s-lg hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white">Previous</a>
-                            </li>
-                            <li>
-                                <a href="#"
-                                    class="flex items-center justify-center px-3 h-8 leading-tight text-gray-500 bg-white border border-gray-300 hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white">1</a>
-                            </li>
-                            <li>
-                                <a href="#"
-                                    class="flex items-center justify-center px-3 h-8 leading-tight text-gray-500 bg-white border border-gray-300 hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white">2</a>
-                            </li>
-                            <li>
-                                <a href="#" aria-current="page"
-                                    class="flex items-center justify-center px-3 h-8 text-blue-600 border border-gray-300 bg-blue-50 hover:bg-blue-100 hover:text-blue-700 dark:border-gray-700 dark:bg-gray-700 dark:text-white">3</a>
-                            </li>
-                            <li>
-                                <a href="#"
-                                    class="flex items-center justify-center px-3 h-8 leading-tight text-gray-500 bg-white border border-gray-300 hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white">4</a>
-                            </li>
-                            <li>
-                                <a href="#"
-                                    class="flex items-center justify-center px-3 h-8 leading-tight text-gray-500 bg-white border border-gray-300 hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white">5</a>
-                            </li>
-                            <li>
-                                <a href="#"
-                                    class="flex items-center justify-center px-3 h-8 leading-tight text-gray-500 bg-white border border-gray-300 rounded-e-lg hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white">Next</a>
-                            </li>
-                        </ul>
+                            class="text-sm font-normal text-gray-500 dark:text-gray-400 mb-4 md:mb-0 block w-full md:inline md:w-auto">
+                            Showing
+                            <span class="font-semibold text-gray-900 dark:text-white">{{ $Kontrak->firstItem() }}</span>
+                            to
+                            <span class="font-semibold text-gray-900 dark:text-white">{{ $Kontrak->lastItem() }}</span> of
+                            <span class="font-semibold text-gray-900 dark:text-white">{{ $Kontrak->total() }}</span>
+                        </span>
+
+                        <div class="w-full md:w-auto text-right">
+                            <ul class="inline-flex -space-x-px rtl:space-x-reverse text-sm h-8">
+                                <!-- Previous Page Link -->
+                                @if ($Kontrak->onFirstPage())
+                                    <li aria-disabled="true" aria-label="Previous">
+                                        <span
+                                            class="flex items-center justify-center px-3 h-8 ms-0 leading-tight text-gray-500 bg-white border border-gray-300 rounded-s-lg dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 cursor-not-allowed">Previous</span>
+                                    </li>
+                                @else
+                                    <li>
+                                        <a href="{{ $Kontrak->previousPageUrl() }}"
+                                            class="flex items-center justify-center px-3 h-8 ms-0 leading-tight text-gray-500 bg-white border border-gray-300 rounded-s-lg hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white"
+                                            aria-label="Previous">Previous</a>
+                                    </li>
+                                @endif
+
+                                <!-- Pagination Elements -->
+                                @foreach ($Kontrak->links()->elements[0] as $page => $url)
+                                    @if ($page == $Kontrak->currentPage())
+                                        <li aria-current="page">
+                                            <span
+                                                class="flex items-center justify-center px-3 h-8 text-blue-600 border border-gray-300 bg-blue-50 hover:bg-blue-100 hover:text-blue-700 dark:border-gray-700 dark:bg-gray-700 dark:text-white">{{ $page }}</span>
+                                        </li>
+                                    @else
+                                        <li>
+                                            <a href="{{ $url }}"
+                                                class="flex items-center justify-center px-3 h-8 leading-tight text-gray-500 bg-white border border-gray-300 hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white">{{ $page }}</a>
+                                        </li>
+                                    @endif
+                                @endforeach
+
+                                <!-- Next Page Link -->
+                                @if ($Kontrak->hasMorePages())
+                                    <li>
+                                        <a href="{{ $Kontrak->nextPageUrl() }}"
+                                            class="flex items-center justify-center px-3 h-8 leading-tight text-gray-500 bg-white border border-gray-300 rounded-e-lg hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white"
+                                            aria-label="Next">Next</a>
+                                    </li>
+                                @else
+                                    <li aria-disabled="true" aria-label="Next">
+                                        <span
+                                            class="flex items-center justify-center px-3 h-8 leading-tight text-gray-500 bg-white border border-gray-300 rounded-e-lg dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 cursor-not-allowed">Next</span>
+                                    </li>
+                                @endif
+                            </ul>
+                        </div>
                     </nav>
                 </div>
             </div>
         </div>
     @endsection
+
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            const searchInput = document.getElementById('table-search');
+            const rows = document.querySelectorAll(
+                'tbody tr'); // Menggunakan selector yang sesuai dengan struktur tabel Anda
+
+            searchInput.addEventListener('input', function() {
+                const searchValue = this.value.toLowerCase();
+
+                rows.forEach(row => {
+                    const cells = row.querySelectorAll('td');
+                    const rowText = Array.from(cells).map(cell => cell.textContent.toLowerCase())
+                        .join(' ');
+                    row.style.display = rowText.includes(searchValue) ? '' : 'none';
+                });
+            });
+        });
+    </script>

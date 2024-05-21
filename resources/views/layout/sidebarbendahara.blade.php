@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -8,18 +9,19 @@
     <!-- ICONS -->
     <script src="https://unpkg.com/@phosphor-icons/web"></script>
     <!-- STYLESHEET -->
-    <link rel="stylesheet" href="{{ asset ('Sidebar/style.css')}}" />
+    <link rel="stylesheet" href="{{ asset('Sidebar/style.css') }}" />
     <!-- Bootstrap CSS -->
-    
+
     <!-- Box Icons  -->
     <link href='https://unpkg.com/boxicons@2.1.2/css/boxicons.min.css' rel='stylesheet'>
     <!-- Styles  -->
     <link rel="shortcut icon" href="assets/img/kxp_fav.png" type="image/x-icon">
     <!-- Taildwind CSS -->
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/flowbite/2.3.0/flowbite.min.css"  rel="stylesheet" />
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/flowbite/2.3.0/flowbite.min.css" rel="stylesheet" />
 </head>
+
 <body>
-  
+
     <div class="sidebar close">
         <!-- ========== Logo ============  -->
         <a href="#" class="logo-box">
@@ -42,34 +44,47 @@
                     <a href="#" class="link submenu-title">Dashboard</a>
                 </div>
             </li>
-            
+
             <!-- -------- Non Dropdown List Item ------- -->
             <li>
-              <div class="title">
-                  <a href="/tagihan" class="link">
-                    <i class='bx bx-money'></i>
-                      <span class="name">Tagihan</span>
-                  </a>
-                  <!-- <i class='bx bxs-chevron-down'></i> -->
-              </div>
-              <div class="submenu">
-                  <a href="/tagihan" class="link submenu-title">Tagihan</a>
-                  <!-- submenu links here  -->
-              </div>
-          </li>
+                <div class="title">
+                    <a href="/tagihan" class="link">
+                        <i class='bx bx-money'></i>
+                        <span class="name">Tagihan</span>
+                    </a>
+                    <!-- <i class='bx bxs-chevron-down'></i> -->
+                </div>
+                <div class="submenu">
+                    <a href="/tagihan" class="link submenu-title">Tagihan</a>
+                    <!-- submenu links here  -->
+                </div>
+            </li>
 
             <!-- -------- Dropdown List Item ------- -->
             <li>
-              <div class="title">
-                  <a href="/setoran" class="link">
-                    <i class='bx bx-money-withdraw'></i>
-                      <span class="name">Setoran</span>
-                  </a>
-              </div>
-              <div class="submenu">
-                  <a href="/setoran" class="link submenu-title">Setoran</a>
-              </div>
-          </li>
+                <div class="title">
+                    <a href="/setoran" class="link">
+                        <i class='bx bx-money-withdraw'></i>
+                        <span class="name">Setoran</span>
+                    </a>
+                </div>
+                <div class="submenu">
+                    <a href="/setoran" class="link submenu-title">Setoran</a>
+                </div>
+            </li>
+            <li>
+                <div class="title">
+                    <a href="/logout" class="link">
+                        <i class='bx bx-log-out'></i>
+                        <span class="name">Logout</span>
+                    </a>
+                    <!-- <i class='bx bxs-chevron-down'></i> -->
+                </div>
+                <div class="submenu">
+                    <a href="/logout" class="link submenu-title">Logout</a>
+                    <!-- submenu links here  -->
+                </div>
+            </li>
         </ul>
     </div>
 
@@ -111,15 +126,14 @@
     </section>
 
     <!-- jQuery and JS -->
-    <script
-      src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.0/jquery.js"
-      integrity="sha512-8Z5++K1rB3U+USaLKG6oO8uWWBhdYsM3hmdirnOEWp8h2B1aOikj5zBzlXs8QOrvY9OxEnD2QDkbSKKpfqcIWw=="
-      crossorigin="anonymous"
-    ></script>
-    <script src="{{ asset ('Sidebar/main.js')}}"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.0/jquery.js"
+        integrity="sha512-8Z5++K1rB3U+USaLKG6oO8uWWBhdYsM3hmdirnOEWp8h2B1aOikj5zBzlXs8QOrvY9OxEnD2QDkbSKKpfqcIWw=="
+        crossorigin="anonymous"></script>
+    <script src="{{ asset('Sidebar/main.js') }}"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/flowbite/2.3.0/flowbite.min.js"></script>
     <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 </body>
+
 </html>

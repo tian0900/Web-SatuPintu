@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -8,18 +9,19 @@
     <!-- ICONS -->
     <script src="https://unpkg.com/@phosphor-icons/web"></script>
     <!-- STYLESHEET -->
-    <link rel="stylesheet" href="{{ asset ('Sidebar/style.css')}}" />
+    <link rel="stylesheet" href="{{ asset('Sidebar/style.css') }}" />
     <!-- Bootstrap CSS -->
-    
+
     <!-- Box Icons  -->
     <link href='https://unpkg.com/boxicons@2.1.2/css/boxicons.min.css' rel='stylesheet'>
     <!-- Styles  -->
     <link rel="shortcut icon" href="assets/img/kxp_fav.png" type="image/x-icon">
     <!-- Taildwind CSS -->
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/flowbite/2.3.0/flowbite.min.css"  rel="stylesheet" />
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/flowbite/2.3.0/flowbite.min.css" rel="stylesheet" />
 </head>
+
 <body>
-  
+
     <div class="sidebar close">
         <!-- ========== Logo ============  -->
         <a href="#" class="logo-box">
@@ -44,25 +46,38 @@
             </li>
 
             <!-- -------- Non Dropdown List Item ------- -->
-            <li>
-                <div class="title">
-                    <a href="/retribusi" class="link">
-                      <i class='bx bx-wallet-alt' ></i>
-                        <span class="name">Retribusi</span>
-                    </a>
-                    <!-- <i class='bx bxs-chevron-down'></i> -->
-                </div>
-                <div class="submenu">
-                    <a href="/retribusi" class="link submenu-title">Retribusi</a>
-                    <!-- submenu links here  -->
-                </div>
-            </li>
 
             <!-- -------- Non Dropdown List Item ------- -->
             <li>
                 <div class="title">
+                    <a href="/atributsampah" class="link">
+                      <i class='bx bx-slider'></i>
+
+                        <span class="name">Atribut</span>
+                    </a>
+                </div>
+                <div class="submenu">
+                    <a href="/atributsampah" class="link submenu-title">Atribut</a>
+                </div>
+            </li>
+
+            <li>
+                <div class="title">
+                    <a href="/itemsampah" class="link">
+                        <i class='bx bx-checkbox-square'></i>
+                        <span class="name">Item</span>
+                    </a>
+                    <!-- <i class='bx bxs-chevron-down'></i> -->
+                </div>
+                <div class="submenu">
+                    <a href="/item" class="link submenu-title">Item</a>
+                    <!-- submenu links here  -->
+                </div>
+            </li>
+            <li>
+                <div class="title">
                     <a href="/kontraksampah" class="link">
-                      <i class='bx bxs-file'></i>
+                        <i class='bx bxs-file'></i>
                         <span class="name">Kontrak</span>
                     </a>
                     <!-- <i class='bx bxs-chevron-down'></i> -->
@@ -77,7 +92,7 @@
             <li>
                 <div class="title">
                     <a href="/wilayah" class="link">
-                      <i class='bx bx-map-alt'></i>
+                        <i class='bx bx-map-alt'></i>
                         <span class="name">Wilayah</span>
                     </a>
                     <!-- <i class='bx bxs-chevron-down'></i> -->
@@ -89,40 +104,32 @@
             </li>
 
             <!-- -------- Non Dropdown List Item ------- -->
+
+
             <li>
                 <div class="title">
-                    <a href="/itemsampah" class="link">
-                      <i class='bx bx-checkbox-square'></i>
-                        <span class="name">Item</span>
+                    <a href="/logout" class="link">
+                        <i class='bx bx-log-out'></i>
+                        <span class="name">Logout</span>
                     </a>
                     <!-- <i class='bx bxs-chevron-down'></i> -->
                 </div>
                 <div class="submenu">
-                    <a href="/item" class="link submenu-title">Item</a>
+                    <a href="/logout" class="link submenu-title">Logout</a>
                     <!-- submenu links here  -->
                 </div>
             </li>
-            
+
+
+
             <!-- -------- Dropdown List Item ------- -->
-            <li class="dropdown">
-              <div class="title">
-                  <a href="/atributsampah" class="link">
-                    <i class='bx bx-expand-vertical'></i>
-                        <span class="name">Atribut</span>
-                  </a>
-                  <i class='bx bxs-chevron-down'></i>
-              </div>
-              <div class="submenu">
-                  <p href="#" class="link submenu-title">Atribut</p>
-                  <a href="/atributsampah" class="link">Sampah</a>
-              </div>
-            </li>
+
 
             <!-- -------- Non Dropdown List Item ------- -->
-            
+
 
             <!-- -------- Non Dropdown List Item ------- -->
-           
+
         </ul>
     </div>
 
@@ -164,15 +171,14 @@
     </section>
 
     <!-- jQuery and JS -->
-    <script
-      src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.0/jquery.js"
-      integrity="sha512-8Z5++K1rB3U+USaLKG6oO8uWWBhdYsM3hmdirnOEWp8h2B1aOikj5zBzlXs8QOrvY9OxEnD2QDkbSKKpfqcIWw=="
-      crossorigin="anonymous"
-    ></script>
-    <script src="{{ asset ('Sidebar/main.js')}}"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.0/jquery.js"
+        integrity="sha512-8Z5++K1rB3U+USaLKG6oO8uWWBhdYsM3hmdirnOEWp8h2B1aOikj5zBzlXs8QOrvY9OxEnD2QDkbSKKpfqcIWw=="
+        crossorigin="anonymous"></script>
+    <script src="{{ asset('Sidebar/main.js') }}"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/flowbite/2.3.0/flowbite.min.js"></script>
     <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 </body>
+
 </html>

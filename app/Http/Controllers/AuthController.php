@@ -27,8 +27,11 @@ class AuthController extends Controller
             $accessToken = $user->createToken('authToken')->plainTextToken;
 
             if ($user->name === 'Admin') {
-                return redirect('/item');
-            } elseif ($user->name === 'Bendahara') {
+                return redirect('/atribut');
+            } elseif ($user->name === 'AdminSampah') {
+                return redirect('/atributsampah');
+            }
+            elseif ($user->name === 'Bendahara') {
                 return redirect('/tagihan');
             }elseif ($user->name === 'AdminKabupaten') {
                 return redirect('/kedinasan');
