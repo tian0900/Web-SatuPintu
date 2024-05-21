@@ -72,6 +72,19 @@
                     <a href="/setoran" class="link submenu-title">Setoran</a>
                 </div>
             </li>
+
+            <li>
+                <div class="title">
+                    <a href="/pembatalanpasar" class="link">
+                        <i class='bx bx-x'></i>
+                        <span class="name">Pembatalan</span>
+                    </a>
+                </div>
+                <div class="submenu">
+                    <a href="/pembatalanpasar" class="link submenu-title">Pembatalan</a>
+                </div>
+            </li>
+            
             <li>
                 <div class="title">
                     <a href="/logout" class="link">
