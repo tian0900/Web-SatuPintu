@@ -44,20 +44,7 @@
             </li>
 
             <!-- -------- Non Dropdown List Item ------- -->
-            <li>
-                <div class="title">
-                    <a href="/kedinasan" class="link">
-                      <i class='bx bx-slider'></i>
-
-                        <span class="name">kedinasan</span>
-                    </a>
-                    <!-- <i class='bx bxs-chevron-down'></i> -->
-                </div>
-                <div class="submenu">
-                    <a href="/kedinasan" class="link submenu-title">kedinasan</a>
-                    <!-- submenu links here  -->
-                </div>
-            </li>
+           
 
             <!-- -------- Non Dropdown List Item ------- -->
             <li>

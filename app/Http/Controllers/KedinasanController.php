@@ -101,7 +101,7 @@ class KedinasanController extends Controller
      */
     public function indexKabupaten()
     {
-        $kedinasan = Kedinasan::all();
+        $kedinasan = Kedinasan::paginate(5);
         return view('data.kedinasanKab', compact('kedinasan'));
     }
 
