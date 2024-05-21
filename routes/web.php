@@ -60,11 +60,9 @@ Route::middleware(['check.role.byname:Admin'])->group(function () {
 
     Route::get('/pdf', [KontrakController::class, 'testt']);
     Route::get('/surat/{id}', [KontrakController::class, 'detailkontrak'])->name('surat.detail');
-    Route::get('/suratsampah/{id}', [KontrakController::class, 'detailkontraksampah'])->name('surat.detailsampah');
     Route::post('/kontrak/store', [KontrakController::class, 'store'])->name('kontrak.store');
     Route::get('/generate-pdf/{id}', [KontrakController::class, 'generatePDFkontrak'])->name('generate-pdfkontrak');
     Route::get('/kontrak', [KontrakController::class, 'index'])->name('kontrak');
-    Route::get('/kontraksampah', [KontrakController::class, 'indexsampah'])->name('kontraksampah');
     Route::put('/kontrak/{id}/update-status', [KontrakController::class, 'updateStatus'])->name('kontrak.updateStatus');
 
     Route::delete('/kontrak/{id}', [KontrakController::class, 'deletekontrak'])->name('kontrak.delete');
@@ -73,10 +71,7 @@ Route::middleware(['check.role.byname:Admin'])->group(function () {
     Route::get('/atribut', [AtributController::class, 'index'])->name('atribut');
     Route::post('/atribut/store', [AtributController::class, 'store'])->name('atribut.store');
     Route::match (['post', 'put'], '/atribut/update/{id}', [AtributController::class, 'update'])->name('atribut.update');
-    Route::get('/atributsampah', [AtributController::class, 'indexsampah'])->name('atributsampah');
-    Route::post('/atributsampah/store', [AtributController::class, 'storesampah'])->name('atributsampah.store');
-    Route::match (['post', 'put'], '/atributsampah/update/{id}', [AtributController::class, 'updatesampah'])->name('atributsampah.update');
-    Route::delete('/atributsampah/{id}', [AtributController::class, 'destroysampah'])->name('sampah.destroy');
+   
     
     Route::post('/jenis/store', [PasarController::class, 'store'])->name('jenis.store');
     Route::get('/jenis/edit', [PasarController::class, 'edit'])->   name('jenis.edit');
@@ -100,7 +95,7 @@ Route::middleware(['check.role.byname:Admin'])->group(function () {
 
     //Item-Retribusi
     Route::get('/item', [ItemRetribusiController::class, 'index'])->name('item.index');
-    Route::get('/itemsampah', [ItemRetribusiController::class, 'indexsampah'])->name('item.indexsampah');
+    
     Route::post('/item/store', [ItemRetribusiController::class, 'store'])->name('item.store');
     Route::get('/item/show', [ItemRetribusiController::class, 'show'])->name('item.show');
     Route::get('/item/{post}/edit', [ItemRetribusiController::class, 'edit'])->name('item.edit');
@@ -130,6 +125,21 @@ Route::middleware(['check.role.byname:Bendahara'])->group(function () {
     Route::put('/batal/{id}/update-status', [BendaharaController::class, 'updateStatuspembatalan'])->name('batal.updateStatus');
 
 });
+
+Route::middleware(['check.role.byname:AdminSampah'])->group(function () {
+    Route::get('/itemsampah', [ItemRetribusiController::class, 'indexsampah'])->name('item.indexsampah');
+
+    Route::get('/suratsampah/{id}', [KontrakController::class, 'detailkontraksampah'])->name('surat.detailsampah');
+    Route::get('/kontraksampah', [KontrakController::class, 'indexsampah'])->name('kontraksampah');
+
+    Route::get('/atributsampah', [AtributController::class, 'indexsampah'])->name('atributsampah');
+    Route::post('/atributsampah/store', [AtributController::class, 'storesampah'])->name('atributsampah.store');
+    Route::match (['post', 'put'], '/atributsampah/update/{id}', [AtributController::class, 'updatesampah'])->name('atributsampah.update');
+    Route::delete('/atributsampah/{id}', [AtributController::class, 'destroysampah'])->name('sampah.destroy');
+
+
+});
+
 
 
 //ADMIN

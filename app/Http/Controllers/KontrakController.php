@@ -32,7 +32,7 @@ class KontrakController extends Controller
             ->whereHas('itemRetribusi', function ($query) {
                 $query->where('retribusi_id', 2);
             })
-            ->get();
+            ->paginate(5);
 
         $wajibRetribusiOptions = WajibRetribusi::all();
         $itemRetribusiOptions = ItemRetribusi::all();
@@ -54,7 +54,7 @@ class KontrakController extends Controller
             ->whereHas('itemRetribusi', function ($query) {
                 $query->where('retribusi_id', 1);
             })
-            ->get();
+            ->paginate(5);
 
         $wajibRetribusiOptions = WajibRetribusi::all();
         $itemRetribusiOptions = ItemRetribusi::all();

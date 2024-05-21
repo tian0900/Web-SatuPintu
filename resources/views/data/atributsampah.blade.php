@@ -2,7 +2,7 @@
 <!-- ============= Home Section =============== -->
 @section('content')
     <div class="container p-5">
-        <h1 class="mt-3 text-5xl">Daftar Item</h1>
+        <h1 class="mt-3 text-5xl">Atribut Sampah</h1>
 
         <!-- Modal toggle -->
         <button data-modal-target="crud-modal" data-modal-toggle="crud-modal"
@@ -196,7 +196,9 @@
                             </tr>
                         </thead>
                         <tbody>
-                            @php $number = 1; @endphp <!-- Inisialisasi nomor -->
+                            @php
+                                $number = ($atribut->currentPage() - 1) * $atribut->perPage() + 1;
+                            @endphp <!-- Inisialisasi nomor -->
                             @foreach ($atribut as $index => $data)
                                 <tr
                                     class="odd:bg-white odd:dark:bg-gray-900 even:bg-gray-50 even:dark:bg-gray-800 border-b dark:border-gray-700">
@@ -338,43 +340,54 @@
                             @endforeach
                         </tbody>
                     </table>
-                    <nav class="bg-white flex items-center flex-column flex-wrap md:flex-row justify-between p-4"
-                        aria-label="Table navigation">
-                        <span
-                            class="text-sm font-normal text-gray-500 dark:text-gray-400 mb-4 md:mb-0 block w-full md:inline md:w-auto">Showing
-                            <span class="font-semibold text-gray-900 dark:text-white">1-10</span> of <span
-                                class="font-semibold text-gray-900 dark:text-white">1000</span></span>
-                        <ul class="inline-flex -space-x-px rtl:space-x-reverse text-sm h-8">
-                            <li>
-                                <a href="#"
-                                    class="flex items-center justify-center px-3 h-8 ms-0 leading-tight text-gray-500 bg-white border border-gray-300 rounded-s-lg hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white">Previous</a>
-                            </li>
-                            <li>
-                                <a href="#"
-                                    class="flex items-center justify-center px-3 h-8 leading-tight text-gray-500 bg-white border border-gray-300 hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white">1</a>
-                            </li>
-                            <li>
-                                <a href="#"
-                                    class="flex items-center justify-center px-3 h-8 leading-tight text-gray-500 bg-white border border-gray-300 hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white">2</a>
-                            </li>
-                            <li>
-                                <a href="#" aria-current="page"
-                                    class="flex items-center justify-center px-3 h-8 text-blue-600 border border-gray-300 bg-blue-50 hover:bg-blue-100 hover:text-blue-700 dark:border-gray-700 dark:bg-gray-700 dark:text-white">3</a>
-                            </li>
-                            <li>
-                                <a href="#"
-                                    class="flex items-center justify-center px-3 h-8 leading-tight text-gray-500 bg-white border border-gray-300 hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white">4</a>
-                            </li>
-                            <li>
-                                <a href="#"
-                                    class="flex items-center justify-center px-3 h-8 leading-tight text-gray-500 bg-white border border-gray-300 hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white">5</a>
-                            </li>
-                            <li>
-                                <a href="#"
-                                    class="flex items-center justify-center px-3 h-8 leading-tight text-gray-500 bg-white border border-gray-300 rounded-e-lg hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white">Next</a>
-                            </li>
-                        </ul>
+                    <nav class="bg-white flex items-center flex-column flex-wrap md:flex-row justify-between p-4" aria-label="Table navigation">
+                        <span class="text-sm font-normal text-gray-500 dark:text-gray-400 mb-4 md:mb-0 block w-full md:inline md:w-auto">
+                            Showing
+                            <span class="font-semibold text-gray-900 dark:text-white">{{ $atribut->firstItem() }}</span> to
+                            <span class="font-semibold text-gray-900 dark:text-white">{{ $atribut->lastItem() }}</span> of
+                            <span class="font-semibold text-gray-900 dark:text-white">{{ $atribut->total() }}</span>
+                        </span>
+                    
+                        <div class="w-full md:w-auto text-right">
+                            <ul class="inline-flex -space-x-px rtl:space-x-reverse text-sm h-8">
+                                <!-- Previous Page Link -->
+                                @if ($atribut->onFirstPage())
+                                    <li aria-disabled="true" aria-label="Previous">
+                                        <span class="flex items-center justify-center px-3 h-8 ms-0 leading-tight text-gray-500 bg-white border border-gray-300 rounded-s-lg dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 cursor-not-allowed">Previous</span>
+                                    </li>
+                                @else
+                                    <li>
+                                        <a href="{{ $atribut->previousPageUrl() }}" class="flex items-center justify-center px-3 h-8 ms-0 leading-tight text-gray-500 bg-white border border-gray-300 rounded-s-lg hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white" aria-label="Previous">Previous</a>
+                                    </li>
+                                @endif
+                    
+                                <!-- Pagination Elements -->
+                                @foreach ($atribut->links()->elements[0] as $page => $url)
+                                    @if ($page == $atribut->currentPage())
+                                        <li aria-current="page">
+                                            <span class="flex items-center justify-center px-3 h-8 text-blue-600 border border-gray-300 bg-blue-50 hover:bg-blue-100 hover:text-blue-700 dark:border-gray-700 dark:bg-gray-700 dark:text-white">{{ $page }}</span>
+                                        </li>
+                                    @else
+                                        <li>
+                                            <a href="{{ $url }}" class="flex items-center justify-center px-3 h-8 leading-tight text-gray-500 bg-white border border-gray-300 hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white">{{ $page }}</a>
+                                        </li>
+                                    @endif
+                                @endforeach
+                    
+                                <!-- Next Page Link -->
+                                @if ($atribut->hasMorePages())
+                                    <li>
+                                        <a href="{{ $atribut->nextPageUrl() }}" class="flex items-center justify-center px-3 h-8 leading-tight text-gray-500 bg-white border border-gray-300 rounded-e-lg hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white" aria-label="Next">Next</a>
+                                    </li>
+                                @else
+                                    <li aria-disabled="true" aria-label="Next">
+                                        <span class="flex items-center justify-center px-3 h-8 leading-tight text-gray-500 bg-white border border-gray-300 rounded-e-lg dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 cursor-not-allowed">Next</span>
+                                    </li>
+                                @endif
+                            </ul>
+                        </div>
                     </nav>
+                    
                 </div>
             </div>
         </div>
