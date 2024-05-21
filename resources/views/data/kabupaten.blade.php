@@ -80,6 +80,9 @@
                         <thead class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
                             <tr>
                                 <th scope="col" class="px-6 py-3">
+                                    No.
+                                </th>
+                                <th scope="col" class="px-6 py-3">
                                     Nama
                                 </th>
                                 <th scope="col" class="px-6 py-3">
@@ -88,10 +91,16 @@
                             </tr>
                         </thead>
                         <tbody>
-                            @php $number = 1; @endphp <!-- Inisialisasi nomor -->
+                            @php
+                                $number = ($kabupaten->currentPage() - 1) * $kabupaten->perPage() + 1;
+                            @endphp <!-- Inisialisasi nomor -->
                             @foreach ($kabupaten as $item)
                                 <tr
                                     class="odd:bg-white odd:dark:bg-gray-900 even:bg-gray-50 even:dark:bg-gray-800 border-b dark:border-gray-700">
+                                    <th scope="row"
+                                        class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
+                                        {{ $number++ }}
+                                    </th>
                                     <td scope="row"
                                         class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
                                         {{ $item->nama }}
@@ -162,6 +171,63 @@
                             @endforeach
                         </tbody>
                     </table>
+                    <nav class="bg-white flex items-center flex-column flex-wrap md:flex-row justify-between p-4"
+                        aria-label="Table navigation">
+                        <span
+                            class="text-sm font-normal text-gray-500 dark:text-gray-400 mb-4 md:mb-0 block w-full md:inline md:w-auto">
+                            Showing
+                            <span class="font-semibold text-gray-900 dark:text-white">{{ $kabupaten->firstItem() }}</span> to
+                            <span class="font-semibold text-gray-900 dark:text-white">{{ $kabupaten->lastItem() }}</span> of
+                            <span class="font-semibold text-gray-900 dark:text-white">{{ $kabupaten->total() }}</span>
+                        </span>
+
+                        <div class="w-full md:w-auto text-right">
+                            <ul class="inline-flex -space-x-px rtl:space-x-reverse text-sm h-8">
+                                <!-- Previous Page Link -->
+                                @if ($kabupaten->onFirstPage())
+                                    <li aria-disabled="true" aria-label="Previous">
+                                        <span
+                                            class="flex items-center justify-center px-3 h-8 ms-0 leading-tight text-gray-500 bg-white border border-gray-300 rounded-s-lg dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 cursor-not-allowed">Previous</span>
+                                    </li>
+                                @else
+                                    <li>
+                                        <a href="{{ $kabupaten->previousPageUrl() }}"
+                                            class="flex items-center justify-center px-3 h-8 ms-0 leading-tight text-gray-500 bg-white border border-gray-300 rounded-s-lg hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white"
+                                            aria-label="Previous">Previous</a>
+                                    </li>
+                                @endif
+
+                                <!-- Pagination Elements -->
+                                @foreach ($kabupaten->links()->elements[0] as $page => $url)
+                                    @if ($page == $kabupaten->currentPage())
+                                        <li aria-current="page">
+                                            <span
+                                                class="flex items-center justify-center px-3 h-8 text-blue-600 border border-gray-300 bg-blue-50 hover:bg-blue-100 hover:text-blue-700 dark:border-gray-700 dark:bg-gray-700 dark:text-white">{{ $page }}</span>
+                                        </li>
+                                    @else
+                                        <li>
+                                            <a href="{{ $url }}"
+                                                class="flex items-center justify-center px-3 h-8 leading-tight text-gray-500 bg-white border border-gray-300 hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white">{{ $page }}</a>
+                                        </li>
+                                    @endif
+                                @endforeach
+
+                                <!-- Next Page Link -->
+                                @if ($kabupaten->hasMorePages())
+                                    <li>
+                                        <a href="{{ $kabupaten->nextPageUrl() }}"
+                                            class="flex items-center justify-center px-3 h-8 leading-tight text-gray-500 bg-white border border-gray-300 rounded-e-lg hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white"
+                                            aria-label="Next">Next</a>
+                                    </li>
+                                @else
+                                    <li aria-disabled="true" aria-label="Next">
+                                        <span
+                                            class="flex items-center justify-center px-3 h-8 leading-tight text-gray-500 bg-white border border-gray-300 rounded-e-lg dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 cursor-not-allowed">Next</span>
+                                    </li>
+                                @endif
+                            </ul>
+                        </div>
+                    </nav>
                 </div>
             </div>
         </div>

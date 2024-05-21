@@ -12,9 +12,10 @@ class KabupatenController extends Controller
      */
     public function index()
     {
-        $kabupaten = Kabupaten::all();
-        return view('data.kabupaten', compact('kabupaten'));
+        $kabupaten = Kabupaten::paginate(5);
+        return view('data.kabupaten', ['kabupaten' => $kabupaten]);
     }
+
 
     /**
      * Show the form for creating a new resource.
@@ -30,10 +31,10 @@ class KabupatenController extends Controller
     public function store(Request $request)
     {
         $request->validate([
-            'nama'  => 'required',
-          ]);
-          Kabupaten::create($request->all());
-          return redirect('/kabupaten')->with('success', 'Data berhasil ditambahkan.');
+            'nama' => 'required',
+        ]);
+        Kabupaten::create($request->all());
+        return redirect('/kabupaten')->with('success', 'Data berhasil ditambahkan.');
     }
 
     /**
@@ -61,10 +62,10 @@ class KabupatenController extends Controller
     {
         $request->validate([
             'nama' => 'required|max:255',
-          ]);
-          $kabupaten = Kabupaten::find($id);
-          $kabupaten->update($request->all());
-          return redirect('/kabupaten')->with('success', 'Data berhasil ditambahkan.');
+        ]);
+        $kabupaten = Kabupaten::find($id);
+        $kabupaten->update($request->all());
+        return redirect('/kabupaten')->with('success', 'Data berhasil ditambahkan.');
     }
     /**
      * Remove the specified resource from storage.

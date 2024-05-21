@@ -26,12 +26,12 @@ class AuthController extends Controller
             $user = auth()->user();
             $accessToken = $user->createToken('authToken')->plainTextToken;
 
-            if ($user->name === 'Admin') {
-                return redirect('/atribut');
+            if ($user->name === 'AdminPasar') {
+                return redirect('/dashboard-pasar');
             } elseif ($user->name === 'SuperAdmin') {
                 return redirect('/dashboard');
             } elseif ($user->name === 'AdminSampah') {
-                return redirect('/atributsampah');
+                return redirect('/dashboard-sampah');
             }
             elseif ($user->name === 'Bendahara') {
                 return redirect('/tagihan');

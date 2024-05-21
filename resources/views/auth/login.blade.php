@@ -38,16 +38,18 @@
 						</p>
 					</header>
 					<div class="wrap-input100 validate-input" data-validate="Valid email is: a@b.c">
+						<h6>Username</h6>
 						<input class="input100" type="text" name="name" id="name">
-						<span class="focus-input100" data-placeholder="Username"></span>
+						<span class="focus-input100" ></span>
 					</div>
 
 					<div class="wrap-input100 validate-input" data-validate="Enter password">
 						<span class="btn-show-pass">
 							<i class="zmdi zmdi-eye"></i>
 						</span>
+						<h6>Password</h6>
 						<input class="input100" type="password" name="password" id="password">
-						<span class="focus-input100" data-placeholder="Password"></span>
+						<span class="focus-input100" ></span>
 					</div>
 
 					<div class="container-login100-form-btn">
