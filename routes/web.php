@@ -67,8 +67,6 @@ Route::middleware(['check.role.byname:AdminPasar'])->group(function () {
     Route::get('/wilayah-pasar/create', [WilayahController::class, 'create'])->name('wilayah.create');
     Route::post('/wilayah-pasar', [WilayahController::class, 'store'])->name('wilayah.store');
 
-    
-
     //Item-Retribusi
     Route::get('/item', [ItemRetribusiController::class, 'index'])->name('item.index');
     Route::post('/item/store', [ItemRetribusiController::class, 'store'])->name('item.store');
@@ -81,8 +79,6 @@ Route::middleware(['check.role.byname:AdminPasar'])->group(function () {
     Route::post('/users/store', [UserController::class, 'store'])->name('users.store');
     Route::post('/wajib/store', [UserController::class, 'storewajib'])->name('wajib.store');
     Route::put('/users/{id}', [UserController::class, 'update'])->name('users.update');
-
-
 
 });
 Route::middleware(['check.role.byname:AdminSampah'])->group(function () {
@@ -123,9 +119,6 @@ Route::middleware(['check.role.byname:AdminKabupaten'])->group(function () {
     Route::post('/kedinasanKabupaten', [kedinasanController::class, 'storeKabupaten'])->name('kedinasanKabupaten.store');
 
     // Route::delete('/posts/{post}', ItemRetribusiController::class .'@destroy')->name('posts.destroy');
-
-
-
 });
 Route::middleware(['check.role.byname:Bendahara'])->group(function () {
     //Dashboard
