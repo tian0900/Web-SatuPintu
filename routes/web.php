@@ -190,8 +190,6 @@ Route::middleware(['check.role.byname:SuperAdmin'])->group(function () {
 
     Route::get('/dashboard', [IndexController::class, 'dashboard']);
 
-
-
     //Kabupaten
     Route::get('/kabupaten', [KabupatenController::class, 'index']);
     Route::post('/kabupaten/store', [KabupatenController::class, 'store'])->name('kabupaten.store');
