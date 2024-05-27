@@ -12,11 +12,13 @@ class WilayahController extends Controller
      */
     public function index()
     {
-        $wilayah = Wilayah::paginate(5);
-
-        // Menampilkan view 'data.retribusi' dan meneruskan data retribusi ke dalam view
+        // Mengurutkan berdasarkan kolom 'created_at' dalam urutan menurun (data terbaru tampil pertama)
+        $wilayah = Wilayah::orderBy('created_at', 'desc')->paginate(5);
+    
+        // Menampilkan view 'data.wilayah-pasar' dan meneruskan data wilayah ke dalam view
         return view('data.wilayah-pasar', ['wilayah' => $wilayah]);
     }
+    
 
     /**
      * Show the form for creating a new resource.

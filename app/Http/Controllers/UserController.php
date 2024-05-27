@@ -82,7 +82,7 @@ class UserController extends Controller
 
         // dd($petugas); // Tambahkan ini untuk melihat nilai $petugas
 
-        return redirect()->back()->with('success', 'User created successfully');
+        return redirect()->back()->with('success', 'Petugas created successfully');
     }
 
     public function storewajib(Request $request)
@@ -107,7 +107,7 @@ class UserController extends Controller
 
         // dd($petugas); // Tambahkan ini untuk melihat nilai $petugas
 
-        return redirect()->back()->with('success', 'User created successfully');
+        return redirect()->back()->with('success', 'Wajib Retribusi created successfully');
     } 
 
     public function update(Request $request, $id)

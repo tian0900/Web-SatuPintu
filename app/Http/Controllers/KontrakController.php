@@ -27,16 +27,19 @@ class KontrakController extends Controller
     public function index()
     {
         $user = Auth::user();
+
+        // Mengurutkan berdasarkan kolom 'created_at' dalam urutan menurun (data terbaru tampil pertama)
         $Kontrak = Kontrak::with(['wajibRetribusi', 'itemRetribusi', 'Wilayah'])
             ->whereHas('itemRetribusi', function ($query) {
                 $query->where('retribusi_id', 2);
             })
+            ->orderBy('created_at', 'desc')
             ->paginate(5);
 
         $wajibRetribusiOptions = WajibRetribusi::all();
-        $itemRetribusiOptions = ItemRetribusi::all(); 
+        $itemRetribusiOptions = ItemRetribusi::where('retribusi_id', 2)->get();
         $subWilayahOptions = Wilayah::all();
-        
+
         return view('data.kontrak', [
             'Kontrak' => $Kontrak,
             'wajibRetribusiOptions' => $wajibRetribusiOptions,
@@ -44,6 +47,7 @@ class KontrakController extends Controller
             'subWilayahOptions' => $subWilayahOptions,
         ]);
     }
+
 
     public function indexsampah()
     {
@@ -68,6 +72,7 @@ class KontrakController extends Controller
     }
     public function store(Request $request)
     {
+        // dd($request);
         // Validasi input dari form
         $validatedData = $request->validate([
             'wajib_retribusi_id' => 'required|exists:wajib_retribusi,id',

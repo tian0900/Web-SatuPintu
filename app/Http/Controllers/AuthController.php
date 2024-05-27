@@ -32,19 +32,19 @@ class AuthController extends Controller
                 return redirect('/dashboard');
             } elseif ($user->name === 'AdminSampah') {
                 return redirect('/dashboard-sampah');
-            }
-            elseif ($user->name === 'Bendahara') {
-                return redirect('/tagihan');
-            }elseif ($user->name === 'AdminKabupaten') {
-                return redirect('/kedinasan');
-            }else {
+            } elseif ($user->name === 'Bendahara') {
+                return redirect('/dashboard-bendahara');
+            } elseif ($user->name === 'AdminKabupaten') {
+                return redirect('/dashboard-kabupaten');
+            } else {
                 // Jika peran tidak diketahui, ganti return redirect sesuai kebutuhan
-                return redirect('/kontrak')->withErrors(['pesan' => 'Input yang Anda masukkan salah']);;
+                return redirect('/kontrak')->withErrors(['pesan' => 'Input yang Anda masukkan salah']);
             }
         } catch (\Exception $e) {
-            return $e->getMessage();
+            return redirect()->back()->withErrors(['message' => 'Terjadi kesalahan: ' . $e->getMessage()]);
         }
     }
+
 
     public function logout()
     {
