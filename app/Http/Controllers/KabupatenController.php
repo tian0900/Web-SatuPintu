@@ -74,6 +74,6 @@ class KabupatenController extends Controller
     {
         $kabupaten = Kabupaten::find($id);
         $kabupaten->delete();
-        return redirect()->route('data.kabupaten')->with('success', 'kabupaten deleted successfully');
+        return redirect('/kabupaten')->with('success', 'kabupaten deleted successfully');
     }
 }

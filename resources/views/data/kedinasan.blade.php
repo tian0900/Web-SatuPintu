@@ -24,7 +24,42 @@
                 class="block p-2 ps-10 text-sm text-gray-900 border border-gray-300 rounded-lg w-80 bg-gray-50 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
                 placeholder="Search for items">
         </div>
-
+        @if (session('success'))
+            <div id="success-modal" tabindex="-1" aria-hidden="true"
+                class="fixed top-0 left-0 right-0 z-50 w-full p-4 overflow-x-hidden overflow-y-auto md:inset-0 h-modal md:h-full">
+                <div class="relative w-full h-full max-w-md md:h-auto">
+                    <div class="relative bg-white rounded-lg shadow dark:bg-gray-700">
+                        <div class="flex items-center justify-between p-4 border-b rounded-t dark:border-gray-600">
+                            <h3 class="text-lg font-medium text-gray-900 dark:text-white">
+                                Berhasil
+                            </h3>
+                            <button type="button"
+                                class="text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm p-1.5 ml-auto inline-flex items-center dark:hover:bg-gray-600 dark:hover:text-white"
+                                data-modal-hide="success-modal">
+                                <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20"
+                                    xmlns="http://www.w3.org/2000/svg">
+                                    <path fill-rule="evenodd"
+                                        d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z"
+                                        clip-rule="evenodd"></path>
+                                </svg>
+                            </button>
+                        </div>
+                        <div class="p-6">
+                            <p class="text-sm font-medium text-gray-900 dark:text-white">
+                                {{ session('success') }}
+                            </p>
+                        </div>
+                        <div
+                            class="flex items-center justify-end p-6 space-x-2 border-t border-gray-200 rounded-b dark:border-gray-600">
+                            <button type="button" data-modal-hide="success-modal"
+                                class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
+                                Ok
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        @endif
         <!-- Main modal -->
         <div id="crud-modal" tabindex="-1" aria-hidden="true"
             class="hidden overflow-y-auto overflow-x-hidden fixed top-0 right-0 left-0 z-50 justify-center items-center w-full md:inset-0 h-[calc(100%-1rem)] max-h-full">
@@ -196,48 +231,60 @@
                             @endforeach
                         </tbody>
                     </table>
-                    <nav class="bg-white flex items-center flex-column flex-wrap md:flex-row justify-between p-4" aria-label="Table navigation">
-                        <span class="text-sm font-normal text-gray-500 dark:text-gray-400 mb-4 md:mb-0 block w-full md:inline md:w-auto">
+                    <nav class="bg-white flex items-center flex-column flex-wrap md:flex-row justify-between p-4"
+                        aria-label="Table navigation">
+                        <span
+                            class="text-sm font-normal text-gray-500 dark:text-gray-400 mb-4 md:mb-0 block w-full md:inline md:w-auto">
                             Showing
-                            <span class="font-semibold text-gray-900 dark:text-white">{{ $kedinasan->firstItem() }}</span> to
-                            <span class="font-semibold text-gray-900 dark:text-white">{{ $kedinasan->lastItem() }}</span> of
+                            <span class="font-semibold text-gray-900 dark:text-white">{{ $kedinasan->firstItem() }}</span>
+                            to
+                            <span class="font-semibold text-gray-900 dark:text-white">{{ $kedinasan->lastItem() }}</span>
+                            of
                             <span class="font-semibold text-gray-900 dark:text-white">{{ $kedinasan->total() }}</span>
                         </span>
-                    
+
                         <div class="w-full md:w-auto text-right">
                             <ul class="inline-flex -space-x-px rtl:space-x-reverse text-sm h-8">
                                 <!-- Previous Page Link -->
                                 @if ($kedinasan->onFirstPage())
                                     <li aria-disabled="true" aria-label="Previous">
-                                        <span class="flex items-center justify-center px-3 h-8 ms-0 leading-tight text-gray-500 bg-white border border-gray-300 rounded-s-lg dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 cursor-not-allowed">Previous</span>
+                                        <span
+                                            class="flex items-center justify-center px-3 h-8 ms-0 leading-tight text-gray-500 bg-white border border-gray-300 rounded-s-lg dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 cursor-not-allowed">Previous</span>
                                     </li>
                                 @else
                                     <li>
-                                        <a href="{{ $kedinasan->previousPageUrl() }}" class="flex items-center justify-center px-3 h-8 ms-0 leading-tight text-gray-500 bg-white border border-gray-300 rounded-s-lg hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white" aria-label="Previous">Previous</a>
+                                        <a href="{{ $kedinasan->previousPageUrl() }}"
+                                            class="flex items-center justify-center px-3 h-8 ms-0 leading-tight text-gray-500 bg-white border border-gray-300 rounded-s-lg hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white"
+                                            aria-label="Previous">Previous</a>
                                     </li>
                                 @endif
-                    
+
                                 <!-- Pagination Elements -->
                                 @foreach ($kedinasan->links()->elements[0] as $page => $url)
                                     @if ($page == $kedinasan->currentPage())
                                         <li aria-current="page">
-                                            <span class="flex items-center justify-center px-3 h-8 text-blue-600 border border-gray-300 bg-blue-50 hover:bg-blue-100 hover:text-blue-700 dark:border-gray-700 dark:bg-gray-700 dark:text-white">{{ $page }}</span>
+                                            <span
+                                                class="flex items-center justify-center px-3 h-8 text-blue-600 border border-gray-300 bg-blue-50 hover:bg-blue-100 hover:text-blue-700 dark:border-gray-700 dark:bg-gray-700 dark:text-white">{{ $page }}</span>
                                         </li>
                                     @else
                                         <li>
-                                            <a href="{{ $url }}" class="flex items-center justify-center px-3 h-8 leading-tight text-gray-500 bg-white border border-gray-300 hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white">{{ $page }}</a>
+                                            <a href="{{ $url }}"
+                                                class="flex items-center justify-center px-3 h-8 leading-tight text-gray-500 bg-white border border-gray-300 hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white">{{ $page }}</a>
                                         </li>
                                     @endif
                                 @endforeach
-                    
+
                                 <!-- Next Page Link -->
                                 @if ($kedinasan->hasMorePages())
                                     <li>
-                                        <a href="{{ $kedinasan->nextPageUrl() }}" class="flex items-center justify-center px-3 h-8 leading-tight text-gray-500 bg-white border border-gray-300 rounded-e-lg hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white" aria-label="Next">Next</a>
+                                        <a href="{{ $kedinasan->nextPageUrl() }}"
+                                            class="flex items-center justify-center px-3 h-8 leading-tight text-gray-500 bg-white border border-gray-300 rounded-e-lg hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white"
+                                            aria-label="Next">Next</a>
                                     </li>
                                 @else
                                     <li aria-disabled="true" aria-label="Next">
-                                        <span class="flex items-center justify-center px-3 h-8 leading-tight text-gray-500 bg-white border border-gray-300 rounded-e-lg dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 cursor-not-allowed">Next</span>
+                                        <span
+                                            class="flex items-center justify-center px-3 h-8 leading-tight text-gray-500 bg-white border border-gray-300 rounded-e-lg dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 cursor-not-allowed">Next</span>
                                     </li>
                                 @endif
                             </ul>
@@ -264,5 +311,13 @@
                 row.style.display = rowText.includes(searchValue) ? '' : 'none';
             });
         });
+    });
+</script>
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        if ({{ session('success') ? 'true' : 'false' }}) {
+            const modal = new Modal(document.getElementById('success-modal'));
+            modal.show();
+        }
     });
 </script>

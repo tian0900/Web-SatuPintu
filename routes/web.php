@@ -78,7 +78,7 @@ Route::middleware(['check.role.byname:AdminPasar'])->group(function () {
 
     //Management-User-Sampah
     Route::get('/userpage', [UserController::class, 'index']);
-    Route::post('/users/store', [UserController::class, 'store'])->name('users.store');
+    Route::post('/users/store', [UserController::class, 'store'])->name('store.user');
     Route::post('/wajib/store', [UserController::class, 'storewajib'])->name('wajib.store');
     Route::put('/users/{id}', [UserController::class, 'update'])->name('users.update');
 
@@ -114,6 +114,14 @@ Route::middleware(['check.role.byname:AdminKabupaten'])->group(function () {
     //Dashboard
     Route::get('/dashboard-kabupaten', [IndexController::class, 'dashboardkabupaten']);
 
+    //Retribusi
+    Route::get('/retribusi', [RetribusiController::class, 'index']);
+    Route::get('/data/retribusi/{id}/edit', [RetribusiController::class, 'edit'])->name('retribusi.edit');
+    Route::put('/data/retribusi/{id}', [RetribusiController::class, 'update'])->name('retribusi.update');
+    Route::delete('/retribusi/{id}', [RetribusiController::class, 'destroy'])->name('retribusi.destroy');
+    Route::get('/retribusi/create', [RetribusiController::class, 'create'])->name('retribusi.create');
+    Route::post('/retribusi', [RetribusiController::class, 'store'])->name('retribusi.store');
+    
     //Kedinasan
     Route::get('/kedinasanKabupaten', [KedinasanController::class, 'indexKabupaten']);
     Route::get('/data/kedinasanKabupaten/{id}/edit', [kedinasanController::class, 'editKabupaten'])->name('kedinasanKabupaten.edit');
@@ -212,14 +220,9 @@ Route::middleware(['check.role.byname:SuperAdmin'])->group(function () {
     Route::get('/kabupaten/show', [KabupatenController::class, 'show'])->name('kabupaten.show');
     Route::get('/kabupaten/edit', [KabupatenController::class, 'edit'])->name('kabupaten.edit');
     Route::put('/kabupaten/{post}', [KabupatenController::class, 'update'])->name('kabupaten.update');
+    Route::delete('/kabupaten/{id}', [KabupatenController::class, 'destroy'])->name('kabupaten.delete');
 
-    //Retribusi
-    Route::get('/retribusi', [RetribusiController::class, 'index']);
-    Route::get('/data/retribusi/{id}/edit', [RetribusiController::class, 'edit'])->name('retribusi.edit');
-    Route::put('/data/retribusi/{id}', [RetribusiController::class, 'update'])->name('retribusi.update');
-    Route::delete('/retribusi/{id}', [RetribusiController::class, 'destroy'])->name('retribusi.destroy');
-    Route::get('/retribusi/create', [RetribusiController::class, 'create'])->name('retribusi.create');
-    Route::post('/retribusi', [RetribusiController::class, 'store'])->name('retribusi.store');
+    
 
     //Manajemen User
     Route::get('/useradmin', [UserController::class, 'indexadmin']);

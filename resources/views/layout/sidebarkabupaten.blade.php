@@ -25,7 +25,9 @@
         <a href="#" class="logo-box">
             {{-- <i class='bx bxl-xing'></i> --}}
             <img class="img-logo" src="Logo/logo.png" alt="">
-            <div class="logo-name">SatuPintu</div>
+            <div class="logo-name" style="font-size: 24px; width: 200px; height: 50px; padding: 10px; margin: 10px;">
+              Aplikasi Retribusi
+          </div>
         </a>
 
         <!-- ========== List ============  -->
@@ -42,6 +44,20 @@
                   <a href="/dashboard-kabupaten" class="link submenu-title">Dashboard</a>
               </div>
             </li>
+
+            <li>
+              <div class="title">
+                  <a href="/retribusi" class="link">
+                    <i class='bx bx-map-alt'></i>
+                      <span class="name">Retribusi</span>
+                  </a>
+                  <!-- <i class='bx bxs-chevron-down'></i> -->
+              </div>
+              <div class="submenu">
+                  <a href="/retribusi" class="link submenu-title">Retribusi</a>
+                  <!-- submenu links here  -->
+              </div>
+          </li>
             <!-- -------- Non Dropdown List Item ------- -->
             <li>
                 <div class="title">
