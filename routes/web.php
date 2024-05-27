@@ -67,8 +67,6 @@ Route::middleware(['check.role.byname:AdminPasar'])->group(function () {
     Route::get('/wilayah-pasar/create', [WilayahController::class, 'create'])->name('wilayah.create');
     Route::post('/wilayah-pasar', [WilayahController::class, 'store'])->name('wilayah.store');
 
-
-
     //Item-Retribusi
     Route::get('/item', [ItemRetribusiController::class, 'index'])->name('item.index');
     Route::post('/item/store', [ItemRetribusiController::class, 'store'])->name('item.store');
@@ -81,8 +79,6 @@ Route::middleware(['check.role.byname:AdminPasar'])->group(function () {
     Route::post('/users/store', [UserController::class, 'store'])->name('store.user');
     Route::post('/wajib/store', [UserController::class, 'storewajib'])->name('wajib.store');
     Route::put('/users/{id}', [UserController::class, 'update'])->name('users.update');
-
-
 
 });
 Route::middleware(['check.role.byname:AdminSampah'])->group(function () {
@@ -130,17 +126,7 @@ Route::middleware(['check.role.byname:AdminKabupaten'])->group(function () {
     Route::get('/kedinasanKabupaten/create', [kedinasanController::class, 'createKabupaten'])->name('kedinasanKabupaten.create');
     Route::post('/kedinasanKabupaten', [kedinasanController::class, 'storeKabupaten'])->name('kedinasanKabupaten.store');
 
-    //Kedinasan
-    Route::get('/kedinasan', [KedinasanController::class, 'index']);
-    Route::get('/data/kedinasan/{id}/edit', [kedinasanController::class, 'edit'])->name('kedinasan.edit');
-    Route::put('/data/kedinasan/{id}', [kedinasanController::class, 'update'])->name('kedinasan.update');
-    Route::delete('/kedinasan/{id}', [kedinasanController::class, 'destroy'])->name('kedinasan.destroy');
-    Route::get('/kedinasan/create', [kedinasanController::class, 'create'])->name('kedinasan.create');
-    Route::post('/kedinasan', [kedinasanController::class, 'store'])->name('kedinasan.store');
-
-
-
-
+    // Route::delete('/posts/{post}', ItemRetribusiController::class .'@destroy')->name('posts.destroy');
 });
 
 Route::middleware(['check.role.byname:Bendahara'])->group(function () {

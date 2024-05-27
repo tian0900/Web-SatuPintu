@@ -137,6 +137,21 @@
                 </div>
             </li>
 
+            <!-- -------- Non Dropdown List Item ------- -->
+            <li>
+                <div class="title">
+                    <a href="/logout" class="link">
+                        <i class='bx bx-log-out'></i>
+                        <span class="name">Logout</span>
+                    </a>
+                    <!-- <i class='bx bxs-chevron-down'></i> -->
+                </div>
+                <div class="submenu">
+                    <a href="/logout" class="link submenu-title">Logout</a>
+                    <!-- submenu links here  -->
+                </div>
+            </li>
+            
         </ul>
     </div>
 
