@@ -34,7 +34,7 @@ class KabupatenController extends Controller
             'nama' => 'required',
         ]);
         Kabupaten::create($request->all());
-        return redirect('/kabupaten')->with('success', 'Data berhasil ditambahkan.');
+        return redirect('/kabupaten')->with('success', 'Data Kabupaten Berhasil Ditambahkan.');
     }
 
     /**
@@ -65,7 +65,7 @@ class KabupatenController extends Controller
         ]);
         $kabupaten = Kabupaten::find($id);
         $kabupaten->update($request->all());
-        return redirect('/kabupaten')->with('success', 'Data berhasil ditambahkan.');
+        return redirect('/kabupaten')->with('success', 'Data Kabupaten Berhasil Ditambahkan.');
     }
     /**
      * Remove the specified resource from storage.
@@ -74,6 +74,6 @@ class KabupatenController extends Controller
     {
         $kabupaten = Kabupaten::find($id);
         $kabupaten->delete();
-        return redirect('/kabupaten')->with('success', 'kabupaten deleted successfully');
+        return redirect('/kabupaten')->with('success', 'Data Kabupaten Berhasil Dihapus');
     }
 }

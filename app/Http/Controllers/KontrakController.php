@@ -115,7 +115,7 @@ class KontrakController extends Controller
             Tagihan::create($tagihanData);
         }
 
-        return redirect()->back()->with('success', 'Data berhasil ditambahkan.');
+        return redirect()->back()->with('success', 'Data Kontrak Berhasil Ditambahkan.');
     }
 
     public function deleteKontrak($id)
@@ -132,7 +132,7 @@ class KontrakController extends Controller
         // Hapus kontrak
         $kontrak->delete();
 
-        return redirect()->back()->with('success', 'Kontrak dan tagihan terkait berhasil dihapus.');
+        return redirect()->back()->with('success', 'Kontrak dan Tagihan Terkait Berhasil Dihapus.');
     }
 
     /**
@@ -204,7 +204,7 @@ class KontrakController extends Controller
     {
         $statuskonrak = Kontrak::find($id);
         if (!$statuskonrak) {
-            return response()->json(['message' => 'Data Kontrak tidak ditemukan'], 404);
+            return response()->json(['message' => 'Data Kontrak Tidak Ditemukan'], 404);
         }
 
         $statuskonrak->status = 'DITERIMA';

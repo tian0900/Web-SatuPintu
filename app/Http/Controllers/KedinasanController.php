@@ -41,7 +41,7 @@ class KedinasanController extends Controller
         ];
 
         Kedinasan::create($data);
-        return redirect('/kedinasan')->with('success', 'Data berhasil ditambahkan.');
+        return redirect('/kedinasan')->with('success', 'Data Kedinasan Berhasil Ditambahkan.');
     }
 
 
@@ -77,12 +77,12 @@ class KedinasanController extends Controller
         $kedinasan = Kedinasan::find($id);
 
         if (!$kedinasan) {
-            return redirect('/kedinasan')->with('error', 'Data tidak ditemukan.');
+            return redirect('/kedinasan')->with('error', 'Data Kedinasan tidak ditemukan.');
         }
 
         $kedinasan->update($validatedData);
 
-        return redirect('/kedinasan')->with('success', 'Data berhasil diperbarui.');
+        return redirect('/kedinasan')->with('success', 'Data Kedinasan Berhasil Diperbarui.');
     }
 
     /**
@@ -131,7 +131,7 @@ class KedinasanController extends Controller
 
 
         Kedinasan::create($data);
-        return redirect('/kedinasanKabupaten')->with('success', 'Data berhasil ditambahkan.');
+        return redirect('/kedinasanKabupaten')->with('success', 'Data Kedinasan Berhasil Ditambahkan.');
     }
 
     /**
@@ -165,12 +165,12 @@ class KedinasanController extends Controller
         $kedinasan = Kedinasan::find($id);
 
         if (!$kedinasan) {
-            return redirect('/kedinasanKabupaten')->with('error', 'Data tidak ditemukan.');
+            return redirect('/kedinasanKabupaten')->with('error', 'Data Kedinasan tidak ditemukan.');
         }
 
         $kedinasan->update($validatedData);
 
-        return redirect('/kedinasanKabupaten')->with('success', 'Data berhasil diperbarui.');
+        return redirect('/kedinasanKabupaten')->with('success', 'Data Kedinasan Berhasil Diperbarui.');
     }
 
     /**
@@ -181,6 +181,6 @@ class KedinasanController extends Controller
         $kedinasan = Kedinasan::find($id);
         $kedinasan->delete();
         return redirect()->route('data.kedinasanKab')
-            ->with('success', 'kedinasan deleted successfully');
+            ->with('success', 'Data Kedinasan Berhasil Dihapus');
     }
 }

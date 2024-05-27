@@ -105,7 +105,7 @@ class BendaharaController extends Controller
     {
         $setor = Setor::find($id);
         if (!$setor) {
-            return response()->json(['message' => 'Data setor tidak ditemukan'], 404);
+            return response()->json(['message' => 'Data Setor Tidak Ditemukan'], 404);
         }
 
         $setor->status = 'DITERIMA';
@@ -118,7 +118,7 @@ class BendaharaController extends Controller
     {
         $batal = Tagihan::find($id);
         if (!$batal) {  
-            return response()->json(['message' => 'Data batal tidak ditemukan'], 404);
+            return response()->json(['message' => 'Data Batal Tidak Ditemukan'], 404);
         }
 
         $batal->status = 'NEW';

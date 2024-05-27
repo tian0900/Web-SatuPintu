@@ -94,7 +94,7 @@ class AtributController extends Controller
         ItemRetribusi::create($postToSave);
 
         // Redirect ke halaman index
-        return redirect()->route('atribut')->with('success', 'Data berhasil ditambahkan.');
+        return redirect()->route('atribut')->with('success', 'Data Atribut Berhasil Ditambahkan.');
     }
 
 
@@ -143,7 +143,7 @@ class AtributController extends Controller
         Post::create($dataToSave);
 
         // Redirect ke halaman index
-        return redirect()->route('atributsampah')->with('success', 'Data berhasil ditambahkan.');
+        return redirect()->route('atributsampah')->with('success', 'Data Atribut Berhasil Ditambahkan.');
     }
 
 
@@ -182,7 +182,7 @@ class AtributController extends Controller
         $atribut = Post::find($id);
 
         if (!$atribut) {
-            return redirect()->back()->with('error', 'Data tidak ditemukan.');
+            return redirect()->back()->with('error', 'Data Atribut tidak ditemukan.');
         }
 
         // Hitung nilai kategori_nama
@@ -204,7 +204,7 @@ class AtributController extends Controller
         $atribut->save();
 
         // Redirect dengan pesan sukses
-        return redirect()->route('atribut')->with('success', 'Data berhasil diperbarui.');
+        return redirect()->route('atribut')->with('success', 'Data Atribut Berhasil Diperbarui.');
     }
 
     public function updatesampah(Request $request, $id)
@@ -219,7 +219,7 @@ class AtributController extends Controller
         $atribut = Post::find($id);
 
         if (!$atribut) {
-            return redirect()->back()->with('error', 'Data tidak ditemukan.');
+            return redirect()->back()->with('error', 'Data Atribut tidak ditemukan.');
         }
 
         // Hitung nilai kategori_nama
@@ -237,7 +237,7 @@ class AtributController extends Controller
         $atribut->save();
 
         // Redirect dengan pesan sukses
-        return redirect()->route('atributsampah')->with('success', 'Data berhasil diperbarui.');
+        return redirect()->route('atributsampah')->with('success', 'Data Atribut Berhasil Diperbarui.');
     }
 
 
@@ -251,14 +251,14 @@ class AtributController extends Controller
         $post = Post::find($id);
 
         if (!$post) {
-            return redirect()->back()->with('error', 'Data tidak ditemukan.');
+            return redirect()->back()->with('error', 'Data Atribut tidak ditemukan.');
         }
 
         // Hapus data dari MongoDB
         $post->delete();
 
         // Redirect dengan pesan sukses
-        return redirect()->back()->with('success', 'Data berhasil dihapus.');
+        return redirect()->back()->with('success', 'Data Atribut Berhasil Dihapus.');
     }
 
 

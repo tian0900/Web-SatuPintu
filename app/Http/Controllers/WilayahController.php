@@ -43,7 +43,7 @@ class WilayahController extends Controller
         ]);
 
         // Redirect ke halaman yang sesuai
-        return redirect('/wilayah-pasar')->with('success', 'Data retribusi berhasil ditambahkan!');
+        return redirect('/wilayah-pasar')->with('success', 'Data Retribusi Berhasil Ditambahkan!');
     }
 
     /**
@@ -70,7 +70,7 @@ class WilayahController extends Controller
     {
         $retribusi = Wilayah::findOrFail($id);
         $retribusi->update($request->all());
-        return redirect('/wilayah-pasar')->with('success', 'Data Wilayah berhasil diperbarui!');
+        return redirect('/wilayah-pasar')->with('success', 'Data Wilayah Berhasil Diperbarui!');
     
     }
 
@@ -85,7 +85,7 @@ class WilayahController extends Controller
         $wilayah->delete();
     
         // Redirect atau kembalikan sesuai kebutuhan
-        return redirect()->back()->with('success', 'Wilayah berhasil dihapus');
+        return redirect()->back()->with('success', 'Data Wilayah Berhasil Dihapus');
     }
 
     public function indexsampah()
@@ -119,7 +119,7 @@ class WilayahController extends Controller
         ]);
 
         // Redirect ke halaman yang sesuai
-        return redirect('/wilayah-sampah')->with('success', 'Data retribusi berhasil ditambahkan!');
+        return redirect('/wilayah-sampah')->with('success', 'Data Retribusi Berhasil Ditambahkan!');
     }
 
     /**
@@ -146,7 +146,7 @@ class WilayahController extends Controller
     {
         $retribusi = Wilayah::findOrFail($id);
         $retribusi->update($request->all());
-        return redirect('/wilayah-sampah')->with('success', 'Data Wilayah berhasil diperbarui!');
+        return redirect('/wilayah-sampah')->with('success', 'Data Wilayah Berhasil Diperbarui!');
     
     }
 
@@ -161,6 +161,6 @@ class WilayahController extends Controller
         $wilayah->delete();
     
         // Redirect atau kembalikan sesuai kebutuhan
-        return redirect()->back()->with('success', 'Wilayah berhasil dihapus');
+        return redirect()->back()->with('success', 'Data Wilayah Berhasil Dihapus');
     }
 }

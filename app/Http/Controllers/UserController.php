@@ -82,7 +82,7 @@ class UserController extends Controller
 
         // dd($petugas); // Tambahkan ini untuk melihat nilai $petugas
 
-        return redirect()->back()->with('success', 'Petugas created successfully');
+        return redirect()->back()->with('success', 'Petugas Berhasil Ditambahkan');
     }
 
     public function storewajib(Request $request)
@@ -107,7 +107,7 @@ class UserController extends Controller
 
         // dd($petugas); // Tambahkan ini untuk melihat nilai $petugas
 
-        return redirect()->back()->with('success', 'Wajib Retribusi created successfully');
+        return redirect()->back()->with('success', 'Wajib Retribusi Berhasil Ditambahkan');
     } 
 
     public function update(Request $request, $id)
@@ -132,7 +132,7 @@ class UserController extends Controller
 
     $user->save();
 
-    return redirect()->back()->with('success', 'User updated successfully');
+    return redirect()->back()->with('success', 'Data User Berhasil Di Update');
     }
 
 
@@ -157,7 +157,7 @@ class UserController extends Controller
 
         // dd($petugas); // Tambahkan ini untuk melihat nilai $petugas
 
-        return redirect()->back()->with('success', 'User created successfully');
+        return redirect()->back()->with('success', 'Data User Berhasil Ditambahkan');
     }
 
     public function indexsampah()
@@ -201,7 +201,7 @@ class UserController extends Controller
 
         // dd($petugas); // Tambahkan ini untuk melihat nilai $petugas
 
-        return redirect()->back()->with('success', 'User created successfully');
+        return redirect()->back()->with('success', 'Data User Berhasil Ditambahkan');
     }
 
     public function storewajibsampah(Request $request)
@@ -226,7 +226,7 @@ class UserController extends Controller
 
         // dd($petugas); // Tambahkan ini untuk melihat nilai $petugas
 
-        return redirect()->back()->with('success', 'User created successfully');
+        return redirect()->back()->with('success', 'Data User Berhasil Ditambahkan');
     } 
 
     public function updatesampah(Request $request, $id)
@@ -251,7 +251,7 @@ class UserController extends Controller
 
     $user->save();
 
-    return redirect()->back()->with('success', 'User updated successfully');
+    return redirect()->back()->with('success', 'Data User Berhasil Ditambahkan');
     }
 
 

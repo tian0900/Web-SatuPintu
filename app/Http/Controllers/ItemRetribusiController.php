@@ -46,7 +46,7 @@ class ItemRetribusiController extends Controller
           ]);
           ItemRetribusi::create($request->all());
           return redirect("/item")
-            ->with('success', 'Data created successfully.');
+            ->with('success', 'Data Item Retribusi Berhasil Di Tambahkan');
     }
 
     /**
@@ -78,7 +78,7 @@ class ItemRetribusiController extends Controller
           $item = ItemRetribusi::find($id);
           $item->update($request->all());
           return redirect("/item")
-            ->with('success', 'Item updated successfully.');
+            ->with('success', 'Data Item Retribusi Berhasil Diubah.');
     }
     
 
@@ -91,6 +91,6 @@ class ItemRetribusiController extends Controller
         $item = ItemRetribusi::find($id);
         $item->delete();
         return redirect()->route('item.index')
-            ->with('success', 'Item deleted successfully');
+            ->with('success', 'Data Item Retribusi Berhasil Dihapus');
     }
 }

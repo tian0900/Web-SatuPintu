@@ -44,7 +44,7 @@ class RetribusiController extends Controller
         ]);
 
         // Redirect ke halaman yang sesuai
-        return redirect('/retribusi')->with('success', 'Data retribusi berhasil ditambahkan!');
+        return redirect('/retribusi')->with('success', 'Data Retribusi Berhasil Ditambahkan!');
     }
 
     /**
@@ -71,7 +71,7 @@ class RetribusiController extends Controller
     {
         $retribusi = Retribusi::findOrFail($id);
         $retribusi->update($request->all());
-        return redirect('/retribusi')->with('success', 'Data retribusi berhasil diperbarui!');
+        return redirect('/retribusi')->with('success', 'Data Retribusi Berhasil Diperbarui!');
     
     }
 
@@ -86,6 +86,6 @@ class RetribusiController extends Controller
         $retribusi->delete();
     
         // Redirect atau kembalikan sesuai kebutuhan
-        return redirect()->back()->with('success', 'Retribusi berhasil dihapus');
+        return redirect()->back()->with('success', 'Retribusi Berhasil Dihapus');
     }
 }
