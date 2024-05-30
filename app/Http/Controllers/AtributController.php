@@ -261,5 +261,21 @@ class AtributController extends Controller
         return redirect()->back()->with('success', 'Data Atribut Berhasil Dihapus.');
     }
 
+    public function destroy($id)
+    {
+        // Temukan data berdasarkan ID
+        $post = Post::find($id);
+
+        if (!$post) {
+            return redirect()->back()->with('error', 'Data Atribut tidak ditemukan.');
+        }
+
+        // Hapus data dari MongoDB
+        $post->delete();
+
+        // Redirect dengan pesan sukses
+        return redirect()->back()->with('success', 'Data Atribut Berhasil Dihapus.');
+    }
+
 
 }

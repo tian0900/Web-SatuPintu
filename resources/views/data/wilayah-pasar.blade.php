@@ -218,7 +218,7 @@
                                            </div>
                                            <!-- Modal body -->
                                            <div class="p-4">
-                                               <p class="text-sm text-gray-500 dark:text-gray-400">Apakah Anda yakin ingin menghapus kabupaten ini?</p>
+                                               <p class="text-sm text-gray-500 dark:text-gray-400">Apakah Anda yakin ingin menghapus Wilayah ini?</p>
                                                <form action="{{ route('wilayah.destroy', $data->id) }}" method="POST">
                                                    @csrf
                                                    @method('DELETE')

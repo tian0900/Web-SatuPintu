@@ -14,36 +14,30 @@ class BendaharaController extends Controller
      */
     public function indextagihan()
     {
-
-
         $tagihan = DB::table('tagihan')
             ->join('pembayaran', 'pembayaran.tagihan_id', '=', 'tagihan.id')
             ->join('kontrak', 'kontrak.id', '=', 'tagihan.kontrak_id')
             ->join('item_retribusi', 'item_retribusi.id', '=', 'kontrak.item_retribusi_id')
-            ->join('sub_wilayah', 'sub_wilayah.id', '=', 'kontrak.sub_wilayah_id')
-            ->join('users as wajib_retribusi_user', 'wajib_retribusi_user.id', '=', 'kontrak.wajib_retribusi_id')
+            ->join('wajib_retribusi', 'kontrak.wajib_retribusi_id', '=', 'wajib_retribusi.id')
+            ->join('users', 'wajib_retribusi.user_id', '=', 'users.id') // Removed the extra space here
             ->select(
                 'tagihan.*',
-                'kontrak.*',
-                'item_retribusi.*',
-                'sub_wilayah.*',
-                'wajib_retribusi_user.*',
-                'pembayaran.status as pembayaran_status', // Alias untuk status di tabel pembayaran
-                'kontrak.status as kontrak_status' // Alias untuk status di tabel kontrak
+                'item_retribusi.kategori_nama',
+                'users.name',
+                'pembayaran.status as pembayaran_status', // Alias for status in the pembayaran table
+                'kontrak.status as kontrak_status' // Alias for status in the kontrak table
             )
-            ->where('pembayaran.status', 'WAITING') // Filter berdasarkan status pembayaran
-            ->where('tagihan.status', 'NEW') // Filter berdasarkan status pembayaran
-            ->where('tagihan.active', '1') // Filter berdasarkan status pembayaran
-            ->where('item_retribusi.retribusi_id', '2') // Filter berdasarkan status pembayaran
-            ->distinct() // Menambahkan klausa distinct
+            ->where('tagihan.status', 'NEW') // Filter based on tagihan status
+            ->where('pembayaran.status', 'WAITING') // Filter based on pembayaran status
+            ->where('tagihan.active', '1') // Filter based on tagihan active status
+            ->where('item_retribusi.retribusi_id', '2') // Filter based on item_retribusi retribusi_id
             ->paginate(5);
-
-
 
         // dd($tagihan);
 
         return view('bendahara.tagihan', ['tagihan' => $tagihan]);
     }
+
 
     public function tagihansampah()
     {
@@ -78,12 +72,13 @@ class BendaharaController extends Controller
         return view('bendahara.tagihansampah', ['tagihan' => $tagihan]);
     }
 
-    
+
 
     public function indexsetor()
     {
         $setor = DB::table('setoran')
-            ->join('petugas', 'petugas.id', '=', 'setoran.petugas_id')
+            ->join('transaksi_petugas', 'setoran.id', '=', 'transaksi_petugas.setoran_id')
+            ->join('petugas', 'petugas.id', '=', 'transaksi_petugas.petugas_id')
             ->join('users', 'users.id', '=', 'petugas.user_id')
             ->join('sub_wilayah', 'sub_wilayah.id', '=', 'setoran.sub_wilayah_id')
             ->select(
@@ -98,8 +93,8 @@ class BendaharaController extends Controller
         return view('bendahara.setor', ['setor' => $setor]);
     }
 
-    
-    
+
+
 
     public function updateStatus(Request $request, $id)
     {
@@ -117,7 +112,7 @@ class BendaharaController extends Controller
     public function updateStatuspembatalan(Request $request, $id)
     {
         $batal = Tagihan::find($id);
-        if (!$batal) {  
+        if (!$batal) {
             return response()->json(['message' => 'Data Batal Tidak Ditemukan'], 404);
         }
 
@@ -136,16 +131,14 @@ class BendaharaController extends Controller
             ->join('pembayaran', 'pembayaran.tagihan_id', '=', 'tagihan.id')
             ->join('kontrak', 'kontrak.id', '=', 'tagihan.kontrak_id')
             ->join('item_retribusi', 'item_retribusi.id', '=', 'kontrak.item_retribusi_id')
-            ->join('sub_wilayah', 'sub_wilayah.id', '=', 'kontrak.sub_wilayah_id')
-            ->join('users as wajib_retribusi_user', 'wajib_retribusi_user.id', '=', 'kontrak.wajib_retribusi_id')
+            ->join('wajib_retribusi', 'kontrak.wajib_retribusi_id', '=', 'wajib_retribusi.id')
+            ->join('users', 'wajib_retribusi.user_id', '=', 'users.id') // Removed the extra space here
             ->select(
                 'tagihan.*',
                 'item_retribusi.kategori_nama',
-                'sub_wilayah.nama',
-                'wajib_retribusi_user.name',
-                'pembayaran.status as pembayaran_status', // Alias untuk status di tabel pembayaran
-                'kontrak.status as kontrak_status' // Alias untuk status di tabel kontrak
-            )
+                'users.name',
+                'pembayaran.status as pembayaran_status', // Alias for status in the pembayaran table
+                'kontrak.status as kontrak_status' )
             ->where('tagihan.status', 'VERIFIED') // Filter berdasarkan status pembayaran
             ->where('tagihan.active', '1') // Filter berdasarkan status pembayaran
             ->where('item_retribusi.retribusi_id', '2') // Filter berdasarkan status pembayaran

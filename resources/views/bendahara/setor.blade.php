@@ -295,21 +295,19 @@
                                             </div>
                                             <!-- Modal body -->
                                             <form action="{{ route('setor.updateStatus', $item->id) }}" method="POST">
+                                                @csrf
+                                                @method('PUT')
                                                 <div class="relative bg-white rounded-lg shadow dark:bg-gray-700">
-                                                    <div
-                                                        class="flex items-center justify-between p-4 md:p-5 border-b rounded-t dark:border-gray-600">
-                                                        <h4>Apakah Anda yakin ingin mengkonfirmasi Setoran dari
-                                                            {{ $item->nama_petugas }} senilai {{ $item->total }}?</h4>
+                                                    <div class="flex items-center justify-between p-4 md:p-5 border-b rounded-t dark:border-gray-600">
+                                                        <h4>Apakah Anda yakin ingin mengkonfirmasi Setoran dari {{ $item->nama_petugas }} senilai {{ $item->total }}?</h4>
                                                     </div>
                                                     <div class="p-4 md:p-5 flex justify-end">
-                                                        <button type="submit"
-                                                            class="mr-3 px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600">Konfirmasi</button>
-                                                        <button type="button"
-                                                            class="px-4 py-2 bg-gray-300 text-gray-700 rounded hover:bg-gray-400"
-                                                            data-modal-hide="modalkonfirmasi{{ $item->id }}">Batal</button>
+                                                        <button type="submit" class="mr-3 px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600">Konfirmasi</button>
+                                                        <button type="button" class="px-4 py-2 bg-gray-300 text-gray-700 rounded hover:bg-gray-400" data-modal-hide="modalkonfirmasi{{ $item->id }}">Batal</button>
                                                     </div>
                                                 </div>
                                             </form>
+                                            
                                         </div>
                                     </div>
                                 </div>

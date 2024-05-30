@@ -55,6 +55,8 @@ Route::middleware(['check.role.byname:AdminPasar'])->group(function () {
     Route::get('/atribut', [AtributController::class, 'index'])->name('atribut');
     Route::post('/atribut/store', [AtributController::class, 'store'])->name('atribut.store');
     Route::match (['post', 'put'], '/atribut/update/{id}', [AtributController::class, 'update'])->name('atribut.update');
+    Route::delete('/atributpasar/{id}', [AtributController::class, 'destroy'])->name('pasar.destroy');
+
     Route::post('/jenis/store', [PasarController::class, 'store'])->name('jenis.store');
     Route::get('/jenis/edit', [PasarController::class, 'edit'])->name('jenis.edit');
     Route::put('/jenis/{post}', [PasarController::class, 'update'])->name('jenis.update');
@@ -73,9 +75,11 @@ Route::middleware(['check.role.byname:AdminPasar'])->group(function () {
     Route::get('/item/show', [ItemRetribusiController::class, 'show'])->name('item.show');
     Route::get('/item/{post}/edit', [ItemRetribusiController::class, 'edit'])->name('item.edit');
     Route::put('/item/edit/{id}', [ItemRetribusiController::class, 'update'])->name('item.update');
+    Route::delete('/itempasar/{id}', [ItemRetribusiController::class, 'destroy'])->name('item.delete');
 
     //Management-User-Sampah
-    Route::get('/userpage', [UserController::class, 'index']);
+    Route::get('/userpage', [UserController::class, 'index'])->name('userpasar');
+    Route::delete('/userpage/{id}', [UserController::class, 'destroy'])->name('deleteuser');
     Route::post('/users/store', [UserController::class, 'store'])->name('store.user');
     Route::post('/wajib/store', [UserController::class, 'storewajib'])->name('wajib.store');
     Route::put('/users/{id}', [UserController::class, 'update'])->name('users.update');
@@ -139,6 +143,7 @@ Route::middleware(['check.role.byname:Bendahara'])->group(function () {
 
     Route::get('/setoran', [BendaharaController::class, 'indexsetor']);
     Route::put('/setor/{id}/update-status', [BendaharaController::class, 'updateStatus'])->name('setor.updateStatus');
+    
 
     Route::get('/pembatalanpasar', [BendaharaController::class, 'indexpembatalan']);
     Route::put('/batal/{id}/update-status', [BendaharaController::class, 'updateStatuspembatalan'])->name('batal.updateStatus');

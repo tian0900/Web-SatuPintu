@@ -13,10 +13,13 @@ class ItemRetribusiController extends Controller
      * Display a listing of the resource.
      */
     public function index()
-    {
-        $item = ItemRetribusi::where('retribusi_id', 2)->paginate(5);
-        return view('data.item', compact('item'));
-    }
+{
+    $item = ItemRetribusi::where('retribusi_id', 2)
+                         ->orderBy('created_at', 'desc')
+                         ->paginate(5);
+    return view('data.item', compact('item'));
+}
+
 
     public function indexsampah()
     {
@@ -70,7 +73,6 @@ class ItemRetribusiController extends Controller
     public function update(Request $request, string $id)
     {
         $request->validate([
-            'retribusi_id'  => 'required',
             'kategori_nama' => 'required',
             'jenis_tagihan' => 'required',
             'harga'         => 'required',
