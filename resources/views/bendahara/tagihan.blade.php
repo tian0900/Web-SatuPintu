@@ -83,6 +83,10 @@
 
 
         <div class="container m-5">
+            <div class="flex space-x-4 mb-4">
+                <button id="nonTunaiButton" class="bg-green-500 text-white px-4 py-2 rounded">Non Tunai</button>
+                <button id="tunaiButton" class="bg-yellow-500 text-white px-4 py-2 rounded">Tunai</button>
+            </div>
             <div class="flex flex-column sm:flex-row flex-wrap space-y-4 sm:space-y-0 items-center justify-between pb-4">
                 <div>
 
@@ -175,7 +179,9 @@
                                 <th scope="col" class="px-6 py-3">
                                     Harga
                                 </th>
-
+                                <th scope="col" class="px-6 py-3">
+                                    Metode Pembayaran
+                                </th>
                                 <th scope="col" class="px-6 py-3">
                                     Status
                                 </th>
@@ -187,8 +193,7 @@
                                 $number = ($tagihan->currentPage() - 1) * $tagihan->perPage() + 1;
                             @endphp <!-- Inisialisasi nomor -->
                             @foreach ($tagihan as $item)
-                                <tr
-                                    class="odd:bg-white odd:dark:bg-gray-900 even:bg-gray-50 even:dark:bg-gray-800 border-b dark:border-gray-700">
+                                <tr class="table-row" data-metode="{{ $item->metode_pembayaran }}">
                                     <td scope="row"
                                         class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
                                         {{ $number++ }}
@@ -203,14 +208,15 @@
                                     <td class="px-3 py-4">
                                         {{ $item->total_harga }}
                                     </td>
-
+                                    <td class="px-3 py-4">
+                                        {{ $item->metode_pembayaran }}
+                                    </td>
                                     <td class="px-3 py-4">
                                         {{ $item->pembayaran_status }}
                                     </td>
-
-
-
                                 </tr>
+
+
 
                                 <!-- Main modal -->
                                 <div id="modal<?= $item->id ?>" tabindex="-1" aria-hidden="true"
@@ -246,48 +252,58 @@
                         </tbody>
                     </table>
 
-                    <nav class="bg-white flex items-center flex-column flex-wrap md:flex-row justify-between p-4" aria-label="Table navigation">
-                        <span class="text-sm font-normal text-gray-500 dark:text-gray-400 mb-4 md:mb-0 block w-full md:inline md:w-auto">
+                    <nav class="bg-white flex items-center flex-column flex-wrap md:flex-row justify-between p-4"
+                        aria-label="Table navigation">
+                        <span
+                            class="text-sm font-normal text-gray-500 dark:text-gray-400 mb-4 md:mb-0 block w-full md:inline md:w-auto">
                             Showing
                             <span class="font-semibold text-gray-900 dark:text-white">{{ $tagihan->firstItem() }}</span> to
                             <span class="font-semibold text-gray-900 dark:text-white">{{ $tagihan->lastItem() }}</span> of
                             <span class="font-semibold text-gray-900 dark:text-white">{{ $tagihan->total() }}</span>
                         </span>
-                    
+
                         <div class="w-full md:w-auto text-right">
                             <ul class="inline-flex -space-x-px rtl:space-x-reverse text-sm h-8">
                                 <!-- Previous Page Link -->
                                 @if ($tagihan->onFirstPage())
                                     <li aria-disabled="true" aria-label="Previous">
-                                        <span class="flex items-center justify-center px-3 h-8 ms-0 leading-tight text-gray-500 bg-white border border-gray-300 rounded-s-lg dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 cursor-not-allowed">Previous</span>
+                                        <span
+                                            class="flex items-center justify-center px-3 h-8 ms-0 leading-tight text-gray-500 bg-white border border-gray-300 rounded-s-lg dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 cursor-not-allowed">Previous</span>
                                     </li>
                                 @else
                                     <li>
-                                        <a href="{{ $tagihan->previousPageUrl() }}" class="flex items-center justify-center px-3 h-8 ms-0 leading-tight text-gray-500 bg-white border border-gray-300 rounded-s-lg hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white" aria-label="Previous">Previous</a>
+                                        <a href="{{ $tagihan->previousPageUrl() }}"
+                                            class="flex items-center justify-center px-3 h-8 ms-0 leading-tight text-gray-500 bg-white border border-gray-300 rounded-s-lg hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white"
+                                            aria-label="Previous">Previous</a>
                                     </li>
                                 @endif
-                    
+
                                 <!-- Pagination Elements -->
                                 @foreach ($tagihan->links()->elements[0] as $page => $url)
                                     @if ($page == $tagihan->currentPage())
                                         <li aria-current="page">
-                                            <span class="flex items-center justify-center px-3 h-8 text-blue-600 border border-gray-300 bg-blue-50 hover:bg-blue-100 hover:text-blue-700 dark:border-gray-700 dark:bg-gray-700 dark:text-white">{{ $page }}</span>
+                                            <span
+                                                class="flex items-center justify-center px-3 h-8 text-blue-600 border border-gray-300 bg-blue-50 hover:bg-blue-100 hover:text-blue-700 dark:border-gray-700 dark:bg-gray-700 dark:text-white">{{ $page }}</span>
                                         </li>
                                     @else
                                         <li>
-                                            <a href="{{ $url }}" class="flex items-center justify-center px-3 h-8 leading-tight text-gray-500 bg-white border border-gray-300 hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white">{{ $page }}</a>
+                                            <a href="{{ $url }}"
+                                                class="flex items-center justify-center px-3 h-8 leading-tight text-gray-500 bg-white border border-gray-300 hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white">{{ $page }}</a>
                                         </li>
                                     @endif
                                 @endforeach
-                    
+
                                 <!-- Next Page Link -->
                                 @if ($tagihan->hasMorePages())
                                     <li>
-                                        <a href="{{ $tagihan->nextPageUrl() }}" class="flex items-center justify-center px-3 h-8 leading-tight text-gray-500 bg-white border border-gray-300 rounded-e-lg hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white" aria-label="Next">Next</a>
+                                        <a href="{{ $tagihan->nextPageUrl() }}"
+                                            class="flex items-center justify-center px-3 h-8 leading-tight text-gray-500 bg-white border border-gray-300 rounded-e-lg hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white"
+                                            aria-label="Next">Next</a>
                                     </li>
                                 @else
                                     <li aria-disabled="true" aria-label="Next">
-                                        <span class="flex items-center justify-center px-3 h-8 leading-tight text-gray-500 bg-white border border-gray-300 rounded-e-lg dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 cursor-not-allowed">Next</span>
+                                        <span
+                                            class="flex items-center justify-center px-3 h-8 leading-tight text-gray-500 bg-white border border-gray-300 rounded-e-lg dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 cursor-not-allowed">Next</span>
                                     </li>
                                 @endif
                             </ul>
@@ -297,7 +313,7 @@
             </div>
         </div>
     @endsection
-
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script>
         document.addEventListener("DOMContentLoaded", function() {
             const searchInput = document.getElementById('table-search');
@@ -313,6 +329,23 @@
                         .join(' ');
                     row.style.display = rowText.includes(searchValue) ? '' : 'none';
                 });
+            });
+        });
+    </script>
+    <script>
+        $(document).ready(function() {
+            $('#nonTunaiButton').click(function() {
+                $('.table-row').hide(); // Sembunyikan semua baris tabel
+
+                // Tampilkan baris yang memiliki metode pembayaran VA atau QRIS
+                $('.table-row[data-metode="VA"], .table-row[data-metode="QRIS"]').show();
+            });
+
+            $('#tunaiButton').click(function() {
+                $('.table-row').hide(); // Sembunyikan semua baris tabel
+
+                // Tampilkan baris yang memiliki metode pembayaran CASH
+                $('.table-row[data-metode="CASH"]').show();
             });
         });
     </script>

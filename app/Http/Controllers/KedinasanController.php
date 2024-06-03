@@ -12,9 +12,11 @@ class KedinasanController extends Controller
      */
     public function index()
     {
-        $kedinasan = Kedinasan::paginate(5);
+        $kedinasan = Kedinasan::orderBy('created_at', 'desc')->paginate(5);
         return view('data.kedinasan', compact('kedinasan'));
     }
+    
+    
 
     /**
      * Show the form for creating a new resource.
@@ -92,7 +94,7 @@ class KedinasanController extends Controller
     {
         $kedinasan = Kedinasan::find($id);
         $kedinasan->delete();
-        return redirect()->route('data.kedinasan')
+        return redirect()->route('kedinasann')
             ->with('success', 'kedinasan deleted successfully');
     }
 

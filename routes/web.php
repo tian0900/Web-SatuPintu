@@ -123,12 +123,12 @@ Route::middleware(['check.role.byname:AdminKabupaten'])->group(function () {
     Route::post('/retribusi', [RetribusiController::class, 'store'])->name('retribusi.store');
     
     //Kedinasan
-    Route::get('/kedinasanKabupaten', [KedinasanController::class, 'indexKabupaten']);
-    Route::get('/data/kedinasanKabupaten/{id}/edit', [kedinasanController::class, 'editKabupaten'])->name('kedinasanKabupaten.edit');
-    Route::put('/data/kedinasanKabupaten/{id}', [kedinasanController::class, 'updateKabupaten'])->name('kedinasanKabupaten.update');
-    Route::delete('/kedinasanKabupaten/{id}', [kedinasanController::class, 'destroyKabupaten'])->name('kedinasanKabupaten.destroy');
-    Route::get('/kedinasanKabupaten/create', [kedinasanController::class, 'createKabupaten'])->name('kedinasanKabupaten.create');
-    Route::post('/kedinasanKabupaten', [kedinasanController::class, 'storeKabupaten'])->name('kedinasanKabupaten.store');
+    Route::get('/kedinasan', [KedinasanController::class, 'index'])->name('kedinasann');
+    Route::get('/data/kedinasan/{id}/edit', [kedinasanController::class, 'edit'])->name('kedinasan.edit');
+    Route::put('/data/kedinasan/{id}', [kedinasanController::class, 'update'])->name('kedinasan.update');
+    Route::delete('/kedinasan/{id}', [kedinasanController::class, 'destroy'])->name('kedinasan.destroy');
+    Route::get('/kedinasan/create', [kedinasanController::class, 'create'])->name('kedinasan.create');
+    Route::post('/kedinasan', [kedinasanController::class, 'store'])->name('kedinasan.store');
 
     // Route::delete('/posts/{post}', ItemRetribusiController::class .'@destroy')->name('posts.destroy');
 });

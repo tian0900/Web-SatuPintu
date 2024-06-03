@@ -25,6 +25,7 @@ class BendaharaController extends Controller
                 'item_retribusi.kategori_nama',
                 'users.name',
                 'pembayaran.status as pembayaran_status', // Alias for status in the pembayaran table
+                'pembayaran.metode_pembayaran', // Alias for status in the pembayaran table
                 'kontrak.status as kontrak_status' // Alias for status in the kontrak table
             )
             ->where('tagihan.status', 'NEW') // Filter based on tagihan status
