@@ -39,6 +39,30 @@ class BendaharaController extends Controller
         return view('bendahara.tagihan', ['tagihan' => $tagihan]);
     }
 
+    public function indextagihanmanual()
+    {
+        $tagihan = DB::table('tagihan_manual')
+            ->join('setoran', 'setoran.id', '=', 'tagihan_manual.setoran_id')
+            ->join('item_retribusi', 'item_retribusi.id', '=', 'tagihan_manual.item_retribusi_id')
+            ->join('sub_wilayah', 'sub_wilayah.id', '=', 'tagihan_manual.sub_wilayah_id')
+            ->join('petugas', 'petugas.id', '=', 'tagihan_manual.petugas_id')
+            ->join('users', 'users.id', '=', 'petugas.user_id')
+            ->select(
+                'tagihan_manual.*',
+                'item_retribusi.kategori_nama',
+                'users.name',
+                'sub_wilayah.nama'
+            )
+            ->where('tagihan_manual.status', 'NEW') // Filter based on tagihanmanual status
+            ->where('item_retribusi.retribusi_id', 2) // Filter based on item_retribusi retribusi_id
+            ->paginate(5);
+
+        // dd($tagihan);
+
+        return view('bendahara.tagihanmanual', ['tagihan' => $tagihan]);
+    }
+
+
 
     public function tagihansampah()
     {
@@ -139,7 +163,8 @@ class BendaharaController extends Controller
                 'item_retribusi.kategori_nama',
                 'users.name',
                 'pembayaran.status as pembayaran_status', // Alias for status in the pembayaran table
-                'kontrak.status as kontrak_status' )
+                'kontrak.status as kontrak_status'
+            )
             ->where('tagihan.status', 'VERIFIED') // Filter berdasarkan status pembayaran
             ->where('tagihan.active', '1') // Filter berdasarkan status pembayaran
             ->where('item_retribusi.retribusi_id', '2') // Filter berdasarkan status pembayaran

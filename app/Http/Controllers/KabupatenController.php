@@ -12,9 +12,10 @@ class KabupatenController extends Controller
      */
     public function index()
     {
-        $kabupaten = Kabupaten::paginate(5);
+        $kabupaten = Kabupaten::orderBy('created_at', 'desc')->paginate(5);
         return view('data.kabupaten', ['kabupaten' => $kabupaten]);
     }
+
 
 
     /**
@@ -65,7 +66,7 @@ class KabupatenController extends Controller
         ]);
         $kabupaten = Kabupaten::find($id);
         $kabupaten->update($request->all());
-        return redirect('/kabupaten')->with('success', 'Data Kabupaten Berhasil Ditambahkan.');
+        return redirect('/kabupaten')->with('success', 'Data Kabupaten Berhasil Diubah.');
     }
     /**
      * Remove the specified resource from storage.

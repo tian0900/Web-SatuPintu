@@ -96,10 +96,7 @@ class UserController extends Controller
         // dd($request);
         $validatedData = $request->validate([
             'name' => 'required|string',
-            'email' => 'required|email|unique:users',
             'password' => 'required|min:8',
-            'nik' => 'required|string|unique:users',
-            'alamat' => 'required|string',
         ]);
 
         $validatedData['role_id'] = 1;

@@ -27,7 +27,7 @@ use App\Models\Kabupaten;
 |
 */
 
-
+Route::put('/users/{id}', [UserController::class, 'update'])->name('users.update');
 Route::get('/dd', [PasarController::class, 'index']);
 Route::get('/', [IndexController::class, 'landing']);
 Route::post('/jenis/store', [PasarController::class, 'store'])->name('jenis.store');
@@ -82,7 +82,7 @@ Route::middleware(['check.role.byname:AdminPasar'])->group(function () {
     Route::delete('/userpage/{id}', [UserController::class, 'destroy'])->name('deleteuser');
     Route::post('/users/store', [UserController::class, 'store'])->name('store.user');
     Route::post('/wajib/store', [UserController::class, 'storewajib'])->name('wajib.store');
-    Route::put('/users/{id}', [UserController::class, 'update'])->name('users.update');
+    
 
 });
 Route::middleware(['check.role.byname:AdminSampah'])->group(function () {
@@ -136,6 +136,9 @@ Route::middleware(['check.role.byname:AdminKabupaten'])->group(function () {
 Route::middleware(['check.role.byname:Bendahara'])->group(function () {
     //Dashboard
     Route::get('/dashboard-bendahara', [IndexController::class, 'dashboardbendahara']);
+
+
+    Route::get('/tagihannmanual', [BendaharaController::class, 'indextagihanmanual']);
 
     //Bendahara
     Route::get('/tagihan', [BendaharaController::class, 'indextagihan']);
@@ -202,6 +205,8 @@ Route::middleware(['check.role.byname:Bendahara'])->group(function () {
 Route::middleware(['check.role.byname:SuperAdmin'])->group(function () {
 
     Route::get('/dashboard', [IndexController::class, 'dashboard']);
+
+    
 
     //Kabupaten
     Route::get('/kabupaten', [KabupatenController::class, 'index']);

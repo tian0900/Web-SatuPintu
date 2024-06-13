@@ -30,6 +30,7 @@
             <div class="logo-name" style="font-size: 24px; width: 200px; height: 50px; padding: 10px; margin: 10px;">
                 Aplikasi Retribusi
             </div>
+            <link rel='icon' href="logo/Logo.png">
         </a>
 
         <!-- ========== List ============  -->

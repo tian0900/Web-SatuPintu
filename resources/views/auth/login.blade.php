@@ -3,7 +3,9 @@
 <head>
     <title>Login Retribusi</title>
     <meta charset="UTF-8">
+    
     <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel='icon' href="logo/Logo.png">
     <!--===============================================================================================-->	
     <!--===============================================================================================-->
     <link rel="stylesheet" type="text/css" href="{{ URL::asset('vendorr/bootstrap/csss/bootstrap.min.css') }}">

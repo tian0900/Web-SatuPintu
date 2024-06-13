@@ -2,7 +2,7 @@
 <!-- ============= Home Section =============== -->
 @section('content')
     <div class="container p-5">
-        <h1 class="mt-3 text-5xl">Daftar Setoran</h1>
+        <h1 class="mt-3 text-5xl">Daftar Tagihan Manual</h1>
 
         <!-- Main modal -->
         <div id="crud-modal" tabindex="-1" aria-hidden="true"
@@ -189,18 +189,16 @@
                                     Nominal
                                 </th>
                                 <th scope="col" class="px-6 py-3">
-                                    Bukti Penyetoran
+                                    Bukti Pembayaran
                                 </th>
-                                <th scope="col" class="px-6 py-3">
-                                    Action
-                                </th>
+                               
                             </tr>
                         </thead>
                         <tbody>
                             @php
-                                $number = ($setor->currentPage() - 1) * $setor->perPage() + 1;
+                                $number = ($tagihan->currentPage() - 1) * $tagihan->perPage() + 1;
                             @endphp <!-- Inisialisasi nomor -->
-                            @foreach ($setor as $item)
+                            @foreach ($tagihan as $item)
                                 <tr
                                     class="odd:bg-white odd:dark:bg-gray-900 even:bg-gray-50 even:dark:bg-gray-800 border-b dark:border-gray-700">
                                     <td scope="row"
@@ -209,14 +207,14 @@
                                     </td>
                                     <td scope="row"
                                         class="px-3 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
-                                        {{ $item->nama_petugas }}
+                                        {{ $item->name }}
                                     </td>
                                     <td scope="row"
                                         class="px-3 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
                                         {{ $item->nama }}
                                     </td>
                                     <td class="px-3 py-4">
-                                        {{ $item->total }}
+                                        {{ $item->total_harga }}
                                     </td>
                                     <td class="px-3 py-4">
                                         <a data-modal-target="modal<?= $item->id ?>"
@@ -225,12 +223,7 @@
                                             Bukti</a>
                                     </td>
 
-                                    <td class="px-3 py-4">
-                                        <!-- Modal toggle -->
-                                        <a data-modal-target="modalkonfirmasi<?= $item->id ?>"
-                                            data-modal-toggle="modalkonfirmasi<?= $item->id ?>"
-                                            class="font-medium text-blue-600 dark:text-blue-500 hover:underline text-center">Konfirmasi</a>
-                                    </td>
+                                   
                                 </tr>
 
                                 <!-- Small Modal -->
@@ -243,7 +236,7 @@
                                             <div
                                                 class="flex items-center justify-between p-4 md:p-5 border-b rounded-t dark:border-gray-600">
                                                 <h3 class="text-lg font-semibold text-gray-900 dark:text-white">
-                                                    Bukti Penyetoran
+                                                    Bukti Pembayaran
                                                 </h3>
                                                 <button type="button"
                                                     class="text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm h-8 w-8 ms-auto inline-flex justify-center items-center dark:hover:bg-gray-600 dark:hover:text-white"
@@ -261,56 +254,16 @@
                                             <!-- Modal body -->
                                             <div class="p-4 md:p-5">
                                                 <img class="card-img-top"
-                                                    src="{{ asset('buktisetor/' . $item->bukti_penyetoran) }}"
-                                                    alt="Course Image" style="height:200px; width:300px;">
+                                                     src="{{ asset('tagihanmanual/' . $item->bukti_bayar) }}"
+                                                     alt="Bukti Bayar"
+                                                     style="max-height: 500px; max-width: 100%; object-fit: contain;">
                                             </div>
+                                            
                                         </div>
                                     </div>
                                 </div>
 
-                                <!-- Small Modal -->
-                                <div id="modalkonfirmasi{{ $item->id }}" tabindex="-1"
-                                    class="fixed top-0 left-0 right-0 z-50 hidden w-full p-4 overflow-x-hidden overflow-y-auto md:inset-0 h-[calc(100%-1rem)] max-h-full">
-                                    <div class="relative w-full max-w-md max-h-full">
-                                        <!-- Modal content -->
-                                        <div class="relative bg-white rounded-lg shadow dark:bg-gray-700">
-                                            <!-- Modal header -->
-                                            <div
-                                                class="flex items-center justify-between p-4 md:p-5 border-b rounded-t dark:border-gray-600">
-                                                <h3 class="text-xl font-medium text-gray-900 dark:text-white">
-                                                    Konfirmasi Setoran
-                                                </h3>
-                                                <button type="button"
-                                                    class="text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm w-8 h-8 ms-auto inline-flex justify-center items-center dark:hover:bg-gray-600 dark:hover:text-white"
-                                                    data-modal-hide="modalkonfirmasi{{ $item->id }}">
-                                                    <svg class="w-3 h-3" aria-hidden="true"
-                                                        xmlns="http://www.w3.org/2000/svg" fill="none"
-                                                        viewBox="0 0 14 14">
-                                                        <path stroke="currentColor" stroke-linecap="round"
-                                                            stroke-linejoin="round" stroke-width="2"
-                                                            d="m1 1 6 6m0 0 6 6M7 7l6-6M7 7l-6 6" />
-                                                    </svg>
-                                                    <span class="sr-only">Close modal</span>
-                                                </button>
-                                            </div>
-                                            <!-- Modal body -->
-                                            <form action="{{ route('setor.updateStatus', $item->id) }}" method="POST">
-                                                @csrf
-                                                @method('PUT')
-                                                <div class="relative bg-white rounded-lg shadow dark:bg-gray-700">
-                                                    <div class="flex items-center justify-between p-4 md:p-5 border-b rounded-t dark:border-gray-600">
-                                                        <h4>Apakah Anda yakin ingin mengkonfirmasi Setoran dari {{ $item->nama_petugas }} senilai {{ $item->total }}?</h4>
-                                                    </div>
-                                                    <div class="p-4 md:p-5 flex justify-end">
-                                                        <button type="submit" class="mr-3 px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600">Konfirmasi</button>
-                                                        <button type="button" class="px-4 py-2 bg-gray-300 text-gray-700 rounded hover:bg-gray-400" data-modal-hide="modalkonfirmasi{{ $item->id }}">Batal</button>
-                                                    </div>
-                                                </div>
-                                            </form>
-                                            
-                                        </div>
-                                    </div>
-                                <z
+                               
                             @endforeach
                         </tbody>
                     </table>
@@ -318,27 +271,27 @@
                     <nav class="bg-white flex items-center flex-column flex-wrap md:flex-row justify-between p-4" aria-label="Table navigation">
                         <span class="text-sm font-normal text-gray-500 dark:text-gray-400 mb-4 md:mb-0 block w-full md:inline md:w-auto">
                             Showing
-                            <span class="font-semibold text-gray-900 dark:text-white">{{ $setor->firstItem() }}</span> to
-                            <span class="font-semibold text-gray-900 dark:text-white">{{ $setor->lastItem() }}</span> of
-                            <span class="font-semibold text-gray-900 dark:text-white">{{ $setor->total() }}</span>
+                            <span class="font-semibold text-gray-900 dark:text-white">{{ $tagihan->firstItem() }}</span> to
+                            <span class="font-semibold text-gray-900 dark:text-white">{{ $tagihan->lastItem() }}</span> of
+                            <span class="font-semibold text-gray-900 dark:text-white">{{ $tagihan->total() }}</span>
                         </span>
                     
                         <div class="w-full md:w-auto text-right">
                             <ul class="inline-flex -space-x-px rtl:space-x-reverse text-sm h-8">
                                 <!-- Previous Page Link -->
-                                @if ($setor->onFirstPage())
+                                @if ($tagihan->onFirstPage())
                                     <li aria-disabled="true" aria-label="Previous">
                                         <span class="flex items-center justify-center px-3 h-8 ms-0 leading-tight text-gray-500 bg-white border border-gray-300 rounded-s-lg dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 cursor-not-allowed">Previous</span>
                                     </li>
                                 @else
                                     <li>
-                                        <a href="{{ $setor->previousPageUrl() }}" class="flex items-center justify-center px-3 h-8 ms-0 leading-tight text-gray-500 bg-white border border-gray-300 rounded-s-lg hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white" aria-label="Previous">Previous</a>
+                                        <a href="{{ $tagihan->previousPageUrl() }}" class="flex items-center justify-center px-3 h-8 ms-0 leading-tight text-gray-500 bg-white border border-gray-300 rounded-s-lg hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white" aria-label="Previous">Previous</a>
                                     </li>
                                 @endif
                     
                                 <!-- Pagination Elements -->
-                                @foreach ($setor->links()->elements[0] as $page => $url)
-                                    @if ($page == $setor->currentPage())
+                                @foreach ($tagihan->links()->elements[0] as $page => $url)
+                                    @if ($page == $tagihan->currentPage())
                                         <li aria-current="page">
                                             <span class="flex items-center justify-center px-3 h-8 text-blue-600 border border-gray-300 bg-blue-50 hover:bg-blue-100 hover:text-blue-700 dark:border-gray-700 dark:bg-gray-700 dark:text-white">{{ $page }}</span>
                                         </li>
@@ -350,9 +303,9 @@
                                 @endforeach
                     
                                 <!-- Next Page Link -->
-                                @if ($setor->hasMorePages())
+                                @if ($tagihan->hasMorePages())
                                     <li>
-                                        <a href="{{ $setor->nextPageUrl() }}" class="flex items-center justify-center px-3 h-8 leading-tight text-gray-500 bg-white border border-gray-300 rounded-e-lg hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white" aria-label="Next">Next</a>
+                                        <a href="{{ $tagihan->nextPageUrl() }}" class="flex items-center justify-center px-3 h-8 leading-tight text-gray-500 bg-white border border-gray-300 rounded-e-lg hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white" aria-label="Next">Next</a>
                                     </li>
                                 @else
                                     <li aria-disabled="true" aria-label="Next">
