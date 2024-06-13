@@ -38,7 +38,8 @@ Route::get('/jenis/edit', [PasarController::class, 'edit'])->name('jenis.edit');
 // Route::put('/jenis/edit/{id}', [PasarController::class, 'update'])->name('jenis.update');
 Route::put('/jenis/{post}', [PasarController::class, 'update'])->name('jenis.update');
 
-Route::middleware(['check.role.byname:AdminPasar'])->group(function () {
+Route::middleware(['auth', 'check.role.byname:AdminKedinasan'])->group(function () {
+    
     //Dashboard 
     Route::get('/dashboard-pasar', [IndexController::class, 'dashboardpasar']);
 
@@ -85,7 +86,7 @@ Route::middleware(['check.role.byname:AdminPasar'])->group(function () {
     
 
 });
-Route::middleware(['check.role.byname:AdminSampah'])->group(function () {
+Route::middleware(['auth', 'check.role.byname:AdminSampah'])->group(function () {
     Route::get('/dashboard-sampah', [IndexController::class, 'dashboardsampah']);
     //Item
     Route::get('/itemsampah', [ItemRetribusiController::class, 'indexsampah'])->name('item.indexsampah');

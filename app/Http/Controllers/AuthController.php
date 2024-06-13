@@ -13,6 +13,7 @@ class AuthController extends Controller
 
     public function loginCheck(Request $request)
     {
+        
         try {
             $loginData = $request->validate([
                 'name' => 'required',
@@ -24,17 +25,18 @@ class AuthController extends Controller
             }
 
             $user = auth()->user();
+            // dd($user->role->name);
             $accessToken = $user->createToken('authToken')->plainTextToken;
 
-            if ($user->name === 'AdminPasar') {
+            if ($user->role->name === 'AdminKedinasan') {
                 return redirect('/dashboard-pasar');
-            } elseif ($user->name === 'SuperAdmin') {
+            } elseif ($user->role->name  === 'Admin') {
                 return redirect('/dashboard');
-            } elseif ($user->name === 'AdminSampah') {
+            } elseif ($user->role->name  === 'AdminSampah') {
                 return redirect('/dashboard-sampah');
-            } elseif ($user->name === 'Bendahara') {
+            } elseif ($user->role->name  === 'Bendahara') {
                 return redirect('/dashboard-bendahara');
-            } elseif ($user->name === 'AdminKabupaten') {
+            } elseif ($user->role->name  === 'AdminKabupaten') {
                 return redirect('/dashboard-kabupaten');
             } else {
                 // Jika peran tidak diketahui, ganti return redirect sesuai kebutuhan

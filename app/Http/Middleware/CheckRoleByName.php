@@ -4,28 +4,28 @@ namespace App\Http\Middleware;
 
 use Closure;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\View;
-use Symfony\Component\HttpFoundation\Response;
+use Illuminate\Support\Facades\Log;
 
 class CheckRoleByName
 {
-    /**
-     * Handle an incoming request.
-     *
-     * @param  \Closure(\Illuminate\Http\Request): (\Symfony\Component\HttpFoundation\Response)  $next
-     */
     public function handle($request, Closure $next, ...$roles)
     {
         $user = $request->user();
+        Log::info('User Data', ['user' => $user]);
 
-        logger('Data Pengguna:', ['user' => $user]); // Log data pengguna
+        if (!$user) {
+            Log::warning('Unauthorized access attempt: No user found');
+            return response()->json(['error' => 'Unauthorized'], 403);
+        }
 
-        // Memeriksa apakah pengguna memiliki nama role yang diizinkan
-        if ($user && $user->name && in_array($user->name, $roles)) {
+        $userRoleName = $user->role->name ?? null;
+        Log::info('User Role', ['role_name' => $userRoleName]);
+
+        if ($userRoleName && in_array($userRoleName, $roles)) {
             return $next($request);
         }
 
-        // Jika tidak memiliki nama role yang diizinkan, kembalikan respons error
+        Log::warning('Unauthorized access attempt: Invalid role', ['role_name' => $userRoleName]);
         return response()->json(['error' => 'Unauthorized'], 403);
-    }   
+    }
 }
