@@ -63,6 +63,20 @@
                 </div>
             </li>
 
+            <li>
+                <div class="title">
+                    <a href="/tagihannmanual" class="link">
+                        <i class='bx bx-money'></i>
+                        <span class="name">Tagihan Manual</span>
+                    </a>
+                    <!-- <i class='bx bxs-chevron-down'></i> -->
+                </div>
+                <div class="submenu">
+                    <a href="/tagihannmanual" class="link submenu-title">Tagihan Manual</a>
+                    <!-- submenu links here  -->
+                </div>
+            </li>
+
             <!-- -------- Dropdown List Item ------- -->
             <li>
                 <div class="title">
