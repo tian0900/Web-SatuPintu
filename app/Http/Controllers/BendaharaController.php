@@ -2,10 +2,14 @@
 
 namespace App\Http\Controllers;
 
+use App\Exports\SetoranExport;
 use App\Models\Tagihan;
 use Illuminate\Http\Request;
 use App\Models\Setor;
 use Illuminate\Support\Facades\DB;
+use App\Exports\TagihanManualExport;
+use Maatwebsite\Excel\Facades\Excel;
+use App\Exports\TagihanExport;
 
 class BendaharaController extends Controller
 {
@@ -227,4 +231,20 @@ class BendaharaController extends Controller
     {
         //
     }
+
+    // In your controller
+ 
+    
+    public function exportTagihanManual()
+    {
+        return Excel::download(new TagihanManualExport, 'tagihan_manual.xlsx');
+    }
+    
+    public function exportSetoran()
+    {
+        return Excel::download(new SetoranExport, 'Setoran.xlsx');
+    }
+    
+
+
 }

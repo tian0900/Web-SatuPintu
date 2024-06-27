@@ -13,7 +13,6 @@ class AuthController extends Controller
 
     public function loginCheck(Request $request)
     {
-        
         try {
             $loginData = $request->validate([
                 'name' => 'required',
@@ -25,27 +24,30 @@ class AuthController extends Controller
             }
 
             $user = auth()->user();
-            // dd($user->role->name);
-            $accessToken = $user->createToken('authToken')->plainTextToken;
 
-            if ($user->role->name === 'AdminKedinasan') {
-                return redirect('/dashboard-pasar');
-            } elseif ($user->role->name  === 'Admin') {
-                return redirect('/dashboard');
-            } elseif ($user->role->name  === 'AdminSampah') {
-                return redirect('/dashboard-sampah');
-            } elseif ($user->role->name  === 'Bendahara') {
-                return redirect('/dashboard-bendahara');
-            } elseif ($user->role->name  === 'AdminKabupaten') {
-                return redirect('/dashboard-kabupaten');
-            } else {
-                // Jika peran tidak diketahui, ganti return redirect sesuai kebutuhan
-                return redirect('/kontrak')->withErrors(['pesan' => 'Input yang Anda masukkan salah']);
+            // Menetapkan expires_at untuk token
+            $accessToken = $user->createToken('authToken', ['*'], now()->addWeeks(1))->plainTextToken;
+
+            // Pengalihan berdasarkan role user
+            switch ($user->role->name) {
+                case 'AdminKedinasan':
+                    return redirect('/dashboard-pasar');
+                case 'Admin':
+                    return redirect('/dashboard');
+                case 'AdminSampah':
+                    return redirect('/dashboard-sampah');
+                case 'Bendahara':
+                    return redirect('/dashboard-bendahara');
+                case 'AdminKabupaten':
+                    return redirect('/dashboard-kabupaten');
+                default:
+                    return redirect('/kontrak')->withErrors(['pesan' => 'Peran tidak dikenal.']);
             }
         } catch (\Exception $e) {
             return redirect()->back()->withErrors(['message' => 'Terjadi kesalahan: ' . $e->getMessage()]);
         }
     }
+
 
 
     public function logout()

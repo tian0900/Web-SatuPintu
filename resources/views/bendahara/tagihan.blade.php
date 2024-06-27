@@ -86,6 +86,10 @@
             <div class="flex space-x-4 mb-4">
                 <button id="nonTunaiButton" class="bg-green-500 text-white px-4 py-2 rounded">Non Tunai</button>
                 <button id="tunaiButton" class="bg-yellow-500 text-white px-4 py-2 rounded">Tunai</button>
+                <form id="exportForm" action="{{ route('export-tagihan') }}" method="get" style="display: inline;">
+                    <input type="hidden" name="filter" id="exportFilter" value="">
+                    <button type="submit" class="bg-blue-500 text-white px-4 py-2 rounded">Export to Excel</button>
+                </form>
             </div>
             <div class="flex flex-column sm:flex-row flex-wrap space-y-4 sm:space-y-0 items-center justify-between pb-4">
                 <div>
@@ -332,6 +336,10 @@
             });
         });
     </script>
+
+
+
+
     <script>
         $(document).ready(function() {
             $('#nonTunaiButton').click(function() {

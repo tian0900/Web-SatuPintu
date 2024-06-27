@@ -14,6 +14,8 @@ use App\Http\Controllers\AuthController;
 use App\Http\Controllers\KedinasanController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\BendaharaController;
+use App\Exports\TagihanExport;
+use Maatwebsite\Excel\Facades\Excel;
 use App\Models\Kabupaten;
 
 /*
@@ -26,6 +28,15 @@ use App\Models\Kabupaten;
 | be assigned to the "web" middleware group. Make something great!
 |
 */
+Route::get('export-tagihan', function () {
+    return Excel::download(new TagihanExport, 'tagihan.xlsx');
+})->name('export-tagihan');;
+
+Route::get('/export-tagihan-manual', [BendaharaController::class, 'exportTagihanManual'])->name('export-tagihan-manual');
+Route::get('/export-setoran', [BendaharaController::class, 'exportSetoran'])->name('export-setoran');
+
+
+
 
 Route::put('/users/{id}', [UserController::class, 'update'])->name('users.update');
 Route::get('/dd', [PasarController::class, 'index']);
