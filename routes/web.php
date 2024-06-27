@@ -214,7 +214,7 @@ Route::middleware(['check.role.byname:Bendahara'])->group(function () {
 //Dashboard
 
 
-Route::middleware(['check.role.byname:SuperAdmin'])->group(function () {
+Route::middleware(['check.role.byname:Admin'])->group(function () {
 
     Route::get('/dashboard', [IndexController::class, 'dashboard']);
 
