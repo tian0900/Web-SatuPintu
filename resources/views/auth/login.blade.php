@@ -21,6 +21,8 @@
     {{-- <link rel="stylesheet" type="text/css" href="{{ URL::asset('vendorr/animsition/csss/animsition.min.css') }}"> --}}
     <link rel="stylesheet" type="text/css" href="{{ URL::asset('csss/main.css') }}">
     <link rel="stylesheet" type="text/css" href="{{ URL::asset('Auth/style.css') }}">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/flowbite/2.3.0/flowbite.min.css"  rel="stylesheet" />
+
     <!--===============================================================================================-->
     <style>
         .alert-danger {
@@ -36,9 +38,9 @@
                     @csrf
                     <header class="login-header">
                         <span class="login100-form-title p-b-26">
-                            <img src="logo/Logo.png" alt="" class="login-img mt-3">
-                            Aplikasi Retribusi
-                        </span>
+                            <img src="logo/Logo.png" alt="" class="login-img mt-3 h-auto max-w-lg mx-auto">
+                            <span class="login-title">Aplikasi Retribusi</span>
+                        </span> 
                         <p class="login-info">
                             Please enter your user information.
                         </p>
@@ -47,8 +49,10 @@
                     <!-- Display error message -->
                     @if ($errors->any())
                         <div class="alert alert-danger">
-                            @foreach ($errors->all() as $error)
-                                <p>{{ $error }}</p>
+                            @foreach ($errors->all() as $error) 
+                            <div class="p-4 mb-4 text-sm text-red-800 rounded-lg bg-red-50 dark:bg-gray-800 dark:text-red-400" role="alert">
+                                <span class="font-medium text-center">{{$error}}</span> 
+                            </div>
                             @endforeach
                         </div>
                     @endif
@@ -80,6 +84,7 @@
             </div>
         </div>
     </div>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/flowbite/2.3.0/flowbite.min.js"></script>
     
     <!--===============================================================================================-->
     <script src="{{ URL::asset('vendorr/jquery/jquery-3.2.1.min.js') }}"></script>

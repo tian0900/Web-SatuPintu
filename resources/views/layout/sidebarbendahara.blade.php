@@ -27,7 +27,7 @@
         <a href="#" class="logo-box">
             {{-- <i class='bx bxl-xing'></i> --}}
             <img class="img-logo" src="Logo/logo.png" alt="">
-            <div class="logo-name" style="font-size: 24px; width: 200px; height: 50px; padding: 10px; margin: 10px;">
+            <div class="logo-name" style="font-size: 24px; width: 200px; height: 50px; padding: 7px; margin: 7px;">
                 Aplikasi Retribusi
             </div>
             <link rel='icon' href="logo/Logo.png">
@@ -93,7 +93,7 @@
             <li>
                 <div class="title">
                     <a href="/pembatalanpasar" class="link">
-                        <i class='bx bx-x'></i>
+                        <i class='bx bx-x-circle'></i>
                         <span class="name">Pembatalan</span>
                     </a>
                 </div>
