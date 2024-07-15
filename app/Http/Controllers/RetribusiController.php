@@ -17,9 +17,7 @@ class RetribusiController extends Controller
         // Menampilkan view 'data.retribusi' dan meneruskan data retribusi ke dalam view
         return view('data.retribusi', ['retribusi' => $retribusi]);
     }
-       
     
-
     /**
      * Show the form for creating a new resource.
      */
@@ -58,7 +56,7 @@ class RetribusiController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit( $id)
+    public function edit($id)
     {
         $retribusi = Retribusi::findOrFail($id);
         return view('data.retribusi-edit', compact('retribusi'));

@@ -177,7 +177,7 @@ header {
 .login100-form-title {
   display: block;
   /* font-family: Poppins-Bold; */
-  font-size: 40px;
+  font-size: 30px;
   color: #333333;
   font-weight: bold;
   text-align: center;
@@ -186,7 +186,7 @@ header {
   margin-top: 20px;
 }
 .login-img{
-  width: 25px;
+  width: 35px;
 }
 .login-info{
   text-align: center;

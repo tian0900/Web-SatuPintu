@@ -97,7 +97,7 @@ Route::middleware(['check.role.byname:AdminSampah'])->group(function () {
     Route::post('/usersampah/store', [UserController::class, 'storesampah'])->name('usersampah.store');
     Route::post('/wajibsampah/store', [UserController::class, 'storewajibsampah'])->name('sampah.store');
     Route::put('/usersampah/{id}', [UserController::class, 'updatesampah'])->name('usersampah.update');
-
+ 
     //Sub-Wilayah-sampah
     Route::get('/wilayah-sampah', [WilayahController::class, 'indexsampah']);
     Route::get('/data/wilayah-sampah/{id}/edit', [WilayahController::class, 'editsampah'])->name('wilayah-sampah.edit');

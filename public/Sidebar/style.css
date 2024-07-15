@@ -39,8 +39,8 @@
 
 /* --------- Logo ------------ */
 .logo-box{
-    height: 30px;
-    width: 80px;
+    /* height: 30px;
+    width: 80px; */
     display: flex;
     align-items: center;
     color: var(--color_Dark2);
@@ -51,9 +51,9 @@
 }
 .logo-box img{
     height: 50px;
-    width: 90px;
+    width: 80px;
     margin: 25px;
-    margin-top: 70px;
+    /* margin-top: 70px; */
     text-align: center;
     line-height: 50px;
     transition: all .5s ease;
@@ -62,7 +62,7 @@
     transform: rotate(360deg);
 }
 .logo-name{
-    font-size: 27px;
+    font-size: 15px;
     font-weight: 900;
     margin-top: 50px;
     color: #3F84AD;
@@ -149,8 +149,7 @@
 .sidebar.close .logo-name,
 .sidebar.close .title .name,
 .sidebar.close .title .bxs-chevron-down
-{
-    font-weight: 400;
+{ 
     display: none;
 }
 

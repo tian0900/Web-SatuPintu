@@ -13,9 +13,7 @@ class BendaharaController extends Controller
      * Display a listing of the resource.
      */
     public function indextagihan()
-    {
-
-
+    { 
         $tagihan = DB::table('tagihan')
             ->join('pembayaran', 'pembayaran.tagihan_id', '=', 'tagihan.id')
             ->join('kontrak', 'kontrak.id', '=', 'tagihan.kontrak_id')

@@ -48,7 +48,6 @@ class KontrakController extends Controller
         ]);
     }
 
-
     public function indexsampah()
     {
         $user = Auth::user();
