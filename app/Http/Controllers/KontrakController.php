@@ -27,48 +27,49 @@ class KontrakController extends Controller
      */
     // use Illuminate\Support\Facades\Auth;
 
-public function index()
-{
-    $user = Auth::user();
-    $kabupaten_id = $user->admin->kabupaten_id;
+    public function index()
+    {
+        $user = Auth::user();
+        $retribusi_id = $user->admin->retribusi_id;
 
-    // Mengurutkan berdasarkan kolom 'created_at' dalam urutan menurun (data terbaru tampil pertama)
-    $Kontrak = Kontrak::with(['wajibRetribusi', 'itemRetribusi', 'Wilayah'])
-        ->whereHas('itemRetribusi.retribusi.kedinasan', function ($query) use ($kabupaten_id) {
-            $query->where('kabupaten_id', $kabupaten_id);
-        })
-        ->whereHas('itemRetribusi', function ($query) {
-            $query->where('retribusi_id', 2);
-        })
-        ->orderBy('created_at', 'desc')
-        ->paginate(5);
+        // Mengurutkan berdasarkan kolom 'created_at' dalam urutan menurun (data terbaru tampil pertama)
+        $Kontrak = Kontrak::with(['wajibRetribusi', 'itemRetribusi', 'Wilayah'])
+            ->whereHas('itemRetribusi', function ($query) use ($retribusi_id) {
+                $query->where('retribusi_id', $retribusi_id);
+            })
 
-    $wajibRetribusiOptions = WajibRetribusi::all();
-    $itemRetribusiOptions = ItemRetribusi::where('retribusi_id', 2)->get();
-    $subWilayahOptions = Wilayah::all();
-        
-    return view('data.kontrak', [
-        'Kontrak' => $Kontrak,
-        'wajibRetribusiOptions' => $wajibRetribusiOptions,
-        'itemRetribusiOptions' => $itemRetribusiOptions,
-        'subWilayahOptions' => $subWilayahOptions,
-    ]);
-}
+            ->orderBy('created_at', 'desc')
+            ->paginate(5);
+
+        $wajibRetribusiOptions = WajibRetribusi::all();
+        $itemRetribusiOptions = ItemRetribusi::where('retribusi_id', $retribusi_id)->get();
+        $subWilayahOptions = Wilayah::all();
+
+        return view('data.kontrak', [
+            'Kontrak' => $Kontrak,
+            'wajibRetribusiOptions' => $wajibRetribusiOptions,
+            'itemRetribusiOptions' => $itemRetribusiOptions,
+            'subWilayahOptions' => $subWilayahOptions,
+        ]);
+    }
 
 
 
     public function indexsampah()
     {
         $user = Auth::user();
+        $retribusi_id = $user->admin->retribusi_id;
         $test = $user->name;
         $Kontrak = Kontrak::with(['wajibRetribusi', 'itemRetribusi', 'Wilayah'])
-            ->whereHas('itemRetribusi', function ($query) {
-                $query->where('retribusi_id', 1);
+            ->whereHas('itemRetribusi', function ($query) use ($retribusi_id) {
+                $query->where('retribusi_id', $retribusi_id);
             })
+
+            ->orderBy('created_at', 'desc')
             ->paginate(5);
 
         $wajibRetribusiOptions = WajibRetribusi::all();
-        $itemRetribusiOptions = ItemRetribusi::all();
+        $itemRetribusiOptions = ItemRetribusi::where('retribusi_id', $retribusi_id)->get();
 
         $subWilayahOptions = Wilayah::all();
         return view('data.kontraksampah', [
@@ -125,7 +126,7 @@ public function index()
             if ($tagihan) {
                 // Fresh to ensure tagihan_id is valid
                 $tagihan = $tagihan->fresh();
-            
+
                 // Buat pembayaran untuk setiap tagihan yang baru dibuat
                 $metodePembayaran = ['VA', 'QRIS'];
                 $pembayaranData = [
@@ -135,10 +136,10 @@ public function index()
                     'created_at' => now(),
                     'updated_at' => now(),
                 ];
-            
+
                 // Simpan data Pembayaran ke dalam database
                 $pembayaran = Pembayaran::create($pembayaranData);
-            
+
                 if ($pembayaran) {
                     return redirect()->back()->with('success', 'Data Kontrak Berhasil Ditambahkan.');
                 } else {
@@ -147,7 +148,7 @@ public function index()
             } else {
                 return redirect()->back()->with('error', 'Gagal membuat Tagihan.');
             }
-            
+
 
         }
     }

@@ -15,22 +15,24 @@ class AtributController extends Controller
      */
     public function index()
     {
+        $user = Auth::user();
+        $retribusi_id = $user->admin->retribusi_id;
+        
         $wilayah = Wilayah::all();
-        $atribut = Post::where(function ($query) {
-            $query->where('data.kelompok_pasar', 'exists', true)
-                ->orWhere('data.Kelompok_pasar', 'exists', true);
-        })->paginate(5); // Menampilkan 10 item per halaman
-
+        $atribut = Post::where('retribusi_id', $retribusi_id)->paginate(5);
         return view('data.atribut', ['atribut' => $atribut, 'wilayah' => $wilayah]);
     }
 
 
     public function indexsampah()
     {
-        $atribut = Post::where(function ($query) {
-            $query->where('data.kategori_sampah', 'exists', true)
-                ->orWhere('data.Kategori_sampah', 'exists', true);
-        })->paginate(5);
+        $user = Auth::user();
+        $retribusi_id = $user->admin->retribusi_id;
+
+        $test = Post::all();
+        $atribut = Post::where('retribusi_id', $retribusi_id)->paginate(5);
+
+        // return $test;
 
         return view('data.atributsampah', ['atribut' => $atribut]);
     }
@@ -48,6 +50,9 @@ class AtributController extends Controller
      */
     public function store(Request $request)
     {
+        $user = Auth::user();
+        $retribusi_id = $user->admin->retribusi_id;
+
         // Validasi inputan
         $user = Auth::user();
         $test = $user->name;
@@ -65,8 +70,7 @@ class AtributController extends Controller
 
         // Buat array data yang akan disimpan ke MongoDB
         $dataToSave = [
-            'kabupaten_id' => '1', // Sesuaikan dengan ID kabupaten yang sesuai
-            'kedinasan_id' => '1', // Sesuaikan dengan ID kedinasan yang sesuai
+            'retribusi_id' => $retribusi_id, // Sesuaikan dengan ID kedinasan yang sesuai
             'data' => [
                 [
                     'Kelompok_pasar' => $validatedData['kelompok_pasar'],
@@ -81,7 +85,7 @@ class AtributController extends Controller
 
         // Data untuk disimpan ke dalam MongoDB menggunakan model Post
         $postToSave = [
-            'retribusi_id' => 2, // Sesuaikan dengan ID kabupaten yang sesuai
+            'retribusi_id' => $retribusi_id, // Sesuaikan dengan ID kabupaten yang sesuai
             'kategori_nama' => $kategori_nama,
             'jenis_tagihan' => $validatedData['jenis_tagihan'],
             'harga' => $validatedData['harga'],
@@ -100,6 +104,8 @@ class AtributController extends Controller
 
     public function storesampah(Request $request)
     {
+        $user = Auth::user();
+        $retribusi_id = $user->admin->retribusi_id;
         // Validasi inputan
         $validatedData = $request->validate([
             'Kategori_sampah' => 'required',
@@ -115,8 +121,7 @@ class AtributController extends Controller
 
         // Buat array data yang akan disimpan ke MongoDB
         $dataToSave = [
-            'kabupaten_id' => '1', // Sesuaikan dengan ID kabupaten yang sesuai
-            'kedinasan_id' => '1', // Sesuaikan dengan ID kedinasan yang sesuai
+            'retribusi_id' => $retribusi_id, // Sesuaikan dengan ID kedinasan yang sesuai
             'data' => [
                 [
                     'Kategori_sampah' => $validatedData['Kategori_sampah'],
@@ -127,16 +132,16 @@ class AtributController extends Controller
         ];
 
         $postToSave = [
-            'retribusi_id' => 1, // Sesuaikan dengan ID kabupaten yang sesuai
+            'retribusi_id' => $retribusi_id, // Sesuaikan dengan ID kabupaten yang sesuai
             'kategori_nama' => $kategori_nama,
             'jenis_tagihan' => $validatedData['jenis_tagihan'],
             'harga' => $validatedData['harga'],
         ];
 
-
+        // return $dataToSave;
 
         // Simpan data ke dalam ItemRetribusi
-        ItemRetribusi::create($postToSave);
+        // ItemRetribusi::create($postToSave);
 
 
         // Simpan data ke dalam MongoDB menggunakan model Post

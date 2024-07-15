@@ -24,9 +24,9 @@ class Admin extends Model
         return $this->belongsTo(User::class, 'user_id');
     }
 
-    public function kabupaten()
+    public function retribusi()
     {
-        return $this->belongsTo(Kabupaten::class, 'kabupaten_id');
+        return $this->belongsTo(Retribusi::class, 'retribusi_id');
     }
 }
 

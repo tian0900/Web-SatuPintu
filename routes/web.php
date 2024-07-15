@@ -28,10 +28,8 @@ use App\Models\Kabupaten;
 | be assigned to the "web" middleware group. Make something great!
 |
 */
-Route::get('export-tagihan', function () {
-    return Excel::download(new TagihanExport, 'tagihan.xlsx');
-})->name('export-tagihan');;
 
+Route::get('/export-tagihan', [BendaharaController::class, 'exportTagihan'])->name('export-tagihan');
 Route::get('/export-tagihan-manual', [BendaharaController::class, 'exportTagihanManual'])->name('export-tagihan-manual');
 Route::get('/export-setoran', [BendaharaController::class, 'exportSetoran'])->name('export-setoran');
 
@@ -95,9 +93,6 @@ Route::middleware(['auth', 'check.role.byname:AdminKedinasan'])->group(function 
     Route::post('/users/store', [UserController::class, 'store'])->name('store.user');
     Route::post('/wajib/store', [UserController::class, 'storewajib'])->name('wajib.store');
     
-
-});
-Route::middleware(['auth', 'check.role.byname:AdminSampah'])->group(function () {
     Route::get('/dashboard-sampah', [IndexController::class, 'dashboardsampah']);
     //Item
     Route::get('/itemsampah', [ItemRetribusiController::class, 'indexsampah'])->name('item.indexsampah');
@@ -121,6 +116,10 @@ Route::middleware(['auth', 'check.role.byname:AdminSampah'])->group(function () 
     Route::delete('/wilayah-sampah/{id}', [WilayahController::class, 'destroysampah'])->name('wilayah-sampah.destroy');
     Route::get('/wilayah-sampah/create', [WilayahController::class, 'createsampah'])->name('wilayah-sampah.create');
     Route::post('/wilayah-sampah', [WilayahController::class, 'storesampah'])->name('wilayah-sampah.store');
+
+});
+Route::middleware(['auth', 'check.role.byname:AdminSampah'])->group(function () {
+   
 });
 Route::middleware(['check.role.byname:AdminKabupaten'])->group(function () {
     //Dashboard

@@ -84,8 +84,10 @@
 
         <div class="container m-5">
             <div class="flex space-x-4 mb-4">
-                <button id="nonTunaiButton" class="bg-green-500 text-white px-4 py-2 rounded">Non Tunai</button>
-                <button id="tunaiButton" class="bg-yellow-500 text-white px-4 py-2 rounded">Tunai</button>
+                <button id="nonTunaiButton" class="bg-green-500 text-white px-4 py-2 rounded"
+                    onclick="setFilter('non-tunai')">Non Tunai</button>
+                <button id="tunaiButton" class="bg-yellow-500 text-white px-4 py-2 rounded"
+                    onclick="setFilter('tunai')">Tunai</button>
                 <form id="exportForm" action="{{ route('export-tagihan') }}" method="get" style="display: inline;">
                     <input type="hidden" name="filter" id="exportFilter" value="">
                     <button type="submit" class="bg-blue-500 text-white px-4 py-2 rounded">Export to Excel</button>
@@ -337,7 +339,11 @@
         });
     </script>
 
-
+    <script>
+        function setFilter(value) {
+            document.getElementById('exportFilter').value = value;
+        }
+    </script>
 
 
     <script>

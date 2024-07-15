@@ -233,18 +233,25 @@ class BendaharaController extends Controller
     }
 
     // In your controller
- 
-    
+    public function exportTagihan(Request $request)
+    {
+        $filter = $request->input('filter', ''); // Ambil filter dari request
+
+        return Excel::download(new \App\Exports\TagihanExport($filter), 'tagihan.xlsx');
+    }
+
+
+
     public function exportTagihanManual()
     {
         return Excel::download(new TagihanManualExport, 'tagihan_manual.xlsx');
     }
-    
+
     public function exportSetoran()
     {
         return Excel::download(new SetoranExport, 'Setoran.xlsx');
     }
-    
+
 
 
 }

@@ -13,6 +13,7 @@ class Post extends Model
     protected $fillable = [
         'kabupaten_id',
         'kedinasan_id',
+        'retribusi_id',
         'data',
     ];
 

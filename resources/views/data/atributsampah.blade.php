@@ -2,7 +2,7 @@
 <!-- ============= Home Section =============== -->
 @section('content')
     <div class="container p-5">
-        <h1 class="mt-3 text-5xl">Atribut Sampah</h1>
+        <h1 class="mt-3 text-5xl">Atribut</h1>
 
         <!-- Modal toggle -->
         <button data-modal-target="crud-modal" data-modal-toggle="crud-modal"

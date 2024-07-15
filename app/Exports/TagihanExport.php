@@ -1,5 +1,4 @@
 <?php
-
 namespace App\Exports;
 
 use Maatwebsite\Excel\Concerns\FromQuery;
@@ -13,9 +12,16 @@ class TagihanExport implements FromQuery, WithHeadings, WithStyles
 {
     use Exportable;
 
+    private $filter;
+
+    public function __construct($filter)
+    {
+        $this->filter = $filter;
+    }
+
     public function query()
     {
-        return DB::table('tagihan')
+        $query = DB::table('tagihan')
             ->join('pembayaran', 'pembayaran.tagihan_id', '=', 'tagihan.id')
             ->join('kontrak', 'kontrak.id', '=', 'tagihan.kontrak_id')
             ->join('item_retribusi', 'item_retribusi.id', '=', 'kontrak.item_retribusi_id')
@@ -31,8 +37,15 @@ class TagihanExport implements FromQuery, WithHeadings, WithStyles
             ->where('tagihan.status', 'NEW')
             ->where('pembayaran.status', 'WAITING')
             ->where('tagihan.active', '1')
-            ->where('item_retribusi.retribusi_id', '2')
-            ->orderBy('tagihan.id');
+            ->where('item_retribusi.retribusi_id', '2');
+
+        if ($this->filter === 'tunai') {
+            $query->where('pembayaran.metode_pembayaran', 'CASH');
+        } elseif ($this->filter === 'non-tunai') {
+            $query->whereIn('pembayaran.metode_pembayaran', ['VA', 'QRIS']);
+        }
+
+        return $query->orderBy('tagihan.id');
     }
 
     public function headings(): array
@@ -49,7 +62,6 @@ class TagihanExport implements FromQuery, WithHeadings, WithStyles
     public function styles(Worksheet $sheet)
     {
         return [
-            // Gaya untuk baris header
             1 => [
                 'font' => [
                     'bold' => true,
@@ -63,7 +75,6 @@ class TagihanExport implements FromQuery, WithHeadings, WithStyles
                     ],
                 ],
             ],
-            // Gaya untuk semua sel
             'A1:E1' => [
                 'font' => [
                     'bold' => true,
