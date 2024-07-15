@@ -25,29 +25,36 @@ class KontrakController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index()
-    {
-        $user = Auth::user();
+    // use Illuminate\Support\Facades\Auth;
 
-        // Mengurutkan berdasarkan kolom 'created_at' dalam urutan menurun (data terbaru tampil pertama)
-        $Kontrak = Kontrak::with(['wajibRetribusi', 'itemRetribusi', 'Wilayah'])
-            ->whereHas('itemRetribusi', function ($query) {
-                $query->where('retribusi_id', 2);
-            })
-            ->orderBy('created_at', 'desc')
-            ->paginate(5);
+public function index()
+{
+    $user = Auth::user();
+    $kabupaten_id = $user->admin->kabupaten_id;
 
-        $wajibRetribusiOptions = WajibRetribusi::all();
-        $itemRetribusiOptions = ItemRetribusi::where('retribusi_id', 2)->get();
-        $subWilayahOptions = Wilayah::all();
+    // Mengurutkan berdasarkan kolom 'created_at' dalam urutan menurun (data terbaru tampil pertama)
+    $Kontrak = Kontrak::with(['wajibRetribusi', 'itemRetribusi', 'Wilayah'])
+        ->whereHas('itemRetribusi.retribusi.kedinasan', function ($query) use ($kabupaten_id) {
+            $query->where('kabupaten_id', $kabupaten_id);
+        })
+        ->whereHas('itemRetribusi', function ($query) {
+            $query->where('retribusi_id', 2);
+        })
+        ->orderBy('created_at', 'desc')
+        ->paginate(5);
 
-        return view('data.kontrak', [
-            'Kontrak' => $Kontrak,
-            'wajibRetribusiOptions' => $wajibRetribusiOptions,
-            'itemRetribusiOptions' => $itemRetribusiOptions,
-            'subWilayahOptions' => $subWilayahOptions,
-        ]);
-    }
+    $wajibRetribusiOptions = WajibRetribusi::all();
+    $itemRetribusiOptions = ItemRetribusi::where('retribusi_id', 2)->get();
+    $subWilayahOptions = Wilayah::all();
+        
+    return view('data.kontrak', [
+        'Kontrak' => $Kontrak,
+        'wajibRetribusiOptions' => $wajibRetribusiOptions,
+        'itemRetribusiOptions' => $itemRetribusiOptions,
+        'subWilayahOptions' => $subWilayahOptions,
+    ]);
+}
+
 
 
     public function indexsampah()

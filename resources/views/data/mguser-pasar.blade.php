@@ -558,7 +558,11 @@
                             @endforeach
                         </tbody>
                     </table>
-                    <center></center>
+                    <div class="pagination-container">
+                        <div class="pagination justify-content-end">
+                            {{ $users->links() }}
+                        </div>
+                    </div>
                     
                     
                     
@@ -566,9 +570,16 @@
                     
                 </div>
             </div>
-            <div class="pagination justify-content-center">
-                {{ $users->links() }}
-            </div>
+          
+            
+            <style>
+            .pagination-container {
+                display: flex;
+                justify-content: flex-end;
+            }
+            </style>
+            
+            
         </div>
 
         @if (session('success'))
