@@ -7,6 +7,7 @@ use App\Models\Kontrak;
 use App\Models\WajibRetribusi;
 use App\Models\ItemRetribusi;
 use App\Models\Wilayah;
+use App\Models\Pembayaran;
 use App\Models\Tagihan;
 use Dompdf\Dompdf;
 use Dompdf\Options;
@@ -24,29 +25,36 @@ class KontrakController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index()
-    {
-        $user = Auth::user();
+    // use Illuminate\Support\Facades\Auth;
 
-        // Mengurutkan berdasarkan kolom 'created_at' dalam urutan menurun (data terbaru tampil pertama)
-        $Kontrak = Kontrak::with(['wajibRetribusi', 'itemRetribusi', 'Wilayah'])
-            ->whereHas('itemRetribusi', function ($query) {
-                $query->where('retribusi_id', 2);
-            })
-            ->orderBy('created_at', 'desc')
-            ->paginate(5);
+public function index()
+{
+    $user = Auth::user();
+    $kabupaten_id = $user->admin->kabupaten_id;
 
-        $wajibRetribusiOptions = WajibRetribusi::all();
-        $itemRetribusiOptions = ItemRetribusi::where('retribusi_id', 2)->get();
-        $subWilayahOptions = Wilayah::all();
+    // Mengurutkan berdasarkan kolom 'created_at' dalam urutan menurun (data terbaru tampil pertama)
+    $Kontrak = Kontrak::with(['wajibRetribusi', 'itemRetribusi', 'Wilayah'])
+        ->whereHas('itemRetribusi.retribusi.kedinasan', function ($query) use ($kabupaten_id) {
+            $query->where('kabupaten_id', $kabupaten_id);
+        })
+        ->whereHas('itemRetribusi', function ($query) {
+            $query->where('retribusi_id', 2);
+        })
+        ->orderBy('created_at', 'desc')
+        ->paginate(5);
 
-        return view('data.kontrak', [
-            'Kontrak' => $Kontrak,
-            'wajibRetribusiOptions' => $wajibRetribusiOptions,
-            'itemRetribusiOptions' => $itemRetribusiOptions,
-            'subWilayahOptions' => $subWilayahOptions,
-        ]);
-    }
+    $wajibRetribusiOptions = WajibRetribusi::all();
+    $itemRetribusiOptions = ItemRetribusi::where('retribusi_id', 2)->get();
+    $subWilayahOptions = Wilayah::all();
+        
+    return view('data.kontrak', [
+        'Kontrak' => $Kontrak,
+        'wajibRetribusiOptions' => $wajibRetribusiOptions,
+        'itemRetribusiOptions' => $itemRetribusiOptions,
+        'subWilayahOptions' => $subWilayahOptions,
+    ]);
+}
+
 
     public function indexsampah()
     {
@@ -71,7 +79,6 @@ class KontrakController extends Controller
     }
     public function store(Request $request)
     {
-        // dd($request);
         // Validasi input dari form
         $validatedData = $request->validate([
             'wajib_retribusi_id' => 'required|exists:wajib_retribusi,id',
@@ -109,13 +116,41 @@ class KontrakController extends Controller
                 'active' => 1,
                 'jatuh_tempo' => $jatuhTempo->endOfMonth(), // Akhiri bulan untuk jatuh tempo
             ];
-            // dd($tagihanData);
-            // Simpan data Tagihan ke dalam database
-            Tagihan::create($tagihanData);
-        }
 
-        return redirect()->back()->with('success', 'Data Kontrak Berhasil Ditambahkan.');
+            // Simpan data Tagihan ke dalam database
+            // Simpan data Tagihan ke dalam database
+            $tagihan = Tagihan::create($tagihanData);
+
+            if ($tagihan) {
+                // Fresh to ensure tagihan_id is valid
+                $tagihan = $tagihan->fresh();
+            
+                // Buat pembayaran untuk setiap tagihan yang baru dibuat
+                $metodePembayaran = ['VA', 'QRIS'];
+                $pembayaranData = [
+                    'tagihan_id' => $tagihan->id,
+                    'metode_pembayaran' => $metodePembayaran[array_rand($metodePembayaran)],
+                    'status' => 'WAITING',
+                    'created_at' => now(),
+                    'updated_at' => now(),
+                ];
+            
+                // Simpan data Pembayaran ke dalam database
+                $pembayaran = Pembayaran::create($pembayaranData);
+            
+                if ($pembayaran) {
+                    return redirect()->back()->with('success', 'Data Kontrak Berhasil Ditambahkan.');
+                } else {
+                    return redirect()->back()->with('error', 'Gagal membuat Pembayaran.');
+                }
+            } else {
+                return redirect()->back()->with('error', 'Gagal membuat Tagihan.');
+            }
+            
+
+        }
     }
+
 
     public function deleteKontrak($id)
     {

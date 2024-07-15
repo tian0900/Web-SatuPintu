@@ -12,6 +12,8 @@ class Pembayaran extends Model
     protected $connection = 'mysql';
 
     protected $fillable = [
+        'tagihan_id',
+        'metode_pembayaran',
         'status',
     ];
 }

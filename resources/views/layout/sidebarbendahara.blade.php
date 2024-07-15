@@ -30,6 +30,7 @@
             <div class="logo-name" style="font-size: 24px; width: 200px; height: 50px; padding: 7px; margin: 7px;">
                 Aplikasi Retribusi
             </div>
+            <link rel='icon' href="logo/Logo.png">
         </a>
 
         <!-- ========== List ============  -->
@@ -58,6 +59,20 @@
                 </div>
                 <div class="submenu">
                     <a href="/tagihan" class="link submenu-title">Tagihan</a>
+                    <!-- submenu links here  -->
+                </div>
+            </li>
+
+            <li>
+                <div class="title">
+                    <a href="/tagihannmanual" class="link">
+                        <i class='bx bx-money'></i>
+                        <span class="name">Tagihan Manual</span>
+                    </a>
+                    <!-- <i class='bx bxs-chevron-down'></i> -->
+                </div>
+                <div class="submenu">
+                    <a href="/tagihannmanual" class="link submenu-title">Tagihan Manual</a>
                     <!-- submenu links here  -->
                 </div>
             </li>

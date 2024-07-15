@@ -24,26 +24,30 @@ class AuthController extends Controller
             }
 
             $user = auth()->user();
-            $accessToken = $user->createToken('authToken')->plainTextToken;
 
-            if ($user->name === 'AdminPasar') {
-                return redirect('/dashboard-pasar');
-            } elseif ($user->name === 'SuperAdmin') {
-                return redirect('/dashboard');
-            } elseif ($user->name === 'AdminSampah') {
-                return redirect('/dashboard-sampah');
-            } elseif ($user->name === 'Bendahara') {
-                return redirect('/dashboard-bendahara');
-            } elseif ($user->name === 'AdminKabupaten') {
-                return redirect('/dashboard-kabupaten');
-            } else {
-                // Jika peran tidak diketahui, ganti return redirect sesuai kebutuhan
-                return redirect('/kontrak')->withErrors(['pesan' => 'Input yang Anda masukkan salah']);
+            // Menetapkan expires_at untuk token
+            $accessToken = $user->createToken('authToken', ['*'], now()->addWeeks(1))->plainTextToken;
+
+            // Pengalihan berdasarkan role user
+            switch ($user->role->name) {
+                case 'AdminKedinasan':
+                    return redirect('/dashboard-pasar');
+                case 'Admin':
+                    return redirect('/dashboard');
+                case 'AdminSampah':
+                    return redirect('/dashboard-sampah');
+                case 'Bendahara':
+                    return redirect('/dashboard-bendahara');
+                case 'AdminKabupaten':
+                    return redirect('/dashboard-kabupaten');
+                default:
+                    return redirect('/kontrak')->withErrors(['pesan' => 'Peran tidak dikenal.']);
             }
         } catch (\Exception $e) {
             return redirect()->back()->withErrors(['message' => 'Terjadi kesalahan: ' . $e->getMessage()]);
         }
     }
+
 
 
     public function logout()

@@ -9,6 +9,7 @@
     <script src="https://unpkg.com/@phosphor-icons/web"></script>
     <!-- STYLESHEET -->
     <link rel="stylesheet" href="{{ asset ('Sidebar/style.css')}}" />
+    <link rel='icon' href="logo/Logo.png">
     <!-- Bootstrap CSS -->
     
     <!-- Box Icons  -->

@@ -15,4 +15,9 @@ class Kabupaten extends Model
     protected $fillable = [
         'nama',
     ];
+
+    public function admins()
+    {
+        return $this->hasMany(Admin::class, 'kabupaten_id');
+    }
 }

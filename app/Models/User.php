@@ -51,5 +51,10 @@ class User extends Authenticatable
     {
         return $this->belongsTo(Role::class, 'role_id');
     }
+
+    public function admin()
+    {
+        return $this->hasOne(Admin::class, 'user_id');
+    }
     
 }

@@ -1,4 +1,13 @@
 @extends('layout.sidebarpasar')
+<style>
+    .pagination {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+</style>
+
+
 <!-- ============= Home Section =============== -->
 @section('content')
     <div class="container p-5">
@@ -63,24 +72,12 @@
                                     placeholder="Password" required="">
                             </div>
                         </div>
-                        <div class="grid gap-4 mb-4 grid-cols-2">
-                            <div class="col-span-2">
-                                <label for="photo_profile"
-                                    class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Upload
-                                    Profil</label>
-                                <input
-                                    class="block w-full text-sm text-gray-900 border border-gray-300 rounded-lg cursor-pointer bg-gray-50 dark:text-gray-400 focus:outline-none dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400"
-                                    aria-describedby="file_input_help" id="photo_profile" name="photo_profile"
-                                    type="file">
-                                <p class="mt-1 text-sm text-gray-500 dark:text-gray-300" id="file_input_help">SVG, PNG, JPG
-                                    or GIF (MAX. 800x400px).</p>
-                            </div>
-                        </div>
+                        
                         <div class="grid gap-4 mb-4 grid-cols-2">
                             <div class="col-span-2">
                                 <label for="nik"
                                     class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">NIK</label>
-                                <input type="text" id="nik" name="nik"
+                                <input type="number" id="nik" name="nik"
                                     class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
                                     placeholder="NIK" required="">
                             </div>
@@ -153,22 +150,22 @@
                     </div>
                     <div class="mb-4">
                         <label for="email" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Email</label>
-                        <input type="email" id="email" name="email" required
+                        <input type="email" id="email" name="email" 
                                class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500">
                     </div>
                     <div class="mb-4">
                         <label for="password" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Password</label>
-                        <input type="password" id="password" name="password" required
+                        <input type="password" id="password" name="password" 
                                class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500">
                     </div>
                     <div class="mb-4">
                         <label for="nik" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">NIK</label>
-                        <input type="text" id="nik" name="nik" required
+                        <input type="number" id="nik" name="nik" 
                                class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500">
                     </div>
                     <div class="mb-4">
                         <label for="alamat" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Alamat</label>
-                        <input type="text" id="alamat" name="alamat" required
+                        <input type="text" id="alamat" name="alamat" 
                                class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500">
                     </div>
                     <div class="flex justify-end mt-4">
@@ -228,7 +225,7 @@
                                     class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Email</label>
                                 <input type="text" id="email" name="email"
                                     class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
-                                    placeholder="Email" required="">
+                                    placeholder="Email">
                             </div>
                         </div>
                         <div class="grid gap-4 mb-4 grid-cols-2">
@@ -237,7 +234,7 @@
                                     class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Password</label>
                                 <input type="password" id="password" name="password"
                                     class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
-                                    placeholder="Password" required="">
+                                    placeholder="Password" >
                             </div>
                         </div>
                         <div class="grid gap-4 mb-4 grid-cols-2">
@@ -246,7 +243,7 @@
                                     class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">NIK</label>
                                 <input type="text" id="nik" name="nik"
                                     class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
-                                    placeholder="NIK" required="">
+                                    placeholder="NIK" >
                             </div>
                         </div>
                         <div class="grid gap-4 mb-4 grid-cols-2">
@@ -255,7 +252,7 @@
                                     class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Alamat</label>
                                 <input type="text" id="alamat" name="alamat"
                                     class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
-                                    placeholder="Alamat" required="">
+                                    placeholder="Alamat" >
                             </div>
                         </div>
                         <button type="submit"
@@ -410,9 +407,57 @@
                                         <a data-modal-target="modal<?= $data->id ?>"
                                             data-modal-toggle="modal<?= $data->id ?>"
                                             class="font-medium text-blue-600 dark:text-blue-500 hover:underline text-center">Edit</a>
+
+                                            <a data-modal-target="modalhapus<?= $data->id ?>"
+                                                data-modal-toggle="modalhapus<?= $data->id ?>"
+                                                class="font-medium text-red-600 dark:text-red-500 hover:underline text-center">Hapus</a>
                                     </td>
                                 </tr>
+                                <div id="modalhapus<?= $data->id ?>" tabindex="-1" aria-hidden="true"
+                                    class="hidden overflow-y-auto overflow-x-hidden fixed top-0 right-0 left-0 z-50 justify-center items-center w-full md:inset-0 h-[calc(100%-1rem)] max-h-full">
+                                    <div class="relative p-4 w-full max-w-md max-h-full">
+                                        <!-- Modal content -->
+                                        <div class="relative bg-white rounded-lg shadow dark:bg-gray-700">
+                                            <!-- Modal header -->
+                                            <button type="button"
+                                                class="absolute top-3 end-2.5 text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm w-8 h-8 ms-auto inline-flex justify-center items-center dark:hover:bg-gray-600 dark:hover:text-white"
+                                                data-modal-hide="modalhapus<?= $data->id ?>">
+                                                <svg class="w-3 h-3" aria-hidden="true"
+                                                    xmlns="http://www.w3.org/2000/svg" fill="none"
+                                                    viewBox="0 0 14 14">
+                                                    <path stroke="currentColor" stroke-linecap="round"
+                                                        stroke-linejoin="round" stroke-width="2"
+                                                        d="m1 1 6 6m0 0 6 6M7 7l6-6M7 7l-6 6" />
+                                                </svg>
+                                                <span class="sr-only">Close modal</span>
+                                            </button>
 
+                                            <!-- Modal body -->
+                                            <div class="p-4 text-center ">
+                                                <form action="{{ route('deleteuser', $data->id) }}" method="POST">
+                                                    @csrf
+                                                    @method('Delete')
+                                                    <svg class="mx-auto mb-4 text-gray-400 w-12 h-12 dark:text-gray-200"
+                                                        aria-hidden="true" xmlns="http://www.w3.org/2000/svg"
+                                                        fill="none" viewBox="0 0 20 20">
+                                                        <path stroke="currentColor" stroke-linecap="round"
+                                                            stroke-linejoin="round" stroke-width="2"
+                                                            d="M10 11V6m0 8h.01M19 10a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z" />
+                                                    </svg>
+                                                    <h3 class="mb-5 text-lg font-normal text-gray-500 dark:text-gray-400">
+                                                        Apakah Anda yakin ingin menghapus Pengguna ini?</h3>
+                                                    <button type="submit"
+                                                        class="text-white bg-red-600 hover:bg-red-800 focus:ring-4 focus:outline-none focus:ring-red-300 dark:focus:ring-red-800 font-medium rounded-lg text-sm inline-flex items-center px-5 py-2.5 text-center">
+                                                        Ya, saya yakin
+                                                    </button>
+                                                    <button data-modal-hide="modalhapus<?= $data->id ?>" type="button"
+                                                        class="py-2.5 px-5 ms-3 text-sm font-medium text-gray-900 focus:outline-none bg-white rounded-lg border border-gray-200 hover:bg-gray-100 hover:text-blue-700 focus:z-10 focus:ring-4 focus:ring-gray-100 dark:focus:ring-gray-700 dark:bg-gray-800 dark:text-gray-400 dark:border-gray-600 dark:hover:text-white dark:hover:bg-gray-700">
+                                                        Batalkan</button>
+                                                </form>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
                                 <!-- Main modal -->
                                 <div id="modal<?= $data->id ?>" tabindex="-1" aria-hidden="true"
                                     class="hidden overflow-y-auto overflow-x-hidden fixed top-0 right-0 left-0 z-50 justify-center items-center w-full md:inset-0 h-[calc(100%-1rem)] max-h-full">
@@ -469,7 +514,7 @@
                                                             <label for="password"
                                                                 class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Password</label>
                                                             <input type="password" id="password"
-                                                                value="{{ old('password', $data->password) }}"
+                                                                placeholder="Masukkan Password baru anda"
                                                                 name="password"
                                                                 class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
                                                                 required="">
@@ -479,7 +524,7 @@
                                                         <div class="col-span-2">
                                                             <label for="nik"
                                                                 class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">NIK</label>
-                                                            <input type="text" id="nik" name="nik"
+                                                            <input type="number" id="nik" name="nik"
                                                                 value="{{ old('nik', $data->nik) }}"
                                                                 class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
                                                                 required="">
@@ -513,65 +558,28 @@
                             @endforeach
                         </tbody>
                     </table>
-                    <nav class="bg-white flex items-center flex-column flex-wrap md:flex-row justify-between p-4"
-                        aria-label="Table navigation">
-                        <span
-                            class="text-sm font-normal text-gray-500 dark:text-gray-400 mb-4 md:mb-0 block w-full md:inline md:w-auto">
-                            Showing
-                            <span class="font-semibold text-gray-900 dark:text-white">{{ $users->firstItem() }}</span> to
-                            <span class="font-semibold text-gray-900 dark:text-white">{{ $users->lastItem() }}</span> of
-                            <span class="font-semibold text-gray-900 dark:text-white">{{ $users->total() }}</span>
-                        </span>
-
-                        <div class="w-full md:w-auto text-right">
-                            <ul class="inline-flex -space-x-px rtl:space-x-reverse text-sm h-8">
-                                <!-- Previous Page Link -->
-                                @if ($users->onFirstPage())
-                                    <li aria-disabled="true" aria-label="Previous">
-                                        <span
-                                            class="flex items-center justify-center px-3 h-8 ms-0 leading-tight text-gray-500 bg-white border border-gray-300 rounded-s-lg dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 cursor-not-allowed">Previous</span>
-                                    </li>
-                                @else
-                                    <li>
-                                        <a href="{{ $users->previousPageUrl() }}"
-                                            class="flex items-center justify-center px-3 h-8 ms-0 leading-tight text-gray-500 bg-white border border-gray-300 rounded-s-lg hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white"
-                                            aria-label="Previous">Previous</a>
-                                    </li>
-                                @endif
-
-                                <!-- Pagination Elements -->
-                                @foreach ($users->links()->elements[0] as $page => $url)
-                                    @if ($page == $users->currentPage())
-                                        <li aria-current="page">
-                                            <span
-                                                class="flex items-center justify-center px-3 h-8 text-blue-600 border border-gray-300 bg-blue-50 hover:bg-blue-100 hover:text-blue-700 dark:border-gray-700 dark:bg-gray-700 dark:text-white">{{ $page }}</span>
-                                        </li>
-                                    @else
-                                        <li>
-                                            <a href="{{ $url }}"
-                                                class="flex items-center justify-center px-3 h-8 leading-tight text-gray-500 bg-white border border-gray-300 hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white">{{ $page }}</a>
-                                        </li>
-                                    @endif
-                                @endforeach
-
-                                <!-- Next Page Link -->
-                                @if ($users->hasMorePages())
-                                    <li>
-                                        <a href="{{ $users->nextPageUrl() }}"
-                                            class="flex items-center justify-center px-3 h-8 leading-tight text-gray-500 bg-white border border-gray-300 rounded-e-lg hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white"
-                                            aria-label="Next">Next</a>
-                                    </li>
-                                @else
-                                    <li aria-disabled="true" aria-label="Next">
-                                        <span
-                                            class="flex items-center justify-center px-3 h-8 leading-tight text-gray-500 bg-white border border-gray-300 rounded-e-lg dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 cursor-not-allowed">Next</span>
-                                    </li>
-                                @endif
-                            </ul>
+                    <div class="pagination-container">
+                        <div class="pagination justify-content-end">
+                            {{ $users->links() }}
                         </div>
-                    </nav>
+                    </div>
+                    
+                    
+                    
+
+                    
                 </div>
             </div>
+          
+            
+            <style>
+            .pagination-container {
+                display: flex;
+                justify-content: flex-end;
+            }
+            </style>
+            
+            
         </div>
 
         @if (session('success'))

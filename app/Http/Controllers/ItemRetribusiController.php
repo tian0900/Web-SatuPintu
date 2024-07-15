@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 
 use App\Models\ItemRetribusi;
 use App\Models\Retribusi;
+use Illuminate\Support\Facades\Auth;
 
 class ItemRetribusiController extends Controller
 {
@@ -14,9 +15,20 @@ class ItemRetribusiController extends Controller
      */
     public function index()
     {
-        $item = ItemRetribusi::where('retribusi_id', 2)->paginate(5);
+        $user = Auth::user();
+        $kabupaten_id = $user->admin->kabupaten_id;
+
+        // Query untuk mendapatkan ItemRetribusi berdasarkan kriteria yang diinginkan
+        $item = ItemRetribusi::whereHas('retribusi.kedinasan', function ($query) use ($kabupaten_id) {
+            $query->where('kabupaten_id', $kabupaten_id);
+        })
+            ->where('retribusi_id', 2)
+            ->orderBy('created_at', 'desc')
+            ->paginate(5);
+
         return view('data.item', compact('item'));
     }
+
 
     public function indexsampah()
     {
@@ -42,10 +54,10 @@ class ItemRetribusiController extends Controller
             'retribusi_id' => 'required',
             'kategori_nama' => 'required',
             'jenis_tagihan' => 'required',
-            'harga'         => 'required',
-          ]);
-          ItemRetribusi::create($request->all());
-          return redirect("/item")
+            'harga' => 'required',
+        ]);
+        ItemRetribusi::create($request->all());
+        return redirect("/item")
             ->with('success', 'Data Item Retribusi Berhasil Di Tambahkan');
     }
 
@@ -57,7 +69,7 @@ class ItemRetribusiController extends Controller
         $item = ItemRetribusi::find($id);
         return view('item.show', compact('item'));
     }
-    
+
     public function edit(string $id)
     {
         $item = ItemRetribusi::find($id);
@@ -70,17 +82,16 @@ class ItemRetribusiController extends Controller
     public function update(Request $request, string $id)
     {
         $request->validate([
-            'retribusi_id'  => 'required',
             'kategori_nama' => 'required',
             'jenis_tagihan' => 'required',
-            'harga'         => 'required',
-          ]);
-          $item = ItemRetribusi::find($id);
-          $item->update($request->all());
-          return redirect("/item")
+            'harga' => 'required',
+        ]);
+        $item = ItemRetribusi::find($id);
+        $item->update($request->all());
+        return redirect("/item")
             ->with('success', 'Data Item Retribusi Berhasil Diubah.');
     }
-    
+
 
 
     /**
