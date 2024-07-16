@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Exports\SetoranExport;
 use App\Models\Tagihan;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Request;
 use App\Models\Setor;
 use Illuminate\Support\Facades\DB;
@@ -18,6 +19,9 @@ class BendaharaController extends Controller
      */
     public function indextagihan()
     {
+
+        $user = Auth::user();
+        $retribusi_id = $user->admin->retribusi_id;
         $tagihan = DB::table('tagihan')
             ->join('pembayaran', 'pembayaran.tagihan_id', '=', 'tagihan.id')
             ->join('kontrak', 'kontrak.id', '=', 'tagihan.kontrak_id')
@@ -35,7 +39,7 @@ class BendaharaController extends Controller
             ->where('tagihan.status', 'NEW') // Filter based on tagihan status
             ->where('pembayaran.status', 'WAITING') // Filter based on pembayaran status
             ->where('tagihan.active', '1') // Filter based on tagihan active status
-            ->where('item_retribusi.retribusi_id', '2') // Filter based on item_retribusi retribusi_id
+            ->where('item_retribusi.retribusi_id', $retribusi_id) // Filter based on item_retribusi retribusi_id
             ->paginate(5);
 
         // dd($tagihan);
@@ -45,6 +49,8 @@ class BendaharaController extends Controller
 
     public function indextagihanmanual()
     {
+        $user = Auth::user();
+        $retribusi_id = $user->admin->retribusi_id;
         $tagihan = DB::table('tagihan_manual')
             ->join('setoran', 'setoran.id', '=', 'tagihan_manual.setoran_id')
             ->join('item_retribusi', 'item_retribusi.id', '=', 'tagihan_manual.item_retribusi_id')
@@ -58,7 +64,7 @@ class BendaharaController extends Controller
                 'sub_wilayah.nama'
             )
             ->where('tagihan_manual.status', 'NEW') // Filter based on tagihanmanual status
-            ->where('item_retribusi.retribusi_id', 2) // Filter based on item_retribusi retribusi_id
+            ->where('item_retribusi.retribusi_id', $retribusi_id) // Filter based on item_retribusi retribusi_id
             ->paginate(5);
 
         // dd($tagihan);
@@ -105,8 +111,14 @@ class BendaharaController extends Controller
 
     public function indexsetor()
     {
+        $user = Auth::user();
+        $retribusi_id = $user->admin->retribusi_id;
+
         $setor = DB::table('setoran')
             ->join('transaksi_petugas', 'setoran.id', '=', 'transaksi_petugas.setoran_id')
+            ->join('tagihan', 'tagihan.id', '=', 'transaksi_petugas.tagihan_id')
+            ->join('kontrak', 'kontrak.id', '=', 'tagihan.kontrak_id')
+            ->join('item_retribusi', 'item_retribusi.id', '=', 'kontrak.item_retribusi_id')
             ->join('petugas', 'petugas.id', '=', 'transaksi_petugas.petugas_id')
             ->join('users', 'users.id', '=', 'petugas.user_id')
             ->join('sub_wilayah', 'sub_wilayah.id', '=', 'setoran.sub_wilayah_id')
@@ -116,8 +128,9 @@ class BendaharaController extends Controller
                 'sub_wilayah.nama',
                 'users.name as nama_petugas',
 
-            )// Mengelompokkan berdasarkan petugas_id
+            )
             ->where('setoran.status', 'MENUNGGU')
+            ->where('item_retribusi.retribusi_id', $retribusi_id)
             ->paginate(5);
         return view('bendahara.setor', ['setor' => $setor]);
     }
@@ -155,6 +168,8 @@ class BendaharaController extends Controller
     public function indexpembatalan()
     {
 
+        $user = Auth::user();
+        $retribusi_id = $user->admin->retribusi_id;
 
         $pembatalan = DB::table('tagihan')
             ->join('pembayaran', 'pembayaran.tagihan_id', '=', 'tagihan.id')
@@ -171,7 +186,7 @@ class BendaharaController extends Controller
             )
             ->where('tagihan.status', 'VERIFIED') // Filter berdasarkan status pembayaran
             ->where('tagihan.active', '1') // Filter berdasarkan status pembayaran
-            ->where('item_retribusi.retribusi_id', '2') // Filter berdasarkan status pembayaran
+            ->where('item_retribusi.retribusi_id', $retribusi_id) // Filter berdasarkan status pembayaran
             ->distinct() // Menambahkan klausa distinct
             ->paginate(5);
 

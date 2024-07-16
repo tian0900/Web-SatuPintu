@@ -7,6 +7,8 @@ use Maatwebsite\Excel\Concerns\WithStyles;
 use Maatwebsite\Excel\Concerns\Exportable;
 use PhpOffice\PhpSpreadsheet\Worksheet\Worksheet;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Auth;
+
 
 class TagihanExport implements FromQuery, WithHeadings, WithStyles
 {
@@ -21,6 +23,9 @@ class TagihanExport implements FromQuery, WithHeadings, WithStyles
 
     public function query()
     {
+        $user = Auth::user();
+        $retribusi_id = $user->admin->retribusi_id;
+
         $query = DB::table('tagihan')
             ->join('pembayaran', 'pembayaran.tagihan_id', '=', 'tagihan.id')
             ->join('kontrak', 'kontrak.id', '=', 'tagihan.kontrak_id')
@@ -37,7 +42,7 @@ class TagihanExport implements FromQuery, WithHeadings, WithStyles
             ->where('tagihan.status', 'NEW')
             ->where('pembayaran.status', 'WAITING')
             ->where('tagihan.active', '1')
-            ->where('item_retribusi.retribusi_id', '2');
+            ->where('item_retribusi.retribusi_id', $retribusi_id);
 
         if ($this->filter === 'tunai') {
             $query->where('pembayaran.metode_pembayaran', 'CASH');
@@ -47,6 +52,7 @@ class TagihanExport implements FromQuery, WithHeadings, WithStyles
 
         return $query->orderBy('tagihan.id');
     }
+
 
     public function headings(): array
     {
