@@ -15,7 +15,7 @@ class Wilayah extends Model
     // Properti $fillable untuk menentukan kolom yang dapat diisi secara massal
     protected $fillable = [
         'nama',
-        'kedinasan_id',
+        'retribusi_id',
        // Menambahkan _token ke properti fillable
     ];
 }

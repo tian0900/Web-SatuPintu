@@ -43,7 +43,9 @@ class KontrakController extends Controller
 
         $wajibRetribusiOptions = WajibRetribusi::all();
         $itemRetribusiOptions = ItemRetribusi::where('retribusi_id', $retribusi_id)->get();
-        $subWilayahOptions = Wilayah::all();
+        $subWilayahOptions =  Wilayah::where('retribusi_id', $retribusi_id)->get();
+
+        // return $subWilayahOptions;
 
         return view('data.kontrak', [
             'Kontrak' => $Kontrak,

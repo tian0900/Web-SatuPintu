@@ -2,8 +2,10 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Retribusi;
 use Illuminate\Http\Request;
 use App\Models\Wilayah;
+use Illuminate\Support\Facades\Auth;
 
 class WilayahController extends Controller
 {
@@ -12,39 +14,57 @@ class WilayahController extends Controller
      */
     public function index()
     {
+        $user = Auth::user();
+        $retribusi_id = $user->admin->retribusi_id;
+
         // Mengurutkan berdasarkan kolom 'created_at' dalam urutan menurun (data terbaru tampil pertama)
-        $wilayah = Wilayah::orderBy('created_at', 'desc')->paginate(5);
-    
+        // dan memfilter berdasarkan retribusi_id pengguna yang sedang login
+        $wilayah = Wilayah::where('retribusi_id', $retribusi_id)
+            ->orderBy('created_at', 'desc')
+            ->paginate(5);
+
         // Menampilkan view 'data.wilayah-pasar' dan meneruskan data wilayah ke dalam view
         return view('data.wilayah-pasar', ['wilayah' => $wilayah]);
     }
-    
 
-    /**
-     * Show the form for creating a new resource.
-     */
-    public function create()
-    {
-        return view('data.wilayah-create');
-    }
-
-    // Method untuk menyimpan data yang ditambahkan
     public function store(Request $request)
     {
+        $user = Auth::user();
+        $retribusi_id = $user->admin->retribusi_id;
+
         // Validasi data
         $request->validate([
             'nama' => 'required|string|max:255',
-            // Pastikan kedinasan_id tersedia dalam request atau atur di sini
+            // Pastikan retribusi_id tersedia dalam request atau atur di sini
         ]);
 
         // Menyimpan data baru
         Wilayah::create([
             'nama' => $request->nama,
+            'retribusi_id' => $retribusi_id,
         ]);
 
         // Redirect ke halaman yang sesuai
-        return redirect('/wilayah-pasar')->with('success', 'Data Retribusi Berhasil Ditambahkan!');
+        return redirect('/wilayah-pasar')->with('success', 'Data Wilayah Berhasil Ditambahkan!');
     }
+
+
+    // public function store(Request $request)
+    // {
+    //     // Validasi data
+    //     $request->validate([
+    //         'nama' => 'required|string|max:255',
+    //         // Pastikan kedinasan_id tersedia dalam request atau atur di sini
+    //     ]);
+
+    //     // Menyimpan data baru
+    //     Wilayah::create([
+    //         'nama' => $request->nama,
+    //     ]);
+
+    //     // Redirect ke halaman yang sesuai
+    //     return redirect('/wilayah-pasar')->with('success', 'Data Retribusi Berhasil Ditambahkan!');
+    // }
 
     /**
      * Display the specified resource.
@@ -57,7 +77,7 @@ class WilayahController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit( $id)
+    public function edit($id)
     {
         $wilayah = Wilayah::findOrFail($id);
         return view('data.wilayah-edit', compact('wilayah'));
@@ -71,7 +91,7 @@ class WilayahController extends Controller
         $retribusi = Wilayah::findOrFail($id);
         $retribusi->update($request->all());
         return redirect('/wilayah-pasar')->with('success', 'Data Wilayah Berhasil Diperbarui!');
-    
+
     }
 
     /**
@@ -83,7 +103,7 @@ class WilayahController extends Controller
 
         // Hapus retribusi
         $wilayah->delete();
-    
+
         // Redirect atau kembalikan sesuai kebutuhan
         return redirect()->back()->with('success', 'Data Wilayah Berhasil Dihapus');
     }
@@ -133,7 +153,7 @@ class WilayahController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function editsampah( $id)
+    public function editsampah($id)
     {
         $wilayah = Wilayah::findOrFail($id);
         return view('data.wilayah-edit', compact('wilayah'));
@@ -147,7 +167,7 @@ class WilayahController extends Controller
         $retribusi = Wilayah::findOrFail($id);
         $retribusi->update($request->all());
         return redirect('/wilayah-sampah')->with('success', 'Data Wilayah Berhasil Diperbarui!');
-    
+
     }
 
     /**
@@ -159,7 +179,7 @@ class WilayahController extends Controller
 
         // Hapus retribusi
         $wilayah->delete();
-    
+
         // Redirect atau kembalikan sesuai kebutuhan
         return redirect()->back()->with('success', 'Data Wilayah Berhasil Dihapus');
     }
