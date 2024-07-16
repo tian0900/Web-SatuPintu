@@ -231,7 +231,7 @@ Route::middleware(['check.role.byname:Admin'])->group(function () {
 
     //Manajemen User
     Route::get('/useradmin', [UserController::class, 'indexadmin']);
-    Route::post('/useradmin/store', [UserController::class, 'storeadmin'])->name('users.storeadmin');
+    Route::post('/useradmin/store', [UserController::class, 'storedata'])->name('users.storedata');
 });
 //ADMIN
 Route::get('/login', [AuthController::class, 'loginview']);

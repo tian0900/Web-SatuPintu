@@ -4,6 +4,9 @@
     <div class="container p-5">
         <h1 class="mt-3 text-5xl">Daftar User</h1>
         {{-- <a type="button" class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800" data-modal-target="crud-user" data-modal-toggle="crud-user">Tambah Data</a> --}}
+        <a type="button"
+            class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800"
+            data-modal-target="crud-user" data-modal-toggle="crud-user">Tambah Data</a>
 
         <!-- Main modal -->
         <div id="crud-user" tabindex="-1" aria-hidden="true"
@@ -28,11 +31,11 @@
                         </button>
                     </div>
                     <!-- Modal body -->
-                    <form class="p-4 md:p-5" action="{{ route('users.storeadmin') }}" method="POST">
+                    <form class="p-4 md:p-5" action="{{ route('users.storedata') }}" method="POST">
                         @csrf
                         <div class="grid gap-4 mb-4 grid-cols-2">
                             <div class="col-span-2">
-                                <label for="nama"
+                                <label for="name"
                                     class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Nama</label>
                                 <input type="text" id="name" name="name"
                                     class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
@@ -56,7 +59,7 @@
                                     class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
                                     placeholder="Password" required="">
                             </div>
-                        </div> 
+                        </div>
                         <div class="grid gap-4 mb-4 grid-cols-2">
                             <div class="col-span-2">
                                 <label for="nik"
@@ -77,13 +80,26 @@
                         </div>
                         <div class="grid gap-4 mb-4 grid-cols-2">
                             <div class="col-span-2">
-                                <label for="wilayah"
-                                    class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Role </label>
+                                <label for="role_id"
+                                    class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Role</label>
                                 <select id="role_id" name="role_id"
                                     class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
                                     required>
-                                    @foreach ($roleOptions as $roles)
-                                        <option value="{{ $roles->id }}">{{ $roles->name }}</option>
+                                    @foreach ($roleOptions as $role)
+                                        <option value="{{ $role->id }}">{{ $role->name }}</option>
+                                    @endforeach
+                                </select>
+                            </div>
+                        </div>
+                        <div class="grid gap-4 mb-4 grid-cols-2">
+                            <div class="col-span-2">
+                                <label for="retribusi_id"
+                                    class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Retribusi</label>
+                                <select id="retribusi_id" name="retribusi_id"
+                                    class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
+                                    required>
+                                    @foreach ($retribusi as $item)
+                                        <option value="{{ $item->id }}">{{ $item->nama}}</option>
                                     @endforeach
                                 </select>
                             </div>
@@ -101,7 +117,8 @@
                     </form>
                 </div>
             </div>
-        </div> 
+        </div>
+
 
         <div class="container m-5">
             <div class="flex flex-column sm:flex-row flex-wrap space-y-4 sm:space-y-0 items-center justify-between pb-4">
@@ -298,8 +315,7 @@
                                                         <div class="col-span-2">
                                                             <label for="password"
                                                                 class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Password</label>
-                                                            <input type="password" id="password"
-                                                                value=""
+                                                            <input type="password" id="password" value=""
                                                                 name="password"
                                                                 class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
                                                                 required="">
@@ -457,11 +473,11 @@
         });
     </script>
 
-<script>
-    document.addEventListener('DOMContentLoaded', function() {
-        if ({{ session('success') ? 'true' : 'false' }}) {
-            const modal = new Modal(document.getElementById('success-modal'));
-            modal.show();
-        }
-    });
-</script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            if ({{ session('success') ? 'true' : 'false' }}) {
+                const modal = new Modal(document.getElementById('success-modal'));
+                modal.show();
+            }
+        });
+    </script>

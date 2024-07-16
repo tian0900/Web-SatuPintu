@@ -41,7 +41,7 @@ class AuthController extends Controller
                 case 'AdminKabupaten':
                     return redirect('/dashboard-kabupaten');
                 default:
-                    return redirect('/kontrak')->withErrors(['pesan' => 'Peran tidak dikenal.']);
+                    return redirect('/dashboard-sampah');
             }
         } catch (\Exception $e) {
             return redirect()->back()->withErrors(['message' => 'Terjadi kesalahan: ' . $e->getMessage()]);

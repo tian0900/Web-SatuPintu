@@ -45,6 +45,18 @@
                                     class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
                                     placeholder="nama" required="">
                             </div>
+                            <div class="col-span-2">
+                                <label for="kedinasan_id"
+                                    class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Kedinasan</label>
+                                <select id="kedinasan_id" name="kedinasan_id"
+                                    class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
+                                    required>
+                                    <option value="">Pilih Kedinasan</option>
+                                    @foreach ($kedinasan as $item)
+                                        <option value="{{ $item->id }}">{{ $item->nama }}</option>
+                                    @endforeach
+                                </select>
+                            </div>
                         </div>
                         <button type="submit"
                             class="text-white inline-flex items-center bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
@@ -60,6 +72,7 @@
                 </div>
             </div>
         </div>
+
 
         <div class="container m-5">
             <div class="flex flex-column sm:flex-row flex-wrap space-y-4 sm:space-y-0 items-center justify-between pb-4">
@@ -160,6 +173,9 @@
                                     Nama Retribusi
                                 </th>
                                 <th scope="col" class="px-6 py-3">
+                                    Kedinasan
+                                </th>
+                                <th scope="col" class="px-6 py-3">
                                     Action
                                 </th>
                             </tr>
@@ -171,6 +187,9 @@
                                     class="odd:bg-white odd:dark:bg-gray-900 even:bg-gray-50 even:dark:bg-gray-800 border-b dark:border-gray-700">
                                     <td class="px-6 py-4">
                                         {{ $data->nama }}
+                                    </td>
+                                    <td class="px-6 py-4">
+                                        {{ $data->kedinasan->nama }}
                                     </td>
                                     <td class="px-6 py-4">
                                         <!-- Modal toggle -->

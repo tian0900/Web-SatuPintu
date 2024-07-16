@@ -141,7 +141,7 @@ class AtributController extends Controller
         // return $dataToSave;
 
         // Simpan data ke dalam ItemRetribusi
-        // ItemRetribusi::create($postToSave);
+        ItemRetribusi::create($postToSave);
 
 
         // Simpan data ke dalam MongoDB menggunakan model Post
