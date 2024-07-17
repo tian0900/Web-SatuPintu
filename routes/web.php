@@ -28,10 +28,8 @@ use App\Models\Kabupaten;
 | be assigned to the "web" middleware group. Make something great!
 |
 */
-Route::get('export-tagihan', function () {
-    return Excel::download(new TagihanExport, 'tagihan.xlsx');
-})->name('export-tagihan');;
 
+Route::get('/export-tagihan', [BendaharaController::class, 'exportTagihan'])->name('export-tagihan');
 Route::get('/export-tagihan-manual', [BendaharaController::class, 'exportTagihanManual'])->name('export-tagihan-manual');
 Route::get('/export-setoran', [BendaharaController::class, 'exportSetoran'])->name('export-setoran');
 
@@ -69,6 +67,9 @@ Route::middleware(['auth', 'check.role.byname:AdminKedinasan'])->group(function 
     Route::match (['post', 'put'], '/atribut/update/{id}', [AtributController::class, 'update'])->name('atribut.update');
     Route::delete('/atributpasar/{id}', [AtributController::class, 'destroy'])->name('pasar.destroy');
 
+    Route::post('/atribut/storedinamis', [AtributController::class, 'storedinamis'])->name('dinamis.store');
+    Route::post('/atribut/field', [AtributController::class, 'datanew'])->name('dataa.store');
+
     Route::post('/jenis/store', [PasarController::class, 'store'])->name('jenis.store');
     Route::get('/jenis/edit', [PasarController::class, 'edit'])->name('jenis.edit');
     Route::put('/jenis/{post}', [PasarController::class, 'update'])->name('jenis.update');
@@ -95,9 +96,6 @@ Route::middleware(['auth', 'check.role.byname:AdminKedinasan'])->group(function 
     Route::post('/users/store', [UserController::class, 'store'])->name('store.user');
     Route::post('/wajib/store', [UserController::class, 'storewajib'])->name('wajib.store');
     
-
-});
-Route::middleware(['auth', 'check.role.byname:AdminSampah'])->group(function () {
     Route::get('/dashboard-sampah', [IndexController::class, 'dashboardsampah']);
     //Item
     Route::get('/itemsampah', [ItemRetribusiController::class, 'indexsampah'])->name('item.indexsampah');
@@ -121,6 +119,10 @@ Route::middleware(['auth', 'check.role.byname:AdminSampah'])->group(function () 
     Route::delete('/wilayah-sampah/{id}', [WilayahController::class, 'destroysampah'])->name('wilayah-sampah.destroy');
     Route::get('/wilayah-sampah/create', [WilayahController::class, 'createsampah'])->name('wilayah-sampah.create');
     Route::post('/wilayah-sampah', [WilayahController::class, 'storesampah'])->name('wilayah-sampah.store');
+
+});
+Route::middleware(['auth', 'check.role.byname:AdminSampah'])->group(function () {
+   
 });
 Route::middleware(['check.role.byname:AdminKabupaten'])->group(function () {
     //Dashboard
@@ -133,6 +135,9 @@ Route::middleware(['check.role.byname:AdminKabupaten'])->group(function () {
     Route::delete('/retribusi/{id}', [RetribusiController::class, 'destroy'])->name('retribusi.destroy');
     Route::get('/retribusi/create', [RetribusiController::class, 'create'])->name('retribusi.create');
     Route::post('/retribusi', [RetribusiController::class, 'store'])->name('retribusi.store');
+
+    Route::get('/useradmin', [UserController::class, 'indexadmin']);
+    Route::post('/useradmin/store', [UserController::class, 'storedata'])->name('users.storedata');
     
     //Kedinasan
     Route::get('/kedinasan', [KedinasanController::class, 'index'])->name('kedinasann');
@@ -228,11 +233,13 @@ Route::middleware(['check.role.byname:Admin'])->group(function () {
     Route::put('/kabupaten/{post}', [KabupatenController::class, 'update'])->name('kabupaten.update');
     Route::delete('/kabupaten/{id}', [KabupatenController::class, 'destroy'])->name('kabupaten.delete');
 
+    Route::get('/useradminkabupaten', [UserController::class, 'indexadminkabupaten']);
+    Route::post('/useradminkabupaten/store', [UserController::class, 'storekabupatenuser'])->name('kabupaten.storedata');
+
     
 
     //Manajemen User
-    Route::get('/useradmin', [UserController::class, 'indexadmin']);
-    Route::post('/useradmin/store', [UserController::class, 'storeadmin'])->name('users.storeadmin');
+   
 });
 //ADMIN
 Route::get('/login', [AuthController::class, 'loginview']);

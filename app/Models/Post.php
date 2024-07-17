@@ -11,9 +11,9 @@ class Post extends Model
     protected $collection = 'item_retribusi'; // Menentukan nama koleksi MongoDB
 
     protected $fillable = [
-        'kabupaten_id',
-        'kedinasan_id',
+        'retribusi_id',
         'data',
+        'kategori_nama',
     ];
 
     // Jika Anda tidak ingin menggunakan timestamp default Laravel

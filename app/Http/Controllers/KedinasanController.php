@@ -2,8 +2,10 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Kabupaten;
 use App\Models\Kedinasan;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class KedinasanController extends Controller
 {
@@ -12,11 +14,26 @@ class KedinasanController extends Controller
      */
     public function index()
     {
-        $kedinasan = Kedinasan::orderBy('created_at', 'desc')->paginate(5);
-        return view('data.kedinasan', compact('kedinasan'));
+        $user = Auth::user();
+
+        // Ambil kabupaten_id dari admin yang sedang login
+        $kabupaten_id = $user->adminkabupaten->kabupaten_id;
+
+        // Ambil kedinasan yang terkait dengan kabupaten_id yang sama dengan admin yang sedang login
+        $kedinasan = Kedinasan::whereHas('kabupaten', function ($query) use ($kabupaten_id) {
+            $query->where('id', $kabupaten_id);
+        })
+            ->orderBy('created_at', 'desc')
+            ->paginate(5);
+
+        // Ambil data kabupaten
+        $kabupaten = Kabupaten::where('id', $kabupaten_id)->get();
+
+        return view('data.kedinasan', compact('kedinasan', 'kabupaten'));
     }
-    
-    
+
+
+
 
     /**
      * Show the form for creating a new resource.
@@ -34,10 +51,11 @@ class KedinasanController extends Controller
         $request->validate([
             'nama' => 'required',
             'kepala_dinas' => 'required',
+            'kabupaten_id' => 'required',
         ]);
 
         $data = [
-            'kabupaten_id' => 1, // Sesuaikan dengan ID kabupaten yang sesuai
+            'kabupaten_id' => $request->input('kabupaten_id'),
             'kepala_dinas' => $request->input('kepala_dinas'),
             'nama' => $request->input('nama'),
         ];

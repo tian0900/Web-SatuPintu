@@ -5,6 +5,7 @@ namespace App\Exports;
 use Illuminate\Support\Facades\DB;
 use Maatwebsite\Excel\Concerns\FromQuery;
 use Maatwebsite\Excel\Concerns\WithHeadings;
+use Illuminate\Support\Facades\Auth;
 use Maatwebsite\Excel\Concerns\WithStyles;
 use PhpOffice\PhpSpreadsheet\Worksheet\Worksheet;
 
@@ -15,6 +16,9 @@ class TagihanManualExport implements FromQuery, WithHeadings, WithStyles
      */
     public function query()
     {
+        $user = Auth::user();
+        $retribusi_id = $user->admin->retribusi_id;
+
         return DB::table('tagihan_manual')
             ->join('setoran', 'setoran.id', '=', 'tagihan_manual.setoran_id')
             ->join('item_retribusi', 'item_retribusi.id', '=', 'tagihan_manual.item_retribusi_id')
@@ -26,10 +30,11 @@ class TagihanManualExport implements FromQuery, WithHeadings, WithStyles
                 'sub_wilayah.nama as nama',
                 'tagihan_manual.total_harga'
             )
-            ->where('tagihan_manual.status', 'NEW') // Filter based on tagihanmanual status
-            ->where('item_retribusi.retribusi_id', 2) // Filter based on item_retribusi retribusi_id
-            ->orderBy('tagihan_manual.id', 'ASC'); // Order by tagihan_manual.id in ascending order (replace with your desired column and order)
+            ->where('tagihan_manual.status', 'NEW') // Filter based on tagihan_manual status
+            ->where('item_retribusi.retribusi_id', $retribusi_id) // Filter based on item_retribusi retribusi_id
+            ->orderBy('tagihan_manual.id', 'ASC'); // Order by tagihan_manual.id in ascending order
     }
+
 
     /**
      * @return array

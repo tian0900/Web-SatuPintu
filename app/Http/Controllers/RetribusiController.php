@@ -2,8 +2,10 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Kedinasan;
 use App\Models\Retribusi;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class RetribusiController extends Controller
 {
@@ -12,12 +14,24 @@ class RetribusiController extends Controller
      */
     public function index()
     {
-        $retribusi = Retribusi::all();
+        $user = Auth::user();
 
-        // Menampilkan view 'data.retribusi' dan meneruskan data retribusi ke dalam view
-        return view('data.retribusi', ['retribusi' => $retribusi]);
+        // Ambil kabupaten_id dari admin yang sedang login
+        $kabupaten_id = $user->adminkabupaten->kabupaten_id;
+
+        // Mengambil retribusi yang memiliki kabupaten_id sesuai dengan yang sedang login
+        $retribusi = Retribusi::whereHas('kedinasan', function ($query) use ($kabupaten_id) {
+            $query->where('kabupaten_id', $kabupaten_id);
+        })
+            ->orderBy('created_at', 'asc')
+            ->paginate(5);
+
+        // Ambil data kedinasan untuk ditampilkan di view
+        $kedinasan = Kedinasan::where('kabupaten_id', $kabupaten_id)->get();
+
+        return view('data.retribusi', compact('kedinasan', 'retribusi'));
     }
-    
+
     /**
      * Show the form for creating a new resource.
      */
@@ -29,19 +43,16 @@ class RetribusiController extends Controller
     // Method untuk menyimpan data yang ditambahkan
     public function store(Request $request)
     {
-        // Validasi data
         $request->validate([
             'nama' => 'required|string|max:255',
-            // Pastikan kedinasan_id tersedia dalam request atau atur di sini
+            'kedinasan_id' => 'required|exists:kedinasan,id',
         ]);
 
-        // Menyimpan data baru
         Retribusi::create([
             'nama' => $request->nama,
-            'kedinasan_id' => 1 // Atur nilai default untuk kedinasan_id
+            'kedinasan_id' => $request->kedinasan_id,
         ]);
 
-        // Redirect ke halaman yang sesuai
         return redirect('/retribusi')->with('success', 'Data Retribusi Berhasil Ditambahkan!');
     }
 
@@ -70,7 +81,7 @@ class RetribusiController extends Controller
         $retribusi = Retribusi::findOrFail($id);
         $retribusi->update($request->all());
         return redirect('/retribusi')->with('success', 'Data Retribusi Berhasil Diperbarui!');
-    
+
     }
 
     /**
@@ -82,7 +93,7 @@ class RetribusiController extends Controller
 
         // Hapus retribusi
         $retribusi->delete();
-    
+
         // Redirect atau kembalikan sesuai kebutuhan
         return redirect()->back()->with('success', 'Retribusi Berhasil Dihapus');
     }

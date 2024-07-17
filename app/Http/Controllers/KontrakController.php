@@ -27,47 +27,50 @@ class KontrakController extends Controller
      */
     // use Illuminate\Support\Facades\Auth;
 
-public function index()
-{
-    $user = Auth::user();
-    $kabupaten_id = $user->admin->kabupaten_id;
+    public function index()
+    {
+        $user = Auth::user();
+        $retribusi_id = $user->admin->retribusi_id;
 
-    // Mengurutkan berdasarkan kolom 'created_at' dalam urutan menurun (data terbaru tampil pertama)
-    $Kontrak = Kontrak::with(['wajibRetribusi', 'itemRetribusi', 'Wilayah'])
-        ->whereHas('itemRetribusi.retribusi.kedinasan', function ($query) use ($kabupaten_id) {
-            $query->where('kabupaten_id', $kabupaten_id);
-        })
-        ->whereHas('itemRetribusi', function ($query) {
-            $query->where('retribusi_id', 2);
-        })
-        ->orderBy('created_at', 'desc')
-        ->paginate(5);
+        // Mengurutkan berdasarkan kolom 'created_at' dalam urutan menurun (data terbaru tampil pertama)
+        $Kontrak = Kontrak::with(['wajibRetribusi', 'itemRetribusi', 'Wilayah'])
+            ->whereHas('itemRetribusi', function ($query) use ($retribusi_id) {
+                $query->where('retribusi_id', $retribusi_id);
+            })
 
-    $wajibRetribusiOptions = WajibRetribusi::all();
-    $itemRetribusiOptions = ItemRetribusi::where('retribusi_id', 2)->get();
-    $subWilayahOptions = Wilayah::all();
-        
-    return view('data.kontrak', [
-        'Kontrak' => $Kontrak,
-        'wajibRetribusiOptions' => $wajibRetribusiOptions,
-        'itemRetribusiOptions' => $itemRetribusiOptions,
-        'subWilayahOptions' => $subWilayahOptions,
-    ]);
-}
+            ->orderBy('created_at', 'desc')
+            ->paginate(5);
+
+        $wajibRetribusiOptions = WajibRetribusi::all();
+        $itemRetribusiOptions = ItemRetribusi::where('retribusi_id', $retribusi_id)->get();
+        $subWilayahOptions =  Wilayah::where('retribusi_id', $retribusi_id)->get();
+
+        // return $subWilayahOptions;
+
+        return view('data.kontrak', [
+            'Kontrak' => $Kontrak,
+            'wajibRetribusiOptions' => $wajibRetribusiOptions,
+            'itemRetribusiOptions' => $itemRetribusiOptions,
+            'subWilayahOptions' => $subWilayahOptions,
+        ]);
+    }
 
 
     public function indexsampah()
     {
         $user = Auth::user();
+        $retribusi_id = $user->admin->retribusi_id;
         $test = $user->name;
         $Kontrak = Kontrak::with(['wajibRetribusi', 'itemRetribusi', 'Wilayah'])
-            ->whereHas('itemRetribusi', function ($query) {
-                $query->where('retribusi_id', 1);
+            ->whereHas('itemRetribusi', function ($query) use ($retribusi_id) {
+                $query->where('retribusi_id', $retribusi_id);
             })
+
+            ->orderBy('created_at', 'desc')
             ->paginate(5);
 
         $wajibRetribusiOptions = WajibRetribusi::all();
-        $itemRetribusiOptions = ItemRetribusi::all();
+        $itemRetribusiOptions = ItemRetribusi::where('retribusi_id', $retribusi_id)->get();
 
         $subWilayahOptions = Wilayah::all();
         return view('data.kontraksampah', [
@@ -78,78 +81,76 @@ public function index()
         ]);
     }
     public function store(Request $request)
-    {
-        // Validasi input dari form
-        $validatedData = $request->validate([
-            'wajib_retribusi_id' => 'required|exists:wajib_retribusi,id',
-            'item_retribusi_id' => 'required|exists:item_retribusi,id',
-            'sub_wilayah_id' => 'required|exists:sub_wilayah,id',
-            'tanggal_mulai' => 'required|date',
-            'tanggal_selesai' => 'required|date',
-        ]);
+{
+    // Validasi input dari form
+    $validatedData = $request->validate([
+        'wajib_retribusi_id' => 'required|exists:wajib_retribusi,id',
+        'item_retribusi_id' => 'required|exists:item_retribusi,id',
+        'sub_wilayah_id' => 'required|exists:sub_wilayah,id',
+        'tanggal_mulai' => 'required|date',
+        'tanggal_selesai' => 'required|date',
+    ]);
 
-        // Ambil data harga dan jenis_tagihan dari tabel item_retribusi
-        $itemRetribusi = ItemRetribusi::findOrFail($validatedData['item_retribusi_id']);
-        $totalHarga = $itemRetribusi->harga;
-        $jenisTagihan = $itemRetribusi->jenis_tagihan;
+    // Ambil data harga dan jenis_tagihan dari tabel item_retribusi
+    $itemRetribusi = ItemRetribusi::findOrFail($validatedData['item_retribusi_id']);
+    $totalHarga = $itemRetribusi->harga;
+    $jenisTagihan = $itemRetribusi->jenis_tagihan;
 
-        // Hitung berapa banyak tagihan yang perlu dibuat
-        $mulai = Carbon::parse($validatedData['tanggal_mulai']);
-        $selesai = Carbon::parse($validatedData['tanggal_selesai']);
-        $durasiBulan = $mulai->diffInMonths($selesai);
+    // Hitung berapa banyak tagihan yang perlu dibuat
+    $mulai = Carbon::parse($validatedData['tanggal_mulai']);
+    $selesai = Carbon::parse($validatedData['tanggal_selesai']);
+    $durasiBulan = $mulai->diffInMonths($selesai);
 
-        // Simpan data Kontrak ke dalam database
-        $kontrak = Kontrak::create($validatedData);
+    // Simpan data Kontrak ke dalam database
+    $kontrak = Kontrak::create($validatedData);
 
-        // Buat tagihan sesuai dengan durasi bulan
-        for ($i = 0; $i < $durasiBulan; $i++) {
-            $jatuhTempo = $mulai->copy()->addMonths($i + 1);
-            $tagihanData = [
-                'kontrak_id' => $kontrak->id,
-                'nama' => 'Tagihan ' . $kontrak->id . ' - ' . ($i + 1),
-                'total_harga' => $totalHarga,
-                'status' => 'NEW',
-                'invoice_id' => 'INV-111-222-' . sprintf('%03d', $kontrak->id) . '-' . ($i + 1),
-                'request_id' => 'REQ-111-222-' . sprintf('%03d', $kontrak->id) . '-' . ($i + 1),
+    // Buat tagihan sesuai dengan durasi bulan
+    for ($i = 0; $i < $durasiBulan; $i++) {
+        $jatuhTempo = $mulai->copy()->addMonths($i + 1);
+        $tagihanData = [
+            'kontrak_id' => $kontrak->id,
+            'nama' => 'Tagihan ' . $kontrak->id . ' - ' . ($i + 1),
+            'total_harga' => $totalHarga,
+            'status' => 'NEW',
+            'invoice_id' => 'INV-111-222-' . sprintf('%03d', $kontrak->id) . '-' . ($i + 1),
+            'request_id' => 'REQ-111-222-' . sprintf('%03d', $kontrak->id) . '-' . ($i + 1),
+            'created_at' => now(),
+            'updated_at' => now(),
+            'active' => 1,
+            'jatuh_tempo' => $jatuhTempo->endOfMonth(), // Akhiri bulan untuk jatuh tempo
+        ];
+
+        // Simpan data Tagihan ke dalam database
+        $tagihan = Tagihan::create($tagihanData);
+
+        if ($tagihan) {
+            // Fresh to ensure tagihan_id is valid
+            $tagihan = $tagihan->fresh();
+
+            // Buat pembayaran untuk setiap tagihan yang baru dibuat
+            $metodePembayaran = ['VA', 'QRIS'];
+            $pembayaranData = [
+                'tagihan_id' => $tagihan->id,
+                'metode_pembayaran' => $metodePembayaran[array_rand($metodePembayaran)],
+                'status' => 'WAITING',
                 'created_at' => now(),
                 'updated_at' => now(),
-                'active' => 1,
-                'jatuh_tempo' => $jatuhTempo->endOfMonth(), // Akhiri bulan untuk jatuh tempo
             ];
 
-            // Simpan data Tagihan ke dalam database
-            // Simpan data Tagihan ke dalam database
-            $tagihan = Tagihan::create($tagihanData);
+            // Simpan data Pembayaran ke dalam database
+            $pembayaran = Pembayaran::create($pembayaranData);
 
-            if ($tagihan) {
-                // Fresh to ensure tagihan_id is valid
-                $tagihan = $tagihan->fresh();
-            
-                // Buat pembayaran untuk setiap tagihan yang baru dibuat
-                $metodePembayaran = ['VA', 'QRIS'];
-                $pembayaranData = [
-                    'tagihan_id' => $tagihan->id,
-                    'metode_pembayaran' => $metodePembayaran[array_rand($metodePembayaran)],
-                    'status' => 'WAITING',
-                    'created_at' => now(),
-                    'updated_at' => now(),
-                ];
-            
-                // Simpan data Pembayaran ke dalam database
-                $pembayaran = Pembayaran::create($pembayaranData);
-            
-                if ($pembayaran) {
-                    return redirect()->back()->with('success', 'Data Kontrak Berhasil Ditambahkan.');
-                } else {
-                    return redirect()->back()->with('error', 'Gagal membuat Pembayaran.');
-                }
-            } else {
-                return redirect()->back()->with('error', 'Gagal membuat Tagihan.');
+            if (!$pembayaran) {
+                return redirect()->back()->with('error', 'Gagal membuat Pembayaran.');
             }
-            
-
+        } else {
+            return redirect()->back()->with('error', 'Gagal membuat Tagihan.');
         }
     }
+
+    return redirect()->back()->with('success', 'Data Kontrak Berhasil Ditambahkan.');
+}
+
 
 
     public function deleteKontrak($id)

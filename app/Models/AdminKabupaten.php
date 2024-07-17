@@ -5,16 +5,16 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Admin extends Model
+class AdminKabupaten extends Model
 {
     use HasFactory;
 
-    protected $table = 'admin';
+    protected $table = 'adminkabupaten';
     protected $connection = 'mysql';
 
     protected $fillable = [
         'user_id',
-        'retribusi_id',
+        'kabupaten_id',
         'created_at',
         'updated_at',
     ];
@@ -24,9 +24,8 @@ class Admin extends Model
         return $this->belongsTo(User::class, 'user_id');
     }
 
-    public function retribusi()
+    public function kabupaten()
     {
-        return $this->belongsTo(Retribusi::class, 'retribusi_id');
+        return $this->belongsTo(Retribusi::class, 'kabupaten_id');
     }
 }
-

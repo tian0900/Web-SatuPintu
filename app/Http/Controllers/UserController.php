@@ -2,12 +2,17 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Admin;
+use App\Models\AdminKabupaten;
+use App\Models\Kabupaten;
+use App\Models\Retribusi;
 use Illuminate\Http\Request;
 use App\Models\User;
 use App\Models\WajibRetribusi;
 use App\Models\Role;
 use App\Models\Wilayah;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Auth;
 use App\Models\Petugas;
 use Illuminate\Support\Facades\Hash;
 
@@ -20,46 +25,105 @@ class UserController extends Controller
     public function index()
     {
         $wilayah = Wilayah::all();
-        $users = User::with('role')
-            ->whereHas('role', function ($query) {
-                $query->whereIn('id', [1, 2]); // Filter role_id 1 dan 2
-            })
-            ->orderBy('created_at', 'desc') // Urutkan dari yang terbaru
-            ->paginate(5);
 
         $roles = [
-            ['id' => 1, 'name' => 'WAJIB RETRIBUSI'],
-            ['id' => 2, 'name' => 'PETUGAS'],
+            ['name' => 'WAJIB RETRIBUSI'],
+            ['name' => 'PETUGAS'],
         ];
+
+        $roleNames = array_column($roles, 'name');
+
+        $users = User::with('role')->whereHas('role', function ($query) use ($roleNames) {
+            $query->whereIn('name', $roleNames); // Filter berdasarkan role name
+        })->orderBy('created_at', 'desc') // Urutkan dari yang terbaru
+            ->paginate(5);
 
         return view('data.mguser-pasar', compact('users', 'roles', 'wilayah'));
     }
 
-    
+
+
 
     public function indexadmin()
     {
-        $users = User::with('role')->whereHas('role', function ($query) {
-            $query->whereIn('id', [4, 5, 6]); // Filter role_id 4, 5 dan 6
+        $user = Auth::user();
+
+        // Ambil kabupaten_id dari admin yang sedang login
+        $kabupaten_id = $user->adminkabupaten->kabupaten_id;
+
+        // Mengambil retribusi yang memiliki kabupaten_id sesuai dengan yang sedang login
+        $retribusi = Retribusi::whereHas('kedinasan', function ($query) use ($kabupaten_id) {
+            $query->where('kabupaten_id', $kabupaten_id);
+        })
+            ->get();
+
+        $roles = [
+            ['name' => 'Bendahara'],
+            ['name' => 'AdminKabupaten'],
+            ['name' => 'AdminKedinasan'],
+        ];
+
+        $roleNames = array_column($roles, 'name');
+
+        $users = User::with('role')->whereHas('role', function ($query) use ($roleNames) {
+            $query->whereIn('name', $roleNames); // Filter berdasarkan role name
         })->paginate(5);
 
         $roleOptions = Role::all();
 
+        return view('data.mgadmin', compact('users', 'roles', 'roleOptions', 'retribusi'));
+    }
+
+
+    public function indexadminkabupaten()
+    {
+        $kabupaten = Kabupaten::all();
         $roles = [
-            ['id' => 4, 'name' => 'Bendahara'],
-            ['id' => 5, 'name' => 'AdminKabupaten'],
-            ['id' => 6, 'name' => 'AdminKedinasan'],
+            ['name' => 'AdminKabupaten'],
         ];
 
-        return view('data.mgadmin', compact('users', 'roles', 'roleOptions'));
+        $roleNames = array_column($roles, 'name');
+
+        $users = User::with('role')->whereHas('role', function ($query) use ($roleNames) {
+            $query->whereIn('name', $roleNames); // Filter berdasarkan role name
+        })->paginate(5);
+
+        $roleOptions = Role::all();
+
+
+        return view('data.mgadminkabupaten', compact('users', 'roles', 'roleOptions', 'kabupaten'));
     }
+
+
 
     /**
      * Show the form for creating a new resource.
      */
-    public function create()
+    public function storekabupatenuser(Request $request)
     {
-        //
+        // return $request;
+        $validatedData = $request->validate([
+            'name' => 'required|string',
+            'kabupaten_id' => 'required|exists:kabupaten,id',
+            'email' => 'required|email|unique:users',
+            'password' => 'required|min:8',
+            'nik' => 'required|string|unique:users',
+            'alamat' => 'required|string',
+            'role_id' => 'required|exists:roles,id',
+        ]);
+
+        $validatedData['password'] = Hash::make($validatedData['password']);
+        // return $validatedData;
+        $user = User::create($validatedData);
+
+        $postToSave = [
+            'user_id' => $user->id,
+            'kabupaten_id' => $request->input('kabupaten_id'),
+        ];
+        // return $postToSave;
+        AdminKabupaten::create($postToSave);
+
+        return redirect()->back()->with('success', 'Data User Berhasil Ditambahkan');
     }
 
     /**
@@ -308,4 +372,31 @@ class UserController extends Controller
             return redirect()->route('userpasar')->with('error', 'Terjadi kesalahan saat menghapus data');
         }
     }
+
+    public function storedata(Request $request)
+    {
+        $validatedData = $request->validate([
+            'name' => 'required|string',
+            'retribusi_id' => 'required|exists:retribusi,id',
+            'email' => 'required|email|unique:users',
+            'password' => 'required|min:8',
+            'nik' => 'required|string|unique:users',
+            'alamat' => 'required|string',
+            'role_id' => 'required|exists:roles,id',
+        ]);
+
+        $validatedData['password'] = Hash::make($validatedData['password']);
+        $user = User::create($validatedData);
+
+        $postToSave = [
+            'user_id' => $user->id,
+            'retribusi_id' => $request->input('retribusi_id'),
+        ];
+        // return $postToSave;
+        Admin::create($postToSave);
+
+        return redirect()->back()->with('success', 'Data User Berhasil Ditambahkan');
+    }
+
+
 }

@@ -164,6 +164,7 @@ return [
          * Application Service Providers...
          */
         MongoDB\Laravel\MongoDBServiceProvider::class,
+        // Jenssegers\Mongodb\MongodbServiceProvider::class,
         App\Providers\AppServiceProvider::class,
         App\Providers\AuthServiceProvider::class,
         // App\Providers\BroadcastServiceProvider::class,

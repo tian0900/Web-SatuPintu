@@ -16,13 +16,12 @@ class ItemRetribusiController extends Controller
     public function index()
     {
         $user = Auth::user();
-        $kabupaten_id = $user->admin->kabupaten_id;
+        $retribusi_id = $user->admin->retribusi_id;
 
         // Query untuk mendapatkan ItemRetribusi berdasarkan kriteria yang diinginkan
-        $item = ItemRetribusi::whereHas('retribusi.kedinasan', function ($query) use ($kabupaten_id) {
-            $query->where('kabupaten_id', $kabupaten_id);
+        $item = ItemRetribusi::whereHas('retribusi', function ($query) use ($retribusi_id) {
+            $query->where('id', $retribusi_id);
         })
-            ->where('retribusi_id', 2)
             ->orderBy('created_at', 'desc')
             ->paginate(5);
 
@@ -32,7 +31,15 @@ class ItemRetribusiController extends Controller
 
     public function indexsampah()
     {
-        $item = ItemRetribusi::where('retribusi_id', 1)->paginate(5);
+        $user = Auth::user();
+        $retribusi_id = $user->admin->retribusi_id;
+
+        // Query untuk mendapatkan ItemRetribusi berdasarkan kriteria yang diinginkan
+        $item = ItemRetribusi::whereHas('retribusi', function ($query) use ($retribusi_id) {
+            $query->where('id', $retribusi_id);
+        })
+            ->orderBy('created_at', 'desc')
+            ->paginate(5);
         return view('data.itemsampah', compact('item'));
     }
 
