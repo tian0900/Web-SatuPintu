@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "44bec0c99f83511d335ba59117063ceb",
+    "content-hash": "7e4753897826ee890d3b128ed0d2156b",
     "packages": [
         {
             "name": "brick/math",
@@ -1315,16 +1315,16 @@
         },
         {
             "name": "jenssegers/mongodb",
-            "version": "4.3.0",
+            "version": "4.6.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/mongodb/laravel-mongodb.git",
-                "reference": "64d6dc05a8f08d9cf09f6b2d54f891a1692f6181"
+                "reference": "179c6a6fe589d6721ca0d12072e0502de402b796"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/mongodb/laravel-mongodb/zipball/64d6dc05a8f08d9cf09f6b2d54f891a1692f6181",
-                "reference": "64d6dc05a8f08d9cf09f6b2d54f891a1692f6181",
+                "url": "https://api.github.com/repos/mongodb/laravel-mongodb/zipball/179c6a6fe589d6721ca0d12072e0502de402b796",
+                "reference": "179c6a6fe589d6721ca0d12072e0502de402b796",
                 "shasum": ""
             },
             "require": {
@@ -1338,8 +1338,13 @@
                 "mongodb/mongodb": "^1.15",
                 "php": "^8.1"
             },
+            "conflict": {
+                "illuminate/bus": "< 10.37.2"
+            },
             "require-dev": {
                 "doctrine/coding-standard": "12.0.x-dev",
+                "league/flysystem-gridfs": "^3.28",
+                "league/flysystem-read-only": "^3.0",
                 "mockery/mockery": "^1.4.4",
                 "mongodb/builder": "^0.2",
                 "orchestra/testbench": "^8.0|^9.0",
@@ -1348,6 +1353,7 @@
                 "spatie/laravel-query-builder": "^5.6"
             },
             "suggest": {
+                "league/flysystem-gridfs": "Filesystem storage in MongoDB with GridFS",
                 "mongodb/builder": "Provides a fluent aggregation builder for MongoDB pipelines"
             },
             "type": "library",
@@ -1355,7 +1361,8 @@
                 "laravel": {
                     "providers": [
                         "MongoDB\\Laravel\\MongoDBServiceProvider",
-                        "MongoDB\\Laravel\\MongoDBQueueServiceProvider"
+                        "MongoDB\\Laravel\\MongoDBQueueServiceProvider",
+                        "MongoDB\\Laravel\\MongoDBBusServiceProvider"
                     ]
                 }
             },
@@ -1403,10 +1410,10 @@
             "support": {
                 "issues": "https://www.mongodb.com/support",
                 "security": "https://www.mongodb.com/security",
-                "source": "https://github.com/mongodb/laravel-mongodb/tree/4.3.0"
+                "source": "https://github.com/mongodb/laravel-mongodb/tree/4.6.0"
             },
             "abandoned": "mongodb/laravel-mongodb",
-            "time": "2024-04-26T15:53:27+00:00"
+            "time": "2024-07-09T13:14:18+00:00"
         },
         {
             "name": "laravel/framework",

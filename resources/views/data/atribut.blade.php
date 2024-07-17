@@ -2,14 +2,116 @@
 
 @section('content')
     <div class="container p-5">
-        <h1 class="mt-3 text-5xl">Atribut Pasar</h1>
+        <h1 class="mt-3 text-5xl">Atribut</h1>
 
-        <!-- Modal toggle -->
-        <button data-modal-target="crud-modal" data-modal-toggle="crud-modal"
-            class="block text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800 mt-5 mb-5"
-            type="button">
-            Tambah Data Baru
-        </button>
+        @if (auth()->user()->admin->retribusi_id &&
+                App\Models\Post::where('retribusi_id', auth()->user()->admin->retribusi_id)->exists())
+            <button data-modal-target="addDataModal" data-modal-toggle="addDataModal"
+                class="block text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800 mt-5 mb-5"
+                type="button">
+                Tambah Data Baru
+            </button>
+        @endif
+
+
+        <div id="addDataModal" tabindex="-1" aria-hidden="true"
+            class="fixed top-0 left-0 right-0 z-50 hidden w-full p-4 overflow-x-hidden overflow-y-auto h-modal">
+            <div class="relative w-full h-full max-w-md md:h-auto">
+                <div class="relative bg-white rounded-lg shadow dark:bg-gray-700">
+                    <div class="flex items-center justify-between p-5 border-b rounded-t dark:border-gray-600">
+                        <h3 class="text-xl font-medium text-gray-900 dark:text-white">
+                            Tambah Data Baru
+                        </h3>
+                        <button type="button"
+                            class="text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm p-1.5 ml-auto inline-flex items-center dark:hover:bg-gray-600 dark:hover:text-white"
+                            data-modal-toggle="addDataModal">
+                            <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20">
+                                <path fill-rule="evenodd"
+                                    d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 011.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z"
+                                    clip-rule="evenodd"></path>
+                            </svg>
+                        </button>
+                    </div>
+                    <form action="{{ route('dinamis.store') }}" method="POST" class="p-6 space-y-6">
+                        @csrf
+                        <!-- Dynamic fields based on account type or data category -->
+                        @foreach ($headers as $field)
+                            <div>
+                                <label for="{{ $field }}"
+                                    class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">{{ ucwords(str_replace('_', ' ', $field)) }}</label>
+                                <input type="text" id="{{ $field }}" name="{{ $field }}"
+                                    class="dynamic-field bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white"
+                                    required>
+                            </div>
+                        @endforeach
+                        <div
+                            class="flex items-center justify-end space-x-2 border-t border-gray-200 rounded-b dark:border-gray-600">
+                            <button type="submit" class="btn btn-primary">Simpan</button>
+                            <button type="button" class="btn btn-secondary" data-modal-toggle="addDataModal">Batal</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+
+
+
+
+
+
+
+        @if (
+            !auth()->user()->admin->retribusi_id ||
+                !App\Models\Post::where('retribusi_id', auth()->user()->admin->retribusi_id)->exists())
+            <button data-modal-target="addModal" data-modal-toggle="addModal"
+                class="block text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800 mt-5 mb-5"
+                type="button">
+                Tambah Field Baru
+            </button>
+        @endif
+
+
+        <!-- Modal untuk menambah data baru -->
+        <div id="addModal" tabindex="-1" aria-hidden="true"
+            class="fixed inset-0 z-50 overflow-y-auto hidden bg-black bg-opacity-50">
+            <div class="flex items-center justify-center min-h-screen p-4">
+                <div class="bg-white rounded-lg shadow-lg p-8 w-full max-w-md dark:bg-gray-800">
+                    <div class="flex items-center justify-between mb-4">
+                        <h3 class="text-xl font-medium text-gray-900 dark:text-white">Tambah Data Baru</h3>
+                        <button type="button" class="text-gray-500 hover:text-gray-700 dark:text-gray-400"
+                            data-modal-toggle="addModal">
+                            <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"
+                                xmlns="http://www.w3.org/2000/svg">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                    d="M6 18L18 6M6 6l12 12"></path>
+                            </svg>
+                        </button>
+                    </div>
+                    <form action="{{ route('dataa.store') }}" method="POST" class="space-y-4" id="dynamic-form">
+                        @csrf
+                        <div id="dynamic-fields">
+                            <!-- Placeholder untuk field dan nilai yang ditambahkan dinamis -->
+                        </div>
+                        <button type="button"
+                            class="inline-block px-4 py-2 text-sm font-medium text-gray-700 bg-gray-200 rounded-lg hover:bg-gray-300 focus:outline-none focus:bg-gray-300"
+                            id="addDynamicField">
+                            Tambah Field dan Nilai
+                        </button>
+                        <div class="flex justify-end space-x-2">
+                            <button type="submit"
+                                class="inline-block px-4 py-2 text-sm font-medium text-white bg-blue-600 rounded-lg hover:bg-blue-700 focus:outline-none focus:bg-blue-700">
+                                Simpan
+                            </button>
+                            <button type="button"
+                                class="inline-block px-4 py-2 text-sm font-medium text-gray-700 bg-gray-200 rounded-lg hover:bg-gray-300 focus:outline-none focus:bg-gray-300"
+                                data-modal-toggle="addModal">
+                                Batal
+                            </button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
 
         <!-- Main modal -->
         <div id="crud-modal" tabindex="-1" aria-hidden="true"
@@ -72,7 +174,8 @@
                         <div class="grid gap-4 mb-4 grid-cols-2">
                             <div class="col-span-2">
                                 <label for="F-Name"
-                                    class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">No Unit</label>
+                                    class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">No
+                                    Unit</label>
                                 <input type="text" id="no_unit" name="no_unit"
                                     class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
                                     placeholder="No Unit" required="">
@@ -120,7 +223,7 @@
 
         <div class="container m-5">
             <div class="flex flex-column sm:flex-row flex-wrap space-y-4 sm:space-y-0 items-center justify-between pb-4">
-               
+
                 <label for="table-search" class="sr-only">Search</label>
                 <div class="relative">
                     <div
@@ -142,30 +245,12 @@
                     <table class="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400">
                         <thead class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
                             <tr>
-                                <th scope="col" class="px-6 py-3">
-                                    No.
-                                </th>
-                                <th scope="col" class="px-6 py-3">
-                                    Kelompok Pasar
-                                </th>
-                                <th scope="col" class="px-6 py-3">
-                                    Jenis Unit
-                                </th>
-                                <th scope="col" class="px-6 py-3">
-                                    Unit
-                                </th>
-                                <th scope="col" class="px-6 py-3">
-                                    No Unit
-                                </th>
-                                <th scope="col" class="px-6 py-3">
-                                    Harga
-                                </th>
-                                <th scope="col" class="px-6 py-3">
-                                    Kategori Nama
-                                </th>
-                                <th scope="col" class="px-6 py-3">
-                                    Action
-                                </th>
+                                <th scope="col" class="px-6 py-3">No.</th>
+                                @foreach ($headers as $header)
+                                    <th scope="col" class="px-6 py-3">{{ ucwords(str_replace('_', ' ', $header)) }}
+                                    </th>
+                                @endforeach
+                                <th scope="col" class="px-6 py-3">Action</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -173,45 +258,32 @@
                                 $number = ($atribut->currentPage() - 1) * $atribut->perPage() + 1;
                             @endphp <!-- Inisialisasi nomor -->
                             @foreach ($atribut as $item)
-                                <tr
-                                    class="odd:bg-white odd:dark:bg-gray-900 even:bg-gray-50 even:dark:bg-gray-800 border-b dark:border-gray-700">
-                                    <td scope="row"
-                                        class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
-                                        {{ $number++ }}
-                                    </td>
-                                    <td scope="row"
-                                        class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
-                                        {{ $item['data'][0]['Kelompok_pasar'] }}
-                                    </td>
-                                    <td class="px-6 py-4">
-                                        {{ $item['data'][0]['jenis_unit'] }}
-                                        {{ $item->jenis_unit }}
-                                    </td>
-                                    <td class="px-6 py-4">
-                                        {{ $item['data'][0]['unit'] }}
-                                    </td>
-                                    <td class="px-6 py-4">
-                                        {{ $item['data'][0]['no_unit'] }}
-                                    </td>
-                                    <td class="px-6 py-4">
-                                        {{ $item['data'][0]['harga'] }}
-                                    </td>
-                                    <td class="px-6 py-4">
-                                        {{ $item['data'][0]['kategori_nama'] }}
-                                    </td>
-                                    <td class="px-6 py-4">
-                                        <!-- Modal toggle -->
-                                        <a data-modal-target="modal<?= $item->id ?>"
-                                            data-modal-toggle="modal<?= $item->id ?>"
-                                            class="font-medium text-blue-600 dark:text-blue-500 hover:underline text-center">Edit</a>
-                                        <a data-modal-target="modalhapus<?= $item->id ?>"
-                                            data-modal-toggle="modalhapus<?= $item->id ?>"
-                                            class="font-medium text-red-600 dark:text-red-500 hover:underline text-center">Hapus</a>
-                                    </td>
-                                </tr>
+                                @foreach ($item['data'] as $data)
+                                    <tr
+                                        class="odd:bg-white odd:dark:bg-gray-900 even:bg-gray-50 even:dark:bg-gray-800 border-b dark:border-gray-700">
+                                        <td scope="row"
+                                            class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
+                                            {{ $number++ }}
+                                        </td>
+                                        @foreach ($headers as $header)
+                                            <td class="px-6 py-4">
+                                                {{ $data[$header] ?? '-' }}
+                                            </td>
+                                        @endforeach
+                                        <td class="px-6 py-4">
+                                            <!-- Modal toggle -->
+                                            <a data-modal-target="modal{{ $item->_id }}"
+                                                data-modal-toggle="modal{{ $item->_id }}"
+                                                class="font-medium text-blue-600 dark:text-blue-500 hover:underline text-center">Edit</a>
+                                            <a data-modal-target="modalhapus{{ $item->_id }}"
+                                                data-modal-toggle="modalhapus{{ $item->_id }}"
+                                                class="font-medium text-red-600 dark:text-red-500 hover:underline text-center">Hapus</a>
+                                        </td>
+                                    </tr>
+                                @endforeach
 
                                 <!-- Main modal -->
-                                <div id="modal<?= $item->id ?>" tabindex="-1" aria-hidden="true"
+                                {{-- <div id="modal<?= $item->id ?>" tabindex="-1" aria-hidden="true"
                                     class="hidden overflow-y-auto overflow-x-hidden fixed top-0 right-0 left-0 z-50 justify-center items-center w-full md:inset-0 h-[calc(100%-1rem)] max-h-full">
                                     <div class="relative p-4 w-full max-w-md max-h-full">
                                         <!-- Modal content -->
@@ -309,7 +381,7 @@
                                             </div>
                                         </div>
                                     </div>
-                                </div>
+                                </div> --}}
 
                                 <!-- Main modal -->
                                 <div id="modalhapus<?= $item->id ?>" tabindex="-1" aria-hidden="true"
@@ -429,30 +501,65 @@
         </div>
     </div>
     @if (session('success'))
-    <div id="success-modal" tabindex="-1" aria-hidden="true" class="fixed top-0 left-0 right-0 z-50 w-full p-4 overflow-x-hidden overflow-y-auto md:inset-0 h-modal md:h-full">
-        <div class="relative w-full h-full max-w-md md:h-auto">
-            <div class="relative bg-white rounded-lg shadow dark:bg-gray-700">
-                <button type="button" class="absolute top-3 end-2.5 text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm w-8 h-8 ms-auto inline-flex justify-center items-center dark:hover:bg-gray-600 dark:hover:text-white" data-modal-hide="success-modal">
-                    <svg class="w-3 h-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 14 14">
-                        <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m1 1 6 6m0 0 6 6M7 7l6-6M7 7l-6 6"/>
-                    </svg>
-                    <span class="sr-only">Close modal</span>
-                </button> 
-                <div class="p-4 md:p-5 text-center">
-                    <svg class="mx-auto mb-4 text-blue-500 w-12 h-12 dark:text-gray-200" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 20 20">
-                        <path fill="currentColor" d="m18.774 8.245-.892-.893a1.5 1.5 0 0 1-.437-1.052V5.036a2.484 2.484 0 0 0-2.48-2.48H13.7a1.5 1.5 0 0 1-1.052-.438l-.893-.892a2.484 2.484 0 0 0-3.51 0l-.893.892a1.5 1.5 0 0 1-1.052.437H5.036a2.484 2.484 0 0 0-2.48 2.481V6.3a1.5 1.5 0 0 1-.438 1.052l-.892.893a2.484 2.484 0 0 0 0 3.51l.892.893a1.5 1.5 0 0 1 .437 1.052v1.264a2.484 2.484 0 0 0 2.481 2.481H6.3a1.5 1.5 0 0 1 1.052.437l.893.892a2.484 2.484 0 0 0 3.51 0l.893-.892a1.5 1.5 0 0 1 1.052-.437h1.264a2.484 2.484 0 0 0 2.481-2.48V13.7a1.5 1.5 0 0 1 .437-1.052l.892-.893a2.484 2.484 0 0 0 0-3.51Z"/>
-                        <path fill="#fff" d="M8 13a1 1 0 0 1-.707-.293l-2-2a1 1 0 1 1 1.414-1.414l1.42 1.42 5.318-3.545a1 1 0 0 1 1.11 1.664l-6 4A1 1 0 0 1 8 13Z"/>
-                    </svg>  
-                    <h3 class="mb-5 text-lg font-normal text-gray-500 dark:text-gray-400">
-                        {{ session('success') }}
-                    </h3>
-                    <button data-modal-hide="success-modal" type="button" class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800">Oke</button> 
+        <div id="success-modal" tabindex="-1" aria-hidden="true"
+            class="fixed top-0 left-0 right-0 z-50 w-full p-4 overflow-x-hidden overflow-y-auto md:inset-0 h-modal md:h-full">
+            <div class="relative w-full h-full max-w-md md:h-auto">
+                <div class="relative bg-white rounded-lg shadow dark:bg-gray-700">
+                    <button type="button"
+                        class="absolute top-3 end-2.5 text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm w-8 h-8 ms-auto inline-flex justify-center items-center dark:hover:bg-gray-600 dark:hover:text-white"
+                        data-modal-hide="success-modal">
+                        <svg class="w-3 h-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none"
+                            viewBox="0 0 14 14">
+                            <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                d="m1 1 6 6m0 0 6 6M7 7l6-6M7 7l-6 6" />
+                        </svg>
+                        <span class="sr-only">Close modal</span>
+                    </button>
+                    <div class="p-4 md:p-5 text-center">
+                        <svg class="mx-auto mb-4 text-blue-500 w-12 h-12 dark:text-gray-200" aria-hidden="true"
+                            xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 20 20">
+                            <path fill="currentColor"
+                                d="m18.774 8.245-.892-.893a1.5 1.5 0 0 1-.437-1.052V5.036a2.484 2.484 0 0 0-2.48-2.48H13.7a1.5 1.5 0 0 1-1.052-.438l-.893-.892a2.484 2.484 0 0 0-3.51 0l-.893.892a1.5 1.5 0 0 1-1.052.437H5.036a2.484 2.484 0 0 0-2.48 2.481V6.3a1.5 1.5 0 0 1-.438 1.052l-.892.893a2.484 2.484 0 0 0 0 3.51l.892.893a1.5 1.5 0 0 1 .437 1.052v1.264a2.484 2.484 0 0 0 2.481 2.481H6.3a1.5 1.5 0 0 1 1.052.437l.893.892a2.484 2.484 0 0 0 3.51 0l.893-.892a1.5 1.5 0 0 1 1.052-.437h1.264a2.484 2.484 0 0 0 2.481-2.48V13.7a1.5 1.5 0 0 1 .437-1.052l.892-.893a2.484 2.484 0 0 0 0-3.51Z" />
+                            <path fill="#fff"
+                                d="M8 13a1 1 0 0 1-.707-.293l-2-2a1 1 0 1 1 1.414-1.414l1.42 1.42 5.318-3.545a1 1 0 0 1 1.11 1.664l-6 4A1 1 0 0 1 8 13Z" />
+                        </svg>
+                        <h3 class="mb-5 text-lg font-normal text-gray-500 dark:text-gray-400">
+                            {{ session('success') }}
+                        </h3>
+                        <button data-modal-hide="success-modal" type="button"
+                            class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800">Oke</button>
+                    </div>
                 </div>
             </div>
         </div>
-    </div>
     @endif
 @endsection
+<!-- Tambahkan ini di bawah halaman HTML Anda, sebelum penutup </body> -->
+<script src="https://unpkg.com/flowbite@1.4.7/dist/flowbite.js"></script>
+
+<script>
+    // JavaScript untuk menambahkan field dan nilai secara dinamis
+    document.addEventListener('DOMContentLoaded', function() {
+        const addButton = document.querySelector('#addDynamicField');
+        const dynamicFields = document.querySelector('#dynamic-fields');
+
+        addButton.addEventListener('click', function() {
+            const inputField = document.createElement('div');
+            inputField.innerHTML = `
+                <div class="flex space-x-4 mb-4">
+                    <input type="text" name="dynamicField[]" placeholder="Nama Field"
+                        class="w-1/2 px-3 py-2 text-sm leading-tight text-gray-700 border rounded-lg focus:outline-none focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:text-white"
+                        required>
+                    <input type="text" name="dynamicValue[]" placeholder="Nilai"
+                        class="w-1/2 px-3 py-2 text-sm leading-tight text-gray-700 border rounded-lg focus:outline-none focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:text-white"
+                        required>
+                </div>
+            `;
+            dynamicFields.appendChild(inputField);
+        });
+    });
+</script>
+
 <script>
     document.addEventListener("DOMContentLoaded", function() {
         const searchInput = document.getElementById('table-search');
@@ -477,5 +584,69 @@
             const modal = new Modal(document.getElementById('success-modal'));
             modal.show();
         }
+    });
+</script>
+
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        const fields = document.querySelectorAll('.dynamic-field');
+        const form = document.querySelector('form');
+        const kategoriNamaInput = document.getElementById('kategori_nama');
+
+        fields.forEach(field => {
+            field.addEventListener('input', updateKategoriNama);
+        });
+
+        function updateKategoriNama() {
+            const values = Array.from(fields)
+                .filter(field => field.id !== 'kategori_nama' && field.id.toLowerCase() !== 'harga')
+                .map(field => field.value.trim())
+                .filter(value => value !== '');
+
+            kategoriNamaInput.value = values.join(' ');
+        }
+
+        // Pastikan kategori_nama di-update sebelum form dikirim
+        form.addEventListener('submit', function(event) {
+            updateKategoriNama();
+        });
+    });
+</script>
+
+
+
+
+
+
+<!-- JavaScript to handle dynamic field display -->
+<script>
+    // Example JavaScript to toggle fields based on account type or data category
+    const accountType = "{{ Auth::user()->account_type }}"; // Replace with how you determine account type
+    let dynamicFields = [];
+
+    // Example condition to determine dynamic fields
+    if (accountType === 'A') {
+        dynamicFields = ['jenis_tempat', 'harga', 'kategori_nama', 'durasi'];
+    } else if (accountType === 'B') {
+        dynamicFields = ['kelompok_pasar', 'jenis_unit', 'unit', 'no_unit', 'harga', 'kategori_nama'];
+    }
+
+    // Render dynamic fields in the form
+    const form = document.querySelector('form');
+    dynamicFields.forEach(field => {
+        const label = document.createElement('label');
+        label.setAttribute('for', field);
+        label.textContent = field.toUpperCase().replace('_', ' ');
+        form.insertBefore(label, form.lastElementChild);
+
+        const input = document.createElement('input');
+        input.setAttribute('type', 'text');
+        input.setAttribute('id', field);
+        input.setAttribute('name', field);
+        input.setAttribute('class',
+            'bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white'
+        );
+        input.setAttribute('required', 'true');
+        form.insertBefore(input, form.lastElementChild);
     });
 </script>

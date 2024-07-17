@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Kedinasan;
 use App\Models\Retribusi;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class RetribusiController extends Controller
 {
@@ -13,10 +14,24 @@ class RetribusiController extends Controller
      */
     public function index()
     {
-        $kedinasan = Kedinasan::all();
-        $retribusi = Retribusi::orderBy('created_at', 'asc')->paginate(5);
+        $user = Auth::user();
+
+        // Ambil kabupaten_id dari admin yang sedang login
+        $kabupaten_id = $user->adminkabupaten->kabupaten_id;
+
+        // Mengambil retribusi yang memiliki kabupaten_id sesuai dengan yang sedang login
+        $retribusi = Retribusi::whereHas('kedinasan', function ($query) use ($kabupaten_id) {
+            $query->where('kabupaten_id', $kabupaten_id);
+        })
+            ->orderBy('created_at', 'asc')
+            ->paginate(5);
+
+        // Ambil data kedinasan untuk ditampilkan di view
+        $kedinasan = Kedinasan::where('kabupaten_id', $kabupaten_id)->get();
+
         return view('data.retribusi', compact('kedinasan', 'retribusi'));
     }
+
     /**
      * Show the form for creating a new resource.
      */

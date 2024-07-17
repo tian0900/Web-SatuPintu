@@ -67,6 +67,9 @@ Route::middleware(['auth', 'check.role.byname:AdminKedinasan'])->group(function 
     Route::match (['post', 'put'], '/atribut/update/{id}', [AtributController::class, 'update'])->name('atribut.update');
     Route::delete('/atributpasar/{id}', [AtributController::class, 'destroy'])->name('pasar.destroy');
 
+    Route::post('/atribut/storedinamis', [AtributController::class, 'storedinamis'])->name('dinamis.store');
+    Route::post('/atribut/field', [AtributController::class, 'datanew'])->name('dataa.store');
+
     Route::post('/jenis/store', [PasarController::class, 'store'])->name('jenis.store');
     Route::get('/jenis/edit', [PasarController::class, 'edit'])->name('jenis.edit');
     Route::put('/jenis/{post}', [PasarController::class, 'update'])->name('jenis.update');
@@ -132,6 +135,9 @@ Route::middleware(['check.role.byname:AdminKabupaten'])->group(function () {
     Route::delete('/retribusi/{id}', [RetribusiController::class, 'destroy'])->name('retribusi.destroy');
     Route::get('/retribusi/create', [RetribusiController::class, 'create'])->name('retribusi.create');
     Route::post('/retribusi', [RetribusiController::class, 'store'])->name('retribusi.store');
+
+    Route::get('/useradmin', [UserController::class, 'indexadmin']);
+    Route::post('/useradmin/store', [UserController::class, 'storedata'])->name('users.storedata');
     
     //Kedinasan
     Route::get('/kedinasan', [KedinasanController::class, 'index'])->name('kedinasann');
@@ -227,11 +233,13 @@ Route::middleware(['check.role.byname:Admin'])->group(function () {
     Route::put('/kabupaten/{post}', [KabupatenController::class, 'update'])->name('kabupaten.update');
     Route::delete('/kabupaten/{id}', [KabupatenController::class, 'destroy'])->name('kabupaten.delete');
 
+    Route::get('/useradminkabupaten', [UserController::class, 'indexadminkabupaten']);
+    Route::post('/useradminkabupaten/store', [UserController::class, 'storekabupatenuser'])->name('kabupaten.storedata');
+
     
 
     //Manajemen User
-    Route::get('/useradmin', [UserController::class, 'indexadmin']);
-    Route::post('/useradmin/store', [UserController::class, 'storedata'])->name('users.storedata');
+   
 });
 //ADMIN
 Route::get('/login', [AuthController::class, 'loginview']);

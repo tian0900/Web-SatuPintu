@@ -13,15 +13,101 @@ class AtributController extends Controller
     /**
      * Display a listing of the resource.
      */
+    // public function index()
+    // {
+    //     $user = Auth::user();
+    //     $retribusi_id = $user->admin->retribusi_id;
+
+    //     $wilayah = Wilayah::all();
+    //     $atribut = Post::where('retribusi_id', $retribusi_id)->paginate(5);
+    //     return view('data.atribut', ['atribut' => $atribut, 'wilayah' => $wilayah]);
+    // }
+
+    public function datanew(Request $request)
+    {
+        // Validasi data yang dikirimkan
+        $validatedData = $request->validate([
+            'dynamicField.*' => 'required|string',
+            'dynamicValue.*' => 'required|string',
+        ]);
+
+        // Ambil user yang sedang terautentikasi
+        $user = Auth::user();
+        $retribusi_id = $user->admin->retribusi_id;
+
+        // Format data yang dinamis sesuai dengan yang dibutuhkan untuk MongoDB
+        $dynamicData = [];
+
+        foreach ($request->dynamicField as $index => $field) {
+            // Tambahkan nilai ke dynamicData
+            $dynamicData[$field] = $request->dynamicValue[$index];
+        }
+
+        // Buat kategori_nama dari nilai-nilai yang ada, misalnya dengan menggabungkan beberapa nilai
+        $kategori_nama_values = array_diff_key($dynamicData, array_flip(['harga', 'kategori_nama']));
+        $dynamicData['kategori_nama'] = implode(' ', $kategori_nama_values);
+
+        // Jika kategori_nama_values kosong, set nilai default
+        if (empty($kategori_nama_values)) {
+            $dynamicData['kategori_nama'] = 'Default Kategori Nama'; // Atau aturan default lainnya
+        }
+
+        // Simpan data ke MongoDB
+        Post::create([
+            'retribusi_id' => $retribusi_id,
+            'data' => [$dynamicData], // Pastikan 'data' berisi array dari $dynamicData
+        ]);
+
+        // Redirect ke halaman yang sesuai dengan route Anda
+        return redirect()->route('atribut')->with('success', 'Data berhasil ditambahkan');
+    }
+
+
+
+
+
+
+
+
+
     public function index()
     {
         $user = Auth::user();
         $retribusi_id = $user->admin->retribusi_id;
-        
+
         $wilayah = Wilayah::all();
         $atribut = Post::where('retribusi_id', $retribusi_id)->paginate(5);
-        return view('data.atribut', ['atribut' => $atribut, 'wilayah' => $wilayah]);
+
+        // Tentukan dynamicFields berdasarkan logika tertentu, contoh berdasarkan jenis akun
+        if ($user->account_type === 'A') {
+            $dynamicFields = ['jenis_tempat', 'harga', 'kategori_nama', 'durasi'];
+        } elseif ($user->account_type === 'B') {
+            $dynamicFields = ['kelompok_pasar', 'jenis_unit', 'unit', 'no_unit', 'harga', 'kategori_nama'];
+        } else {
+            // Default jika tidak ada jenis akun yang cocok
+            $dynamicFields = [];
+        }
+
+        // Mengumpulkan semua kunci unik dari data dalam koleksi $atribut
+        $headers = $atribut->flatMap(function ($item) {
+            return collect($item['data'])->flatMap(function ($data) {
+                return array_keys($data);
+            });
+        })->unique()->reject(function ($value) {
+            return $value === 'retribusi_id'; // menghilangkan kunci yang tidak diperlukan
+        });
+
+        return view('data.atribut', [
+            'atribut' => $atribut,
+            'wilayah' => $wilayah,
+            'headers' => $headers,
+            'dynamicFields' => $dynamicFields,
+        ]);
     }
+
+
+
+
 
 
     public function indexsampah()
@@ -100,6 +186,53 @@ class AtributController extends Controller
         // Redirect ke halaman index
         return redirect()->route('atribut')->with('success', 'Data Atribut Berhasil Ditambahkan.');
     }
+
+    public function storedinamis(Request $request)
+    {
+        // Validasi data sesuai kebutuhan Anda
+        $validatedData = $request->validate([
+            // Atur validasi untuk setiap field yang ingin Anda simpan
+            'dynamicField.*' => 'required|string',
+            'dynamicValue.*' => 'required|string',
+            // Tambahkan validasi lainnya sesuai kebutuhan Anda
+        ]);
+
+        // Ambil user yang sedang terautentikasi
+        $user = Auth::user();
+        $retribusi_id = $user->admin->retribusi_id;
+
+        // Ambil kategori_nama dari input request
+        $kategori_nama = $request->input('kategori_nama');
+
+        // Format data yang dinamis sesuai dengan yang dibutuhkan untuk MongoDB
+        $dynamicData = [];
+        foreach ($request->except('_token', 'kategori_nama') as $key => $value) {
+            $dynamicData[$key] = $value;
+        }
+
+        // Masukkan kategori_nama ke dalam dynamicData
+        $dynamicData['kategori_nama'] = $kategori_nama;
+
+        // Simpan data ke MongoDB
+        Post::create([
+            'retribusi_id' => $retribusi_id,
+            'data' => [$dynamicData],
+        ]);
+
+        ItemRetribusi::create([
+            'retribusi_id' => $retribusi_id,
+            'kategori_nama' => $dynamicData['kategori_nama'],
+            'jenis_tagihan' => 'BULANAN',
+            'harga' => $dynamicData['harga']
+        ]);
+
+        // Redirect ke halaman yang sesuai dengan route Anda
+        return redirect()->route('atribut')->with('success', 'Data berhasil ditambahkan');
+    }
+
+
+
+
 
 
     public function storesampah(Request $request)

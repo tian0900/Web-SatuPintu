@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Kabupaten;
 use App\Models\Kedinasan;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class KedinasanController extends Controller
 {
@@ -13,10 +14,24 @@ class KedinasanController extends Controller
      */
     public function index()
     {
-        $kabupaten  = Kabupaten::all();
-        $kedinasan = Kedinasan::orderBy('created_at', 'desc')->paginate(5);
+        $user = Auth::user();
+
+        // Ambil kabupaten_id dari admin yang sedang login
+        $kabupaten_id = $user->adminkabupaten->kabupaten_id;
+
+        // Ambil kedinasan yang terkait dengan kabupaten_id yang sama dengan admin yang sedang login
+        $kedinasan = Kedinasan::whereHas('kabupaten', function ($query) use ($kabupaten_id) {
+            $query->where('id', $kabupaten_id);
+        })
+            ->orderBy('created_at', 'desc')
+            ->paginate(5);
+
+        // Ambil data kabupaten
+        $kabupaten = Kabupaten::where('id', $kabupaten_id)->get();
+
         return view('data.kedinasan', compact('kedinasan', 'kabupaten'));
     }
+
 
 
 

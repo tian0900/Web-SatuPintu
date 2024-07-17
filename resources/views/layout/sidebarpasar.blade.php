@@ -77,7 +77,7 @@
                     <!-- submenu links here  -->
                 </div>
             </li>
-            @if (auth()->user()->admin->retribusi_id == 2)
+            
             <li>
                 <div class="title">
                     <a href="/atribut" class="link">
@@ -91,21 +91,7 @@
                     <!-- submenu links here  -->
                 </div>
             </li>
-            @else
-            <li>
-                <div class="title">
-                    <a href="/atributsampah" class="link">
-                        <i class='bx bx-expand-vertical'></i>
-                        <span class="name">Atribut</span>
-                    </a>
-                    <!-- <i class='bx bxs-chevron-down'></i> -->
-                </div>
-                <div class="submenu">
-                    <a href="/atributsampah" class="link submenu-title">Atribut</a>
-                    <!-- submenu links here  -->
-                </div>
-            </li>
-            @endif
+            
             
             <!-- -------- Non Dropdown List Item ------- -->
             <li>
