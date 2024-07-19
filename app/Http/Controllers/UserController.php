@@ -22,28 +22,53 @@ class UserController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index()
-    {
-        $wilayah = Wilayah::all();
+    public function index(Request $request)
+{
+    $wilayah = Wilayah::all();
 
-        $roles = [
-            ['name' => 'WAJIB RETRIBUSI'],
-            ['name' => 'PETUGAS'],
-        ];
+    $roles = [
+        ['name' => 'WAJIB RETRIBUSI'],
+        ['name' => 'PETUGAS'],
+    ];
 
-        $roleNames = array_column($roles, 'name');
+    $roleNames = array_column($roles, 'name');
 
-        $users = User::with('role')->whereHas('role', function ($query) use ($roleNames) {
-            $query->whereIn('name', $roleNames); // Filter berdasarkan role name
-        })->orderBy('created_at', 'desc') // Urutkan dari yang terbaru
-            ->paginate(5);
+    $query = User::with('role')->whereHas('role', function ($query) use ($roleNames) {
+        $query->whereIn('name', $roleNames); // Filter by role name
+    });
 
-        return view('data.mguser-pasar', compact('users', 'roles', 'wilayah'));
+    // Apply the date filter based on the query parameter
+    $filter = $request->query('filter', '30days'); // Default to last 30 days
+    $filterLabel = 'Last 30 days';
+    switch ($filter) {
+        case 'day':
+            $query->where('created_at', '>=', now()->subDay());
+            $filterLabel = 'Last Day';
+            break;
+        case 'week':
+            $query->where('created_at', '>=', now()->subWeek());
+            $filterLabel = 'Last Week';
+            break;
+        case 'month':
+            $query->where('created_at', '>=', now()->subMonth());
+            $filterLabel = 'Last Month';
+            break;
+        case 'year':
+            $query->where('created_at', '>=', now()->subYear());
+            $filterLabel = 'Last Year';
+            break;
+        default:
+            $query->where('created_at', '>=', now()->subDays(30));
+            break;
     }
 
+    $users = $query->orderBy('created_at', 'desc')->paginate(15);
+
+    return view('data.mguser-pasar', compact('users', 'roles', 'wilayah', 'filterLabel'));
+}
 
 
-
+ 
     public function indexadmin()
     {
         $user = Auth::user();
@@ -67,7 +92,7 @@ class UserController extends Controller
 
         $users = User::with('role')->whereHas('role', function ($query) use ($roleNames) {
             $query->whereIn('name', $roleNames); // Filter berdasarkan role name
-        })->paginate(5);
+        })->paginate(10);
 
         $roleOptions = Role::all();
 
@@ -86,7 +111,7 @@ class UserController extends Controller
 
         $users = User::with('role')->whereHas('role', function ($query) use ($roleNames) {
             $query->whereIn('name', $roleNames); // Filter berdasarkan role name
-        })->paginate(5);
+        })->paginate(10);
 
         $roleOptions = Role::all();
 
@@ -232,7 +257,7 @@ class UserController extends Controller
         $wilayah = Wilayah::all();
         $users = User::with('role')->whereHas('role', function ($query) {
             $query->whereIn('id', [1, 2]); // Filter role_id 1 dan 2
-        })->paginate(5);
+        })->paginate(10);
 
         $roles = [
             ['id' => 1, 'name' => 'WAJIB RETRIBUSI'],

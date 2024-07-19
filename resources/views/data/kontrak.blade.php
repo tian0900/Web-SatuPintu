@@ -2,7 +2,7 @@
 <!-- ============= Home Section =============== -->
 @section('content')
     <div class="container p-5">
-        <h1 class="mt-3 text-5xl">Kontrak</h1>
+        <h1 class="mt-3 text-4xl tracking-tight">Kontrak</h1>
 
         <!-- Main modal -->
         <div id="crud-modal" tabindex="-1" aria-hidden="true"

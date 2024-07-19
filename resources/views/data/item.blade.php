@@ -1,9 +1,8 @@
-
 @extends('layout.sidebarpasar')
 <!-- ============= Home Section =============== -->
 @section('content')
     <div class="container p-5">
-        <h1 class="mt-3 text-5xl">Daftar Item</h1>
+        <h1 class="mt-3 text-4xl tracking-tight">Daftar Item</h1>
 
         <!-- Modal toggle -->
         {{-- <button data-modal-target="crud-modal" data-modal-toggle="crud-modal"
@@ -339,8 +338,7 @@
                                 @endif
                             </ul>
                         </div>
-                    </nav>
-                    
+                    </nav> 
                 </div>
             </div>
         </div>

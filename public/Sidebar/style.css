@@ -28,7 +28,7 @@
     top: 0;
     left: 0;
     height: 100%;
-    width: 240px;
+    width: 250px;
     background-color: var(--color_Light1);
     transition: all .5s ease;
     z-index: 100;
@@ -63,7 +63,7 @@
     transform: rotate(360deg);
 }
 .logo-name{
-    font-size: 22px;
+    font-size: 28px;
     font-weight: 900;
     margin-top: 55px;
     color: #3F84AD;
