@@ -40,8 +40,6 @@ class AuthController extends Controller
                     return redirect('/dashboard-bendahara');
                 case 'AdminKabupaten':
                     return redirect('/dashboard-kabupaten');
-                default:
-                    return redirect('/dashboard-sampah');
             }
         } catch (\Exception $e) {
             return redirect()->back()->withErrors(['message' => 'Terjadi kesalahan: ' . $e->getMessage()]);
