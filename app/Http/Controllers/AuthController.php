@@ -28,7 +28,7 @@ class AuthController extends Controller
             // Menetapkan expires_at untuk token
             $accessToken = $user->createToken('authToken', ['*'], now()->addWeeks(1))->plainTextToken;
 
-return $user->role->name;
+// return $user->role->name;
 
             // Pengalihan berdasarkan role user
             switch ($user->role->name) {
