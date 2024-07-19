@@ -2,7 +2,7 @@
 <!-- ============= Home Section =============== -->
 @section('content')
     <div class="container p-5">
-        <h1 class="mt-3 text-5xl">Daftar Setoran</h1>
+        <h1 class="mt-3 text-4xl tracking-tight">Daftar Setoran</h1>
 
         <!-- Main modal -->
         <div id="crud-modal" tabindex="-1" aria-hidden="true"
@@ -81,7 +81,7 @@
             </div>
         </div>
        
-        <div class="container m-5">
+        <div class="container mt-3">
             <div class="flex flex-column sm:flex-row flex-wrap space-y-4 sm:space-y-0 items-center justify-between pb-4">
                 
                 <label for="table-search" class="sr-only">Search</label>
@@ -109,7 +109,7 @@
             </div>
             <div class="table-responsive"> <!-- Responsiveness for small screens -->
                 <div class="relative shadow-md sm:rounded-lg">
-                    <table class="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400">
+                    <table class="w-full text-center text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400">
                         <thead class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
                             <tr>
                                 <th scope="col" class="px-6 py-3">

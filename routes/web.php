@@ -165,12 +165,33 @@ Route::middleware(['check.role.byname:Bendahara'])->group(function () {
 
     Route::get('/setoran', [BendaharaController::class, 'indexsetor']);
     Route::put('/setor/{id}/update-status', [BendaharaController::class, 'updateStatus'])->name('setor.updateStatus');
-    
-
+     
     Route::get('/pembatalanpasar', [BendaharaController::class, 'indexpembatalan']);
     Route::put('/batal/{id}/update-status', [BendaharaController::class, 'updateStatuspembatalan'])->name('batal.updateStatus');
 
 });
+
+Route::middleware(['check.role.byname:Admin'])->group(function () {
+
+    Route::get('/dashboard', [IndexController::class, 'dashboard']); 
+
+    //Kabupaten
+    Route::get('/kabupaten', [KabupatenController::class, 'index']);
+    Route::post('/kabupaten/store', [KabupatenController::class, 'store'])->name('kabupaten.store');
+    Route::get('/kabupaten/show', [KabupatenController::class, 'show'])->name('kabupaten.show');
+    Route::get('/kabupaten/edit', [KabupatenController::class, 'edit'])->name('kabupaten.edit');
+    Route::put('/kabupaten/{post}', [KabupatenController::class, 'update'])->name('kabupaten.update');
+    Route::delete('/kabupaten/{id}', [KabupatenController::class, 'destroy'])->name('kabupaten.delete');
+
+    // Route::get('/useradmin', [UserController::class, 'indexadminkabupaten']);
+    // Route::post('/useradmin/store', [UserController::class, 'storekabupatenuser'])->name('kabupaten.storedata');
+ 
+});
+
+//Authentication
+Route::get('/login', [AuthController::class, 'loginview']);
+Route::get('/logout', [AuthController::class, 'logout'])->name('logout');
+Route::post('/loginCheck', [AuthController::class, 'loginCheck'])->name('login');
 
 // Route::middleware(['check.role.byname:AdminKedinasan'])->group(function () {
 //     //Dashboard
@@ -221,32 +242,7 @@ Route::middleware(['check.role.byname:Bendahara'])->group(function () {
 //Dashboard
 
 
-Route::middleware(['check.role.byname:Admin'])->group(function () {
 
-    Route::get('/dashboard', [IndexController::class, 'dashboard']);
-
-    
-
-    //Kabupaten
-    Route::get('/kabupaten', [KabupatenController::class, 'index']);
-    Route::post('/kabupaten/store', [KabupatenController::class, 'store'])->name('kabupaten.store');
-    Route::get('/kabupaten/show', [KabupatenController::class, 'show'])->name('kabupaten.show');
-    Route::get('/kabupaten/edit', [KabupatenController::class, 'edit'])->name('kabupaten.edit');
-    Route::put('/kabupaten/{post}', [KabupatenController::class, 'update'])->name('kabupaten.update');
-    Route::delete('/kabupaten/{id}', [KabupatenController::class, 'destroy'])->name('kabupaten.delete');
-
-    Route::get('/useradminkabupaten', [UserController::class, 'indexadminkabupaten']);
-    Route::post('/useradminkabupaten/store', [UserController::class, 'storekabupatenuser'])->name('kabupaten.storedata');
-
-    
-
-    //Manajemen User
-   
-});
-//ADMIN
-Route::get('/login', [AuthController::class, 'loginview']);
-Route::get('/logout', [AuthController::class, 'logout'])->name('logout');
-Route::post('/loginCheck', [AuthController::class, 'loginCheck'])->name('login');
 
 
 // Route::put('/jenis/{id}', [PasarController::class, 'update'])->name('jenis.update');

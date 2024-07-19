@@ -2,16 +2,13 @@
 <!-- ============= Home Section =============== -->
 @section('content')
     <div class="container p-5">
-        <h1 class="mt-3 text-5xl">Daftar Tagihan Manual</h1>
+        <h1 class="mt-3 text-4xl tracking-tight">Daftar Tagihan Manual</h1>
 
-       
-
-        <div class="container m-5">
+        <div class="container mt-3">
             <div class="flex flex-column sm:flex-row flex-wrap space-y-4 sm:space-y-0 items-center justify-between pb-4">
                
-                <label for="table-search" class="sr-only">Search</label>
-                <div class="flex space-x-4 mb-4">
-                   
+                {{-- <label for="table-search" class="sr-only">Search</label> --}}
+                <div class="flex space-x-4 mb-4"> 
                     <form id="exportForm" action="{{ route('export-tagihan-manual') }}" method="get" style="display: inline;">
                         <input type="hidden" name="filter" id="exportFilter" value="">
                         <button type="submit" class="bg-blue-500 text-white px-4 py-2 rounded">Export to Excel</button>
@@ -34,7 +31,7 @@
             </div>
             <div class="table-responsive"> <!-- Responsiveness for small screens -->
                 <div class="relative shadow-md sm:rounded-lg">
-                    <table class="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400">
+                    <table class="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400 text-centerd">
                         <thead class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
                             <tr>
                                 <th scope="col" class="px-6 py-3">

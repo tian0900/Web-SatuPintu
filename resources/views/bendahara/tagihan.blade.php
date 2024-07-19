@@ -2,7 +2,7 @@
 <!-- ============= Home Section =============== -->
 @section('content')
     <div class="container p-5">
-        <h1 class="mt-3 text-5xl">Daftar Tagihan</h1>
+        <h1 class="mt-3 text-4xl tracking-tight">Daftar Tagihan</h1>
 
         <!-- Main modal -->
         <div id="crud-modal" tabindex="-1" aria-hidden="true"
@@ -81,10 +81,10 @@
             </div>
         </div>
 
-
-        <div class="container m-5">
-            <div class="flex space-x-4 mb-4">
-                <button id="nonTunaiButton" class="bg-green-500 text-white px-4 py-2 rounded"
+        <div class="container mt-3">
+            <div class="flex flex-column sm:flex-row flex-wrap space-y-4 sm:space-y-0 items-center justify-between pb-4">
+                <div class="flex space-x-4 mb-4">
+                    <button id="nonTunaiButton" class="bg-green-500 text-white px-4 py-2 rounded"
                     onclick="setFilter('non-tunai')">Non Tunai</button>
                 <button id="tunaiButton" class="bg-yellow-500 text-white px-4 py-2 rounded"
                     onclick="setFilter('tunai')">Tunai</button>
@@ -92,67 +92,7 @@
                     <input type="hidden" name="filter" id="exportFilter" value="">
                     <button type="submit" class="bg-blue-500 text-white px-4 py-2 rounded">Export to Excel</button>
                 </form>
-            </div>
-            <div class="flex flex-column sm:flex-row flex-wrap space-y-4 sm:space-y-0 items-center justify-between pb-4">
-                <div>
-
-                    <!-- Dropdown menu -->
-                    <div id="dropdownRadio"
-                        class="z-10 hidden w-48 bg-white divide-y divide-gray-100 rounded-lg shadow dark:bg-gray-700 dark:divide-gray-600"
-                        data-popper-reference-hidden="" data-popper-escaped="" data-popper-placement="top"
-                        style="position: absolute; inset: auto auto 0px 0px; margin: 0px; transform: translate3d(522.5px, 3847.5px, 0px);">
-                        <ul class="p-3 space-y-1 text-sm text-gray-700 dark:text-gray-200"
-                            aria-labelledby="dropdownRadioButton">
-                            <li>
-                                <div class="flex items-center p-2 rounded hover:bg-gray-100 dark:hover:bg-gray-600">
-                                    <input id="filter-radio-example-1" type="radio" value="" name="filter-radio"
-                                        class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 dark:focus:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600">
-                                    <label for="filter-radio-example-1"
-                                        class="w-full ms-2 text-sm font-medium text-gray-900 rounded dark:text-gray-300">Last
-                                        day</label>
-                                </div>
-                            </li>
-                            <li>
-                                <div class="flex items-center p-2 rounded hover:bg-gray-100 dark:hover:bg-gray-600">
-                                    <input checked="" id="filter-radio-example-2" type="radio" value=""
-                                        name="filter-radio"
-                                        class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 dark:focus:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600">
-                                    <label for="filter-radio-example-2"
-                                        class="w-full ms-2 text-sm font-medium text-gray-900 rounded dark:text-gray-300">Last
-                                        7 days</label>
-                                </div>
-                            </li>
-                            <li>
-                                <div class="flex items-center p-2 rounded hover:bg-gray-100 dark:hover:bg-gray-600">
-                                    <input id="filter-radio-example-3" type="radio" value="" name="filter-radio"
-                                        class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 dark:focus:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600">
-                                    <label for="filter-radio-example-3"
-                                        class="w-full ms-2 text-sm font-medium text-gray-900 rounded dark:text-gray-300">Last
-                                        30 days</label>
-                                </div>
-                            </li>
-                            <li>
-                                <div class="flex items-center p-2 rounded hover:bg-gray-100 dark:hover:bg-gray-600">
-                                    <input id="filter-radio-example-4" type="radio" value="" name="filter-radio"
-                                        class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 dark:focus:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600">
-                                    <label for="filter-radio-example-4"
-                                        class="w-full ms-2 text-sm font-medium text-gray-900 rounded dark:text-gray-300">Last
-                                        month</label>
-                                </div>
-                            </li>
-                            <li>
-                                <div class="flex items-center p-2 rounded hover:bg-gray-100 dark:hover:bg-gray-600">
-                                    <input id="filter-radio-example-5" type="radio" value="" name="filter-radio"
-                                        class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 dark:focus:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600">
-                                    <label for="filter-radio-example-5"
-                                        class="w-full ms-2 text-sm font-medium text-gray-900 rounded dark:text-gray-300">Last
-                                        year</label>
-                                </div>
-                            </li>
-                        </ul>
-                    </div>
                 </div>
-                <label for="table-search" class="sr-only">Search</label>
                 <div class="relative">
                     <div
                         class="absolute inset-y-0 left-0 rtl:inset-r-0 rtl:right-0 flex items-center ps-3 pointer-events-none">
@@ -167,10 +107,10 @@
                         class="block p-2 ps-10 text-sm text-gray-900 border border-gray-300 rounded-lg w-80 bg-gray-50 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
                         placeholder="Search for items">
                 </div>
-            </div>
-            <div class="table-responsive"> <!-- Responsiveness for small screens -->
+            </div> 
+            <div class="table-responsive "> <!-- Responsiveness for small screens -->
                 <div class="relative shadow-md sm:rounded-lg">
-                    <table class="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400">
+                    <table class="w-full text-sm text-gray-500 dark:text-gray-400 text-center">
                         <thead class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
                             <tr>
                                 <th scope="col" class="px-6 py-3">
@@ -191,7 +131,6 @@
                                 <th scope="col" class="px-6 py-3">
                                     Status
                                 </th>
-
                             </tr>
                         </thead>
                         <tbody>
@@ -201,28 +140,26 @@
                             @foreach ($tagihan as $item)
                                 <tr class="table-row" data-metode="{{ $item->metode_pembayaran }}">
                                     <td scope="row"
-                                        class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
+                                        class="px-6 py-3 font-medium text-gray-900 whitespace-nowrap dark:text-white">
                                         {{ $number++ }}
                                     </td>
                                     <td scope="row"
-                                        class="px-3 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
+                                        class="px-3 py-3 font-medium text-gray-900 whitespace-nowrap dark:text-white">
                                         {{ $item->name }}
                                     </td>
-                                    <td class="px-3 py-4">
+                                    <td class="px-3 py-3">
                                         {{ $item->kategori_nama }}
                                     </td>
-                                    <td class="px-3 py-4">
+                                    <td class="px-3 py-3">
                                         {{ $item->total_harga }}
                                     </td>
-                                    <td class="px-3 py-4">
+                                    <td class="px-3 py-3">
                                         {{ $item->metode_pembayaran }}
                                     </td>
-                                    <td class="px-3 py-4">
+                                    <td class="px-3 py-3">
                                         {{ $item->pembayaran_status }}
                                     </td>
                                 </tr>
-
-
 
                                 <!-- Main modal -->
                                 <div id="modal<?= $item->id ?>" tabindex="-1" aria-hidden="true"

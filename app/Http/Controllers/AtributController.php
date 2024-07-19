@@ -61,17 +61,6 @@ class AtributController extends Controller
         return redirect()->route('atribut')->with('success', 'Field berhasil ditambahkan');
     }
 
-
-
-
-
-
-
-
-
-
-
-
     public function index()
     {
         $user = Auth::user();

@@ -5,7 +5,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Document</title>
+    <title>Satu Pintu</title>
     <!-- ICONS -->
     <script src="https://unpkg.com/@phosphor-icons/web"></script>
     <!-- STYLESHEET -->
@@ -28,7 +28,7 @@
             {{-- <i class='bx bxl-xing'></i> --}}
             <img class="img-logo" src="Logo/logo.png" alt="">
             <div class="logo-name" >
-                Aplikasi Retribusi
+                Satu Pintu
             </div>
             <link rel='icon' href="logo/Logo.png">
         </a>
@@ -79,7 +79,7 @@
             <li>
                 <div class="title">
                     <a href="/tagihannmanual" class="link">
-                        <i class='bx bx-money'></i>
+                        <i class='bx bx-wallet'></i>
                         <span class="name">Tagihan Manual</span>
                     </a>
                     <!-- <i class='bx bxs-chevron-down'></i> -->

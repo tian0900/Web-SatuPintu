@@ -5,7 +5,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Document</title>
+    <title>Satu Pintu</title>
     <!-- ICONS -->
     <script src="https://unpkg.com/@phosphor-icons/web"></script>
     <!-- STYLESHEET -->
@@ -28,8 +28,8 @@
         <a href="#" class="logo-box">
             {{-- <i class='bx bxl-xing'></i> --}}
             <img class="img-logo" src="Logo/logo.png" alt="">
-            <div class="logo-name" style="font-size: 24px; width: 200px; height: 50px; padding: 10px; margin: 10px;">
-                Aplikasi Retribusi
+            <div class="logo-name">
+                Satu Pintu
             </div>
         </a>
 
