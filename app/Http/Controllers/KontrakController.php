@@ -42,6 +42,7 @@ class KontrakController extends Controller
             ->paginate(5);
 
         $wajibRetribusiOptions = WajibRetribusi::all();
+        return $wajibRetribusiOptions;
         $itemRetribusiOptions = ItemRetribusi::where('retribusi_id', $retribusi_id)->get();
         $subWilayahOptions =  Wilayah::where('retribusi_id', $retribusi_id)->get();
 
