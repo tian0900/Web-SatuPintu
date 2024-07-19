@@ -28,7 +28,6 @@ class AtributController extends Controller
         // Validasi data yang dikirimkan
         $validatedData = $request->validate([
             'dynamicField.*' => 'required|string',
-            'dynamicValue.*' => 'required|string',
         ]);
 
         // Ambil user yang sedang terautentikasi
@@ -38,12 +37,12 @@ class AtributController extends Controller
         // Format data yang dinamis sesuai dengan yang dibutuhkan untuk MongoDB
         $dynamicData = [];
 
-        foreach ($request->dynamicField as $index => $field) {
-            // Tambahkan nilai ke dynamicData
-            $dynamicData[$field] = $request->dynamicValue[$index];
+        foreach ($request->dynamicField as $field) {
+            // Tambahkan field dengan nilai kosong ke dynamicData
+            $dynamicData[$field] = '';
         }
 
-        // Buat kategori_nama dari nilai-nilai yang ada, misalnya dengan menggabungkan beberapa nilai
+        // Buat kategori_nama dari field-field yang ada, misalnya dengan menggabungkan beberapa field
         $kategori_nama_values = array_diff_key($dynamicData, array_flip(['harga', 'kategori_nama']));
         $dynamicData['kategori_nama'] = implode(' ', $kategori_nama_values);
 
@@ -59,8 +58,11 @@ class AtributController extends Controller
         ]);
 
         // Redirect ke halaman yang sesuai dengan route Anda
-        return redirect()->route('atribut')->with('success', 'Data berhasil ditambahkan');
+        return redirect()->route('atribut')->with('success', 'Field berhasil ditambahkan');
     }
+
+
+
 
 
 

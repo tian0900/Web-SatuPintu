@@ -47,6 +47,36 @@ class BendaharaController extends Controller
         return view('bendahara.tagihan', ['tagihan' => $tagihan]);
     }
 
+    public function indextransaksi()
+    {
+
+        $user = Auth::user();
+        $retribusi_id = $user->admin->retribusi_id;
+        $tagihan = DB::table('tagihan')
+            ->join('pembayaran', 'pembayaran.tagihan_id', '=', 'tagihan.id')
+            ->join('kontrak', 'kontrak.id', '=', 'tagihan.kontrak_id')
+            ->join('item_retribusi', 'item_retribusi.id', '=', 'kontrak.item_retribusi_id')
+            ->join('wajib_retribusi', 'kontrak.wajib_retribusi_id', '=', 'wajib_retribusi.id')
+            ->join('users', 'wajib_retribusi.user_id', '=', 'users.id') // Removed the extra space here
+            ->select(
+                'tagihan.*',
+                'item_retribusi.kategori_nama',
+                'users.name',
+                // 'pembayaran.status as pembayaran_status', // Alias for status in the pembayaran table
+                'tagihan.status as pembayaran_status', // Alias for status in the pembayaran table
+                'pembayaran.metode_pembayaran', // Alias for status in the pembayaran table
+                'kontrak.status as kontrak_status' // Alias for status in the kontrak table
+            )
+            ->where('tagihan.status', 'VERIFIED') // Filter based on tagihan status
+            ->where('tagihan.active', '1') // Filter based on tagihan active status
+            ->where('item_retribusi.retribusi_id', $retribusi_id) // Filter based on item_retribusi retribusi_id
+            ->paginate(5);
+
+        // dd($tagihan);
+
+        return view('bendahara.transaksi', ['tagihan' => $tagihan]);
+    }
+
     public function indextagihanmanual()
     {
         $user = Auth::user();
@@ -253,6 +283,13 @@ class BendaharaController extends Controller
         $filter = $request->input('filter', ''); // Ambil filter dari request
 
         return Excel::download(new \App\Exports\TagihanExport($filter), 'tagihan.xlsx');
+    }
+
+    public function exportTransaksi(Request $request)
+    {
+        $filter = $request->input('filter', ''); // Ambil filter dari request
+
+        return Excel::download(new \App\Exports\TransaksiExport($filter), 'Transaksi.xlsx');
     }
 
 

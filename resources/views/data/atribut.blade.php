@@ -70,14 +70,13 @@
             </button>
         @endif
 
-
-        <!-- Modal untuk menambah data baru -->
+        <!-- Modal untuk menambah field baru -->
         <div id="addModal" tabindex="-1" aria-hidden="true"
             class="fixed inset-0 z-50 overflow-y-auto hidden bg-black bg-opacity-50">
             <div class="flex items-center justify-center min-h-screen p-4">
                 <div class="bg-white rounded-lg shadow-lg p-8 w-full max-w-md dark:bg-gray-800">
                     <div class="flex items-center justify-between mb-4">
-                        <h3 class="text-xl font-medium text-gray-900 dark:text-white">Tambah Data Baru</h3>
+                        <h3 class="text-xl font-medium text-gray-900 dark:text-white">Tambah Field Baru</h3>
                         <button type="button" class="text-gray-500 hover:text-gray-700 dark:text-gray-400"
                             data-modal-toggle="addModal">
                             <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"
@@ -90,12 +89,12 @@
                     <form action="{{ route('dataa.store') }}" method="POST" class="space-y-4" id="dynamic-form">
                         @csrf
                         <div id="dynamic-fields">
-                            <!-- Placeholder untuk field dan nilai yang ditambahkan dinamis -->
+                            <!-- Placeholder untuk field yang ditambahkan dinamis -->
                         </div>
                         <button type="button"
                             class="inline-block px-4 py-2 text-sm font-medium text-gray-700 bg-gray-200 rounded-lg hover:bg-gray-300 focus:outline-none focus:bg-gray-300"
                             id="addDynamicField">
-                            Tambah Field dan Nilai
+                            Tambah Field
                         </button>
                         <div class="flex justify-end space-x-2">
                             <button type="submit"
@@ -272,9 +271,9 @@
                                         @endforeach
                                         <td class="px-6 py-4">
                                             <!-- Modal toggle -->
-                                            <a data-modal-target="modal{{ $item->_id }}"
+                                            {{-- <a data-modal-target="modal{{ $item->_id }}"
                                                 data-modal-toggle="modal{{ $item->_id }}"
-                                                class="font-medium text-blue-600 dark:text-blue-500 hover:underline text-center">Edit</a>
+                                                class="font-medium text-blue-600 dark:text-blue-500 hover:underline text-center">Edit</a> --}}
                                             <a data-modal-target="modalhapus{{ $item->_id }}"
                                                 data-modal-toggle="modalhapus{{ $item->_id }}"
                                                 class="font-medium text-red-600 dark:text-red-500 hover:underline text-center">Hapus</a>
@@ -538,7 +537,7 @@
 <script src="https://unpkg.com/flowbite@1.4.7/dist/flowbite.js"></script>
 
 <script>
-    // JavaScript untuk menambahkan field dan nilai secara dinamis
+    // JavaScript untuk menambahkan field secara dinamis
     document.addEventListener('DOMContentLoaded', function() {
         const addButton = document.querySelector('#addDynamicField');
         const dynamicFields = document.querySelector('#dynamic-fields');
@@ -548,10 +547,7 @@
             inputField.innerHTML = `
                 <div class="flex space-x-4 mb-4">
                     <input type="text" name="dynamicField[]" placeholder="Nama Field"
-                        class="w-1/2 px-3 py-2 text-sm leading-tight text-gray-700 border rounded-lg focus:outline-none focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:text-white"
-                        required>
-                    <input type="text" name="dynamicValue[]" placeholder="Nilai"
-                        class="w-1/2 px-3 py-2 text-sm leading-tight text-gray-700 border rounded-lg focus:outline-none focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:text-white"
+                        class="w-full px-3 py-2 text-sm leading-tight text-gray-700 border rounded-lg focus:outline-none focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:text-white"
                         required>
                 </div>
             `;
@@ -561,20 +557,20 @@
 </script>
 
 <script>
-    document.addEventListener("DOMContentLoaded", function() {
-        const searchInput = document.getElementById('table-search');
-        const rows = document.querySelectorAll(
-            'tbody tr'); // Menggunakan selector yang sesuai dengan struktur tabel Anda
+    document.addEventListener('DOMContentLoaded', function() {
+        const addButton = document.querySelector('#addDynamicField');
+        const dynamicFields = document.querySelector('#dynamic-fields');
 
-        searchInput.addEventListener('input', function() {
-            const searchValue = this.value.toLowerCase();
-
-            rows.forEach(row => {
-                const cells = row.querySelectorAll('td');
-                const rowText = Array.from(cells).map(cell => cell.textContent.toLowerCase())
-                    .join(' ');
-                row.style.display = rowText.includes(searchValue) ? '' : 'none';
-            });
+        addButton.addEventListener('click', function() {
+            const inputField = document.createElement('div');
+            inputField.innerHTML = `
+                <div class="flex space-x-4 mb-4">
+                    <input type="text" name="dynamicField[]" placeholder="Nama Field"
+                        class="w-full px-3 py-2 text-sm leading-tight text-gray-700 border rounded-lg focus:outline-none focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:text-white"
+                        required>
+                </div>
+            `;
+            dynamicFields.appendChild(inputField);
         });
     });
 </script>
