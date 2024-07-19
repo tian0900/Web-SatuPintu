@@ -62,6 +62,19 @@
                     <!-- submenu links here  -->
                 </div>
             </li>
+            <li>
+                <div class="title">
+                    <a href="/transaksi" class="link">
+                        <i class='bx bx-money'></i>
+                        <span class="name">Transaksi</span>
+                    </a>
+                    <!-- <i class='bx bxs-chevron-down'></i> -->
+                </div>
+                <div class="submenu">
+                    <a href="/transaksi" class="link submenu-title">Transaksi</a>
+                    <!-- submenu links here  -->
+                </div>
+            </li>
 
             <li>
                 <div class="title">
