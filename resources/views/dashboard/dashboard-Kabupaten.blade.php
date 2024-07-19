@@ -35,37 +35,10 @@
             </div> 
         </div>
     </div>
-    <div class="grid grid-cols-1 gap-6 sm:grid-cols-3 ">
-        {{-- <div>
-            <a href="#" class="text block max-w-sm p-6 bg-blue border border-gray-200 rounded-lg shadow hover:bg-gray-100 dark:bg-gray-800 dark:border-gray-700 dark:hover:bg-gray-700">
-                <p class="text-4xl text-gray-900 dark:text-white"><i class='bx bx-directions'></i></p>
-                <h5 class="mb-2 text-2xl font-bold tracking-tight text-gray-900 dark:text-white">Kabupaten</h5>
-                <Here class="text-2xl text-gray-900 dark:text-white">{{ $kabupaten}}</p>
-            </a>
-        </div>  --}}
-        <div class=" mx-auto max-w-screen-xl ">
-            <div class="grid grid-cols-1 gap-6 sm:grid-cols-3">  
-                {{-- <div class="w-full max-w-md p-42bg-white border border-gray-200 rounded-lg shadow sm:p-8 dark:bg-gray-800 dark:border-gray-700">
-                    <div class="flex items-center justify-between mb-4">
-                        <h5 class="text-xl font-bold leading-none text-gray-900 dark:text-white">Retribusi</h5> 
-                    </div>
-                    <div class="flow-root">
-                        <ul role="list" class="divide-y divide-gray-200 dark:divide-gray-700">
-                            @foreach ($data as $sistem)
-                            <li class="py-3 sm:py-4">
-                                <div class="flex items-center"> 
-                                    <div class="flex-1 min-w-0">
-                                        <p class="text-sm font-medium text-gray-900 truncate dark:text-white">
-                                            <i class='bx bx-book-open'></i> {{$sistem->nama}}
-                                        </p>
-                                    </div>
-                                </div>
-                            </li>
-                            @endforeach 
-                        </ul>
-                    </div>
-                </div>  --}}
-                <div class="mx-auto max-w-screen-xl col-span-2">
+    <div class="grid grid-cols-1 gap-12 lg:grid-cols-3 "> 
+        <div class=" mx-auto max-w-screen-sm ">
+            <div class="grid grid-cols-1 gap-6 sm:grid-cols-1">   
+                <div class="mx-auto max-w-screen-xl col-span-1">
                     <div class="relative border overflow-x-auto shadow-md sm:rounded-lg">
                         <table class="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400">
                             <thead class="text-xs text-gray-700 uppercase dark:text-gray-400">
@@ -104,8 +77,8 @@
                 
             </div>
         </div>
-        <div>
-            <a href="#" class="block max-w-sm p-6 bg-white border border-gray-200 rounded-lg shadow hover:bg-gray-100 dark:bg-gray-800 dark:border-gray-700 dark:hover:bg-gray-700">
+        <div class="sm:grid-cols-1">
+            <a href="#" class="block p-6 bg-white border border-gray-200 rounded-lg shadow hover:bg-gray-100 dark:bg-gray-800 dark:border-gray-700 dark:hover:bg-gray-700">
                 <p class="text-4xl text-gray-900 dark:text-white"><i class='bx bxs-institution'></i></p>
                 <h5 class="mb-2 text-2xl font-bold tracking-tight text-gray-900 dark:text-white">Kedinasan</h5>
                 <Here class="text-2xl text-gray-900 dark:text-white">{{ $kedinasan}}</p>

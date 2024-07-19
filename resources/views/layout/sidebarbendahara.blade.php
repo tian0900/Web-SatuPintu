@@ -27,7 +27,7 @@
         <a href="#" class="logo-box">
             {{-- <i class='bx bxl-xing'></i> --}}
             <img class="img-logo" src="Logo/logo.png" alt="">
-            <div class="logo-name" style="font-size: 24px; width: 200px; height: 50px; padding: 7px; margin: 7px;">
+            <div class="logo-name" >
                 Aplikasi Retribusi
             </div>
             <link rel='icon' href="logo/Logo.png">
