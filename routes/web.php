@@ -30,6 +30,7 @@ use App\Models\Kabupaten;
 */
 
 Route::get('/export-tagihan', [BendaharaController::class, 'exportTagihan'])->name('export-tagihan');
+Route::get('/export-transaksi', [BendaharaController::class, 'exportTransaksi'])->name('export-transaksi');
 Route::get('/export-tagihan-manual', [BendaharaController::class, 'exportTagihanManual'])->name('export-tagihan-manual');
 Route::get('/export-setoran', [BendaharaController::class, 'exportSetoran'])->name('export-setoran');
 
@@ -159,6 +160,7 @@ Route::middleware(['check.role.byname:Bendahara'])->group(function () {
 
     //Bendahara
     Route::get('/tagihan', [BendaharaController::class, 'indextagihan']);
+    Route::get('/transaksi', [BendaharaController::class, 'indextransaksi']);
     Route::get('/tagihansampah', [BendaharaController::class, 'tagihansampah']);
 
     Route::get('/setoran', [BendaharaController::class, 'indexsetor']);

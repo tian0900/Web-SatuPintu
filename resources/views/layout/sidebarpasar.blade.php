@@ -47,6 +47,33 @@
                     <a href="/dashboard-pasar" class="link submenu-title">Dashboard</a>
                 </div>
             </li>
+            <li>
+                <div class="title">
+                    <a href="/atribut" class="link">
+                        <i class='bx bx-expand-vertical'></i>
+                        <span class="name">Atribut</span>
+                    </a>
+                    <!-- <i class='bx bxs-chevron-down'></i> -->
+                </div>
+                <div class="submenu">
+                    <a href="/atribut" class="link submenu-title">Atribut</a>
+                    <!-- submenu links here  -->
+                </div>
+            </li>
+            <li>
+                <div class="title">
+                    <a href="/wilayah-pasar" class="link">
+                        <i class='bx bx-map-alt'></i>
+                        <span class="name">Wilayah</span>
+                    </a>
+                    <!-- <i class='bx bxs-chevron-down'></i> -->
+                </div>
+                <div class="submenu">
+                    <a href="/wilayah-pasar" class="link submenu-title">Wilayah</a>
+                    <!-- submenu links here  -->
+                </div>
+            </li>
+
 
             <!-- -------- Non Dropdown List Item ------- -->
             <li>
@@ -64,35 +91,10 @@
             </li>
 
             <!-- -------- Non Dropdown List Item ------- -->
-            <li>
-                <div class="title">
-                    <a href="/wilayah-pasar" class="link">
-                        <i class='bx bx-map-alt'></i>
-                        <span class="name">Wilayah</span>
-                    </a>
-                    <!-- <i class='bx bxs-chevron-down'></i> -->
-                </div>
-                <div class="submenu">
-                    <a href="/wilayah-pasar" class="link submenu-title">Wilayah</a>
-                    <!-- submenu links here  -->
-                </div>
-            </li>
-            
-            <li>
-                <div class="title">
-                    <a href="/atribut" class="link">
-                        <i class='bx bx-expand-vertical'></i>
-                        <span class="name">Atribut</span>
-                    </a>
-                    <!-- <i class='bx bxs-chevron-down'></i> -->
-                </div>
-                <div class="submenu">
-                    <a href="/atribut" class="link submenu-title">Atribut</a>
-                    <!-- submenu links here  -->
-                </div>
-            </li>
-            
-            
+
+
+
+
             <!-- -------- Non Dropdown List Item ------- -->
             <li>
                 <div class="title">

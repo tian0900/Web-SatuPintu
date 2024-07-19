@@ -22,9 +22,13 @@ class UserController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index(Request $request)
-{
-    $wilayah = Wilayah::all();
+    public function index()
+    {
+        // $wilayah = Wilayah::all();
+        $user = Auth::user();
+        $retribusi_id = $user->admin->retribusi_id;
+        
+        $wilayah = Wilayah::where('retribusi_id', $retribusi_id)->get();
 
     $roles = [
         ['name' => 'WAJIB RETRIBUSI'],
@@ -79,25 +83,39 @@ class UserController extends Controller
         // Mengambil retribusi yang memiliki kabupaten_id sesuai dengan yang sedang login
         $retribusi = Retribusi::whereHas('kedinasan', function ($query) use ($kabupaten_id) {
             $query->where('kabupaten_id', $kabupaten_id);
-        })
-            ->get();
+        })->get();
 
         $roles = [
             ['name' => 'Bendahara'],
-            ['name' => 'AdminKabupaten'],
             ['name' => 'AdminKedinasan'],
         ];
 
         $roleNames = array_column($roles, 'name');
 
-        $users = User::with('role')->whereHas('role', function ($query) use ($roleNames) {
-            $query->whereIn('name', $roleNames); // Filter berdasarkan role name
-        })->paginate(10);
+        // Mengambil pengguna yang memiliki role tertentu dan kabupaten_id yang sama dengan admin yang sedang login
+        $users = User::with(['role', 'adminkabupaten'])
+            ->whereHas('role', function ($query) use ($roleNames) {
+                $query->whereIn('name', $roleNames); // Filter berdasarkan role name
+            })
+            ->whereHas('adminkabupaten', function ($query) use ($kabupaten_id) {
+                $query->where('kabupaten_id', $kabupaten_id); // Filter berdasarkan kabupaten_id
+            })
+            ->orWhereHas('admin', function ($query) use ($kabupaten_id) {
+                $query->whereHas('retribusi', function ($subQuery) use ($kabupaten_id) {
+                    $subQuery->whereHas('kedinasan', function ($deepQuery) use ($kabupaten_id) {
+                        $deepQuery->where('kabupaten_id', $kabupaten_id);
+                    });
+                });
+            })
+            ->orderBy('created_at', 'desc') // Mengurutkan dari baru ke lama
+            ->paginate(5);
 
         $roleOptions = Role::all();
 
         return view('data.mgadmin', compact('users', 'roles', 'roleOptions', 'retribusi'));
     }
+
+
 
 
     public function indexadminkabupaten()
