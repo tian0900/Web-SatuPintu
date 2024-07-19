@@ -183,8 +183,8 @@ Route::middleware(['check.role.byname:Admin'])->group(function () {
     Route::put('/kabupaten/{post}', [KabupatenController::class, 'update'])->name('kabupaten.update');
     Route::delete('/kabupaten/{id}', [KabupatenController::class, 'destroy'])->name('kabupaten.delete');
 
-    // Route::get('/useradmin', [UserController::class, 'indexadminkabupaten']);
-    // Route::post('/useradmin/store', [UserController::class, 'storekabupatenuser'])->name('kabupaten.storedata');
+    Route::get('/useradminkabupaten', [UserController::class, 'indexadminkabupaten']);
+    Route::post('/useradminkab/store', [UserController::class, 'storekabupatenuser'])->name('kabupaten.storedata');
  
 });
 
