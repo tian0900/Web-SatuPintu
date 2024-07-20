@@ -204,7 +204,7 @@ class KontrakController extends Controller
         $dompdf->render();
 
         // Simpan PDF ke dalam folder kontrak di public
-        $pdfName = $id .'_Kontrak_' . Str::slug($userName) . '.pdf'; // Nama file PDF
+        $pdfName = $id .'_Kontrak' .'.pdf'; // Nama file PDF
         $pdfPath = 'kontrakpdf/' . $pdfName; // Path lengkap file PDF di folder public
         Storage::put($pdfPath, $dompdf->output());
 
