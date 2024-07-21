@@ -14,12 +14,12 @@ class TagihanExport implements FromQuery, WithHeadings, WithStyles
 {
     use Exportable;
 
-    private $filter;
+    // private $filter;
 
-    public function __construct($filter)
-    {
-        $this->filter = $filter;
-    }
+    // public function __construct($filter)
+    // {
+    //     $this->filter = $filter;
+    // }
 
     public function query()
     {
@@ -27,7 +27,7 @@ class TagihanExport implements FromQuery, WithHeadings, WithStyles
         $retribusi_id = $user->admin->retribusi_id;
 
         $query = DB::table('tagihan')
-            ->join('pembayaran', 'pembayaran.tagihan_id', '=', 'tagihan.id')
+            // ->join('pembayaran', 'pembayaran.tagihan_id', '=', 'tagihan.id')
             ->join('kontrak', 'kontrak.id', '=', 'tagihan.kontrak_id')
             ->join('item_retribusi', 'item_retribusi.id', '=', 'kontrak.item_retribusi_id')
             ->join('wajib_retribusi', 'kontrak.wajib_retribusi_id', '=', 'wajib_retribusi.id')
@@ -36,19 +36,14 @@ class TagihanExport implements FromQuery, WithHeadings, WithStyles
                 'users.name',
                 'item_retribusi.kategori_nama',
                 'tagihan.total_harga',
-                'pembayaran.metode_pembayaran',
-                'pembayaran.status as pembayaran_status'
+                // 'pembayaran.metode_pembayaran',
+                'tagihan.status as pembayaran_status'
             )
             ->where('tagihan.status', 'NEW')
-            ->where('pembayaran.status', 'WAITING')
+            // ->where('pembayaran.status', 'WAITING')
             ->where('tagihan.active', '1')
             ->where('item_retribusi.retribusi_id', $retribusi_id);
 
-        if ($this->filter === 'tunai') {
-            $query->where('pembayaran.metode_pembayaran', 'CASH');
-        } elseif ($this->filter === 'non-tunai') {
-            $query->whereIn('pembayaran.metode_pembayaran', ['VA', 'QRIS']);
-        }
 
         return $query->orderBy('tagihan.id');
     }
@@ -60,7 +55,6 @@ class TagihanExport implements FromQuery, WithHeadings, WithStyles
             'Name',
             'Kategori Nama',
             'Total Harga',
-            'Metode Pembayaran',
             'Status Pembayaran'
         ];
     }

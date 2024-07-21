@@ -84,10 +84,10 @@
         <div class="container mt-3">
             <div class="flex flex-column sm:flex-row flex-wrap space-y-4 sm:space-y-0 items-center justify-between pb-4">
                 <div class="flex space-x-4 mb-4">
-                    <button id="nonTunaiButton" class="bg-green-500 text-white px-4 py-2 rounded"
+                    {{-- <button id="nonTunaiButton" class="bg-green-500 text-white px-4 py-2 rounded"
                     onclick="setFilter('non-tunai')">Non Tunai</button>
                 <button id="tunaiButton" class="bg-yellow-500 text-white px-4 py-2 rounded"
-                    onclick="setFilter('tunai')">Tunai</button>
+                    onclick="setFilter('tunai')">Tunai</button> --}}
                 <form id="exportForm" action="{{ route('export-tagihan') }}" method="get" style="display: inline;">
                     <input type="hidden" name="filter" id="exportFilter" value="">
                     <button type="submit" class="bg-blue-500 text-white px-4 py-2 rounded">Export to Excel</button>
@@ -126,9 +126,6 @@
                                     Harga
                                 </th>
                                 <th scope="col" class="px-6 py-3">
-                                    Metode Pembayaran
-                                </th>
-                                <th scope="col" class="px-6 py-3">
                                     Status
                                 </th>
                             </tr>
@@ -138,7 +135,7 @@
                                 $number = ($tagihan->currentPage() - 1) * $tagihan->perPage() + 1;
                             @endphp <!-- Inisialisasi nomor -->
                             @foreach ($tagihan as $item)
-                                <tr class="table-row" data-metode="{{ $item->metode_pembayaran }}">
+                                <tr class="table-row">
                                     <td scope="row"
                                         class="px-6 py-3 font-medium text-gray-900 whitespace-nowrap dark:text-white">
                                         {{ $number++ }}
@@ -152,9 +149,6 @@
                                     </td>
                                     <td class="px-3 py-3">
                                         {{ $item->total_harga }}
-                                    </td>
-                                    <td class="px-3 py-3">
-                                        {{ $item->metode_pembayaran }}
                                     </td>
                                     <td class="px-3 py-3">
                                         {{ $item->pembayaran_status }}
