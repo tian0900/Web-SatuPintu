@@ -39,7 +39,7 @@ class AuthController extends Controller
                 case 'AdminSampah':
                     return redirect('/dashboard-sampah');
                 case 'Bendahara':
-                    return redirect('/dashboard-bendahara');
+                    return redirect('/dashboard-Bendahara');
                 case 'AdminKabupaten':
                     return redirect('/dashboard-kabupaten');
             }
