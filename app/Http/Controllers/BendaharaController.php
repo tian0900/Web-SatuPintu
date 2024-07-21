@@ -146,11 +146,11 @@ class BendaharaController extends Controller
         $retribusi_id = $user->admin->retribusi_id;
 
         $setor = DB::table('setoran')
-            ->join('transaksi_petugas', 'setoran.id', '=', 'transaksi_petugas.setoran_id')
-            ->join('tagihan', 'tagihan.id', '=', 'transaksi_petugas.tagihan_id')
-            ->join('kontrak', 'kontrak.id', '=', 'tagihan.kontrak_id')
-            ->join('item_retribusi', 'item_retribusi.id', '=', 'kontrak.item_retribusi_id')
-            ->join('petugas', 'petugas.id', '=', 'transaksi_petugas.petugas_id')
+            // ->join('transaksi_petugas', 'setoran.id', '=', 'transaksi_petugas.setoran_id')
+            // ->join('tagihan', 'tagihan.id', '=', 'transaksi_petugas.tagihan_id')
+            // ->join('kontrak', 'kontrak.id', '=', 'tagihan.kontrak_id')
+            // ->join('item_retribusi', 'item_retribusi.id', '=', 'kontrak.item_retribusi_id')
+            ->join('petugas', 'petugas.id', '=', 'setoran.petugas_id')
             ->join('users', 'users.id', '=', 'petugas.user_id')
             ->join('sub_wilayah', 'sub_wilayah.id', '=', 'setoran.sub_wilayah_id')
             ->select(
@@ -161,7 +161,7 @@ class BendaharaController extends Controller
 
             )
             ->where('setoran.status', 'MENUNGGU')
-            ->where('item_retribusi.retribusi_id', $retribusi_id)
+            ->where('sub_wilayah.retribusi_id', $retribusi_id)
             ->paginate(5);
         return view('bendahara.setor', ['setor' => $setor]);
     }
