@@ -153,7 +153,7 @@ Route::middleware(['check.role.byname:AdminKabupaten'])->group(function () {
 
 Route::middleware(['check.role.byname:Bendahara'])->group(function () {
     //Dashboard
-    Route::get('/dashboard-bendahara', [IndexController::class, 'dashboardbendahara']);
+    Route::get('/dashboard-Bendahara', [IndexController::class, 'dashboardbendahara']);
 
 
     Route::get('/tagihannmanual', [BendaharaController::class, 'indextagihanmanual']);

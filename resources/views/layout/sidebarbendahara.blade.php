@@ -38,13 +38,13 @@
             <!-- -------- Non Dropdown List Item ------- -->
             <li>
                 <div class="title">
-                    <a href="/dashboard-bendahara" class="link">
+                    <a href="/dashboard-Bendahara" class="link">
                         <i class='bx bx-grid-alt'></i>
                         <span class="name">Dashboard</span>
                     </a>
                 </div>
                 <div class="submenu">
-                    <a href="/dashboard-bendahara" class="link submenu-title">Dashboard</a>
+                    <a href="/dashboard-Bendahara" class="link submenu-title">Dashboard</a>
                 </div>
             </li>
 
