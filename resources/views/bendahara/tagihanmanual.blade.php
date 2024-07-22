@@ -112,7 +112,7 @@
                                             <!-- Modal body -->
                                             <div class="p-4 md:p-5">
                                                 <img class="card-img-top"
-                                                     src="{{ asset('tagihanmanual/' . $item->bukti_bayar) }}"
+                                                     src="{{ asset('https://satupintu-del.site/' . $item->bukti_bayar) }}"
                                                      alt="Bukti Bayar"
                                                      style="max-height: 500px; max-width: 100%; object-fit: contain;">
                                             </div>

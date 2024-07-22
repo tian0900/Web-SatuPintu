@@ -197,7 +197,7 @@
                                             <!-- Modal body -->
                                             <div class="p-4 md:p-5">
                                                 <img class="card-img-top"
-                                                    src="{{ asset('buktisetor/' . $item->bukti_penyetoran) }}"
+                                                    src="{{ asset('https://satupintu-del.site/' . $item->bukti_penyetoran) }}"
                                                     alt="Course Image" style="height:200px; width:300px;">
                                             </div>
                                         </div>
