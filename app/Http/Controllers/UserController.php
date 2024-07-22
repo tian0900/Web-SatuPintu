@@ -32,7 +32,7 @@ class UserController extends Controller
 
     $roles = [
         ['name' => 'WAJIB RETRIBUSI'],
-        ['name' => 'PETUGAS'],
+        ['name' => 'Petugas Pemungut'],
     ];
 
     $roleNames = array_column($roles, 'name');
