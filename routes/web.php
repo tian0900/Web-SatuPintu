@@ -33,6 +33,7 @@ Route::get('/export-tagihan', [BendaharaController::class, 'exportTagihan'])->na
 Route::get('/export-transaksi', [BendaharaController::class, 'exportTransaksi'])->name('export-transaksi');
 Route::get('/export-tagihan-manual', [BendaharaController::class, 'exportTagihanManual'])->name('export-tagihan-manual');
 Route::get('/export-setoran', [BendaharaController::class, 'exportSetoran'])->name('export-setoran');
+Route::get('/export-laporan-setoran', [BendaharaController::class, 'exportlapsetor'])->name('export-laporan-setoran');
 
 
 
@@ -164,6 +165,7 @@ Route::middleware(['check.role.byname:Bendahara'])->group(function () {
     Route::get('/tagihansampah', [BendaharaController::class, 'tagihansampah']);
 
     Route::get('/setoran', [BendaharaController::class, 'indexsetor']);
+    Route::get('/lapsetoran', [BendaharaController::class, 'lapsetoran']);
     Route::put('/setor/{id}/update-status', [BendaharaController::class, 'updateStatus'])->name('setor.updateStatus');
      
     Route::get('/pembatalanpasar', [BendaharaController::class, 'indexpembatalan']);

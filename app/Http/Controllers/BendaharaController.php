@@ -167,6 +167,30 @@ class BendaharaController extends Controller
     }
 
 
+    public function lapsetoran()
+    {
+        $user = Auth::user();
+        $retribusi_id = $user->admin->retribusi_id;
+
+        $setor = DB::table('setoran')
+            ->join('petugas', 'petugas.id', '=', 'setoran.petugas_id')
+            ->join('users', 'users.id', '=', 'petugas.user_id')
+            ->join('sub_wilayah', 'sub_wilayah.id', '=', 'setoran.sub_wilayah_id')
+            ->select(
+                'setoran.*',
+                'petugas.user_id',
+                'sub_wilayah.nama',
+                'users.name as nama_petugas',
+
+            )
+            ->where('setoran.status', 'DITERIMA')
+            ->where('sub_wilayah.retribusi_id', $retribusi_id)
+            ->paginate(5);
+        return view('bendahara.laporansetoran', ['setor' => $setor]);
+    }
+
+
+
 
 
     public function updateStatus(Request $request, $id)
@@ -291,6 +315,13 @@ class BendaharaController extends Controller
         $filter = $request->input('filter', ''); // Ambil filter dari request
 
         return Excel::download(new \App\Exports\TransaksiExport($filter), 'Transaksi.xlsx');
+    }
+
+    public function exportlapsetor(Request $request)
+    {
+     
+
+        return Excel::download(new \App\Exports\SetorExport, 'Laporan Konfirmasi.xlsx');
     }
 
 

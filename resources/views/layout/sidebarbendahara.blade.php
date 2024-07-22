@@ -105,6 +105,18 @@
 
             <li>
                 <div class="title">
+                    <a href="/lapsetoran" class="link">
+                        <i class='bx bx-money-withdraw'></i>
+                        <span class="name">Laporan Setoran</span>
+                    </a>
+                </div>
+                <div class="submenu">
+                    <a href="/lapsetoran" class="link submenu-title">Laporan Setoran</a>
+                </div>
+            </li>
+
+            <li>
+                <div class="title">
                     <a href="/pembatalanpasar" class="link">
                         <i class='bx bx-x-circle'></i>
                         <span class="name">Pembatalan</span>
