@@ -13,7 +13,7 @@ class PetugasWilayah extends Model
 
     protected $fillable = [
         'petugas_id',
-        'subw_ilayah_id',
+        'sub_wilayah_id',
     ];
 
     
