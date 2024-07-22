@@ -28,7 +28,7 @@ class UserController extends Controller
         $user = Auth::user();
         $retribusi_id = $user->admin->retribusi_id;
         
-        $wilayah = Wilayah::where('retribusi_id', $retribusi_id)->get();
+        $wilayah = Wilayah::where('retribusi_id', $retribusi_id)->paginate(5);
 
     $roles = [
         ['name' => 'WAJIB RETRIBUSI'],
