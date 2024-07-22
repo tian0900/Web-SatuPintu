@@ -182,7 +182,7 @@ class UserController extends Controller
             'password' => 'required|min:8',
             'nik' => 'required|string|unique:users,nik',
             'alamat' => 'required|string',
-            'wilayah' => 'required|exists:sub_wilayahs,id',  // Pastikan wilayah ada di tabel sub_wilayahs
+            'wilayah' => 'required|exists:sub_wilayah,id',  // Pastikan wilayah ada di tabel sub_wilayahs
         ]);
 
         // Set nilai role_id dan hash password
