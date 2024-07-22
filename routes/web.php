@@ -33,6 +33,8 @@ Route::get('/export-tagihan', [BendaharaController::class, 'exportTagihan'])->na
 Route::get('/export-transaksi', [BendaharaController::class, 'exportTransaksi'])->name('export-transaksi');
 Route::get('/export-tagihan-manual', [BendaharaController::class, 'exportTagihanManual'])->name('export-tagihan-manual');
 Route::get('/export-setoran', [BendaharaController::class, 'exportSetoran'])->name('export-setoran');
+Route::get('/export-laporan-setoran', [BendaharaController::class, 'exportlapsetor'])->name('export-laporan-setoran');
+
 Route::put('/users/{id}', [UserController::class, 'update'])->name('users.update');
 Route::get('/dd', [PasarController::class, 'index']);
 Route::get('/', [IndexController::class, 'landing']);
@@ -151,7 +153,7 @@ Route::middleware(['check.role.byname:AdminKabupaten'])->group(function () {
 
 Route::middleware(['check.role.byname:Bendahara'])->group(function () {
     //Dashboard
-    Route::get('/dashboard-bendahara', [IndexController::class, 'dashboardbendahara']);
+    Route::get('/dashboard-Bendahara', [IndexController::class, 'dashboardbendahara']);
 
 
     Route::get('/tagihannmanual', [BendaharaController::class, 'indextagihanmanual']);
@@ -162,6 +164,7 @@ Route::middleware(['check.role.byname:Bendahara'])->group(function () {
     Route::get('/tagihansampah', [BendaharaController::class, 'tagihansampah']);
 
     Route::get('/setoran', [BendaharaController::class, 'indexsetor']);
+    Route::get('/lapsetoran', [BendaharaController::class, 'lapsetoran']);
     Route::put('/setor/{id}/update-status', [BendaharaController::class, 'updateStatus'])->name('setor.updateStatus');
      
     Route::get('/pembatalan', [BendaharaController::class, 'indexpembatalan']);
@@ -181,8 +184,8 @@ Route::middleware(['check.role.byname:Admin'])->group(function () {
     Route::put('/kabupaten/{post}', [KabupatenController::class, 'update'])->name('kabupaten.update');
     Route::delete('/kabupaten/{id}', [KabupatenController::class, 'destroy'])->name('kabupaten.delete');
 
-    // Route::get('/useradmin', [UserController::class, 'indexadminkabupaten']);
-    // Route::post('/useradmin/store', [UserController::class, 'storekabupatenuser'])->name('kabupaten.storedata');
+    Route::get('/useradminkabupaten', [UserController::class, 'indexadminkabupaten']);
+    Route::post('/useradminkab/store', [UserController::class, 'storekabupatenuser'])->name('kabupaten.storedata');
  
 });
 

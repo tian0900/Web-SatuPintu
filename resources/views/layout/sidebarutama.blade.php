@@ -67,14 +67,14 @@
             </li>
             <li>
                 <div class="title">
-                    <a href="/useradmin" class="link">
+                    <a href="/useradminkabupaten" class="link">
                         <i class='bx bx-user'></i>
                         <span class="name">Manajemen User</span>
                     </a>
                     <!-- <i class='bx bxs-chevron-down'></i> -->
                 </div>
                 <div class="submenu">
-                    <a href="/useradmin" class="link submenu-title">Manajemen User</a>
+                    <a href="/useradminkabupaten" class="link submenu-title">Manajemen User</a>
                     <!-- submenu links here  -->
                 </div>
             </li>

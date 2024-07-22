@@ -28,6 +28,8 @@ class AuthController extends Controller
             // Menetapkan expires_at untuk token
             $accessToken = $user->createToken('authToken', ['*'], now()->addWeeks(1))->plainTextToken;
 
+// return $user->role->name;
+
             // Pengalihan berdasarkan role user
             switch ($user->role->name) {
                 case 'AdminKedinasan':
@@ -37,11 +39,9 @@ class AuthController extends Controller
                 case 'AdminSampah':
                     return redirect('/dashboard-sampah');
                 case 'Bendahara':
-                    return redirect('/dashboard-bendahara');
+                    return redirect('/dashboard-Bendahara');
                 case 'AdminKabupaten':
                     return redirect('/dashboard-kabupaten');
-                default:
-                    return redirect('/dashboard-sampah');
             }
         } catch (\Exception $e) {
             return redirect()->back()->withErrors(['message' => 'Terjadi kesalahan: ' . $e->getMessage()]);

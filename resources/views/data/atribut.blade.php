@@ -6,10 +6,10 @@
 
         @if (auth()->user()->admin->retribusi_id &&
                 App\Models\Post::where('retribusi_id', auth()->user()->admin->retribusi_id)->exists())
-                <div class="container"> 
-                    <div class="flex flex-column sm:flex-row flex-wrap space-y-4 sm:space-y-0 items-center justify-between pb-4">
-                        <div class="button">
-                            <button data-modal-target="addDataModal" data-modal-toggle="addDataModal"
+            <div class="container">
+                <div class="flex flex-column sm:flex-row flex-wrap space-y-4 sm:space-y-0 items-center justify-between pb-4">
+                    <div class="button">
+                        <button data-modal-target="addDataModal" data-modal-toggle="addDataModal"
                             class="block text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800 mt-5 mb-5"
                             type="button">
                             Tambah Data Baru
@@ -29,9 +29,10 @@
                             </form>
                         </div>
                     </div>
-                </div> 
+                </div>
+            </div>
         @endif
-        
+
         <div id="addDataModal" tabindex="-1" aria-hidden="true"
             class="fixed top-0 left-0 right-0 z-50 hidden w-full p-4 overflow-x-hidden overflow-y-auto h-modal">
             <div class="relative w-full h-full max-w-md md:h-auto">
@@ -72,17 +73,19 @@
             </div>
         </div>
 
-        @if ( !auth()->user()->admin->retribusi_id ||
-                !App\Models\Post::where('retribusi_id', auth()->user()->admin->retribusi_id)->exists()) 
-            <div class="container"> 
-                <div class="flex flex-column sm:flex-row flex-wrap space-y-4 sm:space-y-0 items-center justify-between pb-4">
+        @if (
+            !auth()->user()->admin->retribusi_id ||
+                !App\Models\Post::where('retribusi_id', auth()->user()->admin->retribusi_id)->exists())
+            <div class="container">
+                <div
+                    class="flex flex-column sm:flex-row flex-wrap space-y-4 sm:space-y-0 items-center justify-between pb-4">
                     <div class="button">
                         <button data-modal-target="addModal" data-modal-toggle="addModal"
-                        class="block text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800 mt-5 mb-5"
-                        type="button">
-                        Tambah Field Baru
-                    </button>
-                    </div> 
+                            class="block text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800 mt-5 mb-5"
+                            type="button">
+                            Tambah Field Baru
+                        </button>
+                    </div>
                 </div>
             </div>
         @endif
@@ -129,6 +132,7 @@
             </div>
         </div>
 
+
         <!-- Main modal -->
         <div id="crud-modal" tabindex="-1" aria-hidden="true"
             class="hidden overflow-y-auto overflow-x-hidden fixed top-0 right-0 left-0 z-50 justify-center items-center w-full md:inset-0 h-[calc(100%-1rem)] max-h-full">
@@ -145,8 +149,8 @@
                             data-modal-toggle="crud-modal">
                             <svg class="w-3 h-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none"
                                 viewBox="0 0 14 14">
-                                <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                    d="m1 1 6 6m0 0 6 6M7 7l6-6M7 7l-6 6" />
+                                <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"
+                                    stroke-width="2" d="m1 1 6 6m0 0 6 6M7 7l6-6M7 7l-6 6" />
                             </svg>
                             <span class="sr-only">Close modal</span>
                         </button>
@@ -436,7 +440,7 @@
 <!-- Tambahkan ini di bawah halaman HTML Anda, sebelum penutup </body> -->
 <script src="https://unpkg.com/flowbite@1.4.7/dist/flowbite.js"></script>
 
-<script>
+{{-- <script>
     // JavaScript untuk menambahkan field secara dinamis
     document.addEventListener('DOMContentLoaded', function() {
         const addButton = document.querySelector('#addDynamicField');
@@ -444,17 +448,16 @@
 
         addButton.addEventListener('click', function() {
             const inputField = document.createElement('div');
+            inputField.classList.add('flex', 'space-x-4', 'mb-4');
             inputField.innerHTML = `
-                <div class="flex space-x-4 mb-4">
-                    <input type="text" name="dynamicField[]" placeholder="Nama Field"
-                        class="w-full px-3 py-2 text-sm leading-tight text-gray-700 border rounded-lg focus:outline-none focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:text-white"
-                        required>
-                </div>
-            `;
+            <input type="text" name="dynamicField[]" placeholder="Nama Field"
+                class="w-full px-3 py-2 text-sm leading-tight text-gray-700 border rounded-lg focus:outline-none focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:text-white"
+                required>
+        `;
             dynamicFields.appendChild(inputField);
         });
     });
-</script>
+</script> --}}
 
 <script>
     document.addEventListener('DOMContentLoaded', function() {

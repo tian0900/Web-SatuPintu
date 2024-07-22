@@ -2,7 +2,7 @@
 <!-- ============= Home Section =============== -->
 @section('content')
     <div class="container p-5">
-        <h1 class="mt-3 text-4xl tracking-tight">Daftar Setoran</h1>
+        <h1 class="mt-3 text-4xl tracking-tight">Laporan Setoran</h1>
 
         <!-- Main modal -->
         <div id="crud-modal" tabindex="-1" aria-hidden="true"
@@ -87,53 +87,10 @@
                 <label for="table-search" class="sr-only">Search</label>
                 <div class="flex space-x-4 mb-4">
                    
-                    <form id="exportForm" action="{{ route('export-setoran') }}" method="get" style="display: inline;">
+                    <form id="exportForm" action="{{ route('export-laporan-setoran') }}" method="get" style="display: inline;">
                         <input type="hidden" name="filter" id="exportFilter" value="">
                         <button type="submit" class="bg-blue-500 text-white px-4 py-2 rounded">Export to Excel</button>
                     </form>
-                    <div class="relative">
-                        <button id="dropdownRadioButton" data-dropdown-toggle="dropdownRadio"
-                                class="inline-flex items-center text-gray-500 bg-white border border-gray-300 focus:outline-none hover:bg-gray-100 focus:ring-4 focus:ring-gray-100 font-medium rounded-lg text-sm px-3 py-1.5 dark:bg-gray-800 dark:text-white dark:border-gray-600 dark:hover:bg-gray-700 dark:hover:border-gray-600 dark:focus:ring-gray-700"
-                                type="button">
-                            <svg class="w-3 h-3 text-gray-500 dark:text-gray-400 me-3" aria-hidden="true"
-                                 xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 20 20">
-                                <path d="M10 0a10 10 0 1 0 10 10A10.011 10.011 0 0 0 10 0Zm3.982 13.982a1 1 0 0 1-1.414 0l-3.274-3.274A1.012 1.012 0 0 1 9 10V6a1 1 0 0 1 2 0v3.586l2.982 2.982a1 1 0 0 1 0 1.414Z" />
-                            </svg>
-                            Filter Data
-                            <svg class="w-2.5 h-2.5 ms-2.5" aria-hidden="true" xmlns="http://www.w3.org/2000/svg"
-                                 fill="none" viewBox="0 0 10 6">
-                                <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                      d="m1 1 4 4 4-4" />
-                            </svg>
-                        </button>
-                        <div id="dropdownRadio" class="hidden z-10 w-48 bg-white rounded-lg shadow dark:bg-gray-700">
-                            <ul class="py-1 text-sm text-gray-700 dark:text-gray-200" aria-labelledby="dropdownRadioButton">
-                                <li>
-                                    <a href="?filter=day" class="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600">Day</a>
-                                </li>
-                                <li>
-                                    <a href="?filter=week" class="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600">Week</a>
-                                </li>
-                                <li>
-                                    <a href="?filter=month" class="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600">Month</a>
-                                </li>
-                                <li>
-                                    <a href="?filter=year" class="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600">Year</a>
-                                </li>
-                                <li>
-                                    <a href="?filter=all" class="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600">All</a>
-                                </li>
-                            </ul>
-                        </div>
-                    </div> 
-                
-                    <!-- Include necessary scripts -->
-                    <script>
-                        document.getElementById('dropdownRadioButton').addEventListener('click', function() {
-                            var dropdown = document.getElementById('dropdownRadio');
-                            dropdown.classList.toggle('hidden');
-                        });
-                    </script>
                 </div>
                 <div class="relative">
                     <div
@@ -168,10 +125,7 @@
                                     Nominal
                                 </th>
                                 <th scope="col" class="px-6 py-3">
-                                    Bukti Penyetoran
-                                </th>
-                                <th scope="col" class="px-6 py-3">
-                                    Action
+                                    Status
                                 </th>
                             </tr>
                         </thead>
@@ -198,98 +152,16 @@
                                         {{ $item->total }}
                                     </td>
                                     <td class="px-3 py-4">
-                                        <a data-modal-target="modal<?= $item->id ?>"
-                                            data-modal-toggle="modal<?= $item->id ?>"
-                                            class="font-medium text-blue-600 dark:text-blue-500 hover:underline text-center">Lihat
-                                            Bukti</a>
+                                        {{ $item->status }}
                                     </td>
+                                   
 
-                                    <td class="px-3 py-4">
-                                        <!-- Modal toggle -->
-                                        <a data-modal-target="modalkonfirmasi<?= $item->id ?>"
-                                            data-modal-toggle="modalkonfirmasi<?= $item->id ?>"
-                                            class="font-medium text-blue-600 dark:text-blue-500 hover:underline text-center">Konfirmasi</a>
-                                    </td>
                                 </tr>
 
-                                <!-- Small Modal -->
-                                <div id="modal<?= $item->id ?>" tabindex="-1"
-                                    class="fixed top-0 left-0 right-0 z-50 hidden w-full p-4 overflow-x-hidden overflow-y-auto md:inset-0 h-[calc(100%-1rem)] max-h-full">
-                                    <div class="relative w-full max-w-md max-h-full">
-                                        <!-- Modal content -->
-                                        <div class="relative bg-white rounded-lg shadow dark:bg-gray-700">
-                                            <!-- Modal header -->
-                                            <div
-                                                class="flex items-center justify-between p-4 md:p-5 border-b rounded-t dark:border-gray-600">
-                                                <h3 class="text-lg font-semibold text-gray-900 dark:text-white">
-                                                    Bukti Penyetoran
-                                                </h3>
-                                                <button type="button"
-                                                    class="text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm h-8 w-8 ms-auto inline-flex justify-center items-center dark:hover:bg-gray-600 dark:hover:text-white"
-                                                    data-modal-toggle="select-modal" data-modal-hide="modal<?= $item->id ?>">
-                                                    <svg class="w-3 h-3" aria-hidden="true"
-                                                        xmlns="http://www.w3.org/2000/svg" fill="none"
-                                                        viewBox="0 0 14 14">
-                                                        <path stroke="currentColor" stroke-linecap="round"
-                                                            stroke-linejoin="round" stroke-width="2"
-                                                            d="m1 1 6 6m0 0 6 6M7 7l6-6M7 7l-6 6" />
-                                                    </svg>
-                                                    <span class="sr-only">Close modal</span>
-                                                </button>
-                                            </div>
-                                            <!-- Modal body -->
-                                            <div class="p-4 md:p-5">
-                                                <img class="card-img-top"
-                                                    src="{{ asset('https://satupintu-del.site/' . $item->bukti_penyetoran) }}"
-                                                    alt="Course Image" style="height:200px; width:300px;">
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
+                              
 
                                 <!-- Small Modal -->
-                                <div id="modalkonfirmasi{{ $item->id }}" tabindex="-1"
-                                    class="fixed top-0 left-0 right-0 z-50 hidden w-full p-4 overflow-x-hidden overflow-y-auto md:inset-0 h-[calc(100%-1rem)] max-h-full">
-                                    <div class="relative w-full max-w-md max-h-full">
-                                        <!-- Modal content -->
-                                        <div class="relative bg-white rounded-lg shadow dark:bg-gray-700">
-                                            <!-- Modal header -->
-                                            <div
-                                                class="flex items-center justify-between p-4 md:p-5 border-b rounded-t dark:border-gray-600">
-                                                <h3 class="text-xl font-medium text-gray-900 dark:text-white">
-                                                    Konfirmasi Setoran
-                                                </h3>
-                                                <button type="button"
-                                                    class="text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm w-8 h-8 ms-auto inline-flex justify-center items-center dark:hover:bg-gray-600 dark:hover:text-white"
-                                                    data-modal-hide="modalkonfirmasi{{ $item->id }}">
-                                                    <svg class="w-3 h-3" aria-hidden="true"
-                                                        xmlns="http://www.w3.org/2000/svg" fill="none"
-                                                        viewBox="0 0 14 14">
-                                                        <path stroke="currentColor" stroke-linecap="round"
-                                                            stroke-linejoin="round" stroke-width="2"
-                                                            d="m1 1 6 6m0 0 6 6M7 7l6-6M7 7l-6 6" />
-                                                    </svg>
-                                                    <span class="sr-only">Close modal</span>
-                                                </button>
-                                            </div>
-                                            <!-- Modal body -->
-                                            <form action="{{ route('setor.updateStatus', $item->id) }}" method="POST">
-                                                @csrf
-                                                @method('PUT')
-                                                <div class="relative bg-white rounded-lg shadow dark:bg-gray-700">
-                                                    <div class="flex items-center justify-between p-4 md:p-5 border-b rounded-t dark:border-gray-600">
-                                                        <h4>Apakah Anda yakin ingin mengkonfirmasi Setoran dari {{ $item->nama_petugas }} senilai {{ $item->total }}?</h4>
-                                                    </div>
-                                                    <div class="p-4 md:p-5 flex justify-end">
-                                                        <button type="submit" class="mr-3 px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600">Konfirmasi</button>
-                                                        <button type="button" class="px-4 py-2 bg-gray-300 text-gray-700 rounded hover:bg-gray-400" data-modal-hide="modalkonfirmasi{{ $item->id }}">Batal</button>
-                                                    </div>
-                                                </div>
-                                            </form>
-                                            
-                                        </div>
-                                    </div>
-                                <z
+                               
                             @endforeach
                         </tbody>
                     </table>

@@ -110,7 +110,7 @@ class IndexController extends Controller
         $wajibretribusi = WajibRetribusi::count();
         $item = WajibRetribusi::count();
 
-        return view('dashboard.dashboard-bendahara', compact('kabupaten', 'kedinasan', 'kontrak', 'retribusi', 'petugas', 'wajibretribusi', 'item', 'data'));
+        return view('dashboard.dashboard-Bendahara', compact('kabupaten', 'kedinasan', 'kontrak', 'retribusi', 'petugas', 'wajibretribusi', 'item', 'data'));
     }
     // public function dashboardkedinasan()
     // {

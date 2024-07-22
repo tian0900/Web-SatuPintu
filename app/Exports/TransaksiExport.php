@@ -23,8 +23,8 @@ class TransaksiExport implements FromCollection, WithHeadings, WithStyles
         $user = Auth::user();
         $retribusi_id = $user->admin->retribusi_id;
 
-        $query = DB::table('tagihan')
-            ->join('pembayaran', 'pembayaran.tagihan_id', '=', 'tagihan.id')
+        $query = DB::table('pembayaran')
+            ->join('tagihan', 'pembayaran.tagihan_id', '=', 'tagihan.id')
             ->join('kontrak', 'kontrak.id', '=', 'tagihan.kontrak_id')
             ->join('item_retribusi', 'item_retribusi.id', '=', 'kontrak.item_retribusi_id')
             ->join('wajib_retribusi', 'kontrak.wajib_retribusi_id', '=', 'wajib_retribusi.id')
@@ -34,11 +34,11 @@ class TransaksiExport implements FromCollection, WithHeadings, WithStyles
                 'item_retribusi.kategori_nama',
                 'tagihan.total_harga',
                 'pembayaran.metode_pembayaran',
-                'tagihan.status as pembayaran_status',
+                'pembayaran.status as pembayaran_status',
                 'kontrak.status as kontrak_status'
             )
-            ->where('tagihan.status', 'VERIFIED')
-            ->where('tagihan.active', '1')
+            ->where('pembayaran.status', 'SUCCESS')
+            // ->where('tagihan.active', '1')
             ->where('item_retribusi.retribusi_id', $retribusi_id);
 
         if ($this->filter === 'tunai') {

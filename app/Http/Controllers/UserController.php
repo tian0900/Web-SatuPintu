@@ -14,6 +14,7 @@ use App\Models\Wilayah;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Auth;
 use App\Models\Petugas;
+use App\Models\PetugasWilayah;
 use Illuminate\Support\Facades\Hash;
 
 
@@ -206,51 +207,75 @@ class UserController extends Controller
      */
     public function store(Request $request)
     {
+        // Validasi input
         $validatedData = $request->validate([
             'name' => 'required|string',
-            'email' => 'required|email|unique:users',
+            'email' => 'required|email|unique:users,email',
             'password' => 'required|min:8',
-            'nik' => 'required|string|unique:users',
+            'nik' => 'required|string|unique:users,nik',
             'alamat' => 'required|string',
-            'wilayah' => 'required',
+            'wilayah' => 'required|exists:sub_wilayah,id',  // Pastikan wilayah ada di tabel sub_wilayahs
         ]);
 
+        // Set nilai role_id dan hash password
         $validatedData['role_id'] = 2;
         $validatedData['password'] = Hash::make($validatedData['password']);
+
+        // Buat user baru
         $user = User::create($validatedData);
 
+        // Siapkan data untuk Petugas
         $postToSave = [
             'user_id' => $user->id,
-            'subwilayah_id' => $request['wilayah'],
         ];
-        Petugas::create($postToSave);
 
-        // dd($petugas); // Tambahkan ini untuk melihat nilai $petugas
+        // Buat entri Petugas baru
+        $petugas = Petugas::create($postToSave);
 
+        // Siapkan data untuk PetugasWilayah
+        $savewilayah = [
+            'petugas_id' => $petugas->id,  // Gunakan ID dari entri Petugas yang baru dibuat
+            'sub_wilayah_id' => $request->input('wilayah'),
+        ];
+
+        // Buat entri PetugasWilayah baru
+        PetugasWilayah::create($savewilayah);
+
+        // Redirect kembali dengan pesan sukses
         return redirect()->back()->with('success', 'Petugas Berhasil Ditambahkan');
     }
 
+
     public function storewajib(Request $request)
     {
-        // dd($request);
+        // Validasi input
         $validatedData = $request->validate([
             'name' => 'required|string',
+            'email' => 'required|email|unique:users,email',
             'password' => 'required|min:8',
+            'alamat' => 'required|string',
+            'nik' => 'required|string|unique:users,nik',
         ]);
 
+        // Set nilai role_id dan hash password
         $validatedData['role_id'] = 1;
         $validatedData['password'] = Hash::make($validatedData['password']);
+
+        // Buat user baru
         $user = User::create($validatedData);
 
+        // Siapkan data untuk WajibRetribusi
         $postToSave = [
             'user_id' => $user->id,
         ];
+
+        // Buat entri WajibRetribusi baru
         WajibRetribusi::create($postToSave);
 
-        // dd($petugas); // Tambahkan ini untuk melihat nilai $petugas
-
+        // Redirect kembali dengan pesan sukses
         return redirect()->back()->with('success', 'Wajib Retribusi Berhasil Ditambahkan');
     }
+
 
     public function update(Request $request, $id)
     {
