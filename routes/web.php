@@ -33,10 +33,6 @@ Route::get('/export-tagihan', [BendaharaController::class, 'exportTagihan'])->na
 Route::get('/export-transaksi', [BendaharaController::class, 'exportTransaksi'])->name('export-transaksi');
 Route::get('/export-tagihan-manual', [BendaharaController::class, 'exportTagihanManual'])->name('export-tagihan-manual');
 Route::get('/export-setoran', [BendaharaController::class, 'exportSetoran'])->name('export-setoran');
-
-
-
-
 Route::put('/users/{id}', [UserController::class, 'update'])->name('users.update');
 Route::get('/dd', [PasarController::class, 'index']);
 Route::get('/', [IndexController::class, 'landing']);
@@ -57,7 +53,7 @@ Route::middleware(['auth', 'check.role.byname:AdminKedinasan'])->group(function 
     Route::get('/pdf', [KontrakController::class, 'testt']);
     Route::get('/surat/{id}', [KontrakController::class, 'detailkontrak'])->name('surat.detail');
     Route::post('/kontrak/store', [KontrakController::class, 'store'])->name('kontrak.store');
-    Route::get('/generate-pdf/{id}', [KontrakController::class, 'generatePDFkontrak'])->name('generate-pdfkontrak');
+    Route::get('/generate-pdf/{id}', [KontrakController::class, 'generatePDFkontrak'])->name('generate-pdfkontrak'); 
     Route::get('/kontrak', [KontrakController::class, 'index'])->name('kontrak');
     Route::put('/kontrak/{id}/update-status', [KontrakController::class, 'updateStatus'])->name('kontrak.updateStatus');
     Route::delete('/kontrak/{id}', [KontrakController::class, 'deletekontrak'])->name('kontrak.delete');
@@ -137,9 +133,11 @@ Route::middleware(['check.role.byname:AdminKabupaten'])->group(function () {
     Route::get('/retribusi/create', [RetribusiController::class, 'create'])->name('retribusi.create');
     Route::post('/retribusi', [RetribusiController::class, 'store'])->name('retribusi.store');
 
-    Route::get('/useradmin', [UserController::class, 'indexadmin']);
+    Route::get('/useradmin', [UserController::class, 'indexadmin'])->name('useradmin');
     Route::post('/useradmin/store', [UserController::class, 'storedata'])->name('users.storedata');
     
+    Route::get('/search', [UserController::class, 'search'])->name('search');
+
     //Kedinasan
     Route::get('/kedinasan', [KedinasanController::class, 'index'])->name('kedinasann');
     Route::get('/data/kedinasan/{id}/edit', [kedinasanController::class, 'edit'])->name('kedinasan.edit');
@@ -166,7 +164,7 @@ Route::middleware(['check.role.byname:Bendahara'])->group(function () {
     Route::get('/setoran', [BendaharaController::class, 'indexsetor']);
     Route::put('/setor/{id}/update-status', [BendaharaController::class, 'updateStatus'])->name('setor.updateStatus');
      
-    Route::get('/pembatalanpasar', [BendaharaController::class, 'indexpembatalan']);
+    Route::get('/pembatalan', [BendaharaController::class, 'indexpembatalan']);
     Route::put('/batal/{id}/update-status', [BendaharaController::class, 'updateStatuspembatalan'])->name('batal.updateStatus');
 
 });

@@ -59,48 +59,58 @@ class AtributController extends Controller
 
         // Redirect ke halaman yang sesuai dengan route Anda
         return redirect()->route('atribut')->with('success', 'Field berhasil ditambahkan');
-    }
+    } 
 
-    public function index()
+    public function index(Request $request)
     {
         $user = Auth::user();
         $retribusi_id = $user->admin->retribusi_id;
-
         $wilayah = Wilayah::all();
-        $atribut = Post::where('retribusi_id', $retribusi_id)->paginate(5);
 
-        // Tentukan dynamicFields berdasarkan logika tertentu, contoh berdasarkan jenis akun
+        $search = $request->query('search'); // Get the search query
+
+        $query = Post::where('retribusi_id', $retribusi_id);
+
+        // Apply search filter
+        if ($search) {
+            $query->where(function ($query) use ($search) {
+                $query->where('column1', 'like', '%' . $search . '%') // Replace 'column1' with actual columns
+                        ->orWhere('column2', 'like', '%' . $search . '%') // Replace 'column2' with actual columns
+                        // Add more columns as needed
+                        ;
+            });
+        }
+
+        $atribut = $query->paginate(5);
+
+        // Determine dynamicFields based on certain logic, e.g., account type
         if ($user->account_type === 'A') {
             $dynamicFields = ['jenis_tempat', 'harga', 'kategori_nama', 'durasi'];
         } elseif ($user->account_type === 'B') {
             $dynamicFields = ['kelompok_pasar', 'jenis_unit', 'unit', 'no_unit', 'harga', 'kategori_nama'];
         } else {
-            // Default jika tidak ada jenis akun yang cocok
+            // Default if no matching account type
             $dynamicFields = [];
         }
 
-        // Mengumpulkan semua kunci unik dari data dalam koleksi $atribut
+        // Collect all unique keys from the data in $atribut collection
         $headers = $atribut->flatMap(function ($item) {
             return collect($item['data'])->flatMap(function ($data) {
                 return array_keys($data);
             });
         })->unique()->reject(function ($value) {
-            return $value === 'retribusi_id'; // menghilangkan kunci yang tidak diperlukan
+            return $value === 'retribusi_id'; // Remove unnecessary keys
         });
 
         return view('data.atribut', [
             'atribut' => $atribut,
-            'wilayah' => $wilayah,
             'headers' => $headers,
             'dynamicFields' => $dynamicFields,
+            'wilayah' => $wilayah,
+
         ]);
-    }
-
-
-
-
-
-
+    } 
+  
     public function indexsampah()
     {
         $user = Auth::user();
