@@ -27,52 +27,52 @@ class UserController extends Controller
         // $wilayah = Wilayah::all();
         $user = Auth::user();
         $retribusi_id = $user->admin->retribusi_id;
-        
-        $wilayah = Wilayah::where('retribusi_id', $retribusi_id)->paginate(5);
 
-    $roles = [
-        ['name' => 'WAJIB RETRIBUSI'],
-        ['name' => 'Petugas Pemungut'],
-    ];
+        $wilayah = Wilayah::where('retribusi_id', $retribusi_id)->get();
 
-    $roleNames = array_column($roles, 'name');
+        $roles = [
+            ['name' => 'WAJIB RETRIBUSI'],
+            ['name' => 'Petugas Pemungut'],
+        ];
 
-    $query = User::with('role')->whereHas('role', function ($query) use ($roleNames) {
-        $query->whereIn('name', $roleNames); // Filter by role name
-    });
+        $roleNames = array_column($roles, 'name');
 
-    // Apply the date filter based on the query parameter
-    $filter = $request->query('filter', '30days'); // Default to last 30 days
-    $filterLabel = 'Last 30 days';
-    switch ($filter) {
-        case 'day':
-            $query->where('created_at', '>=', now()->subDay());
-            $filterLabel = 'Last Day';
-            break;
-        case 'week':
-            $query->where('created_at', '>=', now()->subWeek());
-            $filterLabel = 'Last Week';
-            break;
-        case 'month':
-            $query->where('created_at', '>=', now()->subMonth());
-            $filterLabel = 'Last Month';
-            break;
-        case 'year':
-            $query->where('created_at', '>=', now()->subYear());
-            $filterLabel = 'Last Year';
-            break;
-        default:
-            $query->where('created_at', '>=', now()->subDays(30));
-            break;
+        $query = User::with('role')->whereHas('role', function ($query) use ($roleNames) {
+            $query->whereIn('name', $roleNames); // Filter by role name
+        });
+
+        // Apply the date filter based on the query parameter
+        $filter = $request->query('filter', '30days'); // Default to last 30 days
+        $filterLabel = 'Last 30 days';
+        switch ($filter) {
+            case 'day':
+                $query->where('created_at', '>=', now()->subDay());
+                $filterLabel = 'Last Day';
+                break;
+            case 'week':
+                $query->where('created_at', '>=', now()->subWeek());
+                $filterLabel = 'Last Week';
+                break;
+            case 'month':
+                $query->where('created_at', '>=', now()->subMonth());
+                $filterLabel = 'Last Month';
+                break;
+            case 'year':
+                $query->where('created_at', '>=', now()->subYear());
+                $filterLabel = 'Last Year';
+                break;
+            default:
+                $query->where('created_at', '>=', now()->subDays(30));
+                break;
+        }
+
+        $users = $query->orderBy('created_at', 'desc')->paginate(15);
+
+        return view('data.mguser-pasar', compact('users', 'roles', 'wilayah', 'filterLabel'));
     }
 
-    $users = $query->orderBy('created_at', 'desc')->paginate(15);
-
-    return view('data.mguser-pasar', compact('users', 'roles', 'wilayah', 'filterLabel'));
-}
 
 
- 
     public function indexadmin()
     {
         $user = Auth::user();
@@ -200,25 +200,34 @@ class UserController extends Controller
 
     public function storewajib(Request $request)
     {
-        // dd($request);
+        // Validasi input
         $validatedData = $request->validate([
             'name' => 'required|string',
+            'email' => 'required|email|unique:users,email',
             'password' => 'required|min:8',
+            'alamat' => 'required|string',
+            'nik' => 'required|string|unique:users,nik',
         ]);
 
+        // Set nilai role_id dan hash password
         $validatedData['role_id'] = 1;
         $validatedData['password'] = Hash::make($validatedData['password']);
+
+        // Buat user baru
         $user = User::create($validatedData);
 
+        // Siapkan data untuk WajibRetribusi
         $postToSave = [
             'user_id' => $user->id,
         ];
+
+        // Buat entri WajibRetribusi baru
         WajibRetribusi::create($postToSave);
 
-        // dd($petugas); // Tambahkan ini untuk melihat nilai $petugas
-
+        // Redirect kembali dengan pesan sukses
         return redirect()->back()->with('success', 'Wajib Retribusi Berhasil Ditambahkan');
     }
+
 
     public function update(Request $request, $id)
     {
