@@ -65,7 +65,7 @@
             <li>
                 <div class="title">
                     <a href="/transaksi" class="link">
-                        <i class='bx bx-money'></i>
+                        <i class='bx bx-credit-card-front'></i>
                         <span class="name">Transaksi</span>
                     </a>
                     <!-- <i class='bx bxs-chevron-down'></i> -->
@@ -123,7 +123,7 @@
                     </a>
                 </div>
                 <div class="submenu">
-                    <a href="/pembatalanpasar" class="link submenu-title">Pembatalan</a>
+                    <a href="/pembatalan" class="link submenu-title">Pembatalan</a>
                 </div>
             </li>
             

@@ -25,7 +25,6 @@ class UserController extends Controller
      */
     public function index(Request $request)
     {
-        // $wilayah = Wilayah::all();
         $user = Auth::user();
         $retribusi_id = $user->admin->retribusi_id;
 
@@ -33,19 +32,23 @@ class UserController extends Controller
 
         $roles = [
             ['name' => 'WAJIB RETRIBUSI'],
-            ['name' => 'Petugas Pemungut'],
+            ['name' => 'PETUGAS'],
         ];
 
         $roleNames = array_column($roles, 'name');
 
         $query = User::with('role')->whereHas('role', function ($query) use ($roleNames) {
-            $query->whereIn('name', $roleNames); // Filter by role name
+            $query->whereIn('name', $roleNames);
         });
 
         // Apply the date filter based on the query parameter
-        $filter = $request->query('filter', '30days'); // Default to last 30 days
-        $filterLabel = 'Last 30 days';
+        $filter = $request->query('filter', 'all');
+        $filterLabel = 'Show All Data';
         switch ($filter) {
+            case '30days':
+                $query->where('created_at', '>=', now()->subDays(30));
+                $filterLabel = 'Last 30 days';
+                break;
             case 'day':
                 $query->where('created_at', '>=', now()->subDay());
                 $filterLabel = 'Last Day';
@@ -62,59 +65,88 @@ class UserController extends Controller
                 $query->where('created_at', '>=', now()->subYear());
                 $filterLabel = 'Last Year';
                 break;
-            default:
-                $query->where('created_at', '>=', now()->subDays(30));
-                break;
+        }
+
+        // Apply search functionality
+        if ($search = $request->query('search')) {
+            $query->where(function ($query) use ($search) {
+                $query->where('name', 'like', "%{$search}%")
+                    ->orWhere('email', 'like', "%{$search}%")
+                    ->orWhere('alamat', 'like', "%{$search}%")
+                    ->orWhere('nik', 'like', "%{$search}%");
+            });
         }
 
         $users = $query->orderBy('created_at', 'desc')->paginate(15);
 
-        return view('data.mguser-pasar', compact('users', 'roles', 'wilayah', 'filterLabel'));
+        return view('data.mguser', compact('users', 'roles', 'wilayah', 'filterLabel'));
     }
 
-
-
-    public function indexadmin()
+    public function indexadmin(Request $request) 
     {
         $user = Auth::user();
-
-        // Ambil kabupaten_id dari admin yang sedang login
         $kabupaten_id = $user->adminkabupaten->kabupaten_id;
+        $filter = $request->query('filter', 'all'); // Default to show all data
+        $search = $request->query('search', ''); // Get the search query
 
-        // Mengambil retribusi yang memiliki kabupaten_id sesuai dengan yang sedang login
+        $userQuery = User::with(['role', 'adminkabupaten'])
+            ->whereHas('role', function ($query) {
+                $query->whereIn('name', ['Bendahara', 'AdminKedinasan']);
+            })
+            ->where(function ($query) use ($kabupaten_id) {
+                $query->whereHas('adminkabupaten', function ($subQuery) use ($kabupaten_id) {
+                    $subQuery->where('kabupaten_id', $kabupaten_id);
+                })->orWhereHas('admin', function ($subQuery) use ($kabupaten_id) {
+                    $subQuery->whereHas('retribusi', function ($subSubQuery) use ($kabupaten_id) {
+                        $subSubQuery->whereHas('kedinasan', function ($deepQuery) use ($kabupaten_id) {
+                            $deepQuery->where('kabupaten_id', $kabupaten_id);
+                        });
+                    });
+                });
+            });
+
+        // Apply date filter
+        switch ($filter) {
+            case 'day':
+                $userQuery->whereDate('created_at', '=', now()->toDateString());
+                break;
+            case 'week':
+                $userQuery->whereBetween('created_at', [now()->startOfWeek(), now()->endOfWeek()]);
+                break;
+            case 'month':
+                $userQuery->whereMonth('created_at', '=', now()->month);
+                break;
+            case 'year':
+                $userQuery->whereYear('created_at', '=', now()->year);
+                break;
+            case 'all':
+            default:
+                // No additional filter for 'all'
+                break;
+        }
+
+        // Apply search filter
+        if ($search) {
+            $userQuery->where(function ($query) use ($search) {
+                $query->where('name', 'LIKE', '%' . $search . '%')
+                    ->orWhere('email', 'LIKE', '%' . $search . '%')
+                    ->orWhere('alamat', 'LIKE', '%' . $search . '%')
+                    ->orWhereHas('role', function ($subQuery) use ($search) {
+                        $subQuery->where('name', 'LIKE', '%' . $search . '%');
+                    });
+            });
+        }
+
+        $users = $userQuery->orderBy('created_at', 'desc')->paginate(5);
+
+        $roleOptions = Role::all();
         $retribusi = Retribusi::whereHas('kedinasan', function ($query) use ($kabupaten_id) {
             $query->where('kabupaten_id', $kabupaten_id);
         })->get();
 
-        $roles = [
-            ['name' => 'Bendahara'],
-            ['name' => 'AdminKedinasan'],
-        ];
-
-        $roleNames = array_column($roles, 'name');
-
-        // Mengambil pengguna yang memiliki role tertentu dan kabupaten_id yang sama dengan admin yang sedang login
-        $users = User::with(['role', 'adminkabupaten'])
-            ->whereHas('role', function ($query) use ($roleNames) {
-                $query->whereIn('name', $roleNames); // Filter berdasarkan role name
-            })
-            ->whereHas('adminkabupaten', function ($query) use ($kabupaten_id) {
-                $query->where('kabupaten_id', $kabupaten_id); // Filter berdasarkan kabupaten_id
-            })
-            ->orWhereHas('admin', function ($query) use ($kabupaten_id) {
-                $query->whereHas('retribusi', function ($subQuery) use ($kabupaten_id) {
-                    $subQuery->whereHas('kedinasan', function ($deepQuery) use ($kabupaten_id) {
-                        $deepQuery->where('kabupaten_id', $kabupaten_id);
-                    });
-                });
-            })
-            ->orderBy('created_at', 'desc') // Mengurutkan dari baru ke lama
-            ->paginate(5);
-
-        $roleOptions = Role::all();
-
-        return view('data.mgadmin', compact('users', 'roles', 'roleOptions', 'retribusi'));
+        return view('data.mgadmin', compact('users', 'roleOptions', 'retribusi'));
     }
+
 
 
 

@@ -87,7 +87,49 @@
                 <div>
                    
                     <!-- Dropdown menu -->
-                  
+                    <div class="relative">
+                        <button id="dropdownRadioButton" data-dropdown-toggle="dropdownRadio"
+                                class="inline-flex items-center text-gray-500 bg-white border border-gray-300 focus:outline-none hover:bg-gray-100 focus:ring-4 focus:ring-gray-100 font-medium rounded-lg text-sm px-3 py-1.5 dark:bg-gray-800 dark:text-white dark:border-gray-600 dark:hover:bg-gray-700 dark:hover:border-gray-600 dark:focus:ring-gray-700"
+                                type="button">
+                            <svg class="w-3 h-3 text-gray-500 dark:text-gray-400 me-3" aria-hidden="true"
+                                 xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 20 20">
+                                <path d="M10 0a10 10 0 1 0 10 10A10.011 10.011 0 0 0 10 0Zm3.982 13.982a1 1 0 0 1-1.414 0l-3.274-3.274A1.012 1.012 0 0 1 9 10V6a1 1 0 0 1 2 0v3.586l2.982 2.982a1 1 0 0 1 0 1.414Z" />
+                            </svg>
+                            Filter Data
+                            <svg class="w-2.5 h-2.5 ms-2.5" aria-hidden="true" xmlns="http://www.w3.org/2000/svg"
+                                 fill="none" viewBox="0 0 10 6">
+                                <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                      d="m1 1 4 4 4-4" />
+                            </svg>
+                        </button>
+                        <div id="dropdownRadio" class="hidden z-10 w-48 bg-white rounded-lg shadow dark:bg-gray-700">
+                            <ul class="py-1 text-sm text-gray-700 dark:text-gray-200" aria-labelledby="dropdownRadioButton">
+                                <li>
+                                    <a href="?filter=day" class="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600">Day</a>
+                                </li>
+                                <li>
+                                    <a href="?filter=week" class="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600">Week</a>
+                                </li>
+                                <li>
+                                    <a href="?filter=month" class="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600">Month</a>
+                                </li>
+                                <li>
+                                    <a href="?filter=year" class="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600">Year</a>
+                                </li>
+                                <li>
+                                    <a href="?filter=all" class="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600">All</a>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                
+                    <!-- Include necessary scripts -->
+                    <script>
+                        document.getElementById('dropdownRadioButton').addEventListener('click', function() {
+                            var dropdown = document.getElementById('dropdownRadio');
+                            dropdown.classList.toggle('hidden');
+                        });
+                    </script>
                 </div>
                 <label for="table-search" class="sr-only">Search</label>
                 <div class="relative">

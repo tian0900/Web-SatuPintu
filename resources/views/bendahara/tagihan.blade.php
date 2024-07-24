@@ -3,7 +3,7 @@
 @section('content')
     <div class="container p-5">
         <h1 class="mt-3 text-4xl tracking-tight">Daftar Tagihan</h1>
-
+       
         <!-- Main modal -->
         <div id="crud-modal" tabindex="-1" aria-hidden="true"
             class="hidden overflow-y-auto overflow-x-hidden fixed top-0 right-0 left-0 z-50 justify-center items-center w-full md:inset-0 h-[calc(100%-1rem)] max-h-full">
@@ -108,6 +108,63 @@
                         placeholder="Search for items">
                 </div>
             </div> 
+            <div class="container">
+                <div class="flex flex-column sm:flex-row flex-wrap space-y-4 sm:space-y-0 items-center justify-between pb-4">
+                        <div class="mx-2"> 
+                            <!-- Dropdown button -->
+                            <div class="relative inline-block text-left">
+                                <button id="dropdownRadioButton" data-dropdown-toggle="dropdownRadio"
+                                        class="inline-flex items-center text-gray-500 bg-white border border-gray-300 focus:outline-none hover:bg-gray-100 focus:ring-4 focus:ring-gray-100 font-medium rounded-lg text-sm px-3 py-1.5 dark:bg-gray-800 dark:text-white dark:border-gray-600 dark:hover:bg-gray-700 dark:hover:border-gray-600 dark:focus:ring-gray-700"
+                                        type="button">
+                                    <svg class="w-3 h-3 text-gray-500 dark:text-gray-400 me-3" aria-hidden="true"
+                                        xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 20 20">
+                                        <path d="M10 0a10 10 0 1 0 10 10A10.011 10.011 0 0 0 10 0Zm3.982 13.982a1 1 0 0 1-1.414 0l-3.274-3.274A1.012 1.012 0 0 1 9 10V6a1 1 0 0 1 2 0v3.586l2.982 2.982a1 1 0 0 1 0 1.414Z"/>
+                                    </svg>
+                                    <span id="dropdownLabel">All</span>
+                                    <svg class="w-2.5 h-2.5 ms-2.5" aria-hidden="true" xmlns="http://www.w3.org/2000/svg"
+                                        fill="none" viewBox="0 0 10 6">
+                                        <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                            d="m1 1 4 4 4-4"/>
+                                    </svg>
+                                </button>
+                                <!-- Dropdown menu -->
+                                <div id="dropdownRadio" class="hidden z-10 w-44 bg-white rounded shadow dark:bg-gray-800">
+                                    <ul class="py-1 text-sm text-gray-700 dark:text-gray-200" aria-labelledby="dropdownRadioButton">
+                                        <li><a href="?filter=day" class="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">Last Day</a></li>
+                                        <li><a href="?filter=week" class="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">Last Week</a></li>
+                                        <li><a href="?filter=month" class="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">Last Month</a></li>
+                                        <li><a href="?filter=year" class="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">Last Year</a></li>
+                                        <li><a href="?filter=all" class="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">All</a></li>
+                                    </ul>
+                                </div>
+                            </div>
+
+                            <!-- JavaScript to handle dropdown and update the label -->
+                            <script>
+                                document.addEventListener('DOMContentLoaded', function () {
+                                    const dropdownButton = document.getElementById('dropdownRadioButton');
+                                    const dropdownMenu = document.getElementById('dropdownRadio');
+                                    const dropdownLabel = document.getElementById('dropdownLabel');
+
+                                    dropdownButton.addEventListener('click', function () {
+                                        dropdownMenu.classList.toggle('hidden');
+                                    });
+
+                                    dropdownMenu.addEventListener('click', function (event) {
+                                        const filterText = event.target.textContent;
+                                        dropdownLabel.textContent = filterText;
+                                    });
+                                });
+                            </script> 
+    
+                        </div>
+                        <div class="relative"> 
+                            <input type="text" id="table-search"
+                                class="block p-2 ps-10 text-sm text-gray-900 border border-gray-300 rounded-lg w-80 bg-gray-50 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                                placeholder="Search for items">
+                        </div> 
+                </div>
+            </div>
             <div class="table-responsive "> <!-- Responsiveness for small screens -->
                 <div class="relative shadow-md sm:rounded-lg">
                     <table class="w-full text-sm text-gray-500 dark:text-gray-400 text-center">
@@ -248,7 +305,7 @@
                     </nav>
                 </div>
             </div>
-        </div>
+        </div> 
     @endsection
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script>
