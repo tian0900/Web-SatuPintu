@@ -154,16 +154,16 @@ Route::middleware(['check.role.byname:AdminKabupaten'])->group(function () {
 Route::middleware(['check.role.byname:Bendahara'])->group(function () {
     //Dashboard
     Route::get('/dashboard-Bendahara', [IndexController::class, 'dashboardbendahara']);
-
-
+    
     Route::get('/tagihannmanual', [BendaharaController::class, 'indextagihanmanual']);
 
     //Bendahara 
     Route::get('/tagihan', [BendaharaController::class, 'indextagihan'])->name('tagihan.search');
     Route::get('/transaksi', [BendaharaController::class, 'indextransaksi']);
-    Route::get('/tagihansampah', [BendaharaController::class, 'tagihansampah']);
+    Route::get('/tagihansampah', [BendaharaController::class, 'tagihansampah']); 
 
-    Route::get('/setoran', [BendaharaController::class, 'indexsetor']);
+    Route::get('/setoran', [BendaharaController::class, 'indexsetor'])->name('setoran.search');
+
     Route::get('/lapsetoran', [BendaharaController::class, 'lapsetoran']);
     Route::put('/setor/{id}/update-status', [BendaharaController::class, 'updateStatus'])->name('setor.updateStatus');
      
