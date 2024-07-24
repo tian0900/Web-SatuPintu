@@ -140,7 +140,7 @@ class BendaharaController extends Controller
         $retribusi_id = $user->admin->retribusi_id;
         $search = $request->query('search', ''); // Get the search query
         $filter = $request->query('filter', 'all'); // Default to show all data
-        
+
         $tagihanQuery = DB::table('tagihan_manual')
             ->join('setoran', 'setoran.id', '=', 'tagihan_manual.setoran_id')
             ->join('item_retribusi', 'item_retribusi.id', '=', 'tagihan_manual.item_retribusi_id')
@@ -249,6 +249,7 @@ class BendaharaController extends Controller
             )
             ->where('setoran.status', 'MENUNGGU')
             ->where('sub_wilayah.retribusi_id', $retribusi_id)
+
         ;
 
         // Apply date filter
