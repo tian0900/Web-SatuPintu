@@ -18,61 +18,72 @@ class BendaharaController extends Controller
      * Display a listing of the resource.
      */
     public function indextagihan(Request $request)
-    {
-        $user = Auth::user();
-        $retribusi_id = $user->admin->retribusi_id;
-    
-        // Apply the date filter based on the query parameter
-        $filter = $request->query('filter', 'all'); // Default to showing all data
-        $filterLabel = 'All';
-        $query = DB::table('tagihan')
-            ->join('pembayaran', 'pembayaran.tagihan_id', '=', 'tagihan.id')
-            ->join('kontrak', 'kontrak.id', '=', 'tagihan.kontrak_id')
-            ->join('item_retribusi', 'item_retribusi.id', '=', 'kontrak.item_retribusi_id')
-            ->join('wajib_retribusi', 'kontrak.wajib_retribusi_id', '=', 'wajib_retribusi.id')
-            ->join('users', 'wajib_retribusi.user_id', '=', 'users.id')
-            ->select(
-                'tagihan.*',
-                'item_retribusi.kategori_nama',
-                'users.name',
-                'tagihan.status as pembayaran_status', // Alias for status in the pembayaran table
-                // 'pembayaran.metode_pembayaran', // Alias for status in the pembayaran table
-                'kontrak.status as kontrak_status' // Alias for status in the kontrak table
-            )
-            ->where('tagihan.status', 'NEW') // Filter based on tagihan status
-            // ->where('pembayaran.status', 'WAITING') // Filter based on pembayaran status
-            ->where('tagihan.active', '1') // Filter based on tagihan active status
-            ->where('item_retribusi.retribusi_id', $retribusi_id); // Filter based on item_retribusi retribusi_id
-    
-        switch ($filter) {
-            case 'day':
-                $query->where('tagihan.created_at', '>=', now()->subDay());
-                $filterLabel = 'Last Day';
-                break;
-            case 'week':
-                $query->where('tagihan.created_at', '>=', now()->subWeek());
-                $filterLabel = 'Last Week';
-                break;
-            case 'month':
-                $query->where('tagihan.created_at', '>=', now()->subMonth());
-                $filterLabel = 'Last Month';
-                break;
-            case 'year':
-                $query->where('tagihan.created_at', '>=', now()->subYear());
-                $filterLabel = 'Last Year';
-                break;
-            case 'all':
-            default:
-                $filterLabel = 'All';
-                break;
-        }
-    
-        $tagihan = $query->paginate(5);
-    
-        return view('bendahara.tagihan', ['tagihan' => $tagihan, 'filterLabel' => $filterLabel]);
-    }
-    
+{
+    $user = Auth::user();
+    $retribusi_id = $user->admin->retribusi_id;
 
+    $filter = $request->query('filter', 'all');
+    $filterLabel = 'All';
+    $search = $request->query('search');
+
+    $query = DB::table('tagihan')
+        ->join('pembayaran', 'pembayaran.tagihan_id', '=', 'tagihan.id')
+        ->join('kontrak', 'kontrak.id', '=', 'tagihan.kontrak_id')
+        ->join('item_retribusi', 'item_retribusi.id', '=', 'kontrak.item_retribusi_id')
+        ->join('wajib_retribusi', 'kontrak.wajib_retribusi_id', '=', 'wajib_retribusi.id')
+        ->join('users', 'wajib_retribusi.user_id', '=', 'users.id')
+        ->select(
+            'tagihan.*',
+            'item_retribusi.kategori_nama',
+            'users.name',
+            'tagihan.status as pembayaran_status',
+            'kontrak.status as kontrak_status'
+        )
+        ->where('tagihan.status', 'NEW')
+        ->where('tagihan.active', '1')
+        ->where('item_retribusi.retribusi_id', $retribusi_id);
+
+    if ($search) {
+        $query->where(function ($subQuery) use ($search) {
+            $subQuery->where('item_retribusi.kategori_nama', 'like', "%{$search}%")
+                ->orWhere('tagihan.total_harga', 'like', "%{$search}%")
+                ->orWhere('tagihan.status', 'like', "%{$search}%")
+                ->orWhere('users.name', 'like', "%{$search}%");
+        });
+    }
+
+    switch ($filter) {
+        case 'day':
+            $query->where('tagihan.created_at', '>=', now()->subDay());
+            $filterLabel = 'Last Day';
+            break;
+        case 'week':
+            $query->where('tagihan.created_at', '>=', now()->subWeek());
+            $filterLabel = 'Last Week';
+            break;
+        case 'month':
+            $query->where('tagihan.created_at', '>=', now()->subMonth());
+            $filterLabel = 'Last Month';
+            break;
+        case 'year':
+            $query->where('tagihan.created_at', '>=', now()->subYear());
+            $filterLabel = 'Last Year';
+            break;
+        case 'all':
+        default:
+            $filterLabel = 'All';
+            break;
+    }
+
+    $tagihan = $query->paginate(5);
+
+    return view('bendahara.tagihan', [
+        'tagihan' => $tagihan,
+        'filterLabel' => $filterLabel
+    ]);
+}
+
+    
     public function indextransaksi(Request $request)
     {
         $user = Auth::user();
