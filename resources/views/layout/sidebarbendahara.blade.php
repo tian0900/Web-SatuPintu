@@ -106,7 +106,7 @@
             <li>
                 <div class="title">
                     <a href="/lapsetoran" class="link">
-                        <i class='bx bx-money-withdraw'></i>
+                        <i class='bx bxs-report'></i>
                         <span class="name">Laporan Setoran</span>
                     </a>
                 </div>

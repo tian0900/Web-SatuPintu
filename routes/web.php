@@ -158,8 +158,8 @@ Route::middleware(['check.role.byname:Bendahara'])->group(function () {
 
     Route::get('/tagihannmanual', [BendaharaController::class, 'indextagihanmanual']);
 
-    //Bendahara
-    Route::get('/tagihan', [BendaharaController::class, 'indextagihan']);
+    //Bendahara 
+    Route::get('/tagihan', [BendaharaController::class, 'indextagihan'])->name('tagihan.search');
     Route::get('/transaksi', [BendaharaController::class, 'indextransaksi']);
     Route::get('/tagihansampah', [BendaharaController::class, 'tagihansampah']);
 
