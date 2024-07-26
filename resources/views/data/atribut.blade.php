@@ -96,7 +96,6 @@
     @endif
 
     <!-- Modal untuk menambah data baru -->
-    <!-- Modal untuk menambah data baru -->
     <div id="addModal" tabindex="-1" aria-hidden="true"
         class="fixed inset-0 z-50 overflow-y-auto hidden bg-black bg-opacity-50">
         <div class="flex items-center justify-center min-h-screen p-4">
