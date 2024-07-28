@@ -38,7 +38,7 @@
                     @csrf
                     <header class="login-header">
                         <span class="login100-form-title p-b-26">
-                            <img src="logo/Logo.png" alt="" class="login-img mt-3 h-auto max-w-lg mx-auto">
+                            <img src="{{ URL::asset('logo/Logo.png') }}" alt="" class="login-img mt-3 h-auto max-w-lg mx-auto">
                             <span class="login-title">Aplikasi Retribusi</span>
                         </span> 
                         <p class="login-info">

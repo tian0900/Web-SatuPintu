@@ -105,9 +105,9 @@
                                 <th scope="col" class="px-6 py-3">
                                     Nominal
                                 </th>
-                                <th scope="col" class="px-6 py-3">
+                                {{-- <th scope="col" class="px-6 py-3">
                                     Bukti Pembayaran
-                                </th>
+                                </th> --}}
                                
                             </tr>
                         </thead>
@@ -133,12 +133,12 @@
                                     <td class="px-3 py-4">
                                         {{ $item->total_harga }}
                                     </td>
-                                    <td class="px-3 py-4">
+                                    {{-- <td class="px-3 py-4">
                                         <a data-modal-target="modal<?= $item->id ?>"
                                             data-modal-toggle="modal<?= $item->id ?>"
                                             class="font-medium text-blue-600 dark:text-blue-500 hover:underline text-center">Lihat
                                             Bukti</a>
-                                    </td>
+                                    </td> --}}
 
                                    
                                 </tr>

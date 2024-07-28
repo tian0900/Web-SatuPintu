@@ -24,6 +24,7 @@ class User extends Authenticatable
         'role_id',
         'photo_profile',
         'nik',
+        'phone_number',
         'alamat',
     ];
 
