@@ -446,27 +446,7 @@
         </div>
     @endif
 @endsection
-<!-- Tambahkan ini di bawah halaman HTML Anda, sebelum penutup </body> -->
-<script src="https://unpkg.com/flowbite@1.4.7/dist/flowbite.js"></script>
-
-{{-- <script>
-    // JavaScript untuk menambahkan field secara dinamis
-    document.addEventListener('DOMContentLoaded', function() {
-        const addButton = document.querySelector('#addDynamicField');
-        const dynamicFields = document.querySelector('#dynamic-fields');
-
-        addButton.addEventListener('click', function() {
-            const inputField = document.createElement('div');
-            inputField.classList.add('flex', 'space-x-4', 'mb-4');
-            inputField.innerHTML = `
-            <input type="text" name="dynamicField[]" placeholder="Nama Field"
-                class="w-full px-3 py-2 text-sm leading-tight text-gray-700 border rounded-lg focus:outline-none focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:text-white"
-                required>
-        `;
-            dynamicFields.appendChild(inputField);
-        });
-    });
-</script> --}}
+<!-- Tambahkan ini di bawah halaman HTML Anda, sebelum penutup </body> --> 
 
 <script>
     document.addEventListener('DOMContentLoaded', function() {
