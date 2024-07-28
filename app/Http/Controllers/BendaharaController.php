@@ -17,186 +17,204 @@ class BendaharaController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function indextagihan(Request $request)
-    {
-        $user = Auth::user();
-        $retribusi_id = $user->admin->retribusi_id;
 
-        // Apply the date filter based on the query parameter
-        $filter = $request->query('filter', 'all'); // Default to showing all data
-        $filterLabel = 'All';
-        $query = DB::table('tagihan')
-            // ->join('pembayaran', 'pembayaran.tagihan_id', '=', 'tagihan.id')
-            ->join('kontrak', 'kontrak.id', '=', 'tagihan.kontrak_id')
-            ->join('item_retribusi', 'item_retribusi.id', '=', 'kontrak.item_retribusi_id')
-            ->join('wajib_retribusi', 'kontrak.wajib_retribusi_id', '=', 'wajib_retribusi.id')
-            ->join('users', 'wajib_retribusi.user_id', '=', 'users.id') // Removed the extra space here
-            ->select(
-                'tagihan.*',
-                'item_retribusi.kategori_nama',
-                'users.name',
-                'tagihan.status as pembayaran_status', // Alias for status in the pembayaran table
-                // 'pembayaran.metode_pembayaran', // Alias for status in the pembayaran table
-                'kontrak.status as kontrak_status' // Alias for status in the kontrak table
-            )
-            ->where('tagihan.status', 'NEW') // Filter based on tagihan status
-            // ->where('pembayaran.status', 'WAITING') // Filter based on pembayaran status
-            ->where('tagihan.active', '1') // Filter based on tagihan active status
-            ->where('item_retribusi.retribusi_id', $retribusi_id);// Filter based on item_retribusi retribusi_id
-        ; // Filter based on item_retribusi retribusi_id
+     public function indextagihan(Request $request)
+     {
+         $user = Auth::user();
+         $retribusi_id = $user->admin->retribusi_id;
+ 
+         $filter = $request->query('filter', 'all');
+         $filterLabel = 'All';
+         $search = $request->query('search');
+ 
+         $query = DB::table('tagihan')
+             ->join('kontrak', 'kontrak.id', '=', 'tagihan.kontrak_id')
+             ->join('item_retribusi', 'item_retribusi.id', '=', 'kontrak.item_retribusi_id')
+             ->join('wajib_retribusi', 'kontrak.wajib_retribusi_id', '=', 'wajib_retribusi.id')
+             ->join('users', 'wajib_retribusi.user_id', '=', 'users.id')
+             ->select(
+                 'tagihan.*',
+                 'item_retribusi.kategori_nama',
+                 'users.name',
+                 'tagihan.status as pembayaran_status',
+                 'kontrak.status as kontrak_status'
+             )
+             ->where('tagihan.status', 'NEW')
+             ->where('tagihan.active', '1')
+             ->where('item_retribusi.retribusi_id', $retribusi_id);
+ 
+         // Apply search filter
+         if ($search) {
+             $query->where(function ($subQuery) use ($search) {
+                 $subQuery->where('item_retribusi.kategori_nama', 'like', "%{$search}%")
+                     ->orWhere('tagihan.total_harga', 'like', "%{$search}%")
+                     ->orWhere('tagihan.status', 'like', "%{$search}%")
+                     ->orWhere('users.name', 'like', "%{$search}%");
+             });
+         }
+ 
+         // Apply date filter
+         switch ($filter) {
+             case 'day':
+                 $query->where('tagihan.created_at', '>=', now()->subDay());
+                 $filterLabel = 'Last Day';
+                 break;
+             case 'week':
+                 $query->where('tagihan.created_at', '>=', now()->subWeek());
+                 $filterLabel = 'Last Week';
+                 break;
+             case 'month':
+                 $query->where('tagihan.created_at', '>=', now()->subMonth());
+                 $filterLabel = 'Last Month';
+                 break;
+             case 'year':
+                 $query->where('tagihan.created_at', '>=', now()->subYear());
+                 $filterLabel = 'Last Year';
+                 break;
+             case 'all':
+             default:
+                 $filterLabel = 'All';
+                 break;
+         }
+ 
+         $tagihan = $query->paginate(10);
+ 
+         return view('bendahara.tagihan', [
+             'tagihan' => $tagihan,
+             'filterLabel' => $filterLabel
+         ]);
+     }
+ 
+     public function indextransaksi(Request $request)
+     {
+         $user = Auth::user();
+         $retribusi_id = $user->admin->retribusi_id;
+ 
+         $filter = $request->query('filter', 'all');
+         $filterLabel = 'All Data';
+         $search = $request->query('search');
+ 
+         $query = DB::table('pembayaran')
+             ->join('tagihan', 'pembayaran.tagihan_id', '=', 'tagihan.id')
+             ->join('kontrak', 'kontrak.id', '=', 'tagihan.kontrak_id')
+             ->join('item_retribusi', 'item_retribusi.id', '=', 'kontrak.item_retribusi_id')
+             ->join('wajib_retribusi', 'kontrak.wajib_retribusi_id', '=', 'wajib_retribusi.id')
+             ->join('users', 'wajib_retribusi.user_id', '=', 'users.id')
+             ->select(
+                 'pembayaran.*',
+                 'item_retribusi.kategori_nama',
+                 'users.name',
+                 'pembayaran.status as pembayaran_status',
+                 'tagihan.total_harga',
+                 'pembayaran.metode_pembayaran',
+                 'kontrak.status as kontrak_status'
+             )
+             ->where('pembayaran.status', 'SUCCESS')
+             ->where('item_retribusi.retribusi_id', $retribusi_id);
+ 
+         // Apply search filter
+         if ($search) {
+             $query->where(function ($subQuery) use ($search) {
+                 $subQuery->where('item_retribusi.kategori_nama', 'like', "%{$search}%")
+                     ->orWhere('tagihan.total_harga', 'like', "%{$search}%")
+                     ->orWhere('users.name', 'like', "%{$search}%")
+                     ->orWhere('pembayaran.metode_pembayaran', 'like', "%{$search}%")
+                     ->orWhere('pembayaran.status', 'like', "%{$search}%");
+             });
+         }
+ 
+         // Apply date filter
+         switch ($filter) {
+             case 'day':
+                 $query->where('tagihan.created_at', '>=', now()->subDay());
+                 $filterLabel = 'Last Day';
+                 break;
+             case 'week':
+                 $query->where('tagihan.created_at', '>=', now()->subWeek());
+                 $filterLabel = 'Last Week';
+                 break;
+             case 'month':
+                 $query->where('tagihan.created_at', '>=', now()->subMonth());
+                 $filterLabel = 'Last Month';
+                 break;
+             case 'year':
+                 $query->where('tagihan.created_at', '>=', now()->subYear());
+                 $filterLabel = 'Last Year';
+                 break;
+             case 'all':
+             default:
+                 $filterLabel = 'All Data';
+                 break;
+         }
+ 
+         $tagihan = $query->paginate(5);
+ 
+         return view('bendahara.transaksi', [
+             'tagihan' => $tagihan,
+             'filterLabel' => $filterLabel,
+         ]);
+     }
 
-        switch ($filter) {
-            case 'day':
-                $query->where('tagihan.created_at', '>=', now()->subDay());
-                $filterLabel = 'Last Day';
-                break;
-            case 'week':
-                $query->where('tagihan.created_at', '>=', now()->subWeek());
-                $filterLabel = 'Last Week';
-                break;
-            case 'month':
-                $query->where('tagihan.created_at', '>=', now()->subMonth());
-                $filterLabel = 'Last Month';
-                break;
-            case 'year':
-                $query->where('tagihan.created_at', '>=', now()->subYear());
-                $filterLabel = 'Last Year';
-                break;
-            case 'all':
-            default:
-                $filterLabel = 'All';
-                break;
-        }
-
-        $tagihan = $query->paginate(5);
-
-        return view('bendahara.tagihan', ['tagihan' => $tagihan, 'filterLabel' => $filterLabel]);
-    }
-
-
-    public function indextransaksi(Request $request)
-    {
-        $user = Auth::user();
-        $retribusi_id = $user->admin->retribusi_id;
-
-        // Get the filter from the query parameters, default to 'all' to show all data
-        $filter = $request->query('filter', 'all');
-        $filterLabel = 'All Data'; // Default label
-
-        // Build the base query
-        $query = DB::table('pembayaran')
-            ->join('tagihan', 'pembayaran.tagihan_id', '=', 'tagihan.id')
-            ->join('kontrak', 'kontrak.id', '=', 'tagihan.kontrak_id')
-            ->join('item_retribusi', 'item_retribusi.id', '=', 'kontrak.item_retribusi_id')
-            ->join('wajib_retribusi', 'kontrak.wajib_retribusi_id', '=', 'wajib_retribusi.id')
-            ->join('users', 'wajib_retribusi.user_id', '=', 'users.id') // Removed the extra space here
-            ->select(
-                'pembayaran.*',
-                'item_retribusi.kategori_nama',
-                'users.name',
-                // 'pembayaran.status as pembayaran_status', // Alias for status in the pembayaran table
-                'pembayaran.status as pembayaran_status', // Alias for status in the pembayaran table
-                'tagihan.total_harga', // Alias for status in the pembayaran table
-                'pembayaran.metode_pembayaran', // Alias for status in the pembayaran table
-                'kontrak.status as kontrak_status' // Alias for status in the kontrak table
-            )
-            ->where('pembayaran.status', 'SUCCESS') // Filter based on tagihan status
-            // ->where('tagihan.active', '1') // Filter based on tagihan active status
-            ->where('item_retribusi.retribusi_id', $retribusi_id);
-
-        // Apply the date filter based on the query parameter
-        switch ($filter) {
-            case 'day':
-                $query->where('tagihan.created_at', '>=', now()->subDay());
-                $filterLabel = 'Last Day';
-                break;
-            case 'week':
-                $query->where('tagihan.created_at', '>=', now()->subWeek());
-                $filterLabel = 'Last Week';
-                break;
-            case 'month':
-                $query->where('tagihan.created_at', '>=', now()->subMonth());
-                $filterLabel = 'Last Month';
-                break;
-            case 'year':
-                $query->where('tagihan.created_at', '>=', now()->subYear());
-                $filterLabel = 'Last Year';
-                break;
-            case 'all':
-            default:
-                $filterLabel = 'All Data'; // Show all data when 'all' is selected or no filter is applied
-                break;
-        }
-
-        $tagihan = $query->paginate(5);
-        // return $tagihan;
-
-        return view('bendahara.transaksi', ['tagihan' => $tagihan, 'filterLabel' => $filterLabel]);
-    }
-
-    public function indextagihanmanual(Request $request)
-    {
-        $user = Auth::user();
-        $retribusi_id = $user->admin->retribusi_id;
-        $search = $request->query('search', ''); // Get the search query
-        $filter = $request->query('filter', 'all'); // Default to show all data
-
-        $tagihanQuery = DB::table('tagihan_manual')
-            ->join('setoran', 'setoran.id', '=', 'tagihan_manual.setoran_id')
-            ->join('item_retribusi', 'item_retribusi.id', '=', 'tagihan_manual.item_retribusi_id')
-            ->join('sub_wilayah', 'sub_wilayah.id', '=', 'tagihan_manual.sub_wilayah_id')
-            ->join('petugas', 'petugas.id', '=', 'tagihan_manual.petugas_id')
-            ->join('users', 'users.id', '=', 'petugas.user_id')
-            ->select(
-                'tagihan_manual.*',
-                'item_retribusi.kategori_nama',
-                'users.name',
-                'sub_wilayah.nama'
-            )
-            ->where('tagihan_manual.status', 'NEW') // Filter based on tagihan_manual status
-            ->where('item_retribusi.retribusi_id', $retribusi_id); // Filter based on item_retribusi retribusi_id
-
-        // Apply search filter
-        if (!empty($search)) {
-            $tagihanQuery->where(function ($query) use ($search) {
-                $query->where('users.name', 'like', "%{$search}%")
-                    ->orWhere('sub_wilayah.nama', 'like', "%{$search}%")
-                    ->orWhere('item_retribusi.kategori_nama', 'like', "%{$search}%")
-                    ->orWhere('tagihan_manual.total_harga', 'like', "%{$search}%");
-            });
-        }
-
-        // Apply date filter
-        switch ($filter) {
-            case 'day':
-                $tagihanQuery->whereDate('tagihan_manual.created_at', '=', now()->toDateString());
-                break;
-            case 'week':
-                $tagihanQuery->whereBetween('tagihan_manual.created_at', [now()->startOfWeek(), now()->endOfWeek()]);
-                break;
-            case 'month':
-                $tagihanQuery->whereMonth('tagihan_manual.created_at', '=', now()->month);
-                break;
-            case 'year':
-                $tagihanQuery->whereYear('tagihan_manual.created_at', '=', now()->year);
-                break;
-            case 'all':
-            default:
-                // No additional filter for 'all'
-                break;
-        }
-
-        $tagihan = $tagihanQuery->paginate(5);
-
-        return view('bendahara.tagihanmanual', ['tagihan' => $tagihan]);
-    }
-
-
+     public function indextagihanmanual(Request $request)
+     {
+         $user = Auth::user();
+         $retribusi_id = $user->admin->retribusi_id;
+         $search = $request->query('search', ''); // Get the search query
+         $filter = $request->query('filter', 'all'); // Default to show all data
+     
+         $tagihanQuery = DB::table('tagihan_manual')
+             ->join('setoran', 'setoran.id', '=', 'tagihan_manual.setoran_id')
+             ->join('item_retribusi', 'item_retribusi.id', '=', 'tagihan_manual.item_retribusi_id')
+             ->join('sub_wilayah', 'sub_wilayah.id', '=', 'tagihan_manual.sub_wilayah_id')
+             ->join('petugas', 'petugas.id', '=', 'tagihan_manual.petugas_id')
+             ->join('users', 'users.id', '=', 'petugas.user_id')
+             ->select(
+                 'tagihan_manual.*',
+                 'item_retribusi.kategori_nama',
+                 'users.name',
+                 'sub_wilayah.nama'
+             )
+             ->where('tagihan_manual.status', 'NEW') // Filter based on tagihan_manual status
+             ->where('item_retribusi.retribusi_id', $retribusi_id); // Filter based on item_retribusi retribusi_id
+     
+         // Apply search filter
+         if (!empty($search)) {
+             $tagihanQuery->where(function ($query) use ($search) {
+                 $query->where('users.name', 'like', "%{$search}%")
+                     ->orWhere('sub_wilayah.nama', 'like', "%{$search}%")
+                     ->orWhere('item_retribusi.kategori_nama', 'like', "%{$search}%")
+                     ->orWhere('tagihan_manual.total_harga', 'like', "%{$search}%");
+             });
+         }
+     
+         // Apply date filter
+         switch ($filter) {
+             case 'day':
+                 $tagihanQuery->whereDate('tagihan_manual.created_at', '=', now()->toDateString());
+                 break;
+             case 'week':
+                 $tagihanQuery->whereBetween('tagihan_manual.created_at', [now()->startOfWeek(), now()->endOfWeek()]);
+                 break;
+             case 'month':
+                 $tagihanQuery->whereMonth('tagihan_manual.created_at', '=', now()->month);
+                 break;
+             case 'year':
+                 $tagihanQuery->whereYear('tagihan_manual.created_at', '=', now()->year);
+                 break;
+             case 'all':
+             default:
+                 // No additional filter for 'all'
+                 break;
+         }
+     
+         $tagihan = $tagihanQuery->paginate(5);
+     
+         return view('bendahara.tagihanmanual', ['tagihan' => $tagihan]);
+     }
+     
 
     public function tagihansampah()
-    {
-
-
+    {   
         $tagihan = DB::table('tagihan')
             ->join('pembayaran', 'pembayaran.tagihan_id', '=', 'tagihan.id')
             ->join('kontrak', 'kontrak.id', '=', 'tagihan.kontrak_id')
@@ -231,12 +249,9 @@ class BendaharaController extends Controller
         $user = Auth::user();
         $retribusi_id = $user->admin->retribusi_id;
         $filter = $request->query('filter', 'all'); // Default to show all data
+        $search = $request->query('search', ''); // Get the search query
 
         $setorQuery = DB::table('setoran')
-            // ->join('transaksi_petugas', 'setoran.id', '=', 'transaksi_petugas.setoran_id')
-            // ->join('tagihan', 'tagihan.id', '=', 'transaksi_petugas.tagihan_id')
-            // ->join('kontrak', 'kontrak.id', '=', 'tagihan.kontrak_id')
-            // ->join('item_retribusi', 'item_retribusi.id', '=', 'kontrak.item_retribusi_id')
             ->join('petugas', 'petugas.id', '=', 'setoran.petugas_id')
             ->join('users', 'users.id', '=', 'petugas.user_id')
             ->join('sub_wilayah', 'sub_wilayah.id', '=', 'setoran.sub_wilayah_id')
@@ -245,12 +260,18 @@ class BendaharaController extends Controller
                 'petugas.user_id',
                 'sub_wilayah.nama',
                 'users.name as nama_petugas',
-
             )
             ->where('setoran.status', 'MENUNGGU')
-            ->where('sub_wilayah.retribusi_id', $retribusi_id)
+            ->where('sub_wilayah.retribusi_id', $retribusi_id);
 
-        ;
+        // Apply search filter
+        if (!empty($search)) {
+            $setorQuery->where(function ($query) use ($search) {
+                $query->where('users.name', 'like', "%{$search}%")
+                    ->orWhere('sub_wilayah.nama', 'like', "%{$search}%")
+                    ->orWhere('setoran.total', 'like', "%{$search}%");
+            });
+        }
 
         // Apply date filter
         switch ($filter) {
@@ -277,27 +298,61 @@ class BendaharaController extends Controller
         return view('bendahara.setor', ['setor' => $setor]);
     }
 
-    public function lapsetoran()
-    {
-        $user = Auth::user();
-        $retribusi_id = $user->admin->retribusi_id;
+    public function lapsetoran(Request $request)
+        {
+            $user = Auth::user();
+            $retribusi_id = $user->admin->retribusi_id;
+            $filter = $request->query('filter', 'all'); // Default to show all data
+            $search = $request->query('search'); // Get the search query
 
-        $setor = DB::table('setoran')
-            ->join('petugas', 'petugas.id', '=', 'setoran.petugas_id')
-            ->join('users', 'users.id', '=', 'petugas.user_id')
-            ->join('sub_wilayah', 'sub_wilayah.id', '=', 'setoran.sub_wilayah_id')
-            ->select(
-                'setoran.*',
-                'petugas.user_id',
-                'sub_wilayah.nama',
-                'users.name as nama_petugas',
+            $setorQuery = DB::table('setoran')
+                ->join('petugas', 'petugas.id', '=', 'setoran.petugas_id')
+                ->join('users', 'users.id', '=', 'petugas.user_id')
+                ->join('sub_wilayah', 'sub_wilayah.id', '=', 'setoran.sub_wilayah_id')
+                ->select(
+                    'setoran.*',
+                    'petugas.user_id',
+                    'sub_wilayah.nama',
+                    'users.name as nama_petugas'
+                )
+                ->where('setoran.status', 'DITERIMA')
+                ->where('sub_wilayah.retribusi_id', $retribusi_id);
 
-            )
-            ->where('setoran.status', 'DITERIMA')
-            ->where('sub_wilayah.retribusi_id', $retribusi_id)
-            ->paginate(5);
-        return view('bendahara.laporansetoran', ['setor' => $setor]);
-    }
+            // Apply date filter
+            switch ($filter) {
+                case 'day':
+                    $setorQuery->whereDate('setoran.created_at', '=', now()->toDateString());
+                    break;
+                case 'week':
+                    $setorQuery->whereBetween('setoran.created_at', [now()->startOfWeek(), now()->endOfWeek()]);
+                    break;
+                case 'month':
+                    $setorQuery->whereMonth('setoran.created_at', '=', now()->month);
+                    break;
+                case 'year':
+                    $setorQuery->whereYear('setoran.created_at', '=', now()->year);
+                    break;
+                case 'all':
+                default:
+                    // No additional filter for 'all'
+                    break;
+            }
+
+            // Apply search filter
+            if ($search) {
+                $setorQuery->where(function($query) use ($search) {
+                    $query->where('users.name', 'LIKE', "%{$search}%")
+                        ->orWhere('sub_wilayah.nama', 'LIKE', "%{$search}%")
+                        ->orWhere('setoran.total', 'LIKE', "%{$search}%")
+                        ->orWhere('setoran.status', 'LIKE', "%{$search}%");
+                });
+            }
+
+            $setor = $setorQuery->paginate(5);
+
+            return view('bendahara.laporansetoran', ['setor' => $setor]);
+        }
+
 
 
     public function updateStatus(Request $request, $id)
@@ -332,6 +387,7 @@ class BendaharaController extends Controller
         $user = Auth::user();
         $retribusi_id = $user->admin->retribusi_id;
         $filter = $request->query('filter', 'all'); // Default to show all data
+        $search = $request->query('search', ''); // Get the search query
 
         $pembatalanQuery = DB::table('tagihan')
             ->join('pembayaran', 'pembayaran.tagihan_id', '=', 'tagihan.id')
@@ -369,6 +425,16 @@ class BendaharaController extends Controller
             default:
                 // No additional filter for 'all'
                 break;
+        }
+
+        // Apply search filter
+        if (!empty($search)) {
+            $pembatalanQuery->where(function ($query) use ($search) {
+                $query->where('users.name', 'LIKE', "%{$search}%")
+                    ->orWhere('item_retribusi.kategori_nama', 'LIKE', "%{$search}%")
+                    ->orWhere('tagihan.nama', 'LIKE', "%{$search}%")
+                    ->orWhere('tagihan.total_harga', 'LIKE', "%{$search}%");
+            });
         }
 
         $pembatalan = $pembatalanQuery->paginate(5);

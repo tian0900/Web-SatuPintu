@@ -55,7 +55,7 @@
             <li>
                 <div class="title">
                     <a href="/kabupaten" class="link">
-                        <i class='bx bxs-file'></i>
+                        <i class='bx bx-buildings' ></i>
                         <span class="name">Kabupaten</span>
                     </a>
                     <!-- <i class='bx bxs-chevron-down'></i> -->

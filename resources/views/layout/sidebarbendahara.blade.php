@@ -117,7 +117,7 @@
 
             <li>
                 <div class="title">
-                    <a href="/pembatalanpasar" class="link">
+                    <a href="/pembatalan" class="link">
                         <i class='bx bx-x-circle'></i>
                         <span class="name">Pembatalan</span>
                     </a>

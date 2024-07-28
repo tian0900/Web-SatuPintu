@@ -12,18 +12,24 @@ class WilayahController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(Request $request)
     {
         $user = Auth::user();
         $retribusi_id = $user->admin->retribusi_id;
 
-        // Mengurutkan berdasarkan kolom 'created_at' dalam urutan menurun (data terbaru tampil pertama)
-        // dan memfilter berdasarkan retribusi_id pengguna yang sedang login
-        $wilayah = Wilayah::where('retribusi_id', $retribusi_id)
-            ->orderBy('created_at', 'desc')
-            ->paginate(5);
+        $query = Wilayah::where('retribusi_id', $retribusi_id);
 
-        // Menampilkan view 'data.wilayah-pasar' dan meneruskan data wilayah ke dalam view
+        if ($request->has('search')) {
+            $search = $request->input('search');
+            $query->where(function ($q) use ($search) {
+                $q->where('nama', 'like', '%' . $search . '%')
+                  ->orWhere('another_column', 'like', '%' . $search . '%');
+                  // Add other columns to search here
+            });
+        }
+
+        $wilayah = $query->orderBy('created_at', 'desc')->paginate(5);
+
         return view('data.wilayah-pasar', ['wilayah' => $wilayah]);
     }
 

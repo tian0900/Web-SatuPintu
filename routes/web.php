@@ -40,10 +40,6 @@ Route::get('/dd', [PasarController::class, 'index']);
 Route::get('/', [IndexController::class, 'landing']);
 Route::post('/jenis/store', [PasarController::class, 'store'])->name('jenis.store');
 Route::get('/jenis/edit', [PasarController::class, 'edit'])->name('jenis.edit');
-// Route::get('/dashboard-kedinasan', [IndexController::class, 'dashboardkedinasan']);
-// Route::put('/jenis/{id}', [PasarController::class, 'update'])->name('jenis.update');
-// Route::post('/jenis/{id}', 'JenisController@update')->name('jenis.update');
-// Route::put('/jenis/edit/{id}', [PasarController::class, 'update'])->name('jenis.update');
 Route::put('/jenis/{post}', [PasarController::class, 'update'])->name('jenis.update');
 
 Route::middleware(['auth', 'check.role.byname:AdminKedinasan'])->group(function () {
@@ -74,7 +70,7 @@ Route::middleware(['auth', 'check.role.byname:AdminKedinasan'])->group(function 
     Route::put('/jenis/{post}', [PasarController::class, 'update'])->name('jenis.update');
 
     //Sub-Wilayah-pasar
-    Route::get('/wilayah-pasar', [WilayahController::class, 'index']);
+    Route::get('/wilayah-pasar', [WilayahController::class, 'index'])->name('wilayah-pasar');
     Route::get('/data/wilayah-pasar/{id}/edit', [WilayahController::class, 'edit'])->name('wilayah.edit');
     Route::put('/data/wilayah-pasar/{id}', [WilayahController::class, 'update'])->name('wilayah.update');
     Route::delete('/wilayah-pasar/{id}', [WilayahController::class, 'destroy'])->name('wilayah.destroy');
@@ -128,7 +124,7 @@ Route::middleware(['check.role.byname:AdminKabupaten'])->group(function () {
     Route::get('/dashboard-kabupaten', [IndexController::class, 'dashboardkabupaten']);
 
     //Retribusi
-    Route::get('/retribusi', [RetribusiController::class, 'index']);
+    Route::get('/retribusi', [RetribusiController::class, 'index'])->name('retribusi.index');
     Route::get('/data/retribusi/{id}/edit', [RetribusiController::class, 'edit'])->name('retribusi.edit');
     Route::put('/data/retribusi/{id}', [RetribusiController::class, 'update'])->name('retribusi.update');
     Route::delete('/retribusi/{id}', [RetribusiController::class, 'destroy'])->name('retribusi.destroy');
@@ -159,15 +155,15 @@ Route::middleware(['check.role.byname:Bendahara'])->group(function () {
 
     //Bendahara 
     Route::get('/tagihan', [BendaharaController::class, 'indextagihan'])->name('tagihan.search');
-    Route::get('/transaksi', [BendaharaController::class, 'indextransaksi']);
+    Route::get('/transaksi', [BendaharaController::class, 'indextransaksi'])->name('transaksi.search');
     Route::get('/tagihansampah', [BendaharaController::class, 'tagihansampah']); 
 
     Route::get('/setoran', [BendaharaController::class, 'indexsetor'])->name('setoran.search');
 
-    Route::get('/lapsetoran', [BendaharaController::class, 'lapsetoran']);
+    Route::get('/lapsetoran', [BendaharaController::class, 'lapsetoran'])->name('lapsetoran');
     Route::put('/setor/{id}/update-status', [BendaharaController::class, 'updateStatus'])->name('setor.updateStatus');
      
-    Route::get('/pembatalan', [BendaharaController::class, 'indexpembatalan']);
+    Route::get('/pembatalan', [BendaharaController::class, 'indexpembatalan'])->name('pembatalan.index');
     Route::put('/batal/{id}/update-status', [BendaharaController::class, 'updateStatuspembatalan'])->name('batal.updateStatus');
 
 });

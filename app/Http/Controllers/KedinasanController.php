@@ -12,27 +12,32 @@ class KedinasanController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(Request $request)
     {
         $user = Auth::user();
-
-        // Ambil kabupaten_id dari admin yang sedang login
         $kabupaten_id = $user->adminkabupaten->kabupaten_id;
 
-        // Ambil kedinasan yang terkait dengan kabupaten_id yang sama dengan admin yang sedang login
-        $kedinasan = Kedinasan::whereHas('kabupaten', function ($query) use ($kabupaten_id) {
+        $query = Kedinasan::whereHas('kabupaten', function ($query) use ($kabupaten_id) {
             $query->where('id', $kabupaten_id);
-        })
-            ->orderBy('created_at', 'desc')
-            ->paginate(5);
+        });
 
-        // Ambil data kabupaten
+        if ($request->has('search')) {
+            $search = $request->input('search');
+            $query->where(function ($q) use ($search) {
+                $q->where('nama', 'like', "%{$search}%")
+                  ->orWhere('kepala_dinas', 'like', "%{$search}%")
+                  ->orWhereHas('kabupaten', function ($q) use ($search) {
+                      $q->where('nama', 'like', "%{$search}%");
+                  });
+            });
+        }
+
+        $kedinasan = $query->orderBy('created_at', 'desc')->paginate(2);
+
         $kabupaten = Kabupaten::where('id', $kabupaten_id)->get();
 
         return view('data.kedinasan', compact('kedinasan', 'kabupaten'));
     }
-
-
 
 
     /**

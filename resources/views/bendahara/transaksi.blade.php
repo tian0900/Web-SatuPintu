@@ -113,178 +113,91 @@
                             </svg>
                         </button> 
 
-                    <!-- Dropdown menu -->
-                    <div id="dropdownRadio" class="hidden z-10 w-48 bg-white rounded shadow dark:bg-gray-700">
-                        <ul class="py-1 text-sm text-gray-700 dark:text-gray-200" aria-labelledby="dropdownRadioButton">
-                            <li><a href="/transaksi?filter=day" class="block px-4 py-2 filter-link" data-label="Last Day">Last Day</a></li>
-                            <li><a href="/transaksi?filter=week" class="block px-4 py-2 filter-link" data-label="Last Week">Last Week</a></li>
-                            <li><a href="/transaksi?filter=month" class="block px-4 py-2 filter-link" data-label="Last Month">Last Month</a></li>
-                            <li><a href="/transaksi?filter=year" class="block px-4 py-2 filter-link" data-label="Last Year">Last Year</a></li>
-                        </ul>
-                    </div>
+                        <!-- Dropdown menu -->
+                        <div id="dropdownRadio" class="hidden z-10 w-48 bg-white rounded shadow dark:bg-gray-700">
+                            <ul class="py-1 text-sm text-gray-700 dark:text-gray-200" aria-labelledby="dropdownRadioButton">
+                                <li><a href="/transaksi?filter=day" class="block px-4 py-2 filter-link" data-label="Last Day">Last Day</a></li>
+                                <li><a href="/transaksi?filter=week" class="block px-4 py-2 filter-link" data-label="Last Week">Last Week</a></li>
+                                <li><a href="/transaksi?filter=month" class="block px-4 py-2 filter-link" data-label="Last Month">Last Month</a></li>
+                                <li><a href="/transaksi?filter=year" class="block px-4 py-2 filter-link" data-label="Last Year">Last Year</a></li>
+                            </ul>
+                        </div>
 
-                    <script>
-                    document.querySelectorAll('.filter-link').forEach(link => {
-                    link.addEventListener('click', function(event) {
-                        event.preventDefault();
-                        const label = this.getAttribute('data-label');
-                        document.getElementById('dropdownButtonLabel').innerText = label;
-                        window.location.href = this.href; // Redirect to the selected filter URL
-                    });
-                    });
-                    </script> 
+                        <script>
+                            document.querySelectorAll('.filter-link').forEach(link => {
+                                link.addEventListener('click', function(event) {
+                                    event.preventDefault();
+                                    const label = this.getAttribute('data-label');
+                                    document.getElementById('dropdownButtonLabel').innerText = label;
+                                    window.location.href = this.href; // Redirect to the selected filter URL
+                                });
+                            });
+                        </script> 
                     </div>
                     <div class="relative"> 
-                        <input type="text" id="table-search"
-                            class="block p-2 ps-10 text-sm text-gray-900 border border-gray-300 rounded-lg w-80 bg-gray-50 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-                            placeholder="Search for items">
+                        <!-- Search Form -->
+                        <form action="{{ route('transaksi.search') }}" method="GET" class="mb-4">
+                            <label for="table-search" class="sr-only">Search</label>
+                            <div class="relative">
+                                <div class="absolute inset-y-0 left-0 rtl:inset-r-0 rtl:right-0 flex items-center ps-3 pointer-events-none">
+                                    <svg class="w-5 h-5 text-gray-500 dark:text-gray-400" aria-hidden="true" fill="currentColor"
+                                        viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
+                                        <path fill-rule="evenodd"
+                                            d="M8 4a4 4 0 100 8 4 4 0 000-8zM2 8a6 6 0 1110.89 3.476l4.817 4.817a1 1 0 01-1.414 1.414l-4.816-4.816A6 6 0 012 8z"
+                                            clip-rule="evenodd"></path>
+                                    </svg>
+                                </div>
+                                <input type="text" name="search" id="table-search"
+                                    class="block p-2 ps-10 text-sm text-gray-900 border border-gray-300 rounded-lg w-80 bg-gray-50 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                                    placeholder="Search for items" value="{{ request('search') }}">
+                            </div>
+                        </form>
                     </div> 
                 </div>
             </div>
-            <div class="table-responsive "> <!-- Responsiveness for small screens -->
-                <div class="relative shadow-md sm:rounded-lg">
-                    <table class="w-full text-sm text-gray-500 dark:text-gray-400 text-center">
-                        <thead class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
-                            <tr>
-                                <th scope="col" class="px-6 py-3">
-                                    No.
-                                </th>
-                                <th scope="col" class="px-6 py-3">
-                                    Wajib Retribusi
-                                </th>
-                                <th scope="col" class="px-6 py-3">
-                                    Item Retribusi
-                                </th>
-                                <th scope="col" class="px-6 py-3">
-                                    Harga
-                                </th>
-                                <th scope="col" class="px-6 py-3">
-                                    Metode Pembayaran
-                                </th>
-                                <th scope="col" class="px-6 py-3">
-                                    Status
-                                </th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            @php
-                                $number = ($tagihan->currentPage() - 1) * $tagihan->perPage() + 1;
-                            @endphp <!-- Inisialisasi nomor -->
-                            @foreach ($tagihan as $item)
-                                <tr class="table-row" data-metode="{{ $item->metode_pembayaran }}">
-                                    <td scope="row"
-                                        class="px-6 py-3 font-medium text-gray-900 whitespace-nowrap dark:text-white">
-                                        {{ $number++ }}
-                                    </td>
-                                    <td scope="row"
-                                        class="px-3 py-3 font-medium text-gray-900 whitespace-nowrap dark:text-white">
-                                        {{ $item->name }}
-                                    </td>
-                                    <td class="px-3 py-3">
-                                        {{ $item->kategori_nama }}
-                                    </td>
-                                    <td class="px-3 py-3">
-                                        {{ $item->total_harga }}
-                                    </td>
-                                    <td class="px-3 py-3">
-                                        {{ $item->metode_pembayaran }}
-                                    </td>
-                                    <td class="px-3 py-3">
-                                        {{ $item->pembayaran_status }}
-                                    </td>
+            <div class="container"> 
+                <div class="table-responsive">
+                    <div class="relative shadow-md sm:rounded-lg">
+                        <table class="w-full text-sm text-gray-500 dark:text-gray-400 text-center">
+                            <thead class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
+                                <tr>
+                                    <th scope="col" class="px-6 py-3">No.</th>
+                                    <th scope="col" class="px-6 py-3">Wajib Retribusi</th>
+                                    <th scope="col" class="px-6 py-3">Item Retribusi</th>
+                                    <th scope="col" class="px-6 py-3">Harga</th>
+                                    <th scope="col" class="px-6 py-3">Metode Pembayaran</th>
+                                    <th scope="col" class="px-6 py-3">Status</th>
                                 </tr>
-
-                                <!-- Main modal -->
-                                <div id="modal<?= $item->id ?>" tabindex="-1" aria-hidden="true"
-                                    class="hidden overflow-y-auto overflow-x-hidden fixed top-0 right-0 left-0 z-50 justify-center items-center w-full md:inset-0 h-[calc(100%-1rem)] max-h-full">
-                                    <div class="relative p-4 w-full max-w-md max-h-full">
-                                        <!-- Modal content -->
-                                        <div class="relative bg-white rounded-lg shadow dark:bg-gray-700">
-                                            <!-- Modal header -->
-                                            <div
-                                                class="flex items-center justify-between p-4 md:p-5 border-b rounded-t dark:border-gray-600">
-                                                <h3 class="text-xl font-semibold text-gray-900 dark:text-white">
-                                                    Sign in to our platform
-                                                </h3>
-                                                <button type="button"
-                                                    class="end-2.5 text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm w-8 h-8 ms-auto inline-flex justify-center items-center dark:hover:bg-gray-600 dark:hover:text-white"
-                                                    data-modal-hide="modal<?= $item->id ?>">
-                                                    <svg class="w-3 h-3" aria-hidden="true"
-                                                        xmlns="http://www.w3.org/2000/svg" fill="none"
-                                                        viewBox="0 0 14 14">
-                                                        <path stroke="currentColor" stroke-linecap="round"
-                                                            stroke-linejoin="round" stroke-width="2"
-                                                            d="m1 1 6 6m0 0 6 6M7 7l6-6M7 7l-6 6" />
-                                                    </svg>
-                                                    <span class="sr-only">Close modal</span>
-                                                </button>
-                                            </div>
-                                            <!-- Modal body -->
-                                            <!-- Your modal body content here -->
-                                        </div>
-                                    </div>
-                                </div>
-                            @endforeach
-                        </tbody>
-                    </table>
-
-                    <nav class="bg-white flex items-center flex-column flex-wrap md:flex-row justify-between p-4"
-                        aria-label="Table navigation">
-                        <span
-                            class="text-sm font-normal text-gray-500 dark:text-gray-400 mb-4 md:mb-0 block w-full md:inline md:w-auto">
-                            Showing
-                            <span class="font-semibold text-gray-900 dark:text-white">{{ $tagihan->firstItem() }}</span> to
-                            <span class="font-semibold text-gray-900 dark:text-white">{{ $tagihan->lastItem() }}</span> of
-                            <span class="font-semibold text-gray-900 dark:text-white">{{ $tagihan->total() }}</span>
-                        </span>
-
-                        <div class="w-full md:w-auto text-right">
-                            <ul class="inline-flex -space-x-px rtl:space-x-reverse text-sm h-8">
-                                <!-- Previous Page Link -->
-                                @if ($tagihan->onFirstPage())
-                                    <li aria-disabled="true" aria-label="Previous">
-                                        <span
-                                            class="flex items-center justify-center px-3 h-8 ms-0 leading-tight text-gray-500 bg-white border border-gray-300 rounded-s-lg dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 cursor-not-allowed">Previous</span>
-                                    </li>
-                                @else
-                                    <li>
-                                        <a href="{{ $tagihan->previousPageUrl() }}"
-                                            class="flex items-center justify-center px-3 h-8 ms-0 leading-tight text-gray-500 bg-white border border-gray-300 rounded-s-lg hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white"
-                                            aria-label="Previous">Previous</a>
-                                    </li>
-                                @endif
-
-                                <!-- Pagination Elements -->
-                                @foreach ($tagihan->links()->elements[0] as $page => $url)
-                                    @if ($page == $tagihan->currentPage())
-                                        <li aria-current="page">
-                                            <span
-                                                class="flex items-center justify-center px-3 h-8 text-blue-600 border border-gray-300 bg-blue-50 hover:bg-blue-100 hover:text-blue-700 dark:border-gray-700 dark:bg-gray-700 dark:text-white">{{ $page }}</span>
-                                        </li>
-                                    @else
-                                        <li>
-                                            <a href="{{ $url }}"
-                                                class="flex items-center justify-center px-3 h-8 leading-tight text-gray-500 bg-white border border-gray-300 hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white">{{ $page }}</a>
-                                        </li>
-                                    @endif
+                            </thead>
+                            <tbody>
+                                @php
+                                    $number = ($tagihan->currentPage() - 1) * $tagihan->perPage() + 1;
+                                @endphp
+                                @foreach ($tagihan as $item)
+                                    <tr class="table-row">
+                                        <td scope="row" class="px-6 py-3 font-medium text-gray-900 whitespace-nowrap dark:text-white">{{ $number++ }}</td>
+                                        <td scope="row" class="px-3 py-3 font-medium text-gray-900 whitespace-nowrap dark:text-white">{{ $item->name }}</td>
+                                        <td class="px-3 py-3">{{ $item->kategori_nama }}</td>
+                                        <td class="px-3 py-3">{{ $item->total_harga }}</td>
+                                        <td class="px-3 py-3">{{ $item->metode_pembayaran }}</td>
+                                        <td class="px-3 py-3">{{ $item->pembayaran_status }}</td>
+                                    </tr>
                                 @endforeach
-
-                                <!-- Next Page Link -->
-                                @if ($tagihan->hasMorePages())
-                                    <li>
-                                        <a href="{{ $tagihan->nextPageUrl() }}"
-                                            class="flex items-center justify-center px-3 h-8 leading-tight text-gray-500 bg-white border border-gray-300 rounded-e-lg hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white"
-                                            aria-label="Next">Next</a>
-                                    </li>
-                                @else
-                                    <li aria-disabled="true" aria-label="Next">
-                                        <span
-                                            class="flex items-center justify-center px-3 h-8 leading-tight text-gray-500 bg-white border border-gray-300 rounded-e-lg dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 cursor-not-allowed">Next</span>
-                                    </li>
-                                @endif
-                            </ul>
-                        </div>
-                    </nav>
+                            </tbody>
+                        </table>
+            
+                        <nav class="bg-white flex items-center justify-between p-4" aria-label="Table navigation">
+                            <span class="text-sm font-normal text-gray-500 dark:text-gray-400">
+                                Showing
+                                <span class="font-semibold text-gray-900 dark:text-white">{{ $tagihan->firstItem() }}</span> to
+                                <span class="font-semibold text-gray-900 dark:text-white">{{ $tagihan->lastItem() }}</span> of
+                                <span class="font-semibold text-gray-900 dark:text-white">{{ $tagihan->total() }}</span>
+                            </span>
+                            <div class="w-full md:w-auto text-right">
+                                {{ $tagihan->appends(request()->input())->links() }}
+                            </div>
+                        </nav>
+                    </div>
                 </div>
             </div>
         </div>

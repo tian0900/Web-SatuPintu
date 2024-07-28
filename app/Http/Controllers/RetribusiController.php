@@ -12,21 +12,48 @@ class RetribusiController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(Request $request)
     {
         $user = Auth::user();
-
-        // Ambil kabupaten_id dari admin yang sedang login
         $kabupaten_id = $user->adminkabupaten->kabupaten_id;
+        $filter = $request->query('filter', 'all'); // Default to show all data
+        $search = $request->query('search', ''); // Search query
 
-        // Mengambil retribusi yang memiliki kabupaten_id sesuai dengan yang sedang login
-        $retribusi = Retribusi::whereHas('kedinasan', function ($query) use ($kabupaten_id) {
+        $retribusiQuery = Retribusi::whereHas('kedinasan', function ($query) use ($kabupaten_id) {
             $query->where('kabupaten_id', $kabupaten_id);
-        })
-            ->orderBy('created_at', 'asc')
-            ->paginate(5);
+        });
 
-        // Ambil data kedinasan untuk ditampilkan di view
+        // Apply date filter
+        switch ($filter) {
+            case 'day':
+                $retribusiQuery->whereDate('created_at', '=', now()->toDateString());
+                break;
+            case 'week':
+                $retribusiQuery->whereBetween('created_at', [now()->startOfWeek(), now()->endOfWeek()]);
+                break;
+            case 'month':
+                $retribusiQuery->whereMonth('created_at', '=', now()->month);
+                break;
+            case 'year':
+                $retribusiQuery->whereYear('created_at', '=', now()->year);
+                break;
+            case 'all':
+            default:
+                // No additional filter for 'all'
+                break;
+        }
+
+        // Apply search filter
+        if (!empty($search)) {
+            $retribusiQuery->where(function ($query) use ($search) {
+                $query->where('nama', 'LIKE', "%$search%")
+                      ->orWhereHas('kedinasan', function ($query) use ($search) {
+                          $query->where('nama', 'LIKE', "%$search%");
+                      });
+            });
+        }
+
+        $retribusi = $retribusiQuery->orderBy('created_at', 'asc')->paginate(5);
         $kedinasan = Kedinasan::where('kabupaten_id', $kabupaten_id)->get();
 
         return view('data.retribusi', compact('kedinasan', 'retribusi'));
