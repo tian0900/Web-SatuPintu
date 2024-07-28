@@ -34,7 +34,7 @@
         <a href="#" class="logo-box">
             {{-- <i class='bx bxl-xing'></i> --}}
             <img class="img-logo" src="{{ URL::asset('logo/Logo.png') }}" alt="">
-            <div class="logo-name">Aplikasi Retribusi</div>
+            <div class="logo-name">Satu Pintu</div>
         </a>
 
         <!-- ========== List ============  -->

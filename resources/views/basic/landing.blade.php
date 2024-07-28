@@ -16,7 +16,7 @@
         <div class="flex flex-wrap justify-between items-center mx-auto max-w-screen-xl p-4">
             <a href="https://flowbite.com" class="flex items-center space-x-3 rtl:space-x-reverse">
                 <img src="{{ URL::asset('logo/Logo.png') }}" class="h-8" alt="Flowbite Logo" />
-                <span class="self-center text-2xl font-semibold whitespace-nowrap dark:text-white">Aplikasi Retribusi</span>
+                <span class="self-center text-2xl font-semibold whitespace-nowrap dark:text-white">Satu Pintu</span>
             </a>
             <div class="flex items-center space-x-6 rtl:space-x-reverse">
                
@@ -55,7 +55,7 @@
             <!-- <img class="w-full dark:hidden" src="https://flowbite.s3.amazonaws.com/blocks/marketing-ui/cta/cta-dashboard-mockup.svg" alt="dashboard image"> -->
             <!-- <img class="w-full hidden dark:block" src="https://flowbite.s3.amazonaws.com/blocks/marketing-ui/cta/cta-dashboard-mockup-dark.svg" alt="dashboard image"> -->
             <div class="mt-4 md:mt-0">
-                <h2 class="mb-4 text-4xl tracking-tight font-extrabold text-gray-900 dark:text-white">Apa itu Aplikasi Retribusi?</h2>
+                <h2 class="mb-4 text-4xl tracking-tight font-extrabold text-gray-900 dark:text-white">Apa itu Satu Pintu?</h2>
                 <p class="mb-6 font-light text-gray-500 md:text-lg dark:text-gray-400">Menurut ketentuan Pasal 1
                     Undang-Undang No. 28 Tahun 2009 tentang Pajak dan Retribusi Daerah, yang di maksud dengan retribusi
                     adalah pungutan daerah sebagai pembayaran atas jasa atau pemberian izin tertentu yang khas
@@ -82,7 +82,7 @@
 
     <section id="data3" class="bg-white dark:bg-gray-900">
         <div class="mx-auto max-w-screen-xl p-5 text-center">
-            <h2 class="mb-4 text-4xl tracking-tight font-extrabold text-gray-900 dark:text-white">Kenapa Harus Aplikasi Retribusi
+            <h2 class="mb-4 text-4xl tracking-tight font-extrabold text-gray-900 dark:text-white">Kenapa Harus Satu Pintu
                 ?</h2>
             <div class="space-y-8 md:grid md:grid-cols-2 lg:grid-cols-3 md:gap-12 md:space-y-0">
                 <div>
@@ -142,13 +142,13 @@
             <div class="sm:flex sm:items-center sm:justify-between">
                 <a href="" class="flex items-center mb-4 sm:mb-0 space-x-3 rtl:space-x-reverse">
                     <img src="{{ URL::asset('logo/Logo.png') }}" class="h-8" alt="Flowbite Logo" />
-                    <span class="self-center text-2xl font-semibold whitespace-nowrap dark:text-white">Aplikasi Retribusi</span>
+                    <span class="self-center text-2xl font-semibold whitespace-nowrap dark:text-white">Satu Pintu</span>
                 </a>
               
             </div>
             <hr class="my-6 border-gray-200 sm:mx-auto dark:border-gray-700 lg:my-8" />
             <span class="block text-sm text-gray-500 sm:text-center dark:text-gray-400">© 2023 <a
-                    href="" class="hover:underline">Aplikasi Retribusi™</a>. All Rights Reserved.</span>
+                    href="" class="hover:underline">Satu Pintu™</a>. All Rights Reserved.</span>
         </div>
     </footer>
 

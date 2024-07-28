@@ -17,6 +17,7 @@ class WilayahController extends Controller
         $user = Auth::user();
         $retribusi_id = $user->admin->retribusi_id;
 
+
         $query = Wilayah::where('retribusi_id', $retribusi_id);
 
         if ($request->has('search')) {
@@ -29,6 +30,7 @@ class WilayahController extends Controller
         }
 
         $wilayah = $query->orderBy('created_at', 'desc')->paginate(5);
+        
 
         return view('data.wilayah-pasar', ['wilayah' => $wilayah]);
     }

@@ -77,35 +77,42 @@
         <div class="container m-5">
             <div class="flex flex-column sm:flex-row flex-wrap space-y-4 sm:space-y-0 items-center justify-between pb-4">
                 <div class="relative">
-                    <button id="dropdownRadioButton" class="inline-flex items-center text-gray-500 bg-white border border-gray-300 focus:outline-none hover:bg-gray-100 focus:ring-4 focus:ring-gray-100 font-medium rounded-lg text-sm px-3 py-1.5 dark:bg-gray-800 dark:text-white dark:border-gray-600 dark:hover:bg-gray-700 dark:hover:border-gray-600 dark:focus:ring-gray-700"
-                            type="button">
+                    <button id="dropdownRadioButton"
+                        class="inline-flex items-center text-gray-500 bg-white border border-gray-300 focus:outline-none hover:bg-gray-100 focus:ring-4 focus:ring-gray-100 font-medium rounded-lg text-sm px-3 py-1.5 dark:bg-gray-800 dark:text-white dark:border-gray-600 dark:hover:bg-gray-700 dark:hover:border-gray-600 dark:focus:ring-gray-700"
+                        type="button">
                         <svg class="w-3 h-3 text-gray-500 dark:text-gray-400 me-3" aria-hidden="true"
-                             xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 20 20">
-                            <path d="M10 0a10 10 0 1 0 10 10A10.011 10.011 0 0 0 10 0Zm3.982 13.982a1 1 0 0 1-1.414 0l-3.274-3.274A1.012 1.012 0 0 1 9 10V6a1 1 0 0 1 2 0v3.586l2.982 2.982a1 1 0 0 1 0 1.414Z" />
+                            xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 20 20">
+                            <path
+                                d="M10 0a10 10 0 1 0 10 10A10.011 10.011 0 0 0 10 0Zm3.982 13.982a1 1 0 0 1-1.414 0l-3.274-3.274A1.012 1.012 0 0 1 9 10V6a1 1 0 0 1 2 0v3.586l2.982 2.982a1 1 0 0 1 0 1.414Z" />
                         </svg>
                         Filter Data
-                        <svg class="w-2.5 h-2.5 ms-2.5" aria-hidden="true" xmlns="http://www.w3.org/2000/svg"
-                             fill="none" viewBox="0 0 10 6">
+                        <svg class="w-2.5 h-2.5 ms-2.5" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none"
+                            viewBox="0 0 10 6">
                             <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                  d="m1 1 4 4 4-4" />
+                                d="m1 1 4 4 4-4" />
                         </svg>
                     </button>
                     <div id="dropdownRadio" class="hidden z-10 w-48 bg-white rounded-lg shadow dark:bg-gray-700">
                         <ul class="py-1 text-sm text-gray-700 dark:text-gray-200" aria-labelledby="dropdownRadioButton">
                             <li>
-                                <a href="{{ url('retribusi?filter=day') }}" class="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600">Day</a>
+                                <a href="{{ url('retribusi?filter=day') }}"
+                                    class="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600">Day</a>
                             </li>
                             <li>
-                                <a href="{{ url('retribusi?filter=week') }}" class="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600">Week</a>
+                                <a href="{{ url('retribusi?filter=week') }}"
+                                    class="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600">Week</a>
                             </li>
                             <li>
-                                <a href="{{ url('retribusi?filter=month') }}" class="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600">Month</a>
+                                <a href="{{ url('retribusi?filter=month') }}"
+                                    class="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600">Month</a>
                             </li>
                             <li>
-                                <a href="{{ url('retribusi?filter=year') }}" class="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600">Year</a>
+                                <a href="{{ url('retribusi?filter=year') }}"
+                                    class="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600">Year</a>
                             </li>
                             <li>
-                                <a href="{{ url('retribusi?filter=all') }}" class="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600">All</a>
+                                <a href="{{ url('retribusi?filter=all') }}"
+                                    class="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600">All</a>
                             </li>
                         </ul>
                     </div>
@@ -116,11 +123,12 @@
                             dropdown.classList.toggle('hidden');
                         });
                     </script>
-                </div>  
+                </div>
                 <form action="{{ route('retribusi.index') }}" method="GET">
                     <label for="table-search" class="sr-only">Search</label>
                     <div class="relative">
-                        <div class="absolute inset-y-0 left-0 rtl:inset-r-0 rtl:right-0 flex items-center ps-3 pointer-events-none">
+                        <div
+                            class="absolute inset-y-0 left-0 rtl:inset-r-0 rtl:right-0 flex items-center ps-3 pointer-events-none">
                             <svg class="w-5 h-5 text-gray-500 dark:text-gray-400" aria-hidden="true" fill="currentColor"
                                 viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
                                 <path fill-rule="evenodd"
@@ -133,9 +141,9 @@
                             placeholder="Search for items">
                     </div>
                 </form>
-                
+
             </div>
-            <div class="container"> 
+            <div class="container">
                 <div class="table-responsive">
                     <div class="relative shadow-md sm:rounded-lg">
                         <table class="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400">
@@ -148,29 +156,160 @@
                             </thead>
                             <tbody>
                                 @foreach ($retribusi as $data)
-                                    <tr class="odd:bg-white odd:dark:bg-gray-900 even:bg-gray-50 even:dark:bg-gray-800 border-b dark:border-gray-700">
+                                    <tr
+                                        class="odd:bg-white odd:dark:bg-gray-900 even:bg-gray-50 even:dark:bg-gray-800 border-b dark:border-gray-700">
                                         <td class="px-6 py-4">{{ $data->nama }}</td>
                                         <td class="px-6 py-4">{{ $data->kedinasan->nama }}</td>
                                         <td class="px-6 py-4">
-                                            <a data-modal-target="modal{{ $data->id }}" data-modal-toggle="modal{{ $data->id }}"
+                                            <a data-modal-target="modal{{ $data->id }}"
+                                                data-modal-toggle="modal{{ $data->id }}"
                                                 class="font-medium text-blue-600 dark:text-blue-500 hover:underline text-center">Edit</a>
-                                            <a data-modal-target="modalhapus{{ $data->id }}" data-modal-toggle="modalhapus{{ $data->id }}"
+                                            <a data-modal-target="modalhapus{{ $data->id }}"
+                                                data-modal-toggle="modalhapus{{ $data->id }}"
                                                 class="font-medium text-red-600 dark:text-red-500 hover:underline text-center">hapus</a>
                                         </td>
                                     </tr>
+
+                                    <div id="modal{{ $data->id }}" tabindex="-1" aria-hidden="true"
+                                        class="hidden overflow-y-auto overflow-x-hidden fixed top-0 right-0 left-0 z-50 justify-center items-center w-full md:inset-0 h-[calc(100%-1rem)] max-h-full">
+                                        <div class="relative p-4 w-full max-w-md max-h-full">
+                                            <!-- Modal content -->
+                                            <div class="relative bg-white rounded-lg shadow dark:bg-gray-700">
+                                                <!-- Modal header -->
+                                                <div
+                                                    class="flex items-center justify-between p-4 md:p-5 border-b rounded-t dark:border-gray-600">
+                                                    <h3 class="text-lg font-semibold text-gray-900 dark:text-white">
+                                                        Edit Data Retribusi
+                                                    </h3>
+                                                    <button type="button"
+                                                        class="text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm w-8 h-8 ms-auto inline-flex justify-center items-center dark:hover:bg-gray-600 dark:hover:text-white"
+                                                        data-modal-toggle="modal{{ $data->id }}">
+                                                        <svg class="w-3 h-3" aria-hidden="true"
+                                                            xmlns="http://www.w3.org/2000/svg" fill="none"
+                                                            viewBox="0 0 14 14">
+                                                            <path stroke="currentColor" stroke-linecap="round"
+                                                                stroke-linejoin="round" stroke-width="2"
+                                                                d="m1 1 6 6m0 0 6 6M7 7l6-6M7 7l-6 6" />
+                                                        </svg>
+                                                        <span class="sr-only">Close modal</span>
+                                                    </button>
+                                                </div>
+                                                <!-- Modal body -->
+                                                <form class="p-4 md:p-5"
+                                                    action="{{ route('retribusi.update', $data->id) }}" method="POST">
+                                                    @csrf
+                                                    @method('PUT')
+                                                    <div class="grid gap-4 mb-4 grid-cols-2">
+                                                        <div class="col-span-2">
+                                                            <label for="nama{{ $data->id }}"
+                                                                class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Nama
+                                                                Retribusi</label>
+                                                            <input type="text" id="nama{{ $data->id }}"
+                                                                name="nama" value="{{ $data->nama }}"
+                                                                class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
+                                                                placeholder="Nama" required>
+                                                        </div>
+                                                        <div class="col-span-2">
+                                                            <label for="kedinasan_id{{ $data->id }}"
+                                                                class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Kedinasan</label>
+                                                            <select id="kedinasan_id{{ $data->id }}"
+                                                                name="kedinasan_id"
+                                                                class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
+                                                                required>
+                                                                <option value="">Pilih Kedinasan</option>
+                                                                @foreach ($kedinasan as $item)
+                                                                    <option value="{{ $item->id }}"
+                                                                        {{ $data->kedinasan_id == $item->id ? 'selected' : '' }}>
+                                                                        {{ $item->nama }}
+                                                                    </option>
+                                                                @endforeach
+                                                            </select>
+                                                        </div>
+                                                    </div>
+                                                    <button type="submit"
+                                                        class="text-white inline-flex items-center bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
+                                                        <svg class="me-1 -ms-1 w-5 h-5" fill="currentColor"
+                                                            viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
+                                                            <path fill-rule="evenodd"
+                                                                d="M10 5a1 1 0 011 1v3h3a1 1 0 110 2h-3v3a1 1 0 11-2 0v-3H6a1 1 0 110-2h3V6a1 1 0 011-1z"
+                                                                clip-rule="evenodd"></path>
+                                                        </svg>
+                                                        Perbarui
+                                                    </button>
+                                                </form>
+                                            </div>
+                                        </div>
+                                    </div>
+
+
+                                    <!--Modal hapus-->
+                                    <div id="modalhapus{{ $data->id }}" tabindex="-1" aria-hidden="true"
+                                        class="hidden overflow-y-auto overflow-x-hidden fixed top-0 right-0 left-0 z-50 justify-center items-center w-full md:inset-0 h-[calc(100%-1rem)] max-h-full">
+                                        <div class="relative p-4 w-full max-w-md max-h-full">
+                                            <!-- Modal content -->
+                                            <div class="relative bg-white rounded-lg shadow dark:bg-gray-700">
+                                                <!-- Modal header -->
+                                                <div
+                                                    class="flex items-center justify-between p-4 md:p-5 border-b rounded-t dark:border-gray-600">
+                                                    <h3 class="text-lg font-semibold text-gray-900 dark:text-white">
+                                                        Konfirmasi Hapus Data
+                                                    </h3>
+                                                    <button type="button"
+                                                        class="text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm w-8 h-8 ms-auto inline-flex justify-center items-center dark:hover:bg-gray-600 dark:hover:text-white"
+                                                        data-modal-toggle="modalhapus{{ $data->id }}">
+                                                        <svg class="w-3 h-3" aria-hidden="true"
+                                                            xmlns="http://www.w3.org/2000/svg" fill="none"
+                                                            viewBox="0 0 14 14">
+                                                            <path stroke="currentColor" stroke-linecap="round"
+                                                                stroke-linejoin="round" stroke-width="2"
+                                                                d="m1 1 6 6m0 0 6 6M7 7l6-6M7 7l-6 6" />
+                                                        </svg>
+                                                        <span class="sr-only">Close modal</span>
+                                                    </button>
+                                                </div>
+                                                <!-- Modal body -->
+                                                <div class="p-4 md:p-5">
+                                                    <p class="text-sm text-gray-500 dark:text-gray-400">Apakah Anda yakin
+                                                        ingin menghapus data retribusi ini?</p>
+                                                </div>
+                                                <!-- Modal footer -->
+                                                <div
+                                                    class="flex items-center justify-end p-4 md:p-5 border-t border-gray-200 dark:border-gray-600">
+                                                    <button type="button"
+                                                        class="text-gray-500 bg-white hover:bg-gray-100 focus:ring-4 focus:outline-none focus:ring-blue-300 rounded-lg border border-gray-200 text-sm font-medium px-5 py-2.5 hover:text-gray-900 focus:z-10 dark:bg-gray-700 dark:text-gray-300 dark:border-gray-500 dark:hover:text-white dark:hover:bg-gray-600 dark:focus:ring-gray-600"
+                                                        data-modal-toggle="modalhapus{{ $data->id }}">Batal</button>
+                                                    <form action="{{ route('retribusi.destroy', $data->id) }}"
+                                                        method="POST" class="inline">
+                                                        @csrf
+                                                        @method('DELETE')
+                                                        <button type="submit"
+                                                            class="ml-2 text-white bg-red-600 hover:bg-red-700 focus:ring-4 focus:outline-none focus:ring-red-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-red-500 dark:hover:bg-red-600 dark:focus:ring-red-900">
+                                                            Hapus
+                                                        </button>
+                                                    </form>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
                                     <!-- Modals omitted for brevity -->
                                 @endforeach
                             </tbody>
                         </table>
-            
-                        <nav class="bg-white flex items-center flex-column flex-wrap md:flex-row justify-between p-4" aria-label="Table navigation">
-                            <span class="text-sm font-normal text-gray-500 dark:text-gray-400 mb-4 md:mb-0 block w-full md:inline md:w-auto">
+
+                        <nav class="bg-white flex items-center flex-column flex-wrap md:flex-row justify-between p-4"
+                            aria-label="Table navigation">
+                            <span
+                                class="text-sm font-normal text-gray-500 dark:text-gray-400 mb-4 md:mb-0 block w-full md:inline md:w-auto">
                                 Showing
-                                <span class="font-semibold text-gray-900 dark:text-white">{{ $retribusi->firstItem() }}</span> to
-                                <span class="font-semibold text-gray-900 dark:text-white">{{ $retribusi->lastItem() }}</span> of
+                                <span
+                                    class="font-semibold text-gray-900 dark:text-white">{{ $retribusi->firstItem() }}</span>
+                                to
+                                <span
+                                    class="font-semibold text-gray-900 dark:text-white">{{ $retribusi->lastItem() }}</span>
+                                of
                                 <span class="font-semibold text-gray-900 dark:text-white">{{ $retribusi->total() }}</span>
                             </span>
-            
+
                             <div class="w-full md:w-auto text-right">
                                 <ul class="inline-flex -space-x-px rtl:space-x-reverse text-sm h-8">
                                     <!-- Pagination links omitted for brevity -->
@@ -180,7 +319,7 @@
                     </div>
                 </div>
             </div>
-            
+
         </div>
 
         @if (session('success'))

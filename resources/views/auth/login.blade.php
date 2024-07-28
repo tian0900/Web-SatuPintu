@@ -39,7 +39,7 @@
                     <header class="login-header">
                         <span class="login100-form-title p-b-26">
                             <img src="{{ URL::asset('logo/Logo.png') }}" alt="" class="login-img mt-3 h-auto max-w-lg mx-auto">
-                            <span class="login-title">Aplikasi Retribusi</span>
+                            <span class="login-title">Satu Pintu</span>
                         </span> 
                         <p class="login-info">
                             Please enter your user information.

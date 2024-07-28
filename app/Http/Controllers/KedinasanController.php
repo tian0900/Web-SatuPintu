@@ -32,7 +32,7 @@ class KedinasanController extends Controller
             });
         }
 
-        $kedinasan = $query->orderBy('created_at', 'desc')->paginate(2);
+        $kedinasan = $query->orderBy('created_at', 'desc')->paginate(5);
 
         $kabupaten = Kabupaten::where('id', $kabupaten_id)->get();
 
