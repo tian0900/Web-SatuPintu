@@ -32,7 +32,7 @@ class UserController extends Controller
 
         $roles = [
             ['name' => 'WAJIB RETRIBUSI'],
-            ['name' => 'PETUGAS'],
+            ['name' => 'Petugas Pemungut'],
         ];
 
         $roleNames = array_column($roles, 'name');
@@ -213,6 +213,7 @@ class UserController extends Controller
             'email' => 'required|email|unique:users,email',
             'password' => 'required|min:8',
             'nik' => 'required|string|unique:users,nik',
+            'phone_number' => 'required|string|unique:users,phone_number',
             'alamat' => 'required|string',
             'wilayah' => 'required|exists:sub_wilayah,id',  // Pastikan wilayah ada di tabel sub_wilayahs
         ]);
@@ -255,6 +256,7 @@ class UserController extends Controller
             'password' => 'required|min:8',
             'alamat' => 'required|string',
             'nik' => 'required|string|unique:users,nik',
+            'phone_number' => 'required|string|unique:users,phone_number',
         ]);
 
         // Set nilai role_id dan hash password
@@ -284,6 +286,7 @@ class UserController extends Controller
             'email' => 'required|email|unique:users,email,' . $id,
             'password' => 'nullable|min:8',
             'nik' => 'required|string|unique:users,nik,' . $id,
+            'phone_number' => 'required|string|unique:users,phone_number,' . $id,
             'alamat' => 'required|string',
         ]);
 
@@ -291,6 +294,7 @@ class UserController extends Controller
         $user->name = $validatedData['name'];
         $user->email = $validatedData['email'];
         $user->nik = $validatedData['nik'];
+        $user->phone_number = $validatedData['phone_number'];
         $user->alamat = $validatedData['alamat'];
 
         if ($request->has('password')) {
@@ -447,31 +451,41 @@ class UserController extends Controller
      * Remove the specified resource from storage.
      */
     public function destroy($id)
-    {
-        // Mulai transaksi
-        DB::beginTransaction();
+{
+    // Mulai transaksi
+    DB::beginTransaction();
 
-        try {
-            // Hapus data terkait di wajib_retribusi
-            WajibRetribusi::where('user_id', $id)->delete();
+    try {
+        // Hapus data terkait di wajib_retribusi
+        WajibRetribusi::where('user_id', $id)->delete();
 
-            // Temukan user berdasarkan ID, atau gagal jika tidak ditemukan
-            $user = User::findOrFail($id);
-
-            // Hapus user
-            $user->delete();
-
-            // Commit transaksi
-            DB::commit();
-
-            return redirect()->route('userpasar')->with('success', 'User dan data terkait berhasil dihapus');
-        } catch (\Exception $e) {
-            // Rollback transaksi jika ada kesalahan
-            DB::rollBack();
-
-            return redirect()->route('userpasar')->with('error', 'Terjadi kesalahan saat menghapus data');
+        // Hapus data terkait di petugas
+        $petugas = Petugas::where('user_id', $id)->first();
+        if ($petugas) {
+            // Hapus data terkait di petugas_wilayah
+            PetugasWilayah::where('petugas_id', $petugas->id)->delete();
+            // Hapus entri petugas
+            $petugas->delete();
         }
+
+        // Temukan user berdasarkan ID, atau gagal jika tidak ditemukan
+        $user = User::findOrFail($id);
+
+        // Hapus user
+        $user->delete();
+
+        // Commit transaksi
+        DB::commit();
+
+        return redirect()->route('userpasar')->with('success', 'User dan data terkait berhasil dihapus');
+    } catch (\Exception $e) {
+        // Rollback transaksi jika ada kesalahan
+        DB::rollBack();
+
+        return redirect()->route('userpasar')->with('error', 'Terjadi kesalahan saat menghapus data');
     }
+}
+
 
     public function storedata(Request $request)
     {
