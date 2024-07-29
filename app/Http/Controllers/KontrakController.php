@@ -28,66 +28,66 @@ class KontrakController extends Controller
     // use Illuminate\Support\Facades\Auth;
 
     public function index(Request $request)
-{
-    $user = Auth::user();
-    $retribusi_id = $user->admin->retribusi_id;
-    $filter = $request->query('filter', 'all'); // Default to show all data
-    $search = $request->query('search'); // Get the search query
+    {
+        $user = Auth::user();
+        $retribusi_id = $user->admin->retribusi_id;
+        $filter = $request->query('filter', 'all'); // Default to show all data
+        $search = $request->query('search'); // Get the search query
 
-    $kontrakQuery = Kontrak::with(['wajibRetribusi', 'itemRetribusi', 'Wilayah'])
-        ->whereHas('itemRetribusi', function ($query) use ($retribusi_id) {
-            $query->where('retribusi_id', $retribusi_id);
-        });
+        $kontrakQuery = Kontrak::with(['wajibRetribusi', 'itemRetribusi', 'Wilayah'])
+            ->whereHas('itemRetribusi', function ($query) use ($retribusi_id) {
+                $query->where('retribusi_id', $retribusi_id);
+            });
 
-    // Apply date filter
-    switch ($filter) {
-        case 'day':
-            $kontrakQuery->whereDate('created_at', '=', now()->toDateString());
-            break;
-        case 'week':
-            $kontrakQuery->whereBetween('created_at', [now()->startOfWeek(), now()->endOfWeek()]);
-            break;
-        case 'month':
-            $kontrakQuery->whereMonth('created_at', '=', now()->month);
-            break;
-        case 'year':
-            $kontrakQuery->whereYear('created_at', '=', now()->year);
-            break;
-        case 'all':
-        default:
-            // No additional filter for 'all'
-            break;
+        // Apply date filter
+        switch ($filter) {
+            case 'day':
+                $kontrakQuery->whereDate('created_at', '=', now()->toDateString());
+                break;
+            case 'week':
+                $kontrakQuery->whereBetween('created_at', [now()->startOfWeek(), now()->endOfWeek()]);
+                break;
+            case 'month':
+                $kontrakQuery->whereMonth('created_at', '=', now()->month);
+                break;
+            case 'year':
+                $kontrakQuery->whereYear('created_at', '=', now()->year);
+                break;
+            case 'all':
+            default:
+                // No additional filter for 'all'
+                break;
+        }
+
+        // Apply search filter
+        if ($search) {
+            $kontrakQuery->where(function ($query) use ($search) {
+                $query->whereHas('wajibRetribusi.User', function ($query) use ($search) {
+                    $query->where('name', 'like', '%' . $search . '%');
+                })
+                    ->orWhereHas('itemRetribusi', function ($query) use ($search) {
+                        $query->where('kategori_nama', 'like', '%' . $search . '%')
+                            ->orWhere('jenis_tagihan', 'like', '%' . $search . '%');
+                    })
+                    ->orWhere('status', 'like', '%' . $search . '%')
+                    ->orWhere('tanggal_mulai', 'like', '%' . $search . '%')
+                    ->orWhere('tanggal_selesai', 'like', '%' . $search . '%');
+            });
+        }
+
+        $Kontrak = $kontrakQuery->orderBy('created_at', 'desc')->paginate(5);
+
+        $wajibRetribusiOptions = WajibRetribusi::all();
+        $itemRetribusiOptions = ItemRetribusi::where('retribusi_id', $retribusi_id)->get();
+        $subWilayahOptions = Wilayah::where('retribusi_id', $retribusi_id)->get();
+
+        return view('data.kontrak', [
+            'Kontrak' => $Kontrak,
+            'wajibRetribusiOptions' => $wajibRetribusiOptions,
+            'itemRetribusiOptions' => $itemRetribusiOptions,
+            'subWilayahOptions' => $subWilayahOptions,
+        ]);
     }
-
-    // Apply search filter
-    if ($search) {
-        $kontrakQuery->where(function($query) use ($search) {
-            $query->whereHas('wajibRetribusi.User', function ($query) use ($search) {
-                $query->where('name', 'like', '%' . $search . '%');
-            })
-            ->orWhereHas('itemRetribusi', function ($query) use ($search) {
-                $query->where('kategori_nama', 'like', '%' . $search . '%')
-                      ->orWhere('jenis_tagihan', 'like', '%' . $search . '%');
-            })
-            ->orWhere('status', 'like', '%' . $search . '%')
-            ->orWhere('tanggal_mulai', 'like', '%' . $search . '%')
-            ->orWhere('tanggal_selesai', 'like', '%' . $search . '%');
-        });
-    }
-
-    $Kontrak = $kontrakQuery->orderBy('created_at', 'desc')->paginate(5);
-
-    $wajibRetribusiOptions = WajibRetribusi::all();
-    $itemRetribusiOptions = ItemRetribusi::where('retribusi_id', $retribusi_id)->get();
-    $subWilayahOptions = Wilayah::where('retribusi_id', $retribusi_id)->get();
-
-    return view('data.kontrak', [
-        'Kontrak' => $Kontrak,
-        'wajibRetribusiOptions' => $wajibRetribusiOptions,
-        'itemRetribusiOptions' => $itemRetribusiOptions,
-        'subWilayahOptions' => $subWilayahOptions,
-    ]);
-}
 
 
 
@@ -198,9 +198,17 @@ class KontrakController extends Controller
         // Cari kontrak berdasarkan ID
         $kontrak = Kontrak::findOrFail($id);
 
-        // Hapus tagihan yang terkait dengan kontrak
+        // Cari tagihan yang terkait dengan kontrak
         $tagihanKontrak = Tagihan::where('kontrak_id', $kontrak->id)->get();
+
         foreach ($tagihanKontrak as $tagihan) {
+            // Cari pembayaran yang terkait dengan tagihan
+            $pembayaranTagihan = Pembayaran::where('tagihan_id', $tagihan->id)->get();
+            foreach ($pembayaranTagihan as $pembayaran) {
+                // Hapus pembayaran
+                $pembayaran->delete();
+            }
+            // Hapus tagihan
             $tagihan->delete();
         }
 
@@ -209,6 +217,7 @@ class KontrakController extends Controller
 
         return redirect()->back()->with('success', 'Kontrak dan Tagihan Terkait Berhasil Dihapus.');
     }
+
 
     /**
      * Show the form for creating a new resource.
