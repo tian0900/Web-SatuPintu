@@ -198,9 +198,7 @@
                                     class="px-3 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
                                     {{ $item->nama }}
                                 </td>
-                                <td class="px-3 py-4">
-                                    {{ $item->total_harga }}
-                                </td>
+                                <td class="px-3 py-4">Rp {{ number_format($item->total_harga, 0, ',', '.') }}</td>
                                 <td class="px-3 py-4">
                                     <!-- Modal toggle -->
                                     <a data-modal-target="modalkonfirmasi{{ $item->id }}"

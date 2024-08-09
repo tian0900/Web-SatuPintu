@@ -189,7 +189,8 @@
                                         <td class="px-6 py-4">{{ $number++ }}</td>
                                         <td class="px-3 py-4">{{ $item->nama_petugas }}</td>
                                         <td class="px-3 py-4">{{ $item->nama }}</td>
-                                        <td class="px-3 py-4">{{ $item->total }}</td>
+                                        {{-- <td class="px-3 py-4">{{ $item->total }}</td> --}}
+                                        <td class="px-3 py-3">Rp {{ number_format($item->total, 0, ',', '.') }}</td>
                                         <td class="px-3 py-4">
                                             <a data-modal-target="modal{{ $item->id }}" data-modal-toggle="modal{{ $item->id }}"
                                                 class="text-blue-600 dark:text-blue-500 hover:underline">Lihat Bukti</a>

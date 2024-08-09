@@ -178,7 +178,8 @@
                                         <td scope="row" class="px-6 py-3 font-medium text-gray-900 whitespace-nowrap dark:text-white">{{ $number++ }}</td>
                                         <td scope="row" class="px-3 py-3 font-medium text-gray-900 whitespace-nowrap dark:text-white">{{ $item->name }}</td>
                                         <td class="px-3 py-3">{{ $item->kategori_nama }}</td>
-                                        <td class="px-3 py-3">{{ $item->total_harga }}</td>
+                                        {{-- <td class="px-3 py-3">{{ $item->total_harga }}</td> --}}
+                                        <td class="px-3 py-3">Rp {{ number_format($item->total_harga, 0, ',', '.') }}</td>
                                         <td class="px-3 py-3">{{ $item->metode_pembayaran }}</td>
                                         <td class="px-3 py-3">{{ $item->pembayaran_status }}</td>
                                     </tr>

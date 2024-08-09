@@ -78,6 +78,20 @@
 
             <li>
                 <div class="title">
+                    <a href="/rekonsiliasi" class="link">
+                        <i class='bx bx-credit-card-front'></i>
+                        <span class="name">Rekonsiliasi</span>
+                    </a>
+                    <!-- <i class='bx bxs-chevron-down'></i> -->
+                </div>
+                <div class="submenu">
+                    <a href="/rekonsiliasi" class="link submenu-title">Rekonsiliasi</a>
+                    <!-- submenu links here  -->
+                </div>
+            </li>
+
+            <li>
+                <div class="title">
                     <a href="/tagihannmanual" class="link">
                         <i class='bx bx-wallet'></i>
                         <span class="name">Tagihan Manual</span>

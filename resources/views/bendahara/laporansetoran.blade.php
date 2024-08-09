@@ -199,9 +199,10 @@
                                         class="px-3 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
                                         {{ $item->nama }}
                                     </td>
-                                    <td class="px-3 py-4">
+                                    {{-- <td class="px-3 py-4">
                                         {{ $item->total }}
-                                    </td>
+                                    </td> --}}
+                                    <td class="px-3 py-4">Rp {{ number_format($item->total, 0, ',', '.') }}</td>
                                     <td class="px-3 py-4">
                                         {{ $item->status }}
                                     </td>
