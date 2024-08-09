@@ -11,9 +11,15 @@ use PhpOffice\PhpSpreadsheet\Worksheet\Worksheet;
 
 class SetorExport implements FromQuery, WithHeadings, WithStyles
 {
-    /**
-     * @return \Illuminate\Database\Query\Builder
-     */
+    private $startDate;
+    private $endDate;
+
+    public function __construct($startDate, $endDate)
+    {
+        $this->startDate = $startDate;
+        $this->endDate = $endDate;
+    }
+
     public function query()
     {
         $user = Auth::user();
@@ -31,12 +37,10 @@ class SetorExport implements FromQuery, WithHeadings, WithStyles
             )
             ->where('setoran.status', 'DITERIMA')
             ->where('sub_wilayah.retribusi_id', $retribusi_id)
+            ->whereBetween('setoran.created_at', [$this->startDate, $this->endDate]) // Filter by date range
             ->orderBy('setoran.id', 'ASC');
     }
 
-    /**
-     * @return array
-     */
     public function headings(): array
     {
         return [
@@ -47,10 +51,6 @@ class SetorExport implements FromQuery, WithHeadings, WithStyles
         ];
     }
 
-    /**
-     * @param \PhpOffice\PhpSpreadsheet\Worksheet\Worksheet $sheet
-     * @return array
-     */
     public function styles(Worksheet $sheet): array
     {
         return [

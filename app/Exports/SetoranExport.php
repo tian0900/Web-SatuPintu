@@ -10,9 +10,15 @@ use PhpOffice\PhpSpreadsheet\Worksheet\Worksheet;
 
 class SetoranExport implements FromQuery, WithHeadings, WithStyles
 {
-    /**
-     * @return \Illuminate\Database\Query\Builder
-     */
+    private $startDate;
+    private $endDate;
+
+    public function __construct($startDate, $endDate)
+    {
+        $this->startDate = $startDate;
+        $this->endDate = $endDate;
+    }
+
     public function query()
     {
         return DB::table('setoran')
@@ -26,12 +32,10 @@ class SetoranExport implements FromQuery, WithHeadings, WithStyles
                 'setoran.total'
             )
             ->where('setoran.status', 'MENUNGGU')
+            ->whereBetween('setoran.created_at', [$this->startDate, $this->endDate]) // Filter by date range
             ->orderBy('setoran.id', 'ASC'); // Order by setoran.id in ascending order
     }
 
-    /**
-     * @return array
-     */
     public function headings(): array
     {
         return [
@@ -41,10 +45,6 @@ class SetoranExport implements FromQuery, WithHeadings, WithStyles
         ];
     }
 
-    /**
-     * @param \PhpOffice\PhpSpreadsheet\Worksheet\Worksheet $sheet
-     * @return array
-     */
     public function styles(Worksheet $sheet): array
     {
         return [

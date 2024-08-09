@@ -36,11 +36,6 @@ Route::get('/export-setoran', [BendaharaController::class, 'exportSetoran'])->na
 Route::get('/export-laporan-setoran', [BendaharaController::class, 'exportlapsetor'])->name('export-laporan-setoran');
 
 Route::put('/users/{id}', [UserController::class, 'update'])->name('users.update');
-Route::get('/dd', [PasarController::class, 'index']);
-Route::get('/', [IndexController::class, 'landing']);
-Route::post('/jenis/store', [PasarController::class, 'store'])->name('jenis.store');
-Route::get('/jenis/edit', [PasarController::class, 'edit'])->name('jenis.edit');
-Route::put('/jenis/{post}', [PasarController::class, 'update'])->name('jenis.update');
 
 Route::middleware(['auth', 'check.role.byname:AdminKedinasan'])->group(function () {
 
@@ -65,9 +60,6 @@ Route::middleware(['auth', 'check.role.byname:AdminKedinasan'])->group(function 
     Route::post('/atribut/storedinamis', [AtributController::class, 'storedinamis'])->name('dinamis.store');
     Route::post('/atribut/field', [AtributController::class, 'datanew'])->name('dataa.store');
 
-    Route::post('/jenis/store', [PasarController::class, 'store'])->name('jenis.store');
-    Route::get('/jenis/edit', [PasarController::class, 'edit'])->name('jenis.edit');
-    Route::put('/jenis/{post}', [PasarController::class, 'update'])->name('jenis.update');
 
     //Sub-Wilayah-pasar
     Route::get('/wilayah-pasar', [WilayahController::class, 'index'])->name('wilayah-pasar');

@@ -5,15 +5,21 @@ namespace App\Exports;
 use Illuminate\Support\Facades\DB;
 use Maatwebsite\Excel\Concerns\FromQuery;
 use Maatwebsite\Excel\Concerns\WithHeadings;
-use Illuminate\Support\Facades\Auth;
 use Maatwebsite\Excel\Concerns\WithStyles;
 use PhpOffice\PhpSpreadsheet\Worksheet\Worksheet;
+use Illuminate\Support\Facades\Auth;
 
 class TagihanManualExport implements FromQuery, WithHeadings, WithStyles
 {
-    /**
-     * @return \Illuminate\Database\Query\Builder
-     */
+    private $startDate;
+    private $endDate;
+
+    public function __construct($startDate, $endDate)
+    {
+        $this->startDate = $startDate;
+        $this->endDate = $endDate;
+    }
+
     public function query()
     {
         $user = Auth::user();
@@ -32,13 +38,10 @@ class TagihanManualExport implements FromQuery, WithHeadings, WithStyles
             )
             ->where('tagihan_manual.status', 'NEW') // Filter based on tagihan_manual status
             ->where('item_retribusi.retribusi_id', $retribusi_id) // Filter based on item_retribusi retribusi_id
+            ->whereBetween('tagihan_manual.created_at', [$this->startDate, $this->endDate]) // Filter by date range
             ->orderBy('tagihan_manual.id', 'ASC'); // Order by tagihan_manual.id in ascending order
     }
 
-
-    /**
-     * @return array
-     */
     public function headings(): array
     {
         return [
@@ -48,10 +51,6 @@ class TagihanManualExport implements FromQuery, WithHeadings, WithStyles
         ];
     }
 
-    /**
-     * @param \PhpOffice\PhpSpreadsheet\Worksheet\Worksheet $sheet
-     * @return array
-     */
     public function styles(Worksheet $sheet): array
     {
         return [

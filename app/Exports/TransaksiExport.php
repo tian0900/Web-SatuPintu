@@ -1,5 +1,4 @@
 <?php
-
 namespace App\Exports;
 
 use Maatwebsite\Excel\Concerns\FromCollection;
@@ -12,10 +11,14 @@ use Illuminate\Support\Facades\DB;
 class TransaksiExport implements FromCollection, WithHeadings, WithStyles
 {
     private $filter;
+    private $startDate;
+    private $endDate;
 
-    public function __construct($filter)
+    public function __construct($filter, $startDate, $endDate)
     {
         $this->filter = $filter;
+        $this->startDate = $startDate;
+        $this->endDate = $endDate;
     }
 
     public function collection()
@@ -38,7 +41,7 @@ class TransaksiExport implements FromCollection, WithHeadings, WithStyles
                 'kontrak.status as kontrak_status'
             )
             ->where('pembayaran.status', 'SUCCESS')
-            // ->where('tagihan.active', '1')
+            ->whereBetween('tagihan.created_at', [$this->startDate, $this->endDate])
             ->where('item_retribusi.retribusi_id', $retribusi_id);
 
         if ($this->filter === 'tunai') {

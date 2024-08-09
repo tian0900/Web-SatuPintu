@@ -83,19 +83,33 @@
 
         <div class="container mt-3">
             <div class="flex flex-column sm:flex-row flex-wrap space-y-4 sm:space-y-0 items-center justify-between pb-4">
-                <div class="flex space-x-4 mb-4">
-                    <button id="nonTunaiButton" class="bg-green-500 text-white px-4 py-2 rounded"
-                    onclick="setFilter('non-tunai')">Non Tunai</button>
-                <button id="tunaiButton" class="bg-yellow-500 text-white px-4 py-2 rounded"
-                    onclick="setFilter('tunai')">Tunai</button>
-                <form id="exportForm" action="{{ route('export-transaksi') }}" method="get" style="display: inline;">
-                    <input type="hidden" name="filter" id="exportFilter" value="">
-                    <button type="submit" class="bg-blue-500 text-white px-4 py-2 rounded">Export to Excel</button>
-                </form>
+                <div class="flex flex-col space-y-4 mb-4">
+                    <div class="flex space-x-4 mb-2">
+                        <button id="nonTunaiButton" class="bg-green-500 text-white px-4 py-2 rounded" onclick="setFilter('non-tunai')">Non Tunai</button>
+                        <button id="tunaiButton" class="bg-yellow-500 text-white px-4 py-2 rounded" onclick="setFilter('tunai')">Tunai</button>
+                    </div>
+                
+                    <form id="exportForm" action="{{ route('export-transaksi') }}" method="get" class="flex items-center space-x-4">
+                        <div class="flex items-center space-x-2">
+                            <label for="start_date" class="text-sm font-medium">Start Date:</label>
+                            <input type="date" name="start_date" id="start_date" class="border border-gray-300 rounded px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500" required>
+                        </div>
+                
+                        <div class="flex items-center space-x-2">
+                            <label for="end_date" class="text-sm font-medium">End Date:</label>
+                            <input type="date" name="end_date" id="end_date" class="border border-gray-300 rounded px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500" required>
+                        </div>
+                
+                        <input type="hidden" name="filter" id="exportFilter" value="">
+                
+                        <button type="submit" class="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-500">Export to Excel</button>
+                    </form>
                 </div>
-            </div> 
+                
+            </div>
             <div class="container">
-                <div class="flex flex-column sm:flex-row flex-wrap space-y-4 sm:space-y-0 items-center justify-between pb-4">
+                <div
+                    class="flex flex-column sm:flex-row flex-wrap space-y-4 sm:space-y-0 items-center justify-between pb-4">
                     <div class="mx-2">
                         <button id="dropdownRadioButton" data-dropdown-toggle="dropdownRadio"
                             class="inline-flex items-center text-gray-500 bg-white border border-gray-300 focus:outline-none hover:bg-gray-100 focus:ring-4 focus:ring-gray-100 font-medium rounded-lg text-sm px-3 py-1.5 dark:bg-gray-800 dark:text-white dark:border-gray-600 dark:hover:bg-gray-700 dark:hover:border-gray-600 dark:focus:ring-gray-700"
@@ -108,18 +122,23 @@
                             <span id="dropdownButtonLabel">{{ $filterLabel }}</span>
                             <svg class="w-2.5 h-2.5 ms-2.5" aria-hidden="true" xmlns="http://www.w3.org/2000/svg"
                                 fill="none" viewBox="0 0 10 6">
-                                <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                    d="m1 1 4 4 4-4" />
+                                <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"
+                                    stroke-width="2" d="m1 1 4 4 4-4" />
                             </svg>
-                        </button> 
+                        </button>
 
                         <!-- Dropdown menu -->
                         <div id="dropdownRadio" class="hidden z-10 w-48 bg-white rounded shadow dark:bg-gray-700">
-                            <ul class="py-1 text-sm text-gray-700 dark:text-gray-200" aria-labelledby="dropdownRadioButton">
-                                <li><a href="/transaksi?filter=day" class="block px-4 py-2 filter-link" data-label="Last Day">Last Day</a></li>
-                                <li><a href="/transaksi?filter=week" class="block px-4 py-2 filter-link" data-label="Last Week">Last Week</a></li>
-                                <li><a href="/transaksi?filter=month" class="block px-4 py-2 filter-link" data-label="Last Month">Last Month</a></li>
-                                <li><a href="/transaksi?filter=year" class="block px-4 py-2 filter-link" data-label="Last Year">Last Year</a></li>
+                            <ul class="py-1 text-sm text-gray-700 dark:text-gray-200"
+                                aria-labelledby="dropdownRadioButton">
+                                <li><a href="/transaksi?filter=day" class="block px-4 py-2 filter-link"
+                                        data-label="Last Day">Last Day</a></li>
+                                <li><a href="/transaksi?filter=week" class="block px-4 py-2 filter-link"
+                                        data-label="Last Week">Last Week</a></li>
+                                <li><a href="/transaksi?filter=month" class="block px-4 py-2 filter-link"
+                                        data-label="Last Month">Last Month</a></li>
+                                <li><a href="/transaksi?filter=year" class="block px-4 py-2 filter-link"
+                                        data-label="Last Year">Last Year</a></li>
                             </ul>
                         </div>
 
@@ -132,16 +151,17 @@
                                     window.location.href = this.href; // Redirect to the selected filter URL
                                 });
                             });
-                        </script> 
+                        </script>
                     </div>
-                    <div class="relative"> 
+                    <div class="relative">
                         <!-- Search Form -->
                         <form action="{{ route('transaksi.search') }}" method="GET" class="mb-4">
                             <label for="table-search" class="sr-only">Search</label>
                             <div class="relative">
-                                <div class="absolute inset-y-0 left-0 rtl:inset-r-0 rtl:right-0 flex items-center ps-3 pointer-events-none">
-                                    <svg class="w-5 h-5 text-gray-500 dark:text-gray-400" aria-hidden="true" fill="currentColor"
-                                        viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
+                                <div
+                                    class="absolute inset-y-0 left-0 rtl:inset-r-0 rtl:right-0 flex items-center ps-3 pointer-events-none">
+                                    <svg class="w-5 h-5 text-gray-500 dark:text-gray-400" aria-hidden="true"
+                                        fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
                                         <path fill-rule="evenodd"
                                             d="M8 4a4 4 0 100 8 4 4 0 000-8zM2 8a6 6 0 1110.89 3.476l4.817 4.817a1 1 0 01-1.414 1.414l-4.816-4.816A6 6 0 012 8z"
                                             clip-rule="evenodd"></path>
@@ -152,10 +172,10 @@
                                     placeholder="Search for items" value="{{ request('search') }}">
                             </div>
                         </form>
-                    </div> 
+                    </div>
                 </div>
             </div>
-            <div class="container"> 
+            <div class="container">
                 <div class="table-responsive">
                     <div class="relative shadow-md sm:rounded-lg">
                         <table class="w-full text-sm text-gray-500 dark:text-gray-400 text-center">
@@ -175,8 +195,12 @@
                                 @endphp
                                 @foreach ($tagihan as $item)
                                     <tr class="table-row">
-                                        <td scope="row" class="px-6 py-3 font-medium text-gray-900 whitespace-nowrap dark:text-white">{{ $number++ }}</td>
-                                        <td scope="row" class="px-3 py-3 font-medium text-gray-900 whitespace-nowrap dark:text-white">{{ $item->name }}</td>
+                                        <td scope="row"
+                                            class="px-6 py-3 font-medium text-gray-900 whitespace-nowrap dark:text-white">
+                                            {{ $number++ }}</td>
+                                        <td scope="row"
+                                            class="px-3 py-3 font-medium text-gray-900 whitespace-nowrap dark:text-white">
+                                            {{ $item->name }}</td>
                                         <td class="px-3 py-3">{{ $item->kategori_nama }}</td>
                                         {{-- <td class="px-3 py-3">{{ $item->total_harga }}</td> --}}
                                         <td class="px-3 py-3">Rp {{ number_format($item->total_harga, 0, ',', '.') }}</td>
@@ -186,12 +210,16 @@
                                 @endforeach
                             </tbody>
                         </table>
-            
+
                         <nav class="bg-white flex items-center justify-between p-4" aria-label="Table navigation">
                             <span class="text-sm font-normal text-gray-500 dark:text-gray-400">
                                 Showing
-                                <span class="font-semibold text-gray-900 dark:text-white">{{ $tagihan->firstItem() }}</span> to
-                                <span class="font-semibold text-gray-900 dark:text-white">{{ $tagihan->lastItem() }}</span> of
+                                <span
+                                    class="font-semibold text-gray-900 dark:text-white">{{ $tagihan->firstItem() }}</span>
+                                to
+                                <span
+                                    class="font-semibold text-gray-900 dark:text-white">{{ $tagihan->lastItem() }}</span>
+                                of
                                 <span class="font-semibold text-gray-900 dark:text-white">{{ $tagihan->total() }}</span>
                             </span>
                             <div class="w-full md:w-auto text-right">

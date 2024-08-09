@@ -9,6 +9,7 @@ use Illuminate\Http\Request;
 use App\Models\Setor;
 use Illuminate\Support\Facades\DB;
 use App\Exports\TagihanManualExport;
+// use App\Exports\TagihanExport;
 use Maatwebsite\Excel\Facades\Excel;
 use App\Exports\TagihanExport;
 
@@ -494,36 +495,52 @@ class BendaharaController extends Controller
     // In your controller
     public function exportTagihan(Request $request)
     {
-        // $filter = $request->input('filter', ''); // Ambil filter dari request
+        $startDate = $request->input('start_date');
+        $endDate = $request->input('end_date');
 
-        return Excel::download(new \App\Exports\TagihanExport, 'tagihan.xlsx');
+        // Pass the date range to the export class
+        return Excel::download(new \App\Exports\TagihanExport($startDate, $endDate), 'tagihan.xlsx');
     }
+
 
     public function exportTransaksi(Request $request)
     {
-        $filter = $request->input('filter', ''); // Ambil filter dari request
+        $filter = $request->input('filter', '');
+        $startDate = $request->input('start_date');
+        $endDate = $request->input('end_date');
 
-        return Excel::download(new \App\Exports\TransaksiExport($filter), 'Transaksi.xlsx');
+        return Excel::download(new \App\Exports\TransaksiExport($filter, $startDate, $endDate), 'Transaksi.xlsx');
     }
+
 
     public function exportlapsetor(Request $request)
+{
+    $startDate = $request->input('start_date');
+    $endDate = $request->input('end_date');
+
+    return Excel::download(new \App\Exports\SetorExport($startDate, $endDate), 'Laporan Konfirmasi.xlsx');
+}
+
+
+
+
+    public function exportTagihanManual(Request $request)
     {
+        $startDate = $request->input('start_date');
+        $endDate = $request->input('end_date');
 
-
-        return Excel::download(new \App\Exports\SetorExport, 'Laporan Konfirmasi.xlsx');
+        return Excel::download(new \App\Exports\TagihanManualExport($startDate, $endDate), 'tagihan_manual.xlsx');
     }
 
 
+    public function exportSetoran(Request $request)
+{
+    $startDate = $request->input('start_date');
+    $endDate = $request->input('end_date');
 
-    public function exportTagihanManual()
-    {
-        return Excel::download(new TagihanManualExport, 'tagihan_manual.xlsx');
-    }
+    return Excel::download(new \App\Exports\SetoranExport($startDate, $endDate), 'Setoran.xlsx');
+}
 
-    public function exportSetoran()
-    {
-        return Excel::download(new SetoranExport, 'Setoran.xlsx');
-    }
 
     public function transaksirekon(Request $request)
     {
@@ -559,7 +576,7 @@ class BendaharaController extends Controller
     {
         $user = Auth::user();
         $retribusi_id = $user->admin->retribusi_id;
-    
+
         $query = DB::table('pembayaran')
             ->join('tagihan', 'pembayaran.tagihan_id', '=', 'tagihan.id')
             ->join('kontrak', 'kontrak.id', '=', 'tagihan.kontrak_id')
@@ -580,15 +597,15 @@ class BendaharaController extends Controller
             ->where('pembayaran.status', 'SUCCESS')
             ->where('item_retribusi.retribusi_id', $retribusi_id)
             ->where('sub_wilayah.id', $sub_wilayah_id);
-    
+
         $tagihan = $query->paginate(5);
         // dd($tagihan);
-    
+
         return view('bendahara.tagihan_wilayah', [
             'tagihan' => $tagihan,
         ]);
     }
-    
+
 
 
 

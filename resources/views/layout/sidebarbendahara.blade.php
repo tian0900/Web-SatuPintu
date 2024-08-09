@@ -79,7 +79,7 @@
             <li>
                 <div class="title">
                     <a href="/rekonsiliasi" class="link">
-                        <i class='bx bx-credit-card-front'></i>
+                        <i class='bx bx-book-open'></i>
                         <span class="name">Rekonsiliasi</span>
                     </a>
                     <!-- <i class='bx bxs-chevron-down'></i> -->

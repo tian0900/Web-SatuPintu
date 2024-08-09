@@ -83,10 +83,24 @@
        
         <div class="container mt-3">
             <div class="button">
-                <form id="exportForm" action="{{ route('export-setoran') }}" method="get" style="display: inline;">
-                    <input type="hidden" name="filter" id="exportFilter" value="">
-                    <button type="submit" class="bg-blue-500 text-white px-4 py-2 rounded">Export to Excel</button>
-                </form>
+                <div class="flex flex-col space-y-4 mb-4">
+                    <form id="exportForm" action="{{ route('export-setoran') }}" method="get" class="flex items-center space-x-4">
+                        <div class="flex items-center space-x-2">
+                            <label for="start_date" class="text-sm font-medium">Start Date:</label>
+                            <input type="date" name="start_date" id="start_date" class="border border-gray-300 rounded px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500" required>
+                        </div>
+                
+                        <div class="flex items-center space-x-2">
+                            <label for="end_date" class="text-sm font-medium">End Date:</label>
+                            <input type="date" name="end_date" id="end_date" class="border border-gray-300 rounded px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500" required>
+                        </div>
+                
+                        <input type="hidden" name="filter" id="exportFilter" value="">
+                
+                        <button type="submit" class="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-500">Export to Excel</button>
+                    </form>
+                </div>
+                
             </div>
             <div class="flex flex-column sm:flex-row flex-wrap space-y-4 sm:space-y-0 items-center justify-between pb-4 mt-3">
                 <div class="flex space-x-4 mb-4"> 
